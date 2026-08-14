@@ -1,0 +1,6 @@
+{
+  "name": "UK E-Commerce Platform",
+  "description": "Modern, production-ready UK-focused e-commerce platform with comprehensive catalog, cart, checkout, admin dashboard, and modular service architecture.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

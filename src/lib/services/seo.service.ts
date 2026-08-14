@@ -1,0 +1,207 @@
+import { db } from '../db';
+import {
+  DEFAULT_DESCRIPTION,
+  SITE_NAME,
+  SITE_TAGLINE,
+  absoluteUrl,
+  getSiteOrigin,
+} from '../seo/site';
+import {
+  breadcrumbJsonLd,
+  organizationJsonLd,
+  productJsonLd,
+  websiteJsonLd,
+} from '../seo/structured-data';
+
+export interface PageSeo {
+  title: string;
+  description: string;
+  canonical: string;
+  robots: string;
+  ogImage?: string;
+  ogType: string;
+  jsonLd: Record<string, unknown>[];
+}
+
+export class SeoService {
+  static getRobotsTxt(): string {
+    const origin = getSiteOrigin();
+    return [
+      'User-agent: *',
+      'Allow: /',
+      'Allow: /shop',
+      'Allow: /category/',
+      'Allow: /brand/',
+      'Allow: /product/',
+      'Disallow: /admin',
+      'Disallow: /admin/',
+      'Disallow: /account',
+      'Disallow: /account/',
+      'Disallow: /cart',
+      'Disallow: /checkout',
+      'Disallow: /checkout/',
+      'Disallow: /track-order',
+      'Disallow: /orders/',
+      'Disallow: /reset-password',
+      'Disallow: /wishlist',
+      'Disallow: /design-system',
+      'Disallow: /header-test',
+      'Disallow: /product-card-test',
+      'Disallow: /cart-test',
+      'Disallow: /api/',
+      '',
+      `Sitemap: ${origin}/sitemap.xml`,
+      '',
+    ].join('\n');
+  }
+
+  static async getSitemapXml(): Promise<string> {
+    const origin = getSiteOrigin();
+    const now = new Date().toISOString();
+
+    const urls: { loc: string; lastmod: string; changefreq: string; priority: string }[] = [
+      { loc: `${origin}/`, lastmod: now, changefreq: 'daily', priority: '1.0' },
+      { loc: `${origin}/shop`, lastmod: now, changefreq: 'daily', priority: '0.9' },
+    ];
+
+    const [categories, brands, products] = await Promise.all([
+      db.category.findMany({ select: { slug: true, updatedAt: true } }),
+      db.brand.findMany({ select: { slug: true, updatedAt: true } }),
+      db.product.findMany({
+        where: { isPublished: true, deletedAt: null },
+        select: { slug: true, updatedAt: true },
+      }),
+    ]);
+
+    for (const c of categories) {
+      urls.push({
+        loc: `${origin}/category/${c.slug}`,
+        lastmod: c.updatedAt.toISOString(),
+        changefreq: 'weekly',
+        priority: '0.7',
+      });
+    }
+    for (const b of brands) {
+      urls.push({
+        loc: `${origin}/brand/${b.slug}`,
+        lastmod: b.updatedAt.toISOString(),
+        changefreq: 'weekly',
+        priority: '0.6',
+      });
+    }
+    for (const p of products) {
+      urls.push({
+        loc: `${origin}/product/${p.slug}`,
+        lastmod: p.updatedAt.toISOString(),
+        changefreq: 'weekly',
+        priority: '0.8',
+      });
+    }
+
+    const body = urls
+      .map(
+        (u) =>
+          `  <url>\n    <loc>${escapeXml(u.loc)}</loc>\n    <lastmod>${u.lastmod}</lastmod>\n    <changefreq>${u.changefreq}</changefreq>\n    <priority>${u.priority}</priority>\n  </url>`
+      )
+      .join('\n');
+
+    return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</urlset>\n`;
+  }
+
+  static organizationJsonLd() {
+    return organizationJsonLd();
+  }
+
+  static websiteJsonLd() {
+    return websiteJsonLd();
+  }
+
+  static breadcrumbJsonLd(items: { name: string; path: string }[]) {
+    return breadcrumbJsonLd(items);
+  }
+
+  static productJsonLd(input: Parameters<typeof productJsonLd>[0]) {
+    return productJsonLd(input);
+  }
+
+  static homepageSeo(): PageSeo {
+    return {
+      title: `${SITE_NAME} | ${SITE_TAGLINE}`,
+      description: DEFAULT_DESCRIPTION,
+      canonical: absoluteUrl('/'),
+      robots: 'index,follow',
+      ogType: 'website',
+      jsonLd: [this.organizationJsonLd(), this.websiteJsonLd()],
+    };
+  }
+
+  static shopSeo(searchTerm?: string): PageSeo {
+    if (searchTerm) {
+      return {
+        title: `Search: ${searchTerm} | ${SITE_NAME}`,
+        description: `Search results for “${searchTerm}” in the ${SITE_NAME} catalogue.`,
+        canonical: absoluteUrl('/shop'),
+        robots: 'noindex,follow',
+        ogType: 'website',
+        jsonLd: [],
+      };
+    }
+    return {
+      title: `Shop sports nutrition | ${SITE_NAME}`,
+      description: DEFAULT_DESCRIPTION,
+      canonical: absoluteUrl('/shop'),
+      robots: 'index,follow',
+      ogType: 'website',
+      jsonLd: [
+        this.breadcrumbJsonLd([
+          { name: 'Home', path: '/' },
+          { name: 'Shop', path: '/shop' },
+        ]),
+      ],
+    };
+  }
+
+  static injectIntoHtml(html: string, seo: PageSeo): string {
+    let next = html.replace(/<title>[^<]*<\/title>/i, `<title>${escapeHtml(seo.title)}</title>`);
+
+    const tags = [
+      `<meta name="description" content="${escapeHtml(seo.description)}" />`,
+      `<link rel="canonical" href="${escapeHtml(seo.canonical)}" />`,
+      `<meta name="robots" content="${escapeHtml(seo.robots)}" />`,
+      `<meta property="og:title" content="${escapeHtml(seo.title)}" />`,
+      `<meta property="og:description" content="${escapeHtml(seo.description)}" />`,
+      `<meta property="og:url" content="${escapeHtml(seo.canonical)}" />`,
+      `<meta property="og:type" content="${escapeHtml(seo.ogType)}" />`,
+      `<meta property="og:site_name" content="${escapeHtml(SITE_NAME)}" />`,
+      `<meta name="twitter:card" content="summary_large_image" />`,
+      `<meta name="twitter:title" content="${escapeHtml(seo.title)}" />`,
+      `<meta name="twitter:description" content="${escapeHtml(seo.description)}" />`,
+    ];
+
+    if (seo.ogImage) {
+      tags.push(`<meta property="og:image" content="${escapeHtml(seo.ogImage)}" />`);
+      tags.push(`<meta name="twitter:image" content="${escapeHtml(seo.ogImage)}" />`);
+    }
+
+    for (const block of seo.jsonLd) {
+      tags.push(`<script type="application/ld+json">${JSON.stringify(block)}</script>`);
+    }
+
+    if (next.includes('</head>')) {
+      next = next.replace('</head>', `${tags.join('\n    ')}\n  </head>`);
+    }
+    return next;
+  }
+}
+
+function escapeXml(value: string): string {
+  return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}

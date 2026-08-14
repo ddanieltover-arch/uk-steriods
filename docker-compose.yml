@@ -1,0 +1,28 @@
+# Local PostgreSQL for development and verification.
+# Does not replace production hosting. Credentials here match .env.example only.
+#
+# Start:  docker compose up -d
+# Stop:   docker compose down
+# Logs:   docker compose logs -f postgres
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: uk-performance-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: uk_ecommerce
+    volumes:
+      - uk_performance_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d uk_ecommerce"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+volumes:
+  uk_performance_pgdata:
