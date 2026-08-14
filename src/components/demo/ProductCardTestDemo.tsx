@@ -4,7 +4,7 @@ import { Section } from '../layout/Section';
 import { ProductCard, ProductCardData } from '../commerce/ProductCard';
 import { ProductGrid } from '../commerce/ProductGrid';
 import { Button } from '../ui/button';
-import { StockStatus } from '@prisma/client';
+import { StockStatus } from '../../types';
 import { LayoutGrid, List } from 'lucide-react';
 import { useToast } from '../feedback/ToastProvider';
 

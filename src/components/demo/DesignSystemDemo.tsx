@@ -13,7 +13,7 @@ import { EmptyState } from '../feedback/EmptyState';
 import { ErrorState } from '../feedback/ErrorState';
 import { LoadingState } from '../feedback/LoadingState';
 import { useToast } from '../feedback/ToastProvider';
-import { StockStatus } from '@prisma/client';
+import { StockStatus } from '../../types';
 import { Sparkles, CheckCircle, Package } from 'lucide-react';
 
 export const DesignSystemDemo: React.FC = () => {

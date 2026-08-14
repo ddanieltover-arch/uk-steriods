@@ -7,7 +7,7 @@ import { StockIndicator } from './StockIndicator';
 import { WishlistButton } from './WishlistButton';
 import { AddToCartButton } from './AddToCartButton';
 import { CryptoPriceBadge } from './CryptoPriceBadge';
-import { StockStatus } from '@prisma/client';
+import { StockStatus } from '../../types';
 import { cn } from '../../lib/utils';
 
 export interface ProductCardData {

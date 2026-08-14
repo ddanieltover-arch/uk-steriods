@@ -30,7 +30,7 @@ import {
   performanceScoresFor,
   stackCandidates,
 } from '../../lib/pdp/pdp-content';
-import { StockStatus } from '@prisma/client';
+import { StockStatus } from '../../types';
 import {
   ChevronRight,
   Star,

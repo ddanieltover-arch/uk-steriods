@@ -1,5 +1,15 @@
 export type Role = 'super_admin' | 'admin' | 'staff' | 'customer';
 
+/** Browser-safe copy of the Prisma StockStatus enum. Do not import @prisma/client in UI code. */
+export const StockStatus = {
+  IN_STOCK: 'IN_STOCK',
+  LOW_STOCK: 'LOW_STOCK',
+  OUT_OF_STOCK: 'OUT_OF_STOCK',
+  DISCONTINUED: 'DISCONTINUED',
+} as const;
+
+export type StockStatus = (typeof StockStatus)[keyof typeof StockStatus];
+
 export interface User {
   id: string;
   email: string;

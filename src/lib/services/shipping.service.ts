@@ -1,5 +1,3 @@
-import { ShipmentStatus } from '@prisma/client';
-
 export interface ShippingMethodDto {
   id: string;
   displayName: string;
@@ -95,7 +93,7 @@ export class ShippingService {
     return {
       trackingNumber,
       carrier: 'Tracked Delivery Provider',
-      status: ShipmentStatus.PENDING,
+      status: 'PENDING' as const,
       costPence,
     };
   }

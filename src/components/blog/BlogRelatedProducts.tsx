@@ -1,6 +1,6 @@
 import React from 'react';
 import { ProductCard, ProductCardData } from '../commerce/ProductCard';
-import { StockStatus } from '@prisma/client';
+import { StockStatus } from '../../types';
 
 export const BlogRelatedProducts: React.FC<{
   products: {

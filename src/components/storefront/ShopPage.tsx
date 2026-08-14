@@ -10,7 +10,7 @@ import { MobileFilterDrawer } from './MobileFilterDrawer';
 import { CataloguePagination } from './CataloguePagination';
 import { CatalogueBreadcrumbs, BreadcrumbItem } from './CatalogueBreadcrumbs';
 import { CatalogueSkeleton } from './CatalogueSkeleton';
-import { StockStatus } from '@prisma/client';
+import { StockStatus } from '../../types';
 import { SeoHead } from '../seo/SeoHead';
 import { SITE_NAME, sanitizeMetaText } from '../../lib/seo/site';
 import { breadcrumbJsonLd } from '../../lib/seo/structured-data';

@@ -13,7 +13,7 @@ import {
   GOAL_SLUGS,
   GUIDE_CARDS,
 } from '../../data/homepage';
-import { StockStatus } from '@prisma/client';
+import { StockStatus } from '../../types';
 import {
   ArrowRight,
   Truck,
