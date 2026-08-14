@@ -4,9 +4,18 @@ import { ChevronLeft, ChevronRight, Maximize2, X, ImageOff } from 'lucide-react'
 interface ProductGalleryProps {
   images: string[];
   productName: string;
+  labTested?: boolean;
+  sizeChips?: string[];
+  inStock?: boolean;
 }
 
-export const ProductGallery: React.FC<ProductGalleryProps> = ({ images, productName }) => {
+export const ProductGallery: React.FC<ProductGalleryProps> = ({
+  images,
+  productName,
+  labTested = false,
+  sizeChips = [],
+  inStock = true,
+}) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
@@ -77,6 +86,32 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({ images, productN
           </div>
         )}
 
+        {labTested && (
+          <div className="absolute top-3 left-3 z-10 rounded-full bg-teal-600 px-3 py-1 text-[10px] font-black uppercase tracking-wider text-white shadow-md">
+            Lab Test
+          </div>
+        )}
+
+        {(sizeChips.length > 0 || inStock) && (
+          <div className="absolute bottom-3 left-3 right-14 z-10 flex flex-wrap gap-1.5">
+            {sizeChips.map((chip) => (
+              <span
+                key={chip}
+                className="rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-bold text-slate-800 shadow-sm"
+              >
+                {chip}
+              </span>
+            ))}
+            <span
+              className={`rounded-full px-2.5 py-1 text-[10px] font-bold shadow-sm ${
+                inStock ? 'bg-emerald-600 text-white' : 'bg-slate-500 text-white'
+              }`}
+            >
+              {inStock ? 'In stock' : 'Out of stock'}
+            </span>
+          </div>
+        )}
+
         {/* Zoom Lightbox Trigger Button */}
         {hasImages && (
           <button
@@ -114,7 +149,7 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({ images, productN
 
         {/* Image Index Counter Badge */}
         {hasImages && images.length > 1 && (
-          <div className="absolute bottom-3 left-3 px-2.5 py-1 rounded-full bg-slate-900/70 text-white text-[11px] font-bold backdrop-blur-xs select-none">
+          <div className="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-slate-900/70 text-white text-[11px] font-bold backdrop-blur-xs select-none">
             {selectedIndex + 1} / {images.length}
           </div>
         )}

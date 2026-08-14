@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Product, ProductVariant, Brand, Category, formatGbp } from '../../types';
+import { Product, ProductVariant, formatGbp } from '../../types';
 import { CatalogueService } from '../../lib/services/catalogue.service';
 import { StorageService } from '../../services/storage';
 import { Container } from '../layout/Container';
@@ -7,23 +7,36 @@ import { Section } from '../layout/Section';
 import { ProductGallery } from './ProductGallery';
 import { ProductVariantSelector } from './ProductVariantSelector';
 import { ProductQuantitySelector } from './ProductQuantitySelector';
-import { ProductHighlights } from './ProductHighlights';
 import { ProductSpecifications } from './ProductSpecifications';
-import { ProductReviews } from './ProductReviews';
 import { ProductShareAndTrust } from './ProductShareAndTrust';
+import { ProductPerformanceProfile } from './ProductPerformanceProfile';
+import { ProductPdpAccordion } from './ProductPdpAccordion';
+import { ProductStackDeal } from './ProductStackDeal';
+import { ProductFaq } from './ProductFaq';
+import { ProductCycleCompanions } from './ProductCycleCompanions';
 import { ProductCard, ProductCardData } from '../commerce/ProductCard';
 import { PriceDisplay } from '../commerce/PriceDisplay';
+import { CryptoPriceBadge } from '../commerce/CryptoPriceBadge';
 import { StockIndicator } from '../commerce/StockIndicator';
 import { WishlistButton } from '../commerce/WishlistButton';
+import {
+  displayProductTitle,
+  dosingCopyFor,
+  faqsFor,
+  findCompanions,
+  inferGoalLabel,
+  inferSizeChips,
+  inferUsageLabel,
+  performanceScoresFor,
+  stackCandidates,
+} from '../../lib/pdp/pdp-content';
 import { StockStatus } from '@prisma/client';
 import {
   ChevronRight,
-  Home,
   Star,
   ShoppingBag,
   ArrowLeft,
   Search,
-  Check,
   AlertTriangle,
   Info,
 } from 'lucide-react';
@@ -36,7 +49,7 @@ interface ProductDetailPageProps {
   slug: string;
   customProducts?: Product[];
   wishlistIds: string[];
-  onAddToCart: (product: Product, variant?: ProductVariant, quantity?: number) => void;
+  onAddToCart: (product: Product, variant?: ProductVariant, quantity?: number, silent?: boolean) => void;
   onToggleWishlist: (productId: string) => void;
   onNavigate: (path: string) => void;
   onQuickView?: (product: Product) => void;
@@ -66,7 +79,6 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
   });
 
   const [quantity, setQuantity] = useState(1);
-  const [activeTab, setActiveTab] = useState<'description' | 'specs' | 'reviews'>('description');
   const [searchQuery404, setSearchQuery404] = useState('');
   const [unpublished, setUnpublished] = useState(false);
   const product = unpublished ? undefined : localProduct;
@@ -91,6 +103,13 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
       StorageService.addRecentlyViewedId(product.id);
     }
   }, [product]);
+
+  useEffect(() => {
+    if (!product) return;
+    if (slug === product.slug) return;
+    const nextPath = `/product/${product.slug}`;
+    window.history.replaceState({}, '', nextPath);
+  }, [product, slug]);
 
   // 404 Handling if product does not exist or is unpublished
   if (!product) {
@@ -157,17 +176,25 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
     );
   }
 
-  // Authoritative Price & Stock Calculations
+  const catalogue = customProducts || StorageService.getProducts();
+  const title = displayProductTitle(product);
+  const sizeChips = inferSizeChips(product);
+  const usageLabel = inferUsageLabel(product);
+  const goalLabel = inferGoalLabel(product);
+  const companions = findCompanions(product, catalogue);
+  const stackItems = stackCandidates(product, catalogue);
+  const moreFromLab = catalogue
+    .filter((p) => p.id !== product.id && p.isPublished !== false && p.brandId === product.brandId)
+    .slice(0, 8);
+
   const activePriceGbp = selectedVariant?.priceGbp || product.salePriceGbp || product.priceGbp;
   const compareAtPriceGbp = product.salePriceGbp ? product.priceGbp : undefined;
   const activePricePence = Math.round(activePriceGbp * 100);
   const compareAtPricePence = compareAtPriceGbp ? Math.round(compareAtPriceGbp * 100) : undefined;
-
   const activeStock = selectedVariant ? selectedVariant.stockQuantity : product.stockQuantity;
   const isOutOfStock = activeStock <= 0;
   const isWishlisted = wishlistIds.includes(product.id);
 
-  // Compute stock status enum
   const computedStockStatus: StockStatus =
     activeStock <= 0
       ? StockStatus.OUT_OF_STOCK
@@ -175,7 +202,6 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
       ? StockStatus.LOW_STOCK
       : StockStatus.IN_STOCK;
 
-  // Related & Recently Viewed Products
   const relatedProducts = CatalogueService.getRelatedProducts(product, 4, customProducts);
   const recentlyViewedProducts = CatalogueService.getRecentlyViewedProducts(product.id, customProducts);
 
@@ -196,6 +222,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
   const mapToCardData = (p: Product): ProductCardData => ({
     id: p.id,
     name: p.name,
+    slug: p.slug,
     brandName: p.brandName,
     sku: p.sku,
     imageUrl: p.images[0],
@@ -238,314 +265,282 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
           breadcrumbJsonLd([
             { name: 'Home', path: '/' },
             { name: 'Shop', path: '/shop' },
-            { name: product.categoryName, path: `/category/${product.categorySlug}` },
+            { name: product.brandName, path: `/brand/${product.brandId}` },
             { name: product.name, path: `/product/${product.slug}` },
           ]),
         ]}
       />
       <Container>
-        {/* Breadcrumb Navigation */}
         <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-xs font-bold text-slate-500 overflow-x-auto pb-1">
-          <button
-            onClick={() => onNavigate('/')}
-            className="hover:text-teal-600 flex items-center gap-1 shrink-0 cursor-pointer"
-          >
-            <Home className="w-3.5 h-3.5" />
-            <span>Home</span>
-          </button>
-          <ChevronRight className="w-3.5 h-3.5 text-slate-300 shrink-0" />
-
-          <button
-            onClick={() => onNavigate('/shop')}
-            className="hover:text-teal-600 shrink-0 cursor-pointer"
-          >
+          <button onClick={() => onNavigate('/shop')} className="hover:text-teal-600 shrink-0 cursor-pointer">
             Shop
           </button>
           <ChevronRight className="w-3.5 h-3.5 text-slate-300 shrink-0" />
-
-          {product.categoryName && (
-            <>
-              <button
-                onClick={() => onNavigate(`/category/${product.categorySlug}`)}
-                className="hover:text-teal-600 shrink-0 cursor-pointer"
-              >
-                {product.categoryName}
-              </button>
-              <ChevronRight className="w-3.5 h-3.5 text-slate-300 shrink-0" />
-            </>
-          )}
-
-          <span className="text-slate-900 truncate max-w-[200px] sm:max-w-xs">
-            {product.name}
-          </span>
+          <button
+            onClick={() => onNavigate(`/brand/${product.brandId}`)}
+            className="hover:text-teal-600 shrink-0 cursor-pointer"
+          >
+            {product.brandName}
+          </button>
+          <ChevronRight className="w-3.5 h-3.5 text-slate-300 shrink-0" />
+          <span className="text-slate-900 truncate max-w-[200px] sm:max-w-xs">{title}</span>
         </nav>
 
-        {/* Primary 2-Column Product Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          {/* Left Column: Product Gallery (lg:col-span-7) */}
-          <div className="lg:col-span-7 space-y-8">
-            <ProductGallery images={product.images} productName={product.name} />
-
-            {/* Product Highlights Overview */}
-            <ProductHighlights product={product} />
-          </div>
-
-          {/* Right Column: Purchase Controls Card (lg:col-span-5) */}
-          <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-24">
-            <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
-              {/* Header: Brand, Title, Rating, SKU */}
-              <div className="space-y-2.5 pb-5 border-b border-slate-100">
-                <div className="flex items-center justify-between gap-2">
-                  <button
-                    onClick={() => onNavigate(`/brand/${product.brandId}`)}
-                    className="text-xs font-black uppercase tracking-widest text-teal-600 hover:underline cursor-pointer"
-                  >
-                    {product.brandName}
-                  </button>
-
-                  <StockIndicator status={computedStockStatus} availableQuantity={activeStock} />
-                </div>
-
-                <h1 className="text-xl sm:text-2xl font-black text-slate-900 leading-tight">
-                  {product.name}
-                </h1>
-
-                {/* Star Rating & Reviews Summary */}
-                <div className="flex items-center gap-3 pt-1">
-                  {product.ratingAvg > 0 ? (
-                    <button
-                      onClick={() => setActiveTab('reviews')}
-                      className="flex items-center gap-1.5 text-xs font-bold text-slate-700 hover:text-teal-600 cursor-pointer"
-                    >
-                      <div className="flex text-amber-400">
-                        <Star className="w-4 h-4 fill-current" />
-                      </div>
-                      <span className="font-extrabold text-slate-900">{product.ratingAvg.toFixed(1)}</span>
-                      <span className="text-slate-400">({product.reviewCount} customer reviews)</span>
-                    </button>
-                  ) : (
-                    <span className="text-xs text-slate-400 font-medium">No reviews yet</span>
-                  )}
-
-                  <span className="text-slate-200">|</span>
-                  <span className="text-xs font-mono font-bold text-slate-400">
-                    SKU: {selectedVariant?.sku || product.sku}
-                  </span>
-                </div>
-              </div>
-
-              {/* Price Display Block */}
-              <div className="space-y-1">
-                <div className="flex items-baseline gap-3">
-                  <PriceDisplay
-                    pricePence={activePricePence}
-                    compareAtPricePence={compareAtPricePence}
-                    size="xl"
-                    showSavingsBadge
-                  />
-                </div>
-                <p className="text-[11px] text-slate-400 font-medium">
-                  Taxes and delivery options calculated at checkout.
-                </p>
-              </div>
-
-              {/* Short Description */}
-              {product.shortDescription && (
-                <p className="text-xs text-slate-600 leading-relaxed bg-slate-50 p-3.5 rounded-2xl border border-slate-200/80">
-                  {product.shortDescription}
-                </p>
-              )}
-
-              {/* Variant Selector (if product has variants) */}
-              {product.variants && product.variants.length > 0 && (
-                <ProductVariantSelector
-                  variants={product.variants}
-                  selectedVariant={selectedVariant}
-                  onSelectVariant={(v) => {
-                    setSelectedVariant(v);
-                    setQuantity(1); // Reset quantity on variant switch
-                  }}
-                  basePriceGbp={product.priceGbp}
-                />
-              )}
-
-              {/* Quantity & Actions Row */}
-              <div className="space-y-4 pt-2">
-                <div className="flex items-end gap-3">
-                  <div className="shrink-0">
-                    <ProductQuantitySelector
-                      quantity={quantity}
-                      maxStock={activeStock}
-                      onChange={setQuantity}
-                      disabled={isOutOfStock}
-                    />
-                  </div>
-
-                  {/* Add to Basket CTA */}
-                  <button
-                    type="button"
-                    disabled={isOutOfStock}
-                    onClick={handleAddToCartClick}
-                    className={`flex-1 font-black text-sm py-3.5 px-6 rounded-2xl flex items-center justify-center gap-2.5 transition-all shadow-md cursor-pointer ${
-                      isOutOfStock
-                        ? 'bg-slate-200 text-slate-400 cursor-not-allowed shadow-none'
-                        : 'bg-teal-600 hover:bg-teal-700 active:scale-98 text-white shadow-teal-600/20'
-                    }`}
-                  >
-                    <ShoppingBag className="w-4 h-4" />
-                    <span>{isOutOfStock ? 'Out of Stock' : 'Add to Basket'}</span>
-                  </button>
-
-                  {/* Wishlist Button */}
-                  <div className="shrink-0">
-                    <WishlistButton
-                      isWishlisted={isWishlisted}
-                      onToggle={() => onToggleWishlist(product.id)}
-                      size="default"
-                    />
-                  </div>
-                </div>
-
-                {/* Low Stock Warning */}
-                {activeStock > 0 && activeStock <= 5 && (
-                  <div className="flex items-center gap-2 p-2.5 rounded-xl bg-amber-50 text-amber-800 border border-amber-200 text-xs font-bold">
-                    <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
-                    <span>Low stock alert: Only {activeStock} unit(s) remaining in UK warehouse.</span>
-                  </div>
-                )}
-              </div>
-
-              {/* Share & Trust Badges */}
-              <ProductShareAndTrust productName={product.name} />
-            </div>
-          </div>
-        </div>
-
-        {/* Detailed Tabs Section: Description, Specs, Reviews */}
-        <div className="mt-16 bg-white border border-slate-200 rounded-3xl p-6 sm:p-10 shadow-sm space-y-8">
-          {/* Tab Navigation */}
-          <div className="flex items-center gap-2 border-b border-slate-200 overflow-x-auto">
-            <button
-              onClick={() => setActiveTab('description')}
-              className={`pb-4 px-4 font-black text-xs uppercase tracking-wider transition-all border-b-2 cursor-pointer ${
-                activeTab === 'description'
-                  ? 'border-teal-600 text-teal-700'
-                  : 'border-transparent text-slate-400 hover:text-slate-700'
-              }`}
-            >
-              Description & Overview
-            </button>
-
-            <button
-              onClick={() => setActiveTab('specs')}
-              className={`pb-4 px-4 font-black text-xs uppercase tracking-wider transition-all border-b-2 cursor-pointer ${
-                activeTab === 'specs'
-                  ? 'border-teal-600 text-teal-700'
-                  : 'border-transparent text-slate-400 hover:text-slate-700'
-              }`}
-            >
-              Technical Specifications
-            </button>
-
-            <button
-              onClick={() => setActiveTab('reviews')}
-              className={`pb-4 px-4 font-black text-xs uppercase tracking-wider transition-all border-b-2 cursor-pointer ${
-                activeTab === 'reviews'
-                  ? 'border-teal-600 text-teal-700'
-                  : 'border-transparent text-slate-400 hover:text-slate-700'
-              }`}
-            >
-              Customer Reviews ({product.reviewCount})
-            </button>
-          </div>
-
-          {/* Tab 1: Full Description */}
-          {activeTab === 'description' && (
-            <div className="prose prose-slate max-w-none text-xs sm:text-sm leading-relaxed space-y-4">
-              <h3 className="text-lg font-black text-slate-900">About {product.name}</h3>
-              <div className="text-slate-700 whitespace-pre-line leading-relaxed">
-                {product.description}
-              </div>
-            </div>
-          )}
-
-          {/* Tab 2: Specifications */}
-          {activeTab === 'specs' && <ProductSpecifications product={product} />}
-
-          {/* Tab 3: Reviews */}
-          {activeTab === 'reviews' && (
-            <ProductReviews
-              productId={product.id}
-              productName={product.name}
-              initialRatingAvg={product.ratingAvg}
-              initialReviewCount={product.reviewCount}
+          <div className="lg:col-span-6 lg:sticky lg:top-24 lg:self-start">
+            <ProductGallery
+              images={product.images}
+              productName={title}
+              labTested={Boolean(product.purityScore)}
+              sizeChips={sizeChips}
+              inStock={!isOutOfStock}
             />
-          )}
+          </div>
+
+          <div className="lg:col-span-6 space-y-5">
+            <button
+              onClick={() => onNavigate(`/brand/${product.brandId}`)}
+              className="text-xs font-black uppercase tracking-widest text-teal-600 hover:underline cursor-pointer"
+            >
+              {product.brandName}
+            </button>
+
+            <div className="space-y-2">
+              <h1 className="text-2xl sm:text-3xl font-black text-slate-900 leading-tight">{title}</h1>
+              {sizeChips.length > 0 && (
+                <p className="text-sm font-bold text-slate-500">{sizeChips.join(' · ')}</p>
+              )}
+              {product.shortDescription && (
+                <p className="text-sm text-slate-600 leading-relaxed">{product.shortDescription}</p>
+              )}
+            </div>
+
+            <div className="flex items-center justify-between gap-3">
+              <StockIndicator status={computedStockStatus} availableQuantity={activeStock} />
+              {product.ratingAvg > 0 && (
+                <div className="flex items-center gap-1.5 text-xs font-bold text-slate-700">
+                  <Star className="w-4 h-4 fill-current text-amber-400" />
+                  <span className="font-extrabold text-slate-900">{product.ratingAvg.toFixed(1)}</span>
+                  <span className="text-slate-400">({product.reviewCount})</span>
+                </div>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <PriceDisplay
+                pricePence={activePricePence}
+                compareAtPricePence={compareAtPricePence}
+                size="xl"
+                showSavingsBadge
+              />
+              <CryptoPriceBadge pricePence={activePricePence} />
+            </div>
+
+            {product.variants && product.variants.length > 0 && (
+              <ProductVariantSelector
+                variants={product.variants}
+                selectedVariant={selectedVariant}
+                onSelectVariant={(v) => {
+                  setSelectedVariant(v);
+                  setQuantity(1);
+                }}
+                basePriceGbp={product.priceGbp}
+              />
+            )}
+
+            <div className="flex items-end gap-3">
+              <ProductQuantitySelector
+                quantity={quantity}
+                maxStock={activeStock}
+                onChange={setQuantity}
+                disabled={isOutOfStock}
+              />
+              <button
+                type="button"
+                disabled={isOutOfStock}
+                onClick={handleAddToCartClick}
+                className={`flex-1 font-black text-sm py-3.5 px-6 rounded-2xl flex items-center justify-center gap-2.5 transition-all shadow-md cursor-pointer ${
+                  isOutOfStock
+                    ? 'bg-slate-200 text-slate-400 cursor-not-allowed shadow-none'
+                    : 'bg-teal-600 hover:bg-teal-700 text-white shadow-teal-600/20'
+                }`}
+              >
+                <ShoppingBag className="w-4 h-4" />
+                <span>
+                  {isOutOfStock ? 'Out of Stock' : `Add to bag · ${formatGbp(activePriceGbp * quantity, false)}`}
+                </span>
+              </button>
+              <WishlistButton
+                isWishlisted={isWishlisted}
+                onToggle={() => onToggleWishlist(product.id)}
+                size="default"
+              />
+            </div>
+
+            {activeStock > 0 && activeStock <= 5 && (
+              <div className="flex items-center gap-2 p-2.5 rounded-xl bg-amber-50 text-amber-800 border border-amber-200 text-xs font-bold">
+                <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
+                <span>Low stock: only {activeStock} unit(s) remaining.</span>
+              </div>
+            )}
+
+            <div className="flex flex-wrap gap-2">
+              <span className="rounded-full bg-slate-100 px-3 py-1 text-[11px] font-bold text-slate-700">{goalLabel}</span>
+              <span className="rounded-full bg-slate-100 px-3 py-1 text-[11px] font-bold text-slate-700">
+                Usage {usageLabel}
+              </span>
+              <span className="rounded-full bg-slate-100 px-3 py-1 text-[11px] font-mono font-bold text-slate-500">
+                SKU {selectedVariant?.sku || product.sku}
+              </span>
+            </div>
+
+            <ProductPerformanceProfile scores={performanceScoresFor(product)} />
+
+            <ProductPdpAccordion
+              sections={[
+                {
+                  id: 'description',
+                  title: 'Description',
+                  content: (
+                    <div className="whitespace-pre-line space-y-3">
+                      <p>{product.description}</p>
+                    </div>
+                  ),
+                },
+                {
+                  id: 'dosing',
+                  title: 'Dosing',
+                  content: <p>{dosingCopyFor(product)}</p>,
+                },
+                {
+                  id: 'shipping',
+                  title: 'Shipping & Returns',
+                  content: (
+                    <p>
+                      UK dispatch on Royal Mail Tracked 24. Orders typically land in 1–2 working days. Packaging is
+                      plain with a neutral sender name. Unused, sealed items can be returned within 30 days.
+                    </p>
+                  ),
+                },
+                {
+                  id: 'specs',
+                  title: 'Specifications',
+                  content: <ProductSpecifications product={product} />,
+                },
+              ]}
+            />
+
+            <ProductCycleCompanions
+              onNavigate={onNavigate}
+              slots={[
+                {
+                  title: 'Must take with this cycle',
+                  body: 'Support products commonly paired to manage on-cycle oestrogen and lipid stress.',
+                  product: companions.mustTake,
+                },
+                {
+                  title: 'Often added to this cycle',
+                  body: 'Frequently stacked from the same category or brand.',
+                  product: companions.oftenAdded,
+                },
+                {
+                  title: 'Post cycle therapy (required)',
+                  body: 'PCT listings from the catalogue to support recovery after a cycle. Catalogue information only.',
+                  product: companions.pct,
+                },
+              ]}
+            />
+
+            <ProductShareAndTrust productName={product.name} />
+          </div>
         </div>
 
-        {/* Related Products Carousel/Grid */}
-        {relatedProducts.length > 0 && (
-          <div className="mt-16 space-y-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="text-xl font-black text-slate-900">Complementary Formulations</h2>
-                <p className="text-xs text-slate-500 mt-0.5">
-                  Products frequently paired with {product.name}
-                </p>
+        <div className="mt-12 space-y-12 pb-24 lg:pb-12">
+          <ProductStackDeal
+            product={product}
+            companions={stackItems}
+            unitPriceGbp={activePriceGbp}
+            onAddBundle={(items) => {
+              items.forEach((item) => {
+                const variant =
+                  item.product.id === product.id ? selectedVariant || undefined : undefined;
+                onAddToCart(item.product, variant, item.quantity, true);
+              });
+              showToast('Stack added', `${items.length} item(s) added to bag.`, 'success');
+            }}
+          />
+
+          {moreFromLab.length > 0 && (
+            <div className="space-y-5">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-xl font-black text-slate-900">More from this lab</h2>
+                  <p className="text-xs text-slate-500 mt-0.5">Curated picks from {product.brandName}.</p>
+                </div>
+                <button
+                  onClick={() => onNavigate(`/brand/${product.brandId}`)}
+                  className="text-xs font-bold text-teal-600 hover:underline cursor-pointer"
+                >
+                  See all
+                </button>
               </div>
-
-              <button
-                onClick={() => onNavigate('/shop')}
-                className="text-xs font-bold text-teal-600 hover:underline cursor-pointer"
-              >
-                View Full Catalogue →
-              </button>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {relatedProducts.map((p) => {
-                const cardData = mapToCardData(p);
-                return (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {moreFromLab.slice(0, 4).map((p) => (
                   <ProductCard
                     key={p.id}
-                    product={cardData}
+                    product={mapToCardData(p)}
                     isWishlisted={wishlistIds.includes(p.id)}
                     onAddToCart={() => onAddToCart(p)}
                     onQuickView={() => onQuickView && onQuickView(p)}
                     onToggleWishlist={onToggleWishlist}
                   />
-                );
-              })}
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Recently Viewed Products */}
-        {recentlyViewedProducts.length > 0 && (
-          <div className="mt-16 space-y-6 pb-12">
-            <h2 className="text-xl font-black text-slate-900">Recently Viewed</h2>
+          <ProductFaq items={faqsFor(product)} />
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {recentlyViewedProducts.map((p) => {
-                const cardData = mapToCardData(p);
-                return (
+          {relatedProducts.length > 0 && moreFromLab.length === 0 && (
+            <div className="space-y-6">
+              <h2 className="text-xl font-black text-slate-900">You may also like</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {relatedProducts.map((p) => (
                   <ProductCard
                     key={p.id}
-                    product={cardData}
+                    product={mapToCardData(p)}
                     isWishlisted={wishlistIds.includes(p.id)}
                     onAddToCart={() => onAddToCart(p)}
                     onQuickView={() => onQuickView && onQuickView(p)}
                     onToggleWishlist={onToggleWishlist}
                   />
-                );
-              })}
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          )}
+
+          {recentlyViewedProducts.length > 0 && (
+            <div className="space-y-6">
+              <h2 className="text-xl font-black text-slate-900">Recently Viewed</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {recentlyViewedProducts.map((p) => (
+                  <ProductCard
+                    key={p.id}
+                    product={mapToCardData(p)}
+                    isWishlisted={wishlistIds.includes(p.id)}
+                    onAddToCart={() => onAddToCart(p)}
+                    onQuickView={() => onQuickView && onQuickView(p)}
+                    onToggleWishlist={onToggleWishlist}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </Container>
 
       {/* Mobile Floating Purchase Bar (scrolled past main card) */}
-      <div className="lg:hidden fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-md border-t border-slate-200 p-3.5 z-40 shadow-2xl flex items-center justify-between gap-4">
+      <div className="lg:hidden fixed bottom-20 inset-x-0 bg-white/95 backdrop-blur-md border-t border-slate-200 p-3.5 z-40 shadow-2xl flex items-center justify-between gap-4">
         <div className="truncate">
           <div className="text-xs font-black text-slate-900 truncate">{product.name}</div>
           <div className="text-xs font-extrabold text-teal-700">

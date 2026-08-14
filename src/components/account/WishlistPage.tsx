@@ -119,7 +119,7 @@ export const WishlistPage: React.FC<WishlistPageProps> = ({
             </div>
 
             <button
-              onClick={() => onNavigate('/account/login')}
+              onClick={() => onNavigate('/login?next=/wishlist')}
               className="bg-amber-900 hover:bg-amber-950 text-white font-bold text-xs px-4 py-2 rounded-xl transition-all cursor-pointer shrink-0"
             >
               Sign In / Register

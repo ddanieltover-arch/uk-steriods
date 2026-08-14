@@ -14,6 +14,7 @@ const EnvSchema = z.object({
   EMAIL_FROM_NAME: z.string().optional(),
   EMAIL_REPLY_TO: z.string().optional(),
   EMAIL_API_KEY: z.string().optional(),
+  RESEND_API_KEY: z.string().optional(),
   NOTIFICATION_POLL_MS: z.coerce.number().int().positive().default(5000),
   ALLOW_EMAIL_PREVIEW: z.string().optional(),
   COOKIE_SECURE: z.string().optional(),
@@ -46,8 +47,10 @@ export function loadEnv(env: NodeJS.ProcessEnv = process.env): AppEnv {
     throw new Error('AUTH_SECRET (min 16 characters) is required in production.');
   }
 
-  if (isProduction && data.EMAIL_PROVIDER === 'resend' && !data.EMAIL_API_KEY) {
-    throw new Error('EMAIL_API_KEY is required when EMAIL_PROVIDER=resend in production.');
+  const emailApiKey = data.EMAIL_API_KEY || data.RESEND_API_KEY;
+
+  if (isProduction && data.EMAIL_PROVIDER === 'resend' && !emailApiKey) {
+    throw new Error('EMAIL_API_KEY or RESEND_API_KEY is required when EMAIL_PROVIDER=resend in production.');
   }
 
   if (isProduction && data.EMAIL_PROVIDER === 'dev') {
@@ -73,6 +76,7 @@ export function loadEnv(env: NodeJS.ProcessEnv = process.env): AppEnv {
 
   cached = {
     ...data,
+    EMAIL_API_KEY: emailApiKey,
     isProduction,
     isDevelopment,
     siteUrl,

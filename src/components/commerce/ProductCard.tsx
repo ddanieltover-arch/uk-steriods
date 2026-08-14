@@ -6,6 +6,7 @@ import { ProductBadge } from './ProductBadge';
 import { StockIndicator } from './StockIndicator';
 import { WishlistButton } from './WishlistButton';
 import { AddToCartButton } from './AddToCartButton';
+import { CryptoPriceBadge } from './CryptoPriceBadge';
 import { StockStatus } from '@prisma/client';
 import { cn } from '../../lib/utils';
 
@@ -143,6 +144,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                 size="lg"
                 showSavingsBadge
               />
+              <CryptoPriceBadge pricePence={product.pricePence} className="mt-1.5" />
               <StockIndicator
                 status={product.stockStatus}
                 availableQuantity={product.availableQuantity}
@@ -281,6 +283,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           size="default"
           showSavingsBadge
         />
+        <CryptoPriceBadge pricePence={product.pricePence} />
 
         {onAddToCart && (
           <AddToCartButton

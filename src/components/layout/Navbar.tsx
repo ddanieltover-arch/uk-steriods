@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, ShoppingBag, Heart, User, ShieldCheck, Truck, Package, LayoutDashboard, SlidersHorizontal, Menu, X } from 'lucide-react';
+import { Search, ShoppingBag, Heart, User, ShieldCheck, Truck, Package, SlidersHorizontal, Menu, X } from 'lucide-react';
 import { Category, User as UserType } from '../../types';
 
 interface NavbarProps {
@@ -14,7 +14,6 @@ interface NavbarProps {
   onOpenWishlist: () => void;
   onOpenOrderTracking: () => void;
   onOpenAccount: () => void;
-  onOpenAdmin: () => void;
   currentUser: UserType | null;
 }
 
@@ -30,7 +29,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenWishlist,
   onOpenOrderTracking,
   onOpenAccount,
-  onOpenAdmin,
   currentUser,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -66,15 +64,6 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <Package className="w-3.5 h-3.5" />
             <span>Track Order</span>
-          </button>
-
-          <button
-            onClick={onOpenAdmin}
-            className="bg-teal-600/90 hover:bg-teal-500 text-white text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1 transition-colors"
-            title="Switch to Admin Portal"
-          >
-            <LayoutDashboard className="w-3 h-3" />
-            <span>Admin Portal</span>
           </button>
         </div>
       </div>

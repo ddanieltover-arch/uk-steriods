@@ -13,6 +13,10 @@ async function main() {
   console.log('🌱 Starting database seed with updated Steroids UK catalog data...');
 
   // 1. Clean existing records (FK-safe order)
+  await prisma.blogPostProduct.deleteMany();
+  await prisma.blogPostCategory.deleteMany();
+  await prisma.blogPost.deleteMany();
+  await prisma.blogCategory.deleteMany();
   await prisma.notification.deleteMany();
   await prisma.passwordResetToken.deleteMany();
   await prisma.authSession.deleteMany();
@@ -43,15 +47,16 @@ async function main() {
   console.log('🧹 Cleaned existing database tables.');
 
   // 2. Create Admin Users
-  const passwordHash = await bcrypt.hash('AdminPassword123!', 10);
+  const adminPassword = process.env.ADMIN_BOOTSTRAP_PASSWORD || 'AdminPassword123!';
+  const passwordHash = await bcrypt.hash(adminPassword, 10);
   const userPasswordHash = await bcrypt.hash('CustomerPass123!', 10);
 
   await prisma.user.create({
     data: {
-      email: 'admin@uk-steroids.co.uk',
+      email: process.env.ADMIN_EMAIL || 'sales@uk-steroids.co.uk',
       passwordHash,
-      firstName: 'Admin',
-      lastName: 'User',
+      firstName: 'Sales',
+      lastName: 'Team',
       role: Role.SUPER_ADMIN,
     },
   });
@@ -156,6 +161,9 @@ async function main() {
     });
     count++;
   }
+
+  const { seedBlog } = await import('./seed-blog');
+  await seedBlog(prisma);
 
   console.log(`✅ Database seeding completed successfully with ${count} target products!`);
 }

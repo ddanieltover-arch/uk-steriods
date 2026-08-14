@@ -61,8 +61,10 @@ export function csrfProtection(req: Request, res: Response, next: NextFunction) 
   if (
     path === '/api/v1/auth/csrf' ||
     path === '/api/v1/auth/login' ||
+    path === '/api/v1/auth/admin/login' ||
     path === '/api/v1/auth/register' ||
     path === '/api/v1/auth/password-reset/request' ||
+    path === '/api/v1/auth/password-reset/confirm' ||
     path === '/health' ||
     path === '/ready'
   ) {

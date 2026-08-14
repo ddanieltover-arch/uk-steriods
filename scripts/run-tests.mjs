@@ -13,6 +13,7 @@ const unitSuites = [
   'test/security.test.ts',
   'test/notifications.test.ts',
   'test/search-seo.test.ts',
+  'test/blog.test.ts',
   'test/inventory-race.test.ts',
   'test/historical-order.test.ts',
 ];

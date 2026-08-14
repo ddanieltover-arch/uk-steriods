@@ -14,12 +14,14 @@ import { AdminShippingView } from './AdminShippingView';
 import { AdminSettingsView } from './AdminSettingsView';
 import { AdminAuditLogView } from './AdminAuditLogView';
 import { AdminNotificationsView } from './AdminNotificationsView';
+import { AdminBlogView } from './AdminBlogView';
 
 interface AdminDashboardProps {
   currentUser: UserType | null;
   currentPath: string;
   onNavigate: (route: string) => void;
   onBackToStorefront: () => void;
+  onUserChanged: (user: UserType | null) => void;
 }
 
 export const AdminDashboard: React.FC<AdminDashboardProps> = ({
@@ -27,6 +29,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   currentPath,
   onNavigate,
   onBackToStorefront,
+  onUserChanged,
 }) => {
   // Dispatch Subroute
   const renderView = () => {
@@ -93,6 +96,17 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       return <AdminNotificationsView />;
     }
 
+    if (currentPath === '/admin/blog/new') {
+      return <AdminBlogView onNavigate={onNavigate} isNew />;
+    }
+    if (currentPath.startsWith('/admin/blog/')) {
+      const id = currentPath.replace('/admin/blog/', '');
+      return <AdminBlogView onNavigate={onNavigate} selectedId={id} />;
+    }
+    if (currentPath === '/admin/blog') {
+      return <AdminBlogView onNavigate={onNavigate} />;
+    }
+
     // Default Dashboard Overview
     return <AdminDashboardOverview onNavigate={onNavigate} />;
   };
@@ -103,6 +117,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       currentRoute={currentPath}
       onNavigate={onNavigate}
       onExitToStorefront={onBackToStorefront}
+      onUserChanged={onUserChanged}
     >
       {renderView()}
     </AdminLayout>

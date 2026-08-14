@@ -467,10 +467,10 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({
                     ) : (
                       <button
                         type="button"
-                        onClick={() => showToast('Guest Checkout', 'You are checking out as a guest. Account registration is optional.')}
+                        onClick={() => onNavigate('/login?next=/checkout')}
                         className="text-xs font-bold text-teal-600 hover:text-teal-800 transition-colors cursor-pointer"
                       >
-                        Guest Checkout
+                        Sign in or create account
                       </button>
                     )}
                   </div>

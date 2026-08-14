@@ -45,6 +45,7 @@ function runSeoTests() {
   assert(robots.includes('Disallow: /checkout'), 'robots disallows checkout');
   assert(robots.includes('Disallow: /track-order'), 'robots disallows tracking');
   assert(robots.includes('Allow: /product/'), 'robots allows products');
+  assert(robots.includes('Allow: /blog'), 'robots allows blog');
   assert(robots.includes('Sitemap:'), 'robots includes sitemap');
 
   assert(shouldNoIndexPath('/admin'), 'admin is noindex');

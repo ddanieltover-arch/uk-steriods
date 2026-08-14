@@ -33,7 +33,9 @@ export type Permission =
   | 'audit:read'
   | 'notification:read'
   | 'notification:resend'
-  | 'notification:preview';
+  | 'notification:preview'
+  | 'blog:read'
+  | 'blog:manage';
 
 const ROLE_PERMISSIONS: Record<Role, Permission[]> = {
   SUPER_ADMIN: [
@@ -70,6 +72,8 @@ const ROLE_PERMISSIONS: Record<Role, Permission[]> = {
     'notification:read',
     'notification:resend',
     'notification:preview',
+    'blog:read',
+    'blog:manage',
   ],
   ADMIN: [
     'dashboard:read',
@@ -104,6 +108,8 @@ const ROLE_PERMISSIONS: Record<Role, Permission[]> = {
     'notification:read',
     'notification:resend',
     'notification:preview',
+    'blog:read',
+    'blog:manage',
   ],
   STAFF: [
     'dashboard:read',
@@ -114,6 +120,8 @@ const ROLE_PERMISSIONS: Record<Role, Permission[]> = {
     'order:update_status',
     'order:update_shipment',
     'notification:read',
+    'blog:read',
+    'blog:manage',
   ],
   CUSTOMER: [],
 };

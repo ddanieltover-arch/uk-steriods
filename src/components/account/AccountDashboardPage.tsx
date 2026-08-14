@@ -40,7 +40,7 @@ export const AccountDashboardPage: React.FC<AccountDashboardPageProps> = ({
 
   useEffect(() => {
     if (!currentUser) {
-      onNavigate('/');
+      onNavigate('/login?next=/account');
       return;
     }
     fetchAccountData();

@@ -5,9 +5,12 @@ import {
   SITE_TAGLINE,
   absoluteUrl,
   getSiteOrigin,
+  sanitizeMetaText,
 } from '../seo/site';
 import {
+  blogPostingJsonLd,
   breadcrumbJsonLd,
+  faqPageJsonLd,
   organizationJsonLd,
   productJsonLd,
   websiteJsonLd,
@@ -33,10 +36,14 @@ export class SeoService {
       'Allow: /category/',
       'Allow: /brand/',
       'Allow: /product/',
+      'Allow: /blog',
+      'Allow: /blog/',
       'Disallow: /admin',
       'Disallow: /admin/',
       'Disallow: /account',
       'Disallow: /account/',
+      'Disallow: /login',
+      'Disallow: /register',
       'Disallow: /cart',
       'Disallow: /checkout',
       'Disallow: /checkout/',
@@ -62,13 +69,18 @@ export class SeoService {
     const urls: { loc: string; lastmod: string; changefreq: string; priority: string }[] = [
       { loc: `${origin}/`, lastmod: now, changefreq: 'daily', priority: '1.0' },
       { loc: `${origin}/shop`, lastmod: now, changefreq: 'daily', priority: '0.9' },
+      { loc: `${origin}/blog`, lastmod: now, changefreq: 'daily', priority: '0.8' },
     ];
 
-    const [categories, brands, products] = await Promise.all([
+    const [categories, brands, products, posts] = await Promise.all([
       db.category.findMany({ select: { slug: true, updatedAt: true } }),
       db.brand.findMany({ select: { slug: true, updatedAt: true } }),
       db.product.findMany({
         where: { isPublished: true, deletedAt: null },
+        select: { slug: true, updatedAt: true },
+      }),
+      db.blogPost.findMany({
+        where: { status: 'PUBLISHED', deletedAt: null, publishedAt: { not: null } },
         select: { slug: true, updatedAt: true },
       }),
     ]);
@@ -95,6 +107,14 @@ export class SeoService {
         lastmod: p.updatedAt.toISOString(),
         changefreq: 'weekly',
         priority: '0.8',
+      });
+    }
+    for (const post of posts) {
+      urls.push({
+        loc: `${origin}/blog/${post.slug}`,
+        lastmod: post.updatedAt.toISOString(),
+        changefreq: 'weekly',
+        priority: '0.7',
       });
     }
 
@@ -130,8 +150,66 @@ export class SeoService {
       description: DEFAULT_DESCRIPTION,
       canonical: absoluteUrl('/'),
       robots: 'index,follow',
+      ogImage: absoluteUrl('/og-image.png'),
       ogType: 'website',
       jsonLd: [this.organizationJsonLd(), this.websiteJsonLd()],
+    };
+  }
+
+  static blogIndexSeo(): PageSeo {
+    return {
+      title: `Knowledge Hub | ${SITE_NAME}`,
+      description: 'Guides and research notes on compounds, PCT, and stacking — for educational context only.',
+      canonical: absoluteUrl('/blog'),
+      robots: 'index,follow',
+      ogImage: absoluteUrl('/og-image.png'),
+      ogType: 'website',
+      jsonLd: [
+        this.breadcrumbJsonLd([
+          { name: 'Home', path: '/' },
+          { name: 'Blog', path: '/blog' },
+        ]),
+      ],
+    };
+  }
+
+  static blogArticleSeo(post: {
+    title: string;
+    excerpt: string;
+    slug: string;
+    authorName: string;
+    publishedAt?: Date | string | null;
+    coverImageUrl?: string | null;
+    seoTitle?: string | null;
+    seoDescription?: string | null;
+    faq?: { question: string; answer: string }[];
+  }): PageSeo {
+    const jsonLd: Record<string, unknown>[] = [
+      blogPostingJsonLd({
+        title: post.title,
+        description: post.seoDescription || post.excerpt,
+        slug: post.slug,
+        authorName: post.authorName,
+        publishedAt: post.publishedAt,
+        coverImageUrl: post.coverImageUrl,
+      }),
+      this.breadcrumbJsonLd([
+        { name: 'Home', path: '/' },
+        { name: 'Blog', path: '/blog' },
+        { name: post.title, path: `/blog/${post.slug}` },
+      ]),
+    ];
+    if (post.faq && post.faq.length) {
+      jsonLd.push(faqPageJsonLd(post.faq));
+    }
+    return {
+      title: post.seoTitle || `${post.title} | ${SITE_NAME}`,
+      description: sanitizeMetaText(post.seoDescription || post.excerpt, 160),
+      canonical: absoluteUrl(`/blog/${post.slug}`),
+      robots: 'index,follow',
+      ogImage: post.coverImageUrl || absoluteUrl('/og-image.png'),
+      ogType: 'article',
+      jsonLd,
     };
   }
 
@@ -142,6 +220,7 @@ export class SeoService {
         description: `Search results for “${searchTerm}” in the ${SITE_NAME} catalogue.`,
         canonical: absoluteUrl('/shop'),
         robots: 'noindex,follow',
+        ogImage: absoluteUrl('/og-image.png'),
         ogType: 'website',
         jsonLd: [],
       };
@@ -151,6 +230,7 @@ export class SeoService {
       description: DEFAULT_DESCRIPTION,
       canonical: absoluteUrl('/shop'),
       robots: 'index,follow',
+      ogImage: absoluteUrl('/og-image.png'),
       ogType: 'website',
       jsonLd: [
         this.breadcrumbJsonLd([
@@ -178,10 +258,12 @@ export class SeoService {
       `<meta name="twitter:description" content="${escapeHtml(seo.description)}" />`,
     ];
 
-    if (seo.ogImage) {
-      tags.push(`<meta property="og:image" content="${escapeHtml(seo.ogImage)}" />`);
-      tags.push(`<meta name="twitter:image" content="${escapeHtml(seo.ogImage)}" />`);
-    }
+    const ogImage = seo.ogImage || absoluteUrl('/og-image.png');
+    tags.push(`<meta property="og:image" content="${escapeHtml(ogImage)}" />`);
+    tags.push(`<meta name="twitter:image" content="${escapeHtml(ogImage)}" />`);
+    tags.push(`<link rel="icon" href="${escapeHtml(absoluteUrl('/favicon.ico'))}" sizes="any" />`);
+    tags.push(`<link rel="icon" type="image/png" href="${escapeHtml(absoluteUrl('/favicon.png'))}" />`);
+    tags.push(`<link rel="apple-touch-icon" href="${escapeHtml(absoluteUrl('/apple-touch-icon.png'))}" />`);
 
     for (const block of seo.jsonLd) {
       tags.push(`<script type="application/ld+json">${JSON.stringify(block)}</script>`);

@@ -72,12 +72,12 @@ export const HeaderTestDemo: React.FC = () => {
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
         cartCount={cartCount}
+        cartTotalPence={8490}
         wishlistCount={wishlistCount}
         onOpenCart={() => setIsCartOpen(true)}
         onOpenWishlist={() => showToast('Wishlist Opened', 'You have 3 saved items.', 'info')}
         onOpenOrderTracking={() => showToast('Order Tracking', 'Enter your Royal Mail tracking code.', 'info')}
         onOpenAccount={() => showToast('Account Portal', `Logged in as ${MOCK_USER.firstName}`, 'success')}
-        onOpenAdmin={() => showToast('Admin Portal', 'Switching to management view...', 'info')}
         currentUser={MOCK_USER}
       />
 

@@ -19,7 +19,9 @@
     "db:generate": "prisma generate",
     "db:migrate:status": "prisma migrate status",
     "db:migrate:deploy": "prisma migrate deploy",
-    "db:seed": "tsx prisma/seed.ts"
+    "db:seed": "tsx prisma/seed.ts",
+    "blog:import": "tsx scripts/import-blog.ts",
+    "db:ensure-admin": "tsx scripts/ensure-admin.ts"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

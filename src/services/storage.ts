@@ -43,7 +43,7 @@ export const StorageService = {
     setItem(KEYS.PRODUCTS, products);
   },
   getProductBySlug(slug: string): Product | undefined {
-    return this.getProducts().find(p => p.slug === slug);
+    return this.getProducts().find((p) => p.slug === slug || p.id === slug);
   },
   getProductById(id: string): Product | undefined {
     return this.getProducts().find(p => p.id === id);

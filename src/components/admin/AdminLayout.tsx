@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { User as UserType } from '../../types';
+import { AdminLoginForm } from './AdminLoginForm';
+import { apiFetch } from '../../lib/api/client';
+import { StorageService } from '../../services/storage';
 import {
   LayoutDashboard,
   Package,
@@ -27,6 +30,7 @@ interface AdminLayoutProps {
   currentRoute: string;
   onNavigate: (route: string) => void;
   onExitToStorefront: () => void;
+  onUserChanged: (user: UserType | null) => void;
   children: React.ReactNode;
 }
 
@@ -35,6 +39,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
   currentRoute,
   onNavigate,
   onExitToStorefront,
+  onUserChanged,
   children,
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -46,6 +51,17 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
       currentUser.role === 'ADMIN' ||
       currentUser.role === 'STAFF');
 
+  if (!currentUser) {
+    return (
+      <AdminLoginForm
+        onAuthenticated={(user) => {
+          StorageService.setCurrentUser(user);
+          onUserChanged(user);
+        }}
+      />
+    );
+  }
+
   if (!isAuthorized) {
     return (
       <div className="min-h-screen bg-slate-900 text-white flex flex-col items-center justify-center p-6 font-sans">
@@ -55,12 +71,22 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
           </div>
           <h2 className="text-xl font-black uppercase tracking-tight">Access Denied</h2>
           <p className="text-xs text-slate-300 leading-relaxed">
-            You do not have administrative permissions to view the UK Performance operational portal. Please sign in with an authorized Staff or Admin account.
+            This account does not have administrative permissions. Sign in with {`sales@uk-steroids.co.uk`}.
           </p>
           <div className="pt-2 flex flex-col gap-2">
             <button
+              onClick={async () => {
+                await apiFetch('/api/v1/auth/logout', { method: 'POST' });
+                StorageService.setCurrentUser(null);
+                onUserChanged(null);
+              }}
+              className="w-full bg-teal-600 hover:bg-teal-500 text-white font-bold text-xs py-3 rounded-xl transition-all cursor-pointer"
+            >
+              Sign in as admin
+            </button>
+            <button
               onClick={onExitToStorefront}
-              className="w-full bg-teal-600 hover:bg-teal-500 text-white font-bold text-xs py-3 rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold text-xs py-3 rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Return to Storefront</span>
@@ -70,6 +96,12 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
       </div>
     );
   }
+
+  const handleAdminLogout = async () => {
+    await apiFetch('/api/v1/auth/logout', { method: 'POST' });
+    StorageService.setCurrentUser(null);
+    onUserChanged(null);
+  };
 
   const navItems = [
     { id: '/admin', label: 'Dashboard', icon: LayoutDashboard, roleRequired: 'STAFF' },
@@ -81,6 +113,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
     { id: '/admin/customers', label: 'Customers', icon: Users, roleRequired: 'ADMIN' },
     { id: '/admin/discounts', label: 'Discounts', icon: Percent, roleRequired: 'ADMIN' },
     { id: '/admin/reviews', label: 'Reviews', icon: MessageSquare, roleRequired: 'ADMIN' },
+    { id: '/admin/blog', label: 'Blog', icon: FileText, roleRequired: 'STAFF' },
     { id: '/admin/shipping', label: 'Shipping Config', icon: Truck, roleRequired: 'ADMIN' },
     { id: '/admin/settings', label: 'Store Settings', icon: Settings, roleRequired: 'ADMIN' },
     { id: '/admin/notifications', label: 'Notifications', icon: Mail, roleRequired: 'STAFF' },
@@ -145,13 +178,20 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
         </nav>
 
         {/* Exit Button */}
-        <div className="p-4 border-t border-slate-800">
+        <div className="p-4 border-t border-slate-800 space-y-2">
           <button
             onClick={onExitToStorefront}
             className="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs py-2.5 px-3 rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer border border-slate-700"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Exit to Storefront</span>
+          </button>
+          <button
+            onClick={handleAdminLogout}
+            className="w-full bg-slate-950 hover:bg-slate-800 text-slate-300 font-bold text-xs py-2.5 px-3 rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer border border-slate-800"
+          >
+            <LogOut className="w-4 h-4" />
+            <span>Sign out</span>
           </button>
         </div>
       </aside>

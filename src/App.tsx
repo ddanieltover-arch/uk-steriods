@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useEffect, useLayoutEffect, lazy, Suspense } from 'react';
 import { ToastProvider, useToast } from './components/feedback/ToastProvider';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
@@ -12,11 +12,11 @@ import { AuthModal } from './components/account/AuthModal';
 import { StorageService } from './services/storage';
 import { Category, Brand, Product, CartItem, User as UserType, FilterState, Order } from './types';
 import { ProductCardData } from './components/commerce/ProductCard';
-import { ShoppingBag, Grid, Settings, User as UserIcon, Search } from 'lucide-react';
 import { SeoHead } from './components/seo/SeoHead';
 import { SITE_NAME } from './lib/seo/site';
 import { shouldNoIndexPath } from './lib/seo/site';
 import { apiFetch } from './lib/api/client';
+import { isResourcePath } from './data/resources';
 
 const DesignSystemDemo = lazy(() =>
   import('./components/demo/DesignSystemDemo').then((m) => ({ default: m.DesignSystemDemo }))
@@ -60,6 +60,18 @@ const WishlistPage = lazy(() =>
 const ResetPasswordPage = lazy(() =>
   import('./components/account/ResetPasswordPage').then((m) => ({ default: m.ResetPasswordPage }))
 );
+const BlogIndexPage = lazy(() =>
+  import('./components/blog/BlogIndexPage').then((m) => ({ default: m.BlogIndexPage }))
+);
+const BlogArticlePage = lazy(() =>
+  import('./components/blog/BlogArticlePage').then((m) => ({ default: m.BlogArticlePage }))
+);
+const CustomerAuthPage = lazy(() =>
+  import('./components/account/CustomerAuthPage').then((m) => ({ default: m.CustomerAuthPage }))
+);
+const ResourceRouter = lazy(() =>
+  import('./components/resources/ResourceRouter').then((m) => ({ default: m.ResourceRouter }))
+);
 
 function RouteFallback() {
   return (
@@ -71,19 +83,27 @@ function RouteFallback() {
 
 function MainAppContent() {
   const { showToast } = useToast();
-  const [currentPath, setCurrentPath] = useState<string>(() => window.location.pathname);
+  const [currentPath, setCurrentPath] = useState<string>(
+    () => `${window.location.pathname}${window.location.search}`
+  );
 
   // Sync URL history state
   useEffect(() => {
-    const handlePopState = () => setCurrentPath(window.location.pathname);
+    const handlePopState = () => setCurrentPath(`${window.location.pathname}${window.location.search}`);
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
   const navigateTo = (path: string) => {
     window.history.pushState({}, '', path);
-    setCurrentPath(path);
+    setCurrentPath(`${window.location.pathname}${window.location.search}`);
   };
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, [currentPath]);
 
   // Persistent State from StorageService
   const [categories, setCategories] = useState<Category[]>(() => StorageService.getCategories());
@@ -103,8 +123,11 @@ function MainAppContent() {
           if (data.authenticated && data.user) {
             setCurrentUser(data.user);
             StorageService.setCurrentUser(data.user);
+            return;
           }
         }
+        setCurrentUser(null);
+        StorageService.setCurrentUser(null);
       } catch (err) {
         console.error('Session verification error:', err);
       }
@@ -139,44 +162,27 @@ function MainAppContent() {
     StorageService.saveCart(newCart);
   };
 
-  const handleAddToCart = (productData: ProductCardData) => {
-    const fullProduct = products.find((p) => p.id === productData.id);
-    const existingIndex = cartItems.findIndex((i) => i.productId === productData.id);
-
-    if (existingIndex >= 0) {
-      const updated = cartItems.map((item, idx) =>
-        idx === existingIndex ? { ...item, quantity: item.quantity + 1 } : item
-      );
-      updateCart(updated);
-    } else {
-      const newItem: CartItem = {
-        id: `c_${Date.now()}`,
-        productId: productData.id,
-        productName: productData.name,
-        unitPricePence: productData.pricePence,
-        quantity: 1,
-        productImageUrl: productData.imageUrl,
-        product: fullProduct,
-      };
-      updateCart([...cartItems, newItem]);
-    }
-    showToast('Added to Basket', `${productData.name} added to cart!`, 'success');
-  };
-
-  const handleAddFullProductToCart = (p: Product, variant?: any, qty: number = 1) => {
+  const addProductLine = (
+    current: CartItem[],
+    p: Product,
+    variant?: any,
+    qty: number = 1
+  ): CartItem[] => {
     const unitPrice = variant?.priceGbp || p.salePriceGbp || p.priceGbp;
-    const existingIndex = cartItems.findIndex(
+    const existingIndex = current.findIndex(
       (i) => i.productId === p.id && (!variant || i.variantName === variant.name)
     );
 
     if (existingIndex >= 0) {
-      const updated = cartItems.map((item, idx) =>
+      return current.map((item, idx) =>
         idx === existingIndex ? { ...item, quantity: item.quantity + qty } : item
       );
-      updateCart(updated);
-    } else {
-      const newItem: CartItem = {
-        id: `c_${Date.now()}`,
+    }
+
+    return [
+      ...current,
+      {
+        id: `c_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
         productId: p.id,
         productName: p.name,
         variantName: variant?.name,
@@ -184,10 +190,35 @@ function MainAppContent() {
         quantity: qty,
         productImageUrl: p.images[0],
         product: p,
-      };
-      updateCart([...cartItems, newItem]);
+      },
+    ];
+  };
+
+  const handleAddToCart = (productData: ProductCardData) => {
+    const fullProduct = products.find((p) => p.id === productData.id);
+    if (!fullProduct) return;
+    setCartItems((prev) => {
+      const next = addProductLine(prev, fullProduct, undefined, 1);
+      StorageService.saveCart(next);
+      return next;
+    });
+    showToast('Added to Basket', `${productData.name} added to cart!`, 'success');
+  };
+
+  const handleAddFullProductToCart = (
+    p: Product,
+    variant?: any,
+    qty: number = 1,
+    silent = false
+  ) => {
+    setCartItems((prev) => {
+      const next = addProductLine(prev, p, variant, qty);
+      StorageService.saveCart(next);
+      return next;
+    });
+    if (!silent) {
+      showToast('Added to Basket', `${p.name} added to cart!`, 'success');
     }
-    showToast('Added to Basket', `${p.name} added to cart!`, 'success');
   };
 
   const handleToggleWishlist = (productId: string) => {
@@ -220,6 +251,10 @@ function MainAppContent() {
             setBrands(StorageService.getBrands());
             navigateTo('/');
           }}
+          onUserChanged={(u) => {
+            setCurrentUser(u);
+            StorageService.setCurrentUser(u);
+          }}
         />
         </Suspense>
       );
@@ -250,6 +285,12 @@ function MainAppContent() {
     const isAccountAddressesRoute = currentPath === '/account/addresses';
     const isGuestTrackRoute = currentPath.startsWith('/track-order') || currentPath.startsWith('/orders/track');
     const isResetPasswordRoute = currentPath === '/reset-password';
+    const isLoginRoute = currentPath === '/login' || currentPath === '/account/login';
+    const isRegisterRoute = currentPath === '/register' || currentPath === '/account/register';
+    const isBlogIndexRoute = currentPath === '/blog' || currentPath.startsWith('/blog?');
+    const isBlogArticleRoute = currentPath.startsWith('/blog/') && !currentPath.startsWith('/blog?');
+    const isResourceRoute = isResourcePath(currentPath);
+    const blogSlugFromPath = isBlogArticleRoute ? currentPath.replace('/blog/', '').split('?')[0] : undefined;
 
     // Extract params
     const isCategoryRoute = currentPath.startsWith('/category/');
@@ -272,7 +313,7 @@ function MainAppContent() {
 
     // Default Main Storefront Shell
     return (
-      <div className="bg-slate-50 min-h-screen flex flex-col font-sans">
+      <div className="bg-slate-50 min-h-screen flex flex-col font-sans pb-24 lg:pb-0">
         {/* Global Shell Header */}
         <Header
           categories={categories}
@@ -286,6 +327,8 @@ function MainAppContent() {
             if (brandSlug) navigateTo(`/brand/${brandSlug}`);
             else navigateTo('/shop');
           }}
+          onGoHome={() => navigateTo('/')}
+          currentPath={currentPath}
           searchQuery={filters.searchQuery}
           onSearchChange={(q) => setFilters((prev) => ({ ...prev, searchQuery: q }))}
           onSearchSubmit={(q) => {
@@ -293,15 +336,20 @@ function MainAppContent() {
             navigateTo(term ? `/shop?q=${encodeURIComponent(term)}` : '/shop');
           }}
           cartCount={cartItems.reduce((sum, i) => sum + i.quantity, 0)}
+          cartTotalPence={cartItems.reduce((sum, i) => {
+            const unit =
+              i.unitPricePence ??
+              Math.round((i.product?.salePriceGbp ?? i.product?.priceGbp ?? 0) * 100);
+            return sum + unit * i.quantity;
+          }, 0)}
           wishlistCount={wishlistIds.length}
           onOpenCart={() => setIsCartOpen(true)}
           onOpenWishlist={() => navigateTo('/wishlist')}
           onOpenOrderTracking={() => navigateTo('/track-order')}
           onOpenAccount={() => {
             if (currentUser) navigateTo('/account');
-            else setIsAuthModalOpen(true);
+            else navigateTo('/login');
           }}
-          onOpenAdmin={() => navigateTo('/admin')}
           currentUser={currentUser}
         />
 
@@ -317,6 +365,16 @@ function MainAppContent() {
           <OrderConfirmationPage
             orderNumber={orderNumberFromPath}
             trackingToken={trackingTokenFromPath}
+            onNavigate={(path) => navigateTo(path)}
+          />
+        ) : isLoginRoute || isRegisterRoute ? (
+          <CustomerAuthPage
+            mode={isRegisterRoute ? 'register' : 'login'}
+            currentUser={currentUser}
+            onAuthenticated={(u) => {
+              setCurrentUser(u);
+              StorageService.setCurrentUser(u);
+            }}
             onNavigate={(path) => navigateTo(path)}
           />
         ) : isAccountDashboardRoute ? (
@@ -379,15 +437,18 @@ function MainAppContent() {
             onNavigate={(path) => navigateTo(path)}
             onOpenQuickView={(p) => setQuickViewProduct(p)}
           />
+        ) : isResourceRoute ? (
+          <ResourceRouter path={currentPath.split('?')[0]} onNavigate={(path) => navigateTo(path)} />
+        ) : isBlogIndexRoute ? (
+          <BlogIndexPage path={currentPath} onNavigate={(path) => navigateTo(path)} />
+        ) : isBlogArticleRoute && blogSlugFromPath ? (
+          <BlogArticlePage slug={blogSlugFromPath} onNavigate={(path) => navigateTo(path)} />
         ) : isProductRoute && productSlugFromPath ? (
           <ProductDetailPage
             slug={productSlugFromPath}
             customProducts={products}
             wishlistIds={wishlistIds}
-            onAddToCart={(p, v, q) => handleAddFullProductToCart(p, v, q)}
-            onToggleWishlist={handleToggleWishlist}
-            onNavigate={(path) => navigateTo(path)}
-            onQuickView={(p) => setQuickViewProduct(p)}
+            onAddToCart={(p, v, q, silent) => handleAddFullProductToCart(p, v, q, silent)}
           />
         ) : isCatalogView ? (
           <ShopPage
@@ -416,6 +477,7 @@ function MainAppContent() {
               if (brandSlug) navigateTo(`/brand/${brandSlug}`);
               else navigateTo('/shop');
             }}
+            onNavigate={(path) => navigateTo(path)}
             onAddToCart={(p) => handleAddFullProductToCart(p)}
             onQuickView={(p) => setQuickViewProduct(p)}
             onToggleWishlist={handleToggleWishlist}
@@ -466,6 +528,7 @@ function MainAppContent() {
             StorageService.setCurrentUser(u);
           }}
           onNavigateToAccount={() => navigateTo('/account')}
+          onNavigate={(path) => navigateTo(path)}
         />
       </div>
     );
@@ -473,93 +536,6 @@ function MainAppContent() {
 
   return (
     <div>
-      {/* Top Navigation Bar Control */}
-      <div className="sticky top-0 z-50 bg-slate-900 border-b border-slate-800 text-white px-4 py-2">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 overflow-x-auto whitespace-nowrap scrollbar-none text-xs">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
-            <span className="font-extrabold uppercase tracking-wider text-[11px] text-teal-400">
-              UK Performance Storefront:
-            </span>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => navigateTo('/')}
-              className={`px-3 py-1 rounded-lg font-bold transition-all cursor-pointer ${
-                currentPath === '/' ? 'bg-teal-600 text-white' : 'text-slate-300 hover:text-white hover:bg-slate-800'
-              }`}
-            >
-              / Home
-            </button>
-
-            <button
-              onClick={() => navigateTo('/shop')}
-              className={`flex items-center gap-1.5 px-3 py-1 rounded-lg font-bold transition-all cursor-pointer ${
-                currentPath.startsWith('/shop') || currentPath.startsWith('/category/') || currentPath.startsWith('/brand/')
-                  ? 'bg-teal-600 text-white'
-                  : 'text-slate-300 hover:text-white hover:bg-slate-800'
-              }`}
-            >
-              <Grid className="w-3.5 h-3.5" />
-              <span>/shop Catalog</span>
-            </button>
-
-            <button
-              onClick={() => {
-                if (currentUser) navigateTo('/account');
-                else setIsAuthModalOpen(true);
-              }}
-              className={`flex items-center gap-1.5 px-3 py-1 rounded-lg font-bold transition-all cursor-pointer ${
-                currentPath.startsWith('/account') ? 'bg-teal-600 text-white' : 'text-slate-300 hover:text-white hover:bg-slate-800'
-              }`}
-            >
-              <UserIcon className="w-3.5 h-3.5" />
-              <span>{currentUser ? `/account (${currentUser.firstName})` : '/account (Login)'}</span>
-            </button>
-
-            <button
-              onClick={() => navigateTo('/account/orders')}
-              className={`flex items-center gap-1.5 px-3 py-1 rounded-lg font-bold transition-all cursor-pointer ${
-                currentPath === '/account/orders' ? 'bg-teal-600 text-white' : 'text-slate-300 hover:text-white hover:bg-slate-800'
-              }`}
-            >
-              <span>/account/orders</span>
-            </button>
-
-            <button
-              onClick={() => navigateTo('/track-order')}
-              className={`flex items-center gap-1.5 px-3 py-1 rounded-lg font-bold transition-all cursor-pointer ${
-                currentPath.startsWith('/track-order') ? 'bg-teal-600 text-white' : 'text-slate-300 hover:text-white hover:bg-slate-800'
-              }`}
-            >
-              <Search className="w-3.5 h-3.5" />
-              <span>/track-order</span>
-            </button>
-
-            <button
-              onClick={() => navigateTo('/cart')}
-              className={`flex items-center gap-1.5 px-3 py-1 rounded-lg font-bold transition-all cursor-pointer ${
-                currentPath === '/cart' ? 'bg-teal-600 text-white' : 'text-slate-300 hover:text-white hover:bg-slate-800'
-              }`}
-            >
-              <ShoppingBag className="w-3.5 h-3.5" />
-              <span>/cart</span>
-            </button>
-
-            <button
-              onClick={() => navigateTo('/admin')}
-              className={`flex items-center gap-1.5 px-3 py-1 rounded-lg font-bold transition-all cursor-pointer ${
-                currentPath === '/admin' ? 'bg-teal-600 text-white' : 'text-slate-300 hover:text-white hover:bg-slate-800'
-              }`}
-            >
-              <Settings className="w-3.5 h-3.5" />
-              <span>/admin</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
       {shouldNoIndexPath(currentPath) && (
         <SeoHead
           title={`${SITE_NAME}`}

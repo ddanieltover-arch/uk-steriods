@@ -33,7 +33,10 @@ import {
   AdminModerateReviewSchema,
   AdminShippingConfigSchema,
   AdminStoreSettingSchema,
+  AdminBlogCategorySchema,
+  AdminBlogPostSchema,
 } from '../validation';
+import { BlogService } from '../services/blog.service';
 
 export function registerAdminRoutes(
   app: Express,
@@ -1159,6 +1162,121 @@ export function registerAdminRoutes(
         });
       } catch (err: any) {
         res.status(400).json({ error: err?.message || 'Preview failed.' });
+      }
+    }
+  );
+
+  app.get(
+    '/api/v1/admin/blog/categories',
+    requireAuth,
+    requirePermission('blog:read'),
+    async (_req, res) => {
+      try {
+        const categories = await BlogService.listCategories();
+        res.json({ categories });
+      } catch (err: any) {
+        res.status(500).json({ error: 'Failed to list blog categories.' });
+      }
+    }
+  );
+
+  app.post(
+    '/api/v1/admin/blog/categories',
+    requireAuth,
+    requirePermission('blog:manage'),
+    async (req, res) => {
+      try {
+        const parsed = AdminBlogCategorySchema.safeParse(req.body);
+        if (!parsed.success) {
+          return res.status(400).json({ error: parsed.error.issues[0]?.message || 'Invalid category' });
+        }
+        const category = await BlogService.createCategory(parsed.data);
+        res.status(201).json({ category });
+      } catch (err: any) {
+        res.status(400).json({ error: err?.message || 'Failed to create category.' });
+      }
+    }
+  );
+
+  app.get(
+    '/api/v1/admin/blog',
+    requireAuth,
+    requirePermission('blog:read'),
+    async (req, res) => {
+      try {
+        const result = await BlogService.adminList({
+          search: typeof req.query.search === 'string' ? req.query.search : '',
+          page: req.query.page ? Number(req.query.page) : 1,
+          limit: req.query.limit ? Number(req.query.limit) : 20,
+        });
+        res.json(result);
+      } catch (err: any) {
+        res.status(500).json({ error: 'Failed to list posts.' });
+      }
+    }
+  );
+
+  app.get(
+    '/api/v1/admin/blog/:id',
+    requireAuth,
+    requirePermission('blog:read'),
+    async (req, res) => {
+      try {
+        const post = await BlogService.adminGet(req.params.id);
+        if (!post) return res.status(404).json({ error: 'Post not found.' });
+        res.json({ post });
+      } catch (err: any) {
+        res.status(500).json({ error: 'Failed to load post.' });
+      }
+    }
+  );
+
+  app.post(
+    '/api/v1/admin/blog',
+    requireAuth,
+    requirePermission('blog:manage'),
+    async (req, res) => {
+      try {
+        const parsed = AdminBlogPostSchema.safeParse(req.body);
+        if (!parsed.success) {
+          return res.status(400).json({ error: parsed.error.issues[0]?.message || 'Invalid post' });
+        }
+        const post = await BlogService.upsertPost(undefined, parsed.data);
+        res.status(201).json({ post });
+      } catch (err: any) {
+        res.status(400).json({ error: err?.message || 'Failed to create post.' });
+      }
+    }
+  );
+
+  app.put(
+    '/api/v1/admin/blog/:id',
+    requireAuth,
+    requirePermission('blog:manage'),
+    async (req, res) => {
+      try {
+        const parsed = AdminBlogPostSchema.safeParse(req.body);
+        if (!parsed.success) {
+          return res.status(400).json({ error: parsed.error.issues[0]?.message || 'Invalid post' });
+        }
+        const post = await BlogService.upsertPost(req.params.id, parsed.data);
+        res.json({ post });
+      } catch (err: any) {
+        res.status(400).json({ error: err?.message || 'Failed to update post.' });
+      }
+    }
+  );
+
+  app.delete(
+    '/api/v1/admin/blog/:id',
+    requireAuth,
+    requirePermission('blog:manage'),
+    async (req, res) => {
+      try {
+        await BlogService.archive(req.params.id);
+        res.json({ success: true });
+      } catch (err: any) {
+        res.status(400).json({ error: err?.message || 'Failed to archive post.' });
       }
     }
   );

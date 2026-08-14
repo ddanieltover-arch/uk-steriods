@@ -9,8 +9,8 @@ interface AdminSettingsViewProps {
 
 export const AdminSettingsView: React.FC<AdminSettingsViewProps> = ({ currentUser }) => {
   const [settings, setSettings] = useState<Record<string, string>>({
-    storeName: 'UK Performance Supplements',
-    supportEmail: 'support@ukperformance.co.uk',
+    storeName: 'Steroids UK',
+    supportEmail: 'sales@uk-steroids.co.uk',
     currency: 'GBP',
     freeShippingThresholdPence: '10000',
     maintenanceMode: 'false',

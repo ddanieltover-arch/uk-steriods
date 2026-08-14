@@ -10,11 +10,13 @@ dotenv.config();
 
 import { registerAdminRoutes } from "./src/lib/routes/admin.routes.js";
 import { registerCatalogueRoutes } from "./src/lib/routes/catalogue.routes.js";
+import { registerBlogRoutes } from "./src/lib/routes/blog.routes.js";
 import { requestTiming } from "./src/lib/middleware/request-timing.js";
 import { rateLimit } from "./src/lib/middleware/rate-limit.js";
 import { noStore } from "./src/lib/middleware/http-cache.js";
 import { SeoService } from "./src/lib/services/seo.service.js";
 import { CatalogueApiService } from "./src/lib/services/catalogue-api.service.js";
+import { BlogService } from "./src/lib/services/blog.service.js";
 import { shouldNoIndexPath, SITE_NAME, sanitizeMetaText } from "./src/lib/seo/site.js";
 import { startNotificationWorker } from "./src/lib/notifications/notification.worker.js";
 import { PasswordResetService } from "./src/lib/services/password-reset.service.js";
@@ -43,6 +45,26 @@ async function injectPublicSeo(
     if (pathname === "/shop") {
       const q = typeof query.q === "string" ? query.q : "";
       return SeoService.injectIntoHtml(html, SeoService.shopSeo(q || undefined));
+    }
+
+    if (pathname === "/blog") {
+      return SeoService.injectIntoHtml(html, SeoService.blogIndexSeo());
+    }
+
+    if (pathname.startsWith("/blog/")) {
+      const slug = pathname.replace("/blog/", "").split("/")[0];
+      const post = await BlogService.getPublishedBySlug(slug);
+      if (!post) {
+        return SeoService.injectIntoHtml(html, {
+          title: `Article not found | ${SITE_NAME}`,
+          description: "This article is unavailable.",
+          canonical: "",
+          robots: "noindex,follow",
+          ogType: "article",
+          jsonLd: [],
+        });
+      }
+      return SeoService.injectIntoHtml(html, SeoService.blogArticleSeo(post));
     }
 
     if (pathname.startsWith("/product/")) {
@@ -122,6 +144,7 @@ async function startServer() {
   app.use(accessLog);
   app.use(requestTiming);
   app.use(csrfProtection);
+  app.use(express.static(path.join(process.cwd(), "public"), { index: false }));
 
   // Helper to extract authenticated user from cookies or headers
   async function getAuthenticatedUser(req: Request) {
@@ -180,6 +203,7 @@ async function startServer() {
   });
 
   registerCatalogueRoutes(app);
+  registerBlogRoutes(app);
 
   const authLimit = rateLimit({ windowMs: 60_000, max: 10, message: "Too many authentication attempts." });
   const checkoutLimit = rateLimit({ windowMs: 60_000, max: 20, message: "Too many checkout requests." });
@@ -228,6 +252,23 @@ async function startServer() {
       res.json({ success: true, user });
     } catch (err: any) {
       console.error("Login error:", err?.message || "error");
+      res.status(401).json({
+        error: { code: "INVALID_CREDENTIALS", message: "Invalid email or password.", requestId: req.requestId },
+      });
+    }
+  });
+
+  app.post("/api/v1/auth/admin/login", authLimit, async (req, res) => {
+    try {
+      const { AuthenticationService } = await import("./src/lib/services/auth.service.js");
+      const { sessionId, user } = await AuthenticationService.adminLogin(req.body);
+
+      setSessionCookie(res, sessionId);
+      ensureCsrfCookie(req, res);
+
+      res.json({ success: true, user });
+    } catch (err: any) {
+      console.error("Admin login error:", err?.message || "error");
       res.status(401).json({
         error: { code: "INVALID_CREDENTIALS", message: "Invalid email or password.", requestId: req.requestId },
       });

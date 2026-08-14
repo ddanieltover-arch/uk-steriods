@@ -18,6 +18,10 @@ export class AuthenticationService {
 
     const { email, password, firstName, lastName, phone } = parsed.data;
     const normalizedEmail = email.trim().toLowerCase();
+    const reservedAdminEmail = (process.env.ADMIN_EMAIL || 'sales@uk-steroids.co.uk').trim().toLowerCase();
+    if (normalizedEmail === reservedAdminEmail) {
+      throw new Error('Unable to create account with provided details. Please try logging in.');
+    }
 
     // Account enumeration protection: Generic error if account exists
     const existing = await db.user.findUnique({
@@ -91,6 +95,19 @@ export class AuthenticationService {
     }
 
     const session = await SessionService.createSession(user.id);
+    return session;
+  }
+
+  /**
+   * Authenticates staff credentials for the admin portal only.
+   */
+  static async adminLogin(input: unknown): Promise<{ sessionId: string; user: AuthSessionUser }> {
+    const session = await this.login(input);
+    const role = session.user.role;
+    if (role !== 'SUPER_ADMIN' && role !== 'ADMIN' && role !== 'STAFF') {
+      await SessionService.destroySession(session.sessionId);
+      throw new Error('Invalid email or password.');
+    }
     return session;
   }
 

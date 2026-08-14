@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="420" viewBox="0 0 1400 420">
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0B1220"/>
+      <stop offset="100%" stop-color="#1E3A5F"/>
+    </linearGradient>
+  </defs>
+  <rect width="1400" height="420" fill="url(#g1)"/>
+  <text x="80" y="170" fill="#F59E0B" font-family="Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="4">PREMIUM LABS</text>
+  <text x="80" y="240" fill="#FFFFFF" font-family="Arial Black, sans-serif" font-size="48">Lab-tested catalogue</text>
+  <text x="80" y="290" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="20">UK dispatch � tracked delivery � discreet packaging</text>
+</svg>

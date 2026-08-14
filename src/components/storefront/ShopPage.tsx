@@ -119,6 +119,19 @@ export const ShopPage: React.FC<ShopPageProps> = ({
   const [usingApi, setUsingApi] = useState(false);
 
   useEffect(() => {
+    if (sessionStorage.getItem('open-mobile-filters') === '1') {
+      sessionStorage.removeItem('open-mobile-filters');
+      setIsMobileFilterOpen(true);
+    }
+    const open = () => {
+      setDraftMobileQuery(query);
+      setIsMobileFilterOpen(true);
+    };
+    window.addEventListener('open-mobile-filters', open);
+    return () => window.removeEventListener('open-mobile-filters', open);
+  }, [query]);
+
+  useEffect(() => {
     const controller = new AbortController();
     const params = new URLSearchParams();
     if (query.search) params.set('q', query.search);
@@ -327,6 +340,7 @@ export const ShopPage: React.FC<ShopPageProps> = ({
   const mapToCardData = (p: Product): ProductCardData => ({
     id: p.id,
     name: p.name,
+    slug: p.slug,
     brandName: p.brandName,
     sku: p.sku,
     imageUrl: p.images && p.images.length > 0 ? p.images[0] : null,

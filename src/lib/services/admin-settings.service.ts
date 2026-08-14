@@ -4,8 +4,8 @@ export class AdminStoreSettingsService {
   static async getSettings() {
     const settings = await db.storeSetting.findMany();
     const map: Record<string, string> = {
-      storeName: 'UK Performance Supplements',
-      supportEmail: 'support@ukperformance.co.uk',
+      storeName: 'Steroids UK',
+      supportEmail: 'sales@uk-steroids.co.uk',
       currency: 'GBP',
       freeShippingThresholdPence: '10000',
       maintenanceMode: 'false',

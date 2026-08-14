@@ -6,6 +6,8 @@ export function organizationJsonLd() {
     '@type': 'Organization',
     name: SITE_NAME,
     url: typeof window !== 'undefined' ? window.location.origin : getSiteOrigin(),
+    logo: absoluteUrl('/logo.png'),
+    image: absoluteUrl('/og-image.png'),
   };
 }
 
@@ -78,4 +80,37 @@ export function productJsonLd(input: {
   }
 
   return data;
+}
+
+export function blogPostingJsonLd(input: {
+  title: string;
+  description: string;
+  slug: string;
+  authorName: string;
+  publishedAt?: string | Date | null;
+  coverImageUrl?: string | null;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: input.title,
+    description: sanitizeMetaText(input.description, 300),
+    author: { '@type': 'Person', name: input.authorName },
+    datePublished: input.publishedAt ? new Date(input.publishedAt).toISOString() : undefined,
+    image: input.coverImageUrl || absoluteUrl('/og-image.png'),
+    url: absoluteUrl(`/blog/${input.slug}`),
+    publisher: { '@type': 'Organization', name: SITE_NAME, logo: absoluteUrl('/logo.png') },
+  };
+}
+
+export function faqPageJsonLd(items: { question: string; answer: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+    })),
+  };
 }

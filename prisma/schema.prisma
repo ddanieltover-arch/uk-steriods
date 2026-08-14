@@ -99,6 +99,11 @@ enum NotificationFailureClass {
   RATE_LIMITED
 }
 
+enum BlogPostStatus {
+  DRAFT
+  PUBLISHED
+}
+
 // ==========================================
 // USER & AUTHENTICATION
 // ==========================================
@@ -224,6 +229,7 @@ model Product {
   tags      ProductTag[]
   cartItems CartItem[]
   reviews   Review[]
+  blogLinks BlogPostProduct[]
 
   @@index([slug])
   @@index([sku])
@@ -673,5 +679,74 @@ model CheckoutIdempotency {
   expiresAt    DateTime
 
   @@index([expiresAt])
+}
+
+// ==========================================
+// BLOG / KNOWLEDGE HUB
+// ==========================================
+
+model BlogCategory {
+  id        String   @id @default(uuid())
+  name      String
+  slug      String   @unique
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  posts BlogPostCategory[]
+
+  @@index([slug])
+  @@index([sortOrder])
+}
+
+model BlogPost {
+  id             String         @id @default(uuid())
+  slug           String         @unique
+  title          String
+  excerpt        String
+  bodyMarkdown   String
+  coverImageUrl  String?
+  authorName     String
+  authorBio      String?
+  status         BlogPostStatus @default(DRAFT)
+  featured       Boolean        @default(false)
+  publishedAt    DateTime?
+  readingMinutes Int            @default(1)
+  seoTitle       String?
+  seoDescription String?
+  faqJson        Json           @default("[]")
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  deletedAt      DateTime?
+
+  categories BlogPostCategory[]
+  products   BlogPostProduct[]
+
+  @@index([slug])
+  @@index([status, publishedAt])
+  @@index([featured, status])
+  @@index([deletedAt])
+}
+
+model BlogPostCategory {
+  postId     String
+  categoryId String
+
+  post     BlogPost     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  category BlogCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([postId, categoryId])
+  @@index([categoryId])
+}
+
+model BlogPostProduct {
+  postId    String
+  productId String
+
+  post    BlogPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  product Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@id([postId, productId])
+  @@index([productId])
 }
 

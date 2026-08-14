@@ -99,7 +99,7 @@ function trackingLink(ctx: OrderNotificationContext): string {
 }
 
 function supportLine(ctx: OrderNotificationContext): string {
-  const email = ctx.supportEmail || process.env.EMAIL_REPLY_TO || 'support@ukperformance.local';
+  const email = ctx.supportEmail || process.env.EMAIL_REPLY_TO || 'sales@uk-steroids.co.uk';
   return `Questions? Contact ${email}.`;
 }
 

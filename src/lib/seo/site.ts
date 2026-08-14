@@ -1,7 +1,10 @@
-export const SITE_NAME = 'UK Performance';
-export const SITE_TAGLINE = 'Sports nutrition and performance formulations';
+export const SITE_NAME = 'Steroids UK';
+export const SITE_TAGLINE = 'UK catalogue · lab-tested batches · next-day tracked delivery';
+export const SITE_LOGO_PATH = '/logo.png';
+export const SITE_FAVICON_PATH = '/favicon.png';
+export const SITE_OG_IMAGE_PATH = '/og-image.png';
 export const DEFAULT_DESCRIPTION =
-  'Browse UK Performance sports nutrition: endurance blends, protein isolates, electrolytes, and daily vitamins. Prices in GBP.';
+  'Steroids UK: lab-tested catalogue with UK dispatch, next-day tracked delivery in plain packaging, and a reship if tracked delivery fails. Prices in GBP.';
 
 export function getSiteOrigin(): string {
   const raw =
@@ -28,6 +31,8 @@ export function sanitizeMetaText(value: string | null | undefined, max = 160): s
 export const NOINDEX_PATH_PREFIXES = [
   '/admin',
   '/account',
+  '/login',
+  '/register',
   '/cart',
   '/checkout',
   '/track-order',
@@ -60,6 +65,8 @@ export function canonicalPathFor(pathname: string, search: string): string {
     if (q) return `/shop?q=${encodeURIComponent(q)}`;
     return '/shop';
   }
-  if (pathname === '/') return '/';
+  if (pathname === '/blog' || pathname.startsWith('/blog/')) {
+    return pathname.split('?')[0];
+  }
   return pathname.split('?')[0];
 }

@@ -142,7 +142,7 @@ export class ResendEmailProvider implements EmailProvider {
 
 export function createEmailProvider(): EmailProvider {
   const providerName = (process.env.EMAIL_PROVIDER || 'dev').toLowerCase();
-  const apiKey = process.env.EMAIL_API_KEY;
+  const apiKey = process.env.EMAIL_API_KEY || process.env.RESEND_API_KEY;
 
   if (providerName === 'resend' && apiKey) {
     return new ResendEmailProvider(apiKey);
@@ -153,8 +153,8 @@ export function createEmailProvider(): EmailProvider {
 
 export function getEmailFromConfig() {
   return {
-    email: process.env.EMAIL_FROM_ADDRESS || 'noreply@ukperformance.local',
-    name: process.env.EMAIL_FROM_NAME || 'UK Performance',
+    email: process.env.EMAIL_FROM_ADDRESS || 'sales@uk-steroids.co.uk',
+    name: process.env.EMAIL_FROM_NAME || 'Steroids UK',
   };
 }
 

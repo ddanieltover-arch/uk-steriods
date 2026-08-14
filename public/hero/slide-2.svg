@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="420" viewBox="0 0 1400 420">
+  <rect width="1400" height="420" fill="#111827"/>
+  <rect x="0" y="0" width="8" height="420" fill="#F59E0B"/>
+  <text x="80" y="170" fill="#F59E0B" font-family="Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="4">FREE DELIVERY</text>
+  <text x="80" y="240" fill="#FFFFFF" font-family="Arial Black, sans-serif" font-size="44">Next-day UK shipping</text>
+  <text x="80" y="290" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="20">Orders over �100 � Royal Mail Tracked 24</text>
+</svg>

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { SITE_NAME } from '../../lib/seo/site';
+import { SITE_NAME, SITE_OG_IMAGE_PATH } from '../../lib/seo/site';
 
 export interface SeoHeadProps {
   title: string;
@@ -29,6 +29,7 @@ export function SeoHead({
   ogType = 'website',
   jsonLd = [],
 }: SeoHeadProps) {
+  const resolvedOg = ogImage || `${window.location.origin}${SITE_OG_IMAGE_PATH}`;
   useEffect(() => {
     document.title = title;
     upsertMeta('meta[name="description"]', { name: 'description', content: description });
@@ -37,7 +38,7 @@ export function SeoHead({
     upsertMeta('meta[property="og:description"]', { property: 'og:description', content: description });
     upsertMeta('meta[property="og:type"]', { property: 'og:type', content: ogType });
     upsertMeta('meta[property="og:site_name"]', { property: 'og:site_name', content: SITE_NAME });
-    upsertMeta('meta[name="twitter:card"]', { name: 'twitter:card', content: ogImage ? 'summary_large_image' : 'summary' });
+    upsertMeta('meta[name="twitter:card"]', { name: 'twitter:card', content: 'summary_large_image' });
     upsertMeta('meta[name="twitter:title"]', { name: 'twitter:title', content: title });
     upsertMeta('meta[name="twitter:description"]', { name: 'twitter:description', content: description });
 
@@ -52,10 +53,21 @@ export function SeoHead({
     }
     link.href = url;
 
-    if (ogImage) {
-      upsertMeta('meta[property="og:image"]', { property: 'og:image', content: ogImage });
-      upsertMeta('meta[name="twitter:image"]', { name: 'twitter:image', content: ogImage });
-    }
+    upsertMeta('meta[property="og:image"]', { property: 'og:image', content: resolvedOg });
+    upsertMeta('meta[name="twitter:image"]', { name: 'twitter:image', content: resolvedOg });
+
+    const setLink = (rel: string, href: string, extra?: Record<string, string>) => {
+      let el = document.head.querySelector(`link[rel="${rel}"]`) as HTMLLinkElement | null;
+      if (!el) {
+        el = document.createElement('link');
+        el.rel = rel;
+        document.head.appendChild(el);
+      }
+      el.href = href;
+      if (extra) Object.entries(extra).forEach(([k, v]) => el!.setAttribute(k, v));
+    };
+    setLink('icon', `${window.location.origin}/favicon.ico`, { sizes: 'any' });
+    setLink('apple-touch-icon', `${window.location.origin}/apple-touch-icon.png`);
 
     const existing = document.head.querySelectorAll('script[data-seo-jsonld="true"]');
     existing.forEach((n) => n.remove());
@@ -66,7 +78,7 @@ export function SeoHead({
       script.textContent = JSON.stringify(block);
       document.head.appendChild(script);
     });
-  }, [title, description, canonical, robots, ogImage, ogType, jsonLd]);
+  }, [title, description, canonical, robots, resolvedOg, ogType, jsonLd]);
 
   return null;
 }

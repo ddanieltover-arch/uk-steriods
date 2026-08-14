@@ -16,13 +16,19 @@ export const AddressSnapshotSchema = z.object({
 export type AddressSnapshot = z.infer<typeof AddressSnapshotSchema>;
 
 // User Authentication Schemas
-export const RegisterUserSchema = z.object({
-  email: z.string().email('Invalid email address'),
-  password: z.string().min(8, 'Password must be at least 8 characters'),
-  firstName: z.string().min(1, 'First name is required'),
-  lastName: z.string().min(1, 'Last name is required'),
-  phone: z.string().optional(),
-});
+export const RegisterUserSchema = z
+  .object({
+    email: z.string().email('Invalid email address'),
+    password: z.string().min(8, 'Password must be at least 8 characters'),
+    confirmPassword: z.string().optional(),
+    firstName: z.string().min(1, 'First name is required'),
+    lastName: z.string().min(1, 'Last name is required'),
+    phone: z.string().optional(),
+  })
+  .refine((data) => !data.confirmPassword || data.confirmPassword === data.password, {
+    message: 'Passwords do not match',
+    path: ['confirmPassword'],
+  });
 
 export const LoginUserSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -251,6 +257,33 @@ export const AdminShippingConfigSchema = z.object({
 export const AdminStoreSettingSchema = z.object({
   key: z.string().min(1, 'Setting key is required'),
   value: z.string(),
+});
+
+export const AdminBlogCategorySchema = z.object({
+  name: z.string().min(2, 'Category name is required'),
+  slug: z.string().optional(),
+  sortOrder: z.number().int().min(0).optional(),
+});
+
+export const AdminBlogPostSchema = z.object({
+  title: z.string().min(3, 'Title is required'),
+  slug: z.string().optional(),
+  excerpt: z.string().min(10, 'Excerpt is required'),
+  bodyMarkdown: z.string().min(20, 'Body is required'),
+  coverImageUrl: z.string().optional().nullable(),
+  authorName: z.string().min(2, 'Author is required'),
+  authorBio: z.string().optional().nullable(),
+  status: z.enum(['DRAFT', 'PUBLISHED']).optional().default('DRAFT'),
+  featured: z.boolean().optional().default(false),
+  publishedAt: z.string().nullable().optional(),
+  seoTitle: z.string().optional().nullable(),
+  seoDescription: z.string().optional().nullable(),
+  faq: z
+    .array(z.object({ question: z.string(), answer: z.string() }))
+    .optional()
+    .default([]),
+  categoryIds: z.array(z.string().uuid()).optional().default([]),
+  productIds: z.array(z.string().uuid()).optional().default([]),
 });
 
 

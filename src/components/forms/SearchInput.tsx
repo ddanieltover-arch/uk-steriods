@@ -22,6 +22,8 @@ interface SearchInputProps {
   onSearchSubmit?: (query: string) => void;
   placeholder?: string;
   className?: string;
+  variant?: 'default' | 'brand';
+  autoFocus?: boolean;
 }
 
 const RECENT_KEY = 'ukp_recent_searches';
@@ -49,8 +51,10 @@ export const SearchInput: React.FC<SearchInputProps> = ({
   value,
   onChange,
   onSearchSubmit,
-  placeholder = 'Search catalog, SKU, brand...',
+  placeholder = 'Search products...',
   className,
+  variant = 'default',
+  autoFocus = false,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -158,12 +162,20 @@ export const SearchInput: React.FC<SearchInputProps> = ({
     }
   };
 
+  const isBrand = variant === 'brand';
+
   return (
     <div ref={containerRef} className={cn('relative w-full', className)}>
       <div className="relative flex items-center">
         <label htmlFor={listId + '-input'} className="sr-only">
           Search products
         </label>
+        <Search
+          className={cn(
+            'absolute left-3 w-3.5 h-3.5 pointer-events-none',
+            isBrand ? 'text-[#aedac2]' : 'text-slate-400'
+          )}
+        />
         <input
           id={listId + '-input'}
           type="search"
@@ -182,10 +194,24 @@ export const SearchInput: React.FC<SearchInputProps> = ({
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           autoComplete="off"
-          className="w-full rounded-full border border-slate-200 bg-slate-100/80 py-2 pl-4 pr-10 text-xs font-medium text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all shadow-2xs"
+          autoFocus={autoFocus}
+          className={cn(
+            'w-full rounded-full py-1.5 pl-9 text-xs font-medium focus:outline-none transition-all',
+            isBrand
+              ? 'pr-[4.75rem] glass-box text-[#aedac2] placeholder:text-[#aedac2]/85 focus:ring-2 focus:ring-white/20'
+              : 'pr-10 border border-slate-200 bg-slate-100/80 text-slate-900 placeholder:text-slate-400 focus:bg-white focus:ring-2 focus:ring-[#157a62] shadow-2xs'
+          )}
         />
 
-        {value ? (
+        {isBrand ? (
+          <button
+            type="button"
+            onClick={() => submit(value)}
+            className="absolute right-1 top-1/2 -translate-y-1/2 rounded-full bg-white text-[#003d30] text-[10px] font-black px-3 py-1 cursor-pointer hover:bg-white/90"
+          >
+            Search
+          </button>
+        ) : value ? (
           <button
             type="button"
             onClick={() => {
@@ -197,9 +223,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
           >
             <X className="w-3.5 h-3.5" />
           </button>
-        ) : (
-          <Search className="absolute right-3.5 w-4 h-4 text-slate-400 pointer-events-none" />
-        )}
+        ) : null}
       </div>
 
       <div className="sr-only" role="status" aria-live="polite">
@@ -246,7 +270,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
                 onClick={() => activate(item)}
                 className={cn(
                   'w-full flex items-center justify-between rounded-xl px-2.5 py-2 text-xs font-bold text-left cursor-pointer',
-                  activeIndex === index ? 'bg-teal-50 text-teal-800' : 'text-slate-700 hover:bg-slate-50'
+                  activeIndex === index ? 'bg-emerald-50 text-emerald-800' : 'text-slate-700 hover:bg-slate-50'
                 )}
               >
                 <span>{item.label}</span>

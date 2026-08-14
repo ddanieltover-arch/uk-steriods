@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ChevronDown, Sparkles } from 'lucide-react';
 import { Category, Brand } from '../../types';
 import { cn } from '../../lib/utils';
+import { RESOURCE_LINKS } from '../../data/resources';
 
 interface NavigationMenuProps {
   categories: Category[];
@@ -10,6 +11,7 @@ interface NavigationMenuProps {
   onSelectCategory: (slug: string) => void;
   onSelectBrand?: (brandSlug: string) => void;
   className?: string;
+  tone?: 'light' | 'dark';
 }
 
 export const NavigationMenu: React.FC<NavigationMenuProps> = ({
@@ -19,27 +21,52 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
   onSelectCategory,
   onSelectBrand,
   className,
+  tone = 'light',
 }) => {
-
-  const [openDropdown, setOpenDropdown] = useState<'categories' | 'brands' | null>(null);
+  const [openDropdown, setOpenDropdown] = useState<'categories' | 'brands' | 'resources' | null>(null);
+  const go = (path: string) => {
+    window.history.pushState({}, '', path);
+    window.dispatchEvent(new Event('popstate'));
+    setOpenDropdown(null);
+  };
+  const resourceActive =
+    typeof window !== 'undefined' && RESOURCE_LINKS.some((l) => window.location.pathname === l.href);
+  const isDark = tone === 'dark';
 
   return (
-    <nav className={cn('flex items-center gap-6 text-xs font-extrabold uppercase tracking-wider text-slate-700', className)}>
-      {/* All Products */}
+    <nav
+      className={cn(
+        'flex items-center justify-center gap-6 text-xs font-extrabold uppercase tracking-wider',
+        isDark ? 'text-[#aedac2]' : 'text-slate-700',
+        className
+      )}
+    >
       <button
         onClick={() => {
           onSelectCategory('');
           setOpenDropdown(null);
         }}
         className={cn(
-          'py-2 transition-colors hover:text-teal-600 cursor-pointer',
-          selectedCategorySlug === '' && 'text-teal-600 border-b-2 border-teal-600'
+          'py-1.5 transition-colors cursor-pointer',
+          isDark ? 'hover:text-white' : 'hover:text-[#157a62]',
+          selectedCategorySlug === '' && (isDark ? 'text-white border-b-2 border-[#aedac2]' : 'text-[#157a62] border-b-2 border-[#157a62]')
         )}
       >
         All Catalog
       </button>
 
-      {/* Categories Dropdown */}
+      <button
+        type="button"
+        onClick={() => go('/blog')}
+        className={cn(
+          'py-1.5 transition-colors cursor-pointer',
+          isDark ? 'hover:text-white' : 'hover:text-[#157a62]',
+          typeof window !== 'undefined' && window.location.pathname.startsWith('/blog') && (isDark ? 'text-white border-b-2 border-[#aedac2]' : 'text-[#157a62] border-b-2 border-[#157a62]')
+        )}
+      >
+        Blog
+      </button>
+
       <div
         className="relative"
         onMouseEnter={() => setOpenDropdown('categories')}
@@ -47,8 +74,9 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
       >
         <button
           className={cn(
-            'flex items-center gap-1 py-2 transition-colors hover:text-teal-600 cursor-pointer',
-            selectedCategorySlug !== '' && 'text-teal-600 font-black'
+            'flex items-center gap-1 py-1.5 transition-colors cursor-pointer',
+            isDark ? 'hover:text-white' : 'hover:text-[#157a62]',
+            selectedCategorySlug !== '' && (isDark ? 'text-white' : 'text-[#157a62] font-black')
           )}
         >
           <span>Categories</span>
@@ -65,8 +93,8 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                   setOpenDropdown(null);
                 }}
                 className={cn(
-                  'w-full text-left rounded-xl px-3 py-2 text-xs font-bold transition-colors hover:bg-teal-50 hover:text-teal-700 cursor-pointer flex items-center justify-between',
-                  selectedCategorySlug === cat.slug ? 'bg-teal-50 text-teal-700' : 'text-slate-800'
+                  'w-full text-left rounded-xl px-3 py-2 text-xs font-bold transition-colors hover:bg-emerald-50 hover:text-emerald-800 cursor-pointer flex items-center justify-between',
+                  selectedCategorySlug === cat.slug ? 'bg-emerald-50 text-emerald-800' : 'text-slate-800'
                 )}
               >
                 <span>{cat.name}</span>
@@ -79,13 +107,12 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
         )}
       </div>
 
-      {/* Featured Brands Dropdown */}
       <div
         className="relative"
         onMouseEnter={() => setOpenDropdown('brands')}
         onMouseLeave={() => setOpenDropdown(null)}
       >
-        <button className="flex items-center gap-1 py-2 transition-colors hover:text-teal-600 cursor-pointer">
+        <button className={cn('flex items-center gap-1 py-1.5 transition-colors cursor-pointer', isDark ? 'hover:text-white' : 'hover:text-[#157a62]')}>
           <span>Brands</span>
           <ChevronDown className="w-3.5 h-3.5" />
         </button>
@@ -108,10 +135,9 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                 }}
                 className="w-full text-left rounded-xl px-3 py-2 text-xs font-bold text-slate-800 hover:bg-slate-100 transition-colors cursor-pointer flex items-center justify-between"
               >
-
                 <span>{brand.name}</span>
                 {brand.isFeatured && (
-                  <span className="bg-teal-100 text-teal-800 text-[9px] font-black px-1.5 py-0.5 rounded uppercase">
+                  <span className="bg-emerald-100 text-emerald-800 text-[9px] font-black px-1.5 py-0.5 rounded uppercase">
                     Featured
                   </span>
                 )}
@@ -121,10 +147,54 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
         )}
       </div>
 
-      {/* Quality Standards */}
-      <div className="flex items-center gap-1.5 text-teal-700 font-extrabold normal-case bg-teal-50 px-2.5 py-1 rounded-full text-[11px]">
-        <Sparkles className="w-3.5 h-3.5 text-teal-600" />
-        <span>100% Verified Quality</span>
+      <div
+        className="relative"
+        onMouseEnter={() => setOpenDropdown('resources')}
+        onMouseLeave={() => setOpenDropdown(null)}
+      >
+        <button
+          className={cn(
+            'flex items-center gap-1 py-1.5 transition-colors cursor-pointer',
+            isDark ? 'hover:text-white' : 'hover:text-[#157a62]',
+            resourceActive && (isDark ? 'text-white' : 'text-[#157a62] font-black')
+          )}
+        >
+          <span>Resources</span>
+          <ChevronDown className={cn('w-3.5 h-3.5 transition-transform', openDropdown === 'resources' && 'rotate-180')} />
+        </button>
+
+        {openDropdown === 'resources' && (
+          <div className="absolute top-full left-0 z-50 w-64 rounded-2xl border border-slate-200 bg-white p-3 shadow-xl animate-fade-in space-y-1">
+            {RESOURCE_LINKS.map((link) => {
+              const active = typeof window !== 'undefined' && window.location.pathname === link.href;
+              return (
+                <button
+                  key={link.href}
+                  type="button"
+                  onClick={() => go(link.href)}
+                  className={cn(
+                    'w-full text-left rounded-xl px-3 py-2 text-xs font-bold transition-colors cursor-pointer border-l-2',
+                    active
+                      ? 'bg-emerald-50 text-emerald-800 border-l-[#157a62]'
+                      : 'text-slate-800 hover:bg-emerald-50 hover:text-emerald-800 border-l-transparent hover:border-l-[#157a62]'
+                  )}
+                >
+                  {link.label}
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      <div
+        className={cn(
+          'flex items-center gap-1.5 font-extrabold normal-case px-2.5 py-1 rounded-full text-[11px]',
+          isDark ? 'text-[#003d30] bg-[#aedac2]' : 'text-emerald-800 bg-emerald-50'
+        )}
+      >
+        <Sparkles className="w-3.5 h-3.5" />
+        <span>Lab-tested batches</span>
       </div>
     </nav>
   );

@@ -3,6 +3,8 @@ import { Sheet } from '../overlay/Sheet';
 import { Category, Brand, User as UserType } from '../../types';
 import { SearchInput } from '../forms/SearchInput';
 import { User, Package, ShieldCheck, Truck, ChevronRight } from 'lucide-react';
+import { SITE_NAME } from '../../lib/seo/site';
+import { RESOURCE_LINKS } from '../../data/resources';
 
 interface MobileNavigationProps {
   isOpen: boolean;
@@ -17,6 +19,7 @@ interface MobileNavigationProps {
   onOpenOrderTracking: () => void;
   onOpenAccount: () => void;
   currentUser: UserType | null;
+  autoFocusSearch?: boolean;
 }
 
 export const MobileNavigation: React.FC<MobileNavigationProps> = ({
@@ -32,14 +35,15 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
   onOpenOrderTracking,
   onOpenAccount,
   currentUser,
+  autoFocusSearch = false,
 }) => {
   return (
     <Sheet
       isOpen={isOpen}
       onClose={onClose}
       position="left"
-      title="UK PERFORMANCE"
-      description="Supplements & Performance"
+      title={SITE_NAME}
+      description="UK catalogue"
     >
       <div className="space-y-6 pt-2">
         {/* Search */}
@@ -51,6 +55,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
             onClose();
           }}
           placeholder="Search catalog, SKU..."
+          autoFocus={autoFocusSearch}
         />
 
         {/* Account Bar */}
@@ -96,6 +101,37 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
             <span>All Catalog Items</span>
             <ChevronRight className="w-4 h-4 text-slate-400" />
           </button>
+
+          <button
+            onClick={() => {
+              window.history.pushState({}, '', '/blog');
+              window.dispatchEvent(new Event('popstate'));
+              onClose();
+            }}
+            className="w-full text-left rounded-xl px-3.5 py-2.5 text-xs font-extrabold transition-colors flex items-center justify-between text-slate-700 hover:bg-slate-50"
+          >
+            <span>Knowledge Hub / Blog</span>
+            <ChevronRight className="w-4 h-4 text-slate-400" />
+          </button>
+
+          <h4 className="text-[10px] font-black uppercase tracking-wider text-slate-400 px-1 pt-3">
+            Resources
+          </h4>
+          {RESOURCE_LINKS.map((link) => (
+            <button
+              key={link.href}
+              type="button"
+              onClick={() => {
+                window.history.pushState({}, '', link.href);
+                window.dispatchEvent(new Event('popstate'));
+                onClose();
+              }}
+              className="w-full text-left rounded-xl px-3.5 py-2.5 text-xs font-bold transition-colors flex items-center justify-between text-slate-700 hover:bg-slate-50"
+            >
+              <span>{link.label}</span>
+              <ChevronRight className="w-4 h-4 text-slate-400" />
+            </button>
+          ))}
 
           {categories.map((cat) => (
             <button

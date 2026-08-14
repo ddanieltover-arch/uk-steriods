@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Product, ProductVariant, Review } from '../../types';
 import { X, ShieldCheck, Star, ShoppingBag, Truck, Lock, CheckCircle2, Heart } from 'lucide-react';
 import { StorageService } from '../../services/storage';
+import { CryptoPriceBadge } from '../commerce/CryptoPriceBadge';
 
 interface ProductQuickViewModalProps {
   product: Product | null;
@@ -158,6 +159,7 @@ export const ProductQuickViewModal: React.FC<ProductQuickViewModalProps> = ({
                   <span className="text-xs text-slate-400 line-through ml-2">£{product.priceGbp.toFixed(2)}</span>
                 )}
                 <p className="text-[10px] text-slate-400">Inclusive of VAT • GBP</p>
+                <CryptoPriceBadge pricePence={Math.round(priceToDisplay * 100)} className="mt-1.5" />
               </div>
 
               <div className="flex items-center gap-1.5">

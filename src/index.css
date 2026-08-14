@@ -20,12 +20,16 @@
   --color-border-default: #e2e8f0;
   --color-border-strong: #cbd5e1;
 
-  --color-primary: #0d9488;
-  --color-primary-hover: #0f766e;
-  --color-primary-light: #f0fdf4;
+  --color-primary: #157a62;
+  --color-primary-hover: #0f5c4a;
+  --color-primary-light: #e8f6f1;
   --color-primary-fg: #ffffff;
 
-  --color-secondary: #0f172a;
+  --color-brand-forest: #003d30;
+  --color-brand-emerald: #157a62;
+  --color-brand-mint: #aedac2;
+  --color-accent: #aedac2;
+  --color-secondary: #003d30;
   --color-secondary-hover: #1e293b;
   --color-secondary-fg: #ffffff;
 
@@ -104,11 +108,55 @@
   animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+@keyframes socialProofProgress {
+  from { width: 100%; }
+  to { width: 0%; }
+}
+
+.social-proof-progress {
+  animation: socialProofProgress 8s linear forwards;
+}
+
+html.dark {
+  color-scheme: dark;
+  background: #041512;
+}
+
+.brand-header-bg {
+  background: linear-gradient(90deg, #003d30 0%, #157a62 100%);
+}
+
+.glass-box {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(6px);
+}
+
+.brand-logo-bg {
+  background: linear-gradient(180deg, #157a62 0%, #0b5c4a 45%, #003d30 100%);
+  box-shadow: 0 8px 18px rgba(0, 10, 8, 0.55), 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes promoTicker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-33.333%); }
+}
+
+.promo-ticker {
+  animation: promoTicker 32s linear infinite;
+  width: max-content;
+  will-change: transform;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .promo-ticker {
+    animation: promoTicker 32s linear infinite !important;
   }
 }
