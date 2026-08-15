@@ -1,7 +1,7 @@
 import { apiFetch } from '../../lib/api/client';
 import React, { useState, useEffect } from 'react';
 import { User } from '../../types';
-import { MapPin, Plus, Trash2, Edit, CheckCircle2, AlertCircle, X, ChevronRight } from 'lucide-react';
+import { CountrySelectOptions } from '../forms/CountrySelectOptions';
 
 interface SavedAddressesPageProps {
   currentUser: User | null;
@@ -27,7 +27,7 @@ export const SavedAddressesPage: React.FC<SavedAddressesPageProps> = ({
   const [city, setCity] = useState('');
   const [county, setCounty] = useState('');
   const [postcode, setPostcode] = useState('');
-  const [country, setCountry] = useState('UK');
+  const [country, setCountry] = useState('GB');
   const [isDefault, setIsDefault] = useState(false);
   const [formSaving, setFormSaving] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
@@ -66,7 +66,7 @@ export const SavedAddressesPage: React.FC<SavedAddressesPageProps> = ({
     setCity('');
     setCounty('');
     setPostcode('');
-    setCountry('UK');
+    setCountry('GB');
     setIsDefault(addresses.length === 0);
     setFormError(null);
     setIsModalOpen(true);
@@ -80,7 +80,7 @@ export const SavedAddressesPage: React.FC<SavedAddressesPageProps> = ({
     setCity(addr.city || '');
     setCounty(addr.county || '');
     setPostcode(addr.postcode || '');
-    setCountry(addr.country || 'UK');
+    setCountry(addr.country || 'GB');
     setIsDefault(addr.isDefault || false);
     setFormError(null);
     setIsModalOpen(true);
@@ -368,12 +368,13 @@ export const SavedAddressesPage: React.FC<SavedAddressesPageProps> = ({
                   </div>
                   <div>
                     <label className="text-[10px] font-bold text-slate-500 uppercase block mb-1">Country</label>
-                    <input
-                      type="text"
-                      disabled
-                      value="UK"
-                      className="w-full bg-slate-100 border border-slate-200 rounded-xl p-3 text-slate-600 font-bold"
-                    />
+                    <select
+                      value={country}
+                      onChange={(e) => setCountry(e.target.value)}
+                      className="w-full border border-slate-200 rounded-xl p-3 focus:ring-2 focus:ring-teal-500 outline-none text-slate-900 font-medium bg-white"
+                    >
+                      <CountrySelectOptions />
+                    </select>
                   </div>
                 </div>
 

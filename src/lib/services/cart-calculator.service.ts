@@ -196,10 +196,11 @@ export class CartCalculatorService {
 
     // 4. Shipping Calculation via ShippingService
     const country = input.country || 'GB';
-    const rates = ShippingService.getShippingMethods(country, subtotalPence);
-    const requestedRateId = input.shippingRateId || 'standard-delivery';
-    const selectedShippingRate =
-      rates.find((r) => r.id === requestedRateId) || rates[0];
+    const selectedShippingRate = ShippingService.resolveRate(
+      country,
+      input.shippingRateId,
+      subtotalPence
+    );
 
     const shippingPence = subtotalPence > 0 && selectedShippingRate ? selectedShippingRate.pricePence : 0;
 

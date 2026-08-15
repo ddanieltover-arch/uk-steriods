@@ -15,7 +15,7 @@ const faqs = [
   },
   {
     q: 'How does the crypto discount work?',
-    a: 'Pay in crypto and enter code CRYPTO5 at checkout for 5% off plus one free product worth up to £25, on top of any automatic crypto discount shown on the product.',
+    a: 'Choose crypto at checkout and 5% is taken off the merchandise total automatically. No promo code is required.',
   },
   {
     q: 'What happens after I send a bank transfer?',
@@ -77,7 +77,7 @@ export const PaymentMethodsPage: React.FC<PaymentMethodsPageProps> = ({ onNaviga
               on ours.
             </p>
             <ul className="flex flex-wrap gap-2 mt-5 text-[11px] font-extrabold">
-              <li className="bg-white/10 rounded-full px-3 py-1">Extra 5% off with code CRYPTO5</li>
+              <li className="bg-white/10 rounded-full px-3 py-1">Automatic 5% off</li>
               <li className="bg-white/10 rounded-full px-3 py-1">FREE product up to £25</li>
               <li className="bg-white/10 rounded-full px-3 py-1">Instant confirmation</li>
             </ul>

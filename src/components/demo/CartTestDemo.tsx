@@ -64,7 +64,7 @@ export const CartTestDemo: React.FC = () => {
             <div>
               <h1 className="text-2xl font-black text-slate-900">CartDrawer & Threshold Engine Test</h1>
               <p className="text-xs text-slate-600 mt-1">
-                Interactive drawer test simulating UK Royal Mail free shipping threshold calculations (£100 limit).
+                Interactive drawer test simulating UK Royal Mail free shipping threshold calculations (£300 limit).
               </p>
             </div>
 
@@ -92,13 +92,13 @@ export const CartTestDemo: React.FC = () => {
             <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2">
               <span className="font-extrabold text-slate-900">Free UK Shipping Eligibility</span>
               <p className="text-sm font-bold text-slate-800">
-                {items.reduce((sum, i) => sum + i.unitPricePence * i.quantity, 0) >= 10000 ? (
-                  <span className="text-emerald-700 font-black">Qualifies for FREE Tracked 24 Shipping!</span>
+                {items.reduce((sum, i) => sum + i.unitPricePence * i.quantity, 0) >= 30000 ? (
+                  <span className="text-emerald-700 font-black">Qualifies for FREE UK Tracked 48 Shipping!</span>
                 ) : (
                   <span>
                     Need £
                     {(
-                      (10000 - items.reduce((sum, i) => sum + i.unitPricePence * i.quantity, 0)) /
+                      (30000 - items.reduce((sum, i) => sum + i.unitPricePence * i.quantity, 0)) /
                       100
                     ).toFixed(2)}{' '}
                     more.

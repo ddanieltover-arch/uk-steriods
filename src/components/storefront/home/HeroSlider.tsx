@@ -259,12 +259,13 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ onNavigate }) => {
   }, []);
 
   const length = narrow ? HERO_CARDS.length : HERO_SLIDE_PAIRS.length;
+  const fadeMs = 5 * 1000;
 
   useEffect(() => {
     if (paused || length < 2) return;
     const id = window.setInterval(() => {
       setIndex((i) => (i + 1) % length);
-    }, 6000);
+    }, fadeMs);
     return () => window.clearInterval(id);
   }, [paused, length]);
 
@@ -293,31 +294,35 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ onNavigate }) => {
       aria-label="Featured promotions"
     >
       <div className="mx-auto max-w-7xl">
-        <div className="relative overflow-hidden">
-          {narrow ? (
-            <div
-              className="flex transition-transform duration-500 ease-out"
-              style={{ transform: `translateX(-${index * 100}%)` }}
-            >
-              {HERO_CARDS.map((card) => (
-                <div key={card.id} className="w-full shrink-0 px-1">
+        <div className="relative">
+          {narrow
+            ? HERO_CARDS.map((card, i) => (
+                <div
+                  key={card.id}
+                  className={`px-1 transition-opacity duration-700 ease-in-out ${
+                    i === index
+                      ? 'relative z-10 opacity-100'
+                      : 'pointer-events-none absolute inset-0 z-0 opacity-0'
+                  }`}
+                  aria-hidden={i !== index}
+                >
                   <HeroCard card={card} onNavigate={onNavigate} />
                 </div>
-              ))}
-            </div>
-          ) : (
-            <div
-              className="flex transition-transform duration-500 ease-out"
-              style={{ transform: `translateX(-${index * 100}%)` }}
-            >
-              {HERO_SLIDE_PAIRS.map((pair) => (
-                <div key={pair[0].id} className="grid w-full shrink-0 grid-cols-2 gap-4 px-1">
+              ))
+            : HERO_SLIDE_PAIRS.map((pair, i) => (
+                <div
+                  key={pair[0].id}
+                  className={`grid grid-cols-2 gap-4 px-1 transition-opacity duration-700 ease-in-out ${
+                    i === index
+                      ? 'relative z-10 opacity-100'
+                      : 'pointer-events-none absolute inset-0 z-0 opacity-0'
+                  }`}
+                  aria-hidden={i !== index}
+                >
                   <HeroCard card={pair[0]} onNavigate={onNavigate} />
                   <HeroCard card={pair[1]} onNavigate={onNavigate} />
                 </div>
               ))}
-            </div>
-          )}
         </div>
 
         <div className="mt-4 flex justify-center gap-2">

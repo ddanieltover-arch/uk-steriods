@@ -7,7 +7,7 @@ export class AdminStoreSettingsService {
       storeName: 'Steroids UK',
       supportEmail: 'sales@uk-steroids.co.uk',
       currency: 'GBP',
-      freeShippingThresholdPence: '10000',
+      freeShippingThresholdPence: '30000',
       maintenanceMode: 'false',
     };
 

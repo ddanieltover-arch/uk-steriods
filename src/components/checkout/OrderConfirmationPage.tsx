@@ -103,6 +103,7 @@ export const OrderConfirmationPage: React.FC<OrderConfirmationPageProps> = ({
   const shippingAddr = order.shippingAddressSnapshot || {};
   const paymentRecord = order.payments && order.payments.length > 0 ? order.payments[0] : null;
   const paymentInstructions = paymentRecord?.instructions || {};
+  const isCrypto = String(order.paymentMethod) === 'CRYPTO';
 
   return (
     <div className="bg-slate-50 min-h-screen py-10">
@@ -126,7 +127,7 @@ export const OrderConfirmationPage: React.FC<OrderConfirmationPageProps> = ({
             </div>
             <p className="text-xs text-slate-600 max-w-lg mx-auto leading-relaxed">
               We have sent a confirmation details message to <span className="font-bold text-slate-900">{order.guestEmail}</span>.
-              Please complete your bank transfer payment below to dispatch your items.
+              Please complete your {isCrypto ? 'crypto' : 'bank transfer'} payment below to dispatch your items.
             </p>
           </div>
 
@@ -138,8 +139,12 @@ export const OrderConfirmationPage: React.FC<OrderConfirmationPageProps> = ({
                   <Building2 className="w-5 h-5" />
                 </div>
                 <div>
-                  <h2 className="text-base font-black text-white">Bank Transfer Details</h2>
-                  <p className="text-[11px] text-teal-200">Faster Payments / Online Banking</p>
+                  <h2 className="text-base font-black text-white">
+                    {isCrypto ? 'Crypto Payment Details' : 'Bank Transfer Details'}
+                  </h2>
+                  <p className="text-[11px] text-teal-200">
+                    {isCrypto ? 'Bitcoin / USDT' : 'Faster Payments / Online Banking'}
+                  </p>
                 </div>
               </div>
               <span className="text-[10px] font-black uppercase tracking-wider bg-amber-400 text-slate-950 px-3 py-1 rounded-full">
@@ -148,6 +153,25 @@ export const OrderConfirmationPage: React.FC<OrderConfirmationPageProps> = ({
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+              {isCrypto ? (
+                <>
+                  <div className="bg-white/5 border border-white/10 p-4 rounded-2xl space-y-1 sm:col-span-2">
+                    <span className="text-[10px] text-teal-300 uppercase tracking-wider block font-bold">Wallet / network</span>
+                    <span className="font-bold text-white text-sm block break-all">
+                      {paymentInstructions.accountName || paymentInstructions.note || 'Wallet details emailed after order'}
+                    </span>
+                  </div>
+                  <div className="bg-white/5 border border-white/10 p-4 rounded-2xl space-y-1">
+                    <span className="text-[10px] text-teal-300 uppercase tracking-wider block font-bold">Method</span>
+                    <span className="font-bold text-white text-sm block">{paymentInstructions.bankName || 'Bitcoin / USDT'}</span>
+                  </div>
+                  <div className="bg-white/5 border border-white/10 p-4 rounded-2xl space-y-1">
+                    <span className="text-[10px] text-teal-300 uppercase tracking-wider block font-bold">Amount due</span>
+                    <span className="font-mono font-black text-white text-base tracking-wider block">{formatGbp(order.totalPence)}</span>
+                  </div>
+                </>
+              ) : (
+                <>
               <div className="bg-white/5 border border-white/10 p-4 rounded-2xl space-y-1">
                 <span className="text-[10px] text-teal-300 uppercase tracking-wider block font-bold">Account Beneficiary</span>
                 <span className="font-bold text-white text-sm block">{paymentInstructions.beneficiary || 'UK PERFORMANCE LTD'}</span>
@@ -167,6 +191,8 @@ export const OrderConfirmationPage: React.FC<OrderConfirmationPageProps> = ({
                 <span className="text-[10px] text-teal-300 uppercase tracking-wider block font-bold">Account Number</span>
                 <span className="font-mono font-black text-white text-base tracking-wider block">{paymentInstructions.accountNumber || '83920145'}</span>
               </div>
+                </>
+              )}
             </div>
 
             {/* Crucial Reference Box */}

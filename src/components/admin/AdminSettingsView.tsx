@@ -12,7 +12,7 @@ export const AdminSettingsView: React.FC<AdminSettingsViewProps> = ({ currentUse
     storeName: 'Steroids UK',
     supportEmail: 'sales@uk-steroids.co.uk',
     currency: 'GBP',
-    freeShippingThresholdPence: '10000',
+    freeShippingThresholdPence: '30000',
     maintenanceMode: 'false',
   });
 
@@ -140,7 +140,7 @@ export const AdminSettingsView: React.FC<AdminSettingsViewProps> = ({ currentUse
               type="number"
               step="0.01"
               disabled={currentUser?.role === 'STAFF'}
-              value={(parseInt(settings.freeShippingThresholdPence || '10000', 10) / 100).toFixed(2)}
+              value={(parseInt(settings.freeShippingThresholdPence || '30000', 10) / 100).toFixed(2)}
               onChange={(e) =>
                 setSettings({
                   ...settings,

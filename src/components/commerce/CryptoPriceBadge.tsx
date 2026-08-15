@@ -2,17 +2,15 @@ import React from 'react';
 import { Bitcoin } from 'lucide-react';
 import { formatGbp } from '../../types';
 import { cn } from '../../lib/utils';
+import { CRYPTO_DISCOUNT_RATE, cryptoPricePence } from '../../lib/commerce/crypto-discount';
 
 interface CryptoPriceBadgeProps {
   pricePence: number;
   className?: string;
 }
 
-export const CRYPTO_DISCOUNT = 0.05;
-
-export function cryptoPricePence(pricePence: number): number {
-  return Math.round(pricePence * (1 - CRYPTO_DISCOUNT));
-}
+export const CRYPTO_DISCOUNT = CRYPTO_DISCOUNT_RATE;
+export { cryptoPricePence };
 
 export const CryptoPriceBadge: React.FC<CryptoPriceBadgeProps> = ({ pricePence, className }) => {
   return (

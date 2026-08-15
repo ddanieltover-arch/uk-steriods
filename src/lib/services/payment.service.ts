@@ -1,5 +1,7 @@
 import { PaymentMethod, PaymentStatus } from '@prisma/client';
 
+export const BANK_TRANSFER_MIN_PENCE = 10000;
+
 export interface PaymentInstructions {
   method: PaymentMethod;
   referenceCode: string;
@@ -49,6 +51,38 @@ export class BankTransferProvider implements PaymentProvider {
   }
 }
 
+export class CryptoPaymentProvider implements PaymentProvider {
+  method: PaymentMethod = PaymentMethod.CRYPTO;
+
+  async generatePaymentInstructions(
+    orderId: string,
+    amountPence: number,
+    referenceCode: string
+  ): Promise<PaymentInstructions> {
+    const formattedTotal = `£${(amountPence / 100).toFixed(2)}`;
+    const wallet = process.env.CRYPTO_WALLET_BTC || '';
+
+    return {
+      method: PaymentMethod.CRYPTO,
+      referenceCode,
+      accountName: wallet || 'Wallet details emailed after order',
+      bankName: 'Bitcoin / USDT',
+      totalPence: amountPence,
+      formattedTotal,
+      note: wallet
+        ? `Send the GBP equivalent (${formattedTotal}) in BTC or USDT. Include payment reference '${referenceCode}'.`
+        : `Pay ${formattedTotal} in BTC or USDT. Use reference '${referenceCode}'. Wallet details will be confirmed by email.`,
+    };
+  }
+
+  async verifyPayment(referenceCode: string) {
+    return {
+      isVerified: false,
+      message: `Crypto payment reference ${referenceCode} requires manual administrator verification.`,
+    };
+  }
+}
+
 export class PaymentProviderRegistry {
   private static providers: Map<PaymentMethod, PaymentProvider> = new Map();
 
@@ -67,3 +101,4 @@ export class PaymentProviderRegistry {
 
 // Register default BankTransferProvider
 PaymentProviderRegistry.registerProvider(new BankTransferProvider());
+PaymentProviderRegistry.registerProvider(new CryptoPaymentProvider());

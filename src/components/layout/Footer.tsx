@@ -61,7 +61,7 @@ export const Footer: React.FC = () => {
               }}
             />
             <p className="text-slate-500 text-[11px] leading-relaxed">
-              UK dispatch, tracked delivery, lab-tested batches.
+              UK dispatch, tracked delivery. UK from £3.99, Europe £15, rest of world £25.
             </p>
           </div>
 

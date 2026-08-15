@@ -9,6 +9,7 @@ import { OrderNotificationService } from './order-notification.service';
 import { AuthService } from '../auth';
 import { OrderStatus, PaymentStatus, PaymentMethod } from '@prisma/client';
 import { AddressSnapshot } from '../validation';
+import { cryptoDiscountPence, isCryptoPaymentMethod } from '../commerce/crypto-discount';
 
 export interface CheckoutCalculationInput {
   items: Array<{
@@ -19,6 +20,7 @@ export interface CheckoutCalculationInput {
   shippingMethodId?: string;
   discountCode?: string;
   country?: string;
+  paymentMethod?: string;
 }
 
 export interface CheckoutCalculationResult {
@@ -36,6 +38,7 @@ export interface CheckoutCalculationResult {
   subtotalPence: number;
   discountCode?: string;
   discountPence: number;
+  cryptoDiscountPence: number;
   shippingMethodId: string;
   shippingName: string;
   shippingPence: number;
@@ -88,15 +91,20 @@ export class CheckoutService {
     });
 
     const subtotalPence = cartCalc.subtotalPence;
+    const promoDiscountPence = cartCalc.discountPence;
+    const merchandiseAfterPromo = Math.max(0, subtotalPence - promoDiscountPence);
+    const cryptoOffPence = isCryptoPaymentMethod(input.paymentMethod)
+      ? cryptoDiscountPence(merchandiseAfterPromo)
+      : 0;
+    const discountPence = promoDiscountPence + cryptoOffPence;
 
     // 2. Resolve server-side shipping cost
-    const shippingRates = ShippingService.getShippingMethods(country, subtotalPence);
-    const selectedRate = shippingRates.find((r) => r.id === shippingMethodId) || shippingRates[0];
-    const shippingPence = selectedRate ? selectedRate.pricePence : 399;
+    const selectedRate = ShippingService.resolveRate(country, shippingMethodId, subtotalPence);
+    const shippingPence = selectedRate.pricePence;
     const isFreeShipping = selectedRate ? selectedRate.isFree : false;
 
     // 3. Tax calculation
-    const taxableAmountPence = Math.max(0, subtotalPence - cartCalc.discountPence);
+    const taxableAmountPence = Math.max(0, subtotalPence - discountPence);
     const taxPence = TaxService.calculateTax(taxableAmountPence);
 
     // 4. Final total calculation
@@ -119,7 +127,8 @@ export class CheckoutService {
       items: itemSnapshots,
       subtotalPence,
       discountCode: cartCalc.appliedDiscountCode,
-      discountPence: cartCalc.discountPence,
+      discountPence,
+      cryptoDiscountPence: cryptoOffPence,
       shippingMethodId: selectedRate ? selectedRate.id : shippingMethodId,
       shippingName: selectedRate ? selectedRate.displayName : 'Standard Delivery',
       shippingPence,
@@ -292,20 +301,40 @@ export class CheckoutService {
         });
       }
 
-      // c. Calculate Discount
-      let discountPence = 0;
-      let appliedDiscountCode: string | null = null;
+      // c. Calculate Discount (promo codes + automatic 5% crypto)
+      let promoDiscountPence = 0;
 
       if (input.discountCode) {
         const discountRes = await DiscountService.validateAndCalculate(input.discountCode, subtotalPence);
         if (discountRes.isValid) {
-          discountPence = discountRes.discountPence;
-          appliedDiscountCode = discountRes.code;
+          promoDiscountPence = discountRes.discountPence;
         }
       }
 
+      const merchandiseAfterPromo = Math.max(0, subtotalPence - promoDiscountPence);
+
       // d. Calculate Shipping
       const shippingPence = ShippingService.getShippingCost(input.shippingMethodId, country, subtotalPence);
+
+      const taxableWithoutCrypto = merchandiseAfterPromo;
+      const taxWithoutCrypto = TaxService.calculateTax(taxableWithoutCrypto);
+      const totalWithoutCrypto = Math.max(
+        0,
+        taxableWithoutCrypto + shippingPence + (TaxService.getConfig().inclusive ? 0 : taxWithoutCrypto)
+      );
+
+      let resolvedPaymentMethod = paymentMethod;
+      if (totalWithoutCrypto < 10000) {
+        if (paymentMethod === PaymentMethod.BANK_TRANSFER) {
+          throw new Error('Bank transfer is available on orders of £100 or more. Please pay by crypto.');
+        }
+        resolvedPaymentMethod = PaymentMethod.CRYPTO;
+      }
+
+      const cryptoOffPence = isCryptoPaymentMethod(resolvedPaymentMethod)
+        ? cryptoDiscountPence(merchandiseAfterPromo)
+        : 0;
+      const discountPence = promoDiscountPence + cryptoOffPence;
 
       // e. Calculate Tax
       const taxableSubtotal = Math.max(0, subtotalPence - discountPence);
@@ -327,7 +356,7 @@ export class CheckoutService {
           guestEmail: input.email,
           status: OrderStatus.PENDING,
           paymentStatus: PaymentStatus.AWAITING_TRANSFER,
-          paymentMethod,
+          paymentMethod: resolvedPaymentMethod,
           subtotalPence,
           discountPence,
           shippingPence,
@@ -345,14 +374,14 @@ export class CheckoutService {
       });
 
       // i. Generate Payment & Instructions
-      const provider = PaymentProviderRegistry.getProvider(paymentMethod);
+      const provider = PaymentProviderRegistry.getProvider(resolvedPaymentMethod);
       const instructions = await provider.generatePaymentInstructions(createdOrder.id, totalPence, orderNumber);
 
       const createdPayment = await tx.payment.create({
         data: {
           orderId: createdOrder.id,
           amountPence: totalPence,
-          provider: paymentMethod,
+          provider: resolvedPaymentMethod,
           status: PaymentStatus.AWAITING_TRANSFER,
           referenceCode: orderNumber,
           instructions: instructions as object,
@@ -388,7 +417,7 @@ export class CheckoutService {
       shippingPence: transactionResult.order.shippingPence,
       taxPence: transactionResult.order.taxPence,
       discountPence: transactionResult.order.discountPence,
-      paymentMethod,
+      paymentMethod: String(transactionResult.order.paymentMethod),
       paymentStatus: String(transactionResult.order.paymentStatus),
       paymentInstructions: transactionResult.instructions,
       itemsCount: transactionResult.order.items.length,

@@ -13,7 +13,7 @@ import {
   GOAL_SLUGS,
   GUIDE_CARDS,
 } from '../../data/homepage';
-import { StockStatus } from '../../types';
+import { StockStatus } from '@prisma/client';
 import {
   ArrowRight,
   Truck,
@@ -266,7 +266,7 @@ export const Homepage: React.FC<HomepageProps> = ({
         <Container>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             <TrustTile icon={<Award className="w-6 h-6" />} title="UK catalogue" text="1,000+ listed products" />
-            <TrustTile icon={<Truck className="w-6 h-6" />} title="Next day" text="UK tracked delivery" />
+            <TrustTile icon={<Truck className="w-6 h-6" />} title="Tracked shipping" text="UK £3.99 · EU £15 · World £25" />
             <TrustTile icon={<FlaskConical className="w-6 h-6" />} title="Lab tested" text="Batch verification" />
             <TrustTile icon={<ShieldCheck className="w-6 h-6" />} title="Secure pay" text="Bank transfer & crypto" />
           </div>

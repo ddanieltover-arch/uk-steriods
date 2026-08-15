@@ -10,8 +10,12 @@ interface DeliveryReturnsPageProps {
 
 const SHIPPING = [
   {
-    q: 'Do you ship worldwide?',
-    a: 'No, we ship exclusively within the United Kingdom. We operate UK-domestic only from our UK warehouses, so your package never passes through customs and never gets stuck at the border.',
+    q: 'Where do you ship?',
+    a: 'We ship from the UK to the United Kingdom, the rest of Europe, and worldwide.',
+  },
+  {
+    q: 'How much is shipping?',
+    a: 'United Kingdom: Royal Mail Tracked 48 is £3.99 (free on UK orders of £300 or more) and Royal Mail Special Delivery 24 is £6.99. Europe: £15.00 tracked. Rest of world: £25.00 tracked.',
   },
   {
     q: 'Is the packaging discreet?',
@@ -19,15 +23,15 @@ const SHIPPING = [
   },
   {
     q: 'How long does delivery take?',
-    a: 'Most UK orders arrive within 1–2 working days via Royal Mail Tracked 24, our single tracked and signed-for service. Orders paid before 12:00 (noon) on a working day are dispatched the same day. Delivery times are estimates, not guarantees.',
+    a: 'UK Tracked 48 typically arrives in 2–3 working days. UK Special Delivery 24 is 1–2 working days. Europe is typically 4–8 working days. Rest of world is typically 7–14 working days. Times are estimates, not guarantees.',
   },
   {
     q: 'Will I get a tracking number?',
-    a: 'Yes. We send tracking details via email the moment your order is dispatched. You can follow the parcel from our UK warehouse to your doorstep on the Royal Mail website.',
+    a: 'Yes. We send tracking details via email the moment your order is dispatched.',
   },
   {
     q: "What if my order doesn't arrive?",
-    a: "We guarantee delivery. If your package is lost in transit or undeliverable, we'll reship it at no extra cost or refund you in full. Lost parcels are our problem, not yours.",
+    a: "If your package is lost in transit or undeliverable, we'll reship it at no extra cost or refund you in full.",
   },
 ];
 
@@ -51,13 +55,13 @@ export const DeliveryReturnsPage: React.FC<DeliveryReturnsPageProps> = ({ onNavi
     <>
       <SeoHead
         title={`Delivery & Returns | ${SITE_NAME}`}
-        description="UK-only Royal Mail Tracked 24 delivery, discreet packaging, reship guarantee, and returns policy."
+        description="UK, Europe and worldwide tracked delivery from our UK warehouse, discreet packaging, and returns policy."
         canonical={`${window.location.origin}/delivery-and-returns`}
       />
       <ResourcePageShell
         kicker="Help"
         title="Delivery & Returns"
-        intro="UK warehouse dispatch only. Plain packaging, tracked delivery, and a reship if the parcel does not arrive."
+        intro="Tracked dispatch from the UK. UK from £3.99, Europe £15, rest of world £25."
         currentPath="/delivery-and-returns"
         onNavigate={onNavigate}
       >
@@ -94,8 +98,7 @@ export const DeliveryReturnsPage: React.FC<DeliveryReturnsPageProps> = ({ onNavi
         </section>
 
         <p className="text-sm text-slate-500">
-          Free next-day UK delivery on qualifying orders uses code <span className="font-black text-slate-800">DELIVERY5</span>{' '}
-          where advertised. See checkout for the current threshold.
+          Free UK Tracked 48 delivery applies automatically on UK orders of £300 or more. Europe and international shipping are not eligible.
         </p>
       </ResourcePageShell>
     </>

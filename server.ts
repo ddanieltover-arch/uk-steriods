@@ -572,7 +572,7 @@ async function startServer() {
       const provider = new FlatRateShippingProvider();
       const subtotalPence = parseInt(req.query.subtotalPence as string, 10) || 0;
       const rates = await provider.getRates("UK", subtotalPence);
-      res.json({ rates, freeShippingThresholdPence: 10000 });
+      res.json({ rates, freeShippingThresholdPence: 30000 });
     } catch (err: any) {
       console.error("Shipping rates error:", err);
       res.status(500).json({ error: "Failed to retrieve shipping rates." });

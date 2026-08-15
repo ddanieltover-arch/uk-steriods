@@ -4,6 +4,7 @@ import { AddressSnapshot } from '../validation';
 import { InventoryService } from './inventory.service';
 import { PaymentProviderRegistry } from './payment.service';
 import { DiscountService } from './discount.service';
+import { cryptoDiscountPence, isCryptoPaymentMethod } from '../commerce/crypto-discount';
 import { OrderStatus, PaymentStatus, PaymentMethod } from '@prisma/client';
 
 export interface CreateOrderInput {
@@ -83,8 +84,13 @@ export class OrderService {
       }
     }
 
+    const paymentMethod = input.paymentMethod || PaymentMethod.BANK_TRANSFER;
+    if (isCryptoPaymentMethod(paymentMethod)) {
+      discountPence += cryptoDiscountPence(Math.max(0, subtotalPence - discountPence));
+    }
+
     // 3. Shipping cost
-    const shippingPence = input.shippingPence !== undefined ? input.shippingPence : (subtotalPence >= 10000 ? 0 : 399);
+    const shippingPence = input.shippingPence !== undefined ? input.shippingPence : (subtotalPence >= 30000 ? 0 : 399);
 
     // 4. Calculate final total pence
     const totalPence = Math.max(0, subtotalPence - discountPence + shippingPence);
@@ -92,7 +98,6 @@ export class OrderService {
     // 5. Generate unique keys
     const orderNumber = this.generateOrderNumber();
     const trackingToken = AuthService.generateSecureToken('track');
-    const paymentMethod = input.paymentMethod || PaymentMethod.BANK_TRANSFER;
 
     // 6. Create Order and OrderItems in database transaction
     const order = await db.$transaction(async (tx) => {

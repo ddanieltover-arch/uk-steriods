@@ -1,4 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { CountrySelectOptions } from '../forms/CountrySelectOptions';
+import {
+  SHIP_COUNTRY_STORAGE_KEY,
+  SHIP_RATE_STORAGE_KEY,
+  ShippingService,
+} from '../../lib/services/shipping.service';
+import { cryptoDiscountPence, isCryptoPaymentMethod } from '../../lib/commerce/crypto-discount';
 import { apiFetch } from '../../lib/api/client';
 import { CartItem, User as UserType } from '../../types';
 import { Container } from '../layout/Container';
@@ -9,6 +16,7 @@ import {
   ArrowLeft,
   ArrowRight,
   CheckCircle2,
+  Bitcoin,
   Building2,
   AlertCircle,
   Copy,
@@ -49,6 +57,7 @@ interface CheckoutCalculationResult {
   subtotalPence: number;
   discountCode?: string;
   discountPence: number;
+  cryptoDiscountPence: number;
   shippingMethodId: string;
   shippingName: string;
   shippingPence: number;
@@ -89,13 +98,15 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({
   const [city, setCity] = useState('');
   const [county, setCounty] = useState('');
   const [postcode, setPostcode] = useState('');
-  const [country, setCountry] = useState('GB');
+  const [country, setCountry] = useState(() => {
+    if (typeof window === 'undefined') return 'GB';
+    return sessionStorage.getItem(SHIP_COUNTRY_STORAGE_KEY) || 'GB';
+  });
 
-  // Shipping & Discount
-  const [shippingMethods, setShippingMethods] = useState<ShippingMethod[]>([]);
   const [selectedShippingId, setSelectedShippingId] = useState<string>('standard-delivery');
   const [discountCode, setDiscountCode] = useState('');
   const [appliedDiscountCode, setAppliedDiscountCode] = useState('');
+  const [paymentMethod, setPaymentMethod] = useState<'BANK_TRANSFER' | 'CRYPTO'>('CRYPTO');
 
   // Authoritative server calculation state
   const [calculation, setCalculation] = useState<CheckoutCalculationResult | null>(null);
@@ -106,6 +117,16 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({
   // Idempotency token generated once per session
   const [idempotencyKey] = useState(() => 'idemp_' + Math.random().toString(36).substring(2, 11) + Date.now().toString(36));
 
+  const cartSubtotalPence = cartItems.reduce((sum, item) => {
+    const p = item.selectedVariant?.priceGbp || item.product.salePriceGbp || item.product.priceGbp;
+    return sum + Math.round(p * 100) * item.quantity;
+  }, 0);
+
+  const shippingMethods = useMemo(
+    () => ShippingService.getShippingMethods(country, cartSubtotalPence),
+    [country, cartSubtotalPence]
+  );
+
   // Redirect to cart if empty
   useEffect(() => {
     if (cartItems.length === 0) {
@@ -113,29 +134,13 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({
     }
   }, [cartItems, onNavigate]);
 
-  // Load Shipping Methods on mount
   useEffect(() => {
-    const fetchShipping = async () => {
-      try {
-        const rawSubtotal = cartItems.reduce((sum, item) => {
-          const p = item.selectedVariant?.priceGbp || item.product.salePriceGbp || item.product.priceGbp;
-          return sum + Math.round(p * 100) * item.quantity;
-        }, 0);
-
-        const res = await fetch(`/api/v1/checkout/shipping-methods?country=${country}&subtotalPence=${rawSubtotal}`);
-        if (res.ok) {
-          const data = await res.json();
-          setShippingMethods(data.shippingMethods || []);
-          if (data.shippingMethods && data.shippingMethods.length > 0) {
-            setSelectedShippingId(data.shippingMethods[0].id);
-          }
-        }
-      } catch (err) {
-        console.error('Error fetching shipping methods:', err);
-      }
-    };
-    fetchShipping();
-  }, [country, cartItems]);
+    const valid = shippingMethods.find((m) => m.id === selectedShippingId) || shippingMethods[0];
+    if (valid && valid.id !== selectedShippingId) {
+      setSelectedShippingId(valid.id);
+      sessionStorage.setItem(SHIP_RATE_STORAGE_KEY, valid.id);
+    }
+  }, [shippingMethods, selectedShippingId]);
 
   // Recalculate totals whenever items, shipping method, or discount changes
   useEffect(() => {
@@ -155,9 +160,10 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             items: itemsPayload,
-            shippingMethodId: selectedShippingId,
+            shippingMethodId: ShippingService.resolveRate(country, selectedShippingId, cartSubtotalPence).id,
             discountCode: appliedDiscountCode || undefined,
             country,
+            paymentMethod,
           }),
         });
 
@@ -173,10 +179,31 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({
     };
 
     calculateTotals();
-  }, [cartItems, selectedShippingId, appliedDiscountCode, country]);
+  }, [cartItems, selectedShippingId, appliedDiscountCode, country, paymentMethod]);
 
-  // Format integer pence into £ string
   const formatGbp = (pence: number) => `£${(pence / 100).toFixed(2)}`;
+  const localShipping = ShippingService.resolveRate(country, selectedShippingId, cartSubtotalPence);
+  const displayShippingPence = localShipping.pricePence;
+  const displayShippingName = localShipping.displayName;
+  const displayIsFreeShipping = localShipping.isFree;
+  const displaySubtotalPence = calculation?.subtotalPence || cartSubtotalPence;
+  const apiCryptoOff = calculation?.cryptoDiscountPence ?? 0;
+  const promoDiscountPence = Math.max(0, (calculation?.discountPence ?? 0) - apiCryptoOff);
+  const cryptoOffPence = isCryptoPaymentMethod(paymentMethod)
+    ? cryptoDiscountPence(Math.max(0, displaySubtotalPence - promoDiscountPence))
+    : 0;
+  const orderTotalPence = Math.max(
+    0,
+    displaySubtotalPence - promoDiscountPence - cryptoOffPence + displayShippingPence + (calculation?.taxPence ?? 0)
+  );
+  const bankTransferAllowed =
+    displaySubtotalPence - promoDiscountPence + displayShippingPence + (calculation?.taxPence ?? 0) >= 10000;
+
+  useEffect(() => {
+    if (!bankTransferAllowed && paymentMethod === 'BANK_TRANSFER') {
+      setPaymentMethod('CRYPTO');
+    }
+  }, [bankTransferAllowed, paymentMethod]);
 
   // Step 1 Validation: Contact Info
   const validateStep1 = () => {
@@ -292,8 +319,8 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({
           phone: phone.trim() || undefined,
           email: email.trim(),
         },
-        shippingMethodId: selectedShippingId,
-        paymentMethod: 'BANK_TRANSFER',
+        shippingMethodId: localShipping.id,
+        paymentMethod,
         discountCode: appliedDiscountCode || undefined,
         idempotencyKey,
       };
@@ -605,11 +632,19 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({
                       </label>
                       <select
                         value={country}
-                        onChange={(e) => setCountry(e.target.value)}
+                        onChange={(e) => {
+                          const next = e.target.value;
+                          setCountry(next);
+                          sessionStorage.setItem(SHIP_COUNTRY_STORAGE_KEY, next);
+                          const methods = ShippingService.getShippingMethods(next, cartSubtotalPence);
+                          if (methods[0]) {
+                            setSelectedShippingId(methods[0].id);
+                            sessionStorage.setItem(SHIP_RATE_STORAGE_KEY, methods[0].id);
+                          }
+                        }}
                         className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs font-medium text-slate-900 focus:outline-hidden focus:border-teal-600 focus:bg-white transition-all cursor-pointer"
                       >
-                        <option value="GB">United Kingdom (GB)</option>
-                        <option value="IE">Ireland (IE)</option>
+                        <CountrySelectOptions />
                       </select>
                     </div>
                   </div>
@@ -622,7 +657,7 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({
                   <div className="border-b border-slate-100 pb-4">
                     <h2 className="text-lg font-black text-slate-900">Step 3: Delivery Method</h2>
                     <p className="text-xs text-slate-500 mt-0.5">
-                      Select your preferred delivery service for this order.
+                      UK Tracked 48 is £3.99, free only on UK orders of £300 or more. Europe £15.00 · Rest of world £25.00.
                     </p>
                   </div>
 
@@ -643,7 +678,10 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({
                               type="radio"
                               name="shippingMethod"
                               checked={isSelected}
-                              onChange={() => setSelectedShippingId(m.id)}
+                              onChange={() => {
+                                setSelectedShippingId(m.id);
+                                sessionStorage.setItem(SHIP_RATE_STORAGE_KEY, m.id);
+                              }}
                               className="text-teal-600 focus:ring-teal-500 h-4 w-4"
                             />
                             <div>
@@ -679,37 +717,80 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({
                   </div>
 
                   <div className="space-y-4">
-                    {/* Active Option: UK Bank Transfer */}
-                    <div className="p-5 rounded-2xl border-2 border-teal-600 bg-teal-50/40 space-y-4">
+                    {bankTransferAllowed ? (
+                      <button
+                        type="button"
+                        onClick={() => setPaymentMethod('BANK_TRANSFER')}
+                        className={`w-full text-left p-5 rounded-2xl border-2 space-y-4 cursor-pointer ${
+                          paymentMethod === 'BANK_TRANSFER'
+                            ? 'border-teal-600 bg-teal-50/40'
+                            : 'border-slate-200 bg-white'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <input
+                              type="radio"
+                              name="paymentMethod"
+                              checked={paymentMethod === 'BANK_TRANSFER'}
+                              onChange={() => setPaymentMethod('BANK_TRANSFER')}
+                              className="text-teal-600 focus:ring-teal-500 h-4 w-4"
+                            />
+                            <div className="flex items-center gap-2">
+                              <Building2 className="w-4 h-4 text-teal-700" />
+                              <span className="font-extrabold text-xs text-slate-900">UK Bank Faster Payments Transfer</span>
+                            </div>
+                          </div>
+                          <span className="text-[10px] font-bold text-teal-800 bg-teal-100 px-2 py-0.5 rounded-md">
+                            Orders £100+
+                          </span>
+                        </div>
+                        <div className="bg-white p-4 rounded-xl border border-teal-200 text-xs text-slate-600 leading-relaxed space-y-2">
+                          <p className="font-semibold text-slate-800">How Bank Transfer Payment Works:</p>
+                          <ul className="list-disc list-inside space-y-1 text-[11px]">
+                            <li>Once you place your order, you will receive our company bank details and a unique payment reference.</li>
+                            <li>Transfer the exact total using your online banking app or website.</li>
+                            <li>Your order dispatches immediately upon payment confirmation.</li>
+                          </ul>
+                        </div>
+                      </button>
+                    ) : (
+                      <p className="text-xs text-slate-500 bg-slate-50 border border-slate-200 rounded-xl p-3">
+                        Bank transfer is available on orders of £100 or more. This order is {formatGbp(orderTotalPence)}, so crypto is the payment option.
+                      </p>
+                    )}
+
+                    <button
+                      type="button"
+                      onClick={() => setPaymentMethod('CRYPTO')}
+                      className={`w-full text-left p-5 rounded-2xl border-2 space-y-3 cursor-pointer ${
+                        paymentMethod === 'CRYPTO'
+                          ? 'border-teal-600 bg-teal-50/40'
+                          : 'border-slate-200 bg-white'
+                      }`}
+                    >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                           <input
                             type="radio"
-                            checked
-                            readOnly
+                            name="paymentMethod"
+                            checked={paymentMethod === 'CRYPTO'}
+                            onChange={() => setPaymentMethod('CRYPTO')}
                             className="text-teal-600 focus:ring-teal-500 h-4 w-4"
                           />
                           <div className="flex items-center gap-2">
-                            <Building2 className="w-4 h-4 text-teal-700" />
-                            <span className="font-extrabold text-xs text-slate-900">UK Bank Faster Payments Transfer</span>
+                            <Bitcoin className="w-4 h-4 text-teal-700" />
+                            <span className="font-extrabold text-xs text-slate-900">Crypto (BTC / USDT)</span>
                           </div>
                         </div>
                         <span className="text-[10px] font-bold text-teal-800 bg-teal-100 px-2 py-0.5 rounded-md">
-                          Zero Fee
+                          5% off
                         </span>
                       </div>
-
-                      <div className="bg-white p-4 rounded-xl border border-teal-200 text-xs text-slate-600 leading-relaxed space-y-2">
-                        <p className="font-semibold text-slate-800">
-                          How Bank Transfer Payment Works:
-                        </p>
-                        <ul className="list-disc list-inside space-y-1 text-[11px]">
-                          <li>Once you place your order, you will receive our company bank details and a unique payment reference.</li>
-                          <li>Transfer the exact total using your online banking app or website.</li>
-                          <li>Your order dispatches immediately upon payment confirmation.</li>
-                        </ul>
-                      </div>
-                    </div>
+                      <p className="text-[11px] text-slate-600 leading-relaxed">
+                        5% is taken off automatically when you pay by crypto. Wallet details and the amount due are shown after you place the order.
+                      </p>
+                    </button>
                   </div>
                 </div>
               )}
@@ -759,6 +840,22 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({
                         {line2 ? `, ${line2}` : ''}, {city}, {postcode}
                       </p>
                     </div>
+                  </div>
+
+                  <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 text-xs">
+                    <div className="flex items-center justify-between">
+                      <span className="font-bold text-slate-500 uppercase tracking-wider text-[10px]">Payment</span>
+                      <button
+                        type="button"
+                        onClick={() => setCurrentStep(4)}
+                        className="text-teal-600 font-bold hover:underline cursor-pointer"
+                      >
+                        Edit
+                      </button>
+                    </div>
+                    <p className="font-bold text-slate-900 mt-2">
+                      {paymentMethod === 'CRYPTO' ? 'Crypto (BTC / USDT)' : 'UK Bank Faster Payments'}
+                    </p>
                   </div>
 
                   {/* Items List Preview */}
@@ -910,21 +1007,28 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({
                 <div className="flex justify-between text-slate-600">
                   <span>Subtotal</span>
                   <span className="font-mono font-bold text-slate-900">
-                    {formatGbp(calculation?.subtotalPence || 0)}
+                    {formatGbp(displaySubtotalPence)}
                   </span>
                 </div>
 
-                {calculation && calculation.discountPence > 0 && (
+                {promoDiscountPence > 0 && (
                   <div className="flex justify-between text-emerald-700 font-bold">
-                    <span>Discount ({calculation.discountCode})</span>
-                    <span className="font-mono">-{formatGbp(calculation.discountPence)}</span>
+                    <span>Discount ({calculation?.discountCode})</span>
+                    <span className="font-mono">-{formatGbp(promoDiscountPence)}</span>
+                  </div>
+                )}
+
+                {cryptoOffPence > 0 && (
+                  <div className="flex justify-between text-emerald-700 font-bold">
+                    <span>Crypto payment (5% off)</span>
+                    <span className="font-mono">-{formatGbp(cryptoOffPence)}</span>
                   </div>
                 )}
 
                 <div className="flex justify-between text-slate-600">
-                  <span>Delivery ({calculation?.shippingName || 'Standard'})</span>
+                  <span>Delivery ({displayShippingName})</span>
                   <span className="font-mono font-bold text-slate-900">
-                    {calculation?.isFreeShipping ? 'Free' : formatGbp(calculation?.shippingPence || 0)}
+                    {displayIsFreeShipping ? 'Free' : formatGbp(displayShippingPence)}
                   </span>
                 </div>
 
@@ -938,7 +1042,7 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({
                 <div className="flex justify-between items-baseline pt-3 border-t border-slate-200 text-sm font-black text-slate-900">
                   <span>Total Due</span>
                   <span className="text-lg text-teal-700 font-black">
-                    {formatGbp(calculation?.totalPence || 0)}
+                    {formatGbp(orderTotalPence)}
                   </span>
                 </div>
               </div>

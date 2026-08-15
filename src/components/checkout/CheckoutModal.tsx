@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CartItem, Order, Address, PaymentMethod } from '../../types';
 import { X, CheckCircle2, ShieldCheck, Truck, Building2, Copy, Check, ArrowLeft, ArrowRight, Lock } from 'lucide-react';
 import { StorageService } from '../../services/storage';
+import { cryptoDiscountPence, isCryptoPaymentMethod } from '../../lib/commerce/crypto-discount';
 
 interface CheckoutModalProps {
   isOpen: boolean;
@@ -52,9 +53,17 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
     accountNumber: import.meta.env.VITE_BANK_ACCOUNT_NUMBER || '00000000',
   };
 
-  const isFreeShipping = subtotal >= 100;
-  const shippingCost = shippingMethod === 'express' ? 8.99 : isFreeShipping ? 0 : 4.99;
-  const totalAmount = subtotal + shippingCost;
+  const isFreeShipping = subtotal >= 300;
+  const shippingCost = shippingMethod === 'express' ? 6.99 : isFreeShipping ? 0 : 3.99;
+  const cryptoOffGbp = isCryptoPaymentMethod(paymentMethod) ? cryptoDiscountPence(Math.round(subtotal * 100)) / 100 : 0;
+  const totalAmount = Math.max(0, subtotal - cryptoOffGbp + shippingCost);
+  const bankTransferAllowed = subtotal + shippingCost >= 100;
+
+  useEffect(() => {
+    if (!bankTransferAllowed && paymentMethod === 'bank_transfer') {
+      setPaymentMethod('crypto_btc');
+    }
+  }, [bankTransferAllowed, paymentMethod]);
 
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -100,13 +109,13 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
       items: orderItems,
       subtotalGbp: subtotal,
       shippingCostGbp: shippingCost,
-      discountGbp: 0,
+      discountGbp: cryptoOffGbp,
       totalGbp: totalAmount,
       status: 'pending',
       paymentStatus: 'awaiting_transfer',
       paymentMethod: paymentMethod,
       paymentReference: `UKP-${Date.now().toString().slice(-6)}-${firstName.substring(0, 2).toUpperCase()}`,
-      shippingMethodName: shippingMethod === 'express' ? 'DPD Express Next-Day Guaranteed (£8.99)' : isFreeShipping ? 'Royal Mail Tracked 24 (FREE)' : 'Royal Mail Tracked 48 (£4.99)',
+      shippingMethodName: shippingMethod === 'express' ? 'Royal Mail Special Delivery 24 (£6.99)' : isFreeShipping ? 'Royal Mail Tracked 48 (FREE)' : 'Royal Mail Tracked 48 (£3.99)',
     });
 
     setCreatedOrder(newOrder);
@@ -279,7 +288,8 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
           {/* STEP 2: Shipping Method Selection */}
           {step === 2 && (
             <div className="space-y-4">
-              <h3 className="text-sm font-extrabold text-slate-900 uppercase tracking-wider mb-2">2. Select UK Shipping Method</h3>
+              <h3 className="text-sm font-extrabold text-slate-900 uppercase tracking-wider mb-2">2. Select Shipping Method</h3>
+              <p className="text-[11px] text-slate-500 mb-3">UK prices below. Europe is £15.00 and rest of world is £25.00 at checkout.</p>
 
               <div className="space-y-3">
                 <label
@@ -291,10 +301,10 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   <input type="radio" name="shipping" checked={shippingMethod === 'standard'} readOnly className="mt-0.5 text-teal-600" />
                   <div className="flex-1">
                     <div className="flex justify-between font-bold text-xs text-slate-900">
-                      <span>Royal Mail Tracked 24 / 48 (Discreet Package)</span>
-                      <span>{isFreeShipping ? 'FREE' : '£4.99'}</span>
+                      <span>Royal Mail Tracked 48</span>
+                      <span>{isFreeShipping ? 'FREE' : '£3.99'}</span>
                     </div>
-                    <p className="text-[11px] text-slate-500 mt-0.5">Estimated delivery 1–2 business days. Full SMS tracking included.</p>
+                    <p className="text-[11px] text-slate-500 mt-0.5">2–3 working days. Free on UK orders of £300 or more.</p>
                   </div>
                 </label>
 
@@ -307,10 +317,10 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   <input type="radio" name="shipping" checked={shippingMethod === 'express'} readOnly className="mt-0.5 text-teal-600" />
                   <div className="flex-1">
                     <div className="flex justify-between font-bold text-xs text-slate-900">
-                      <span>DPD Express Guaranteed Next-Day (Pre-1pm)</span>
-                      <span>£8.99</span>
+                      <span>Royal Mail Special Delivery 24</span>
+                      <span>£6.99</span>
                     </div>
-                    <p className="text-[11px] text-slate-500 mt-0.5">Guaranteed next morning delivery before 1:00pm with 1-hour time window notification.</p>
+                    <p className="text-[11px] text-slate-500 mt-0.5">1–2 working days, tracked from the UK.</p>
                   </div>
                 </label>
               </div>
@@ -343,6 +353,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
               <h3 className="text-sm font-extrabold text-slate-900 uppercase tracking-wider mb-2">3. Payment Method & Review</h3>
 
               <div className="space-y-3">
+                {bankTransferAllowed && (
                 <label
                   onClick={() => setPaymentMethod('bank_transfer')}
                   className={`p-4 rounded-xl border flex items-start gap-3 cursor-pointer transition-all ${
@@ -358,6 +369,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                     <p className="text-[11px] text-slate-500 mt-0.5">Transfer instantly via UK online banking or mobile app. Sort Code & Account Number supplied upon placing order.</p>
                   </div>
                 </label>
+                )}
 
                 <label
                   onClick={() => setPaymentMethod('crypto_btc')}
@@ -383,9 +395,15 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   <span className="font-bold text-slate-900">£{subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-slate-600">
-                  <span>Shipping ({shippingMethod === 'express' ? 'DPD' : 'Royal Mail'})</span>
+                  <span>Shipping ({shippingMethod === 'express' ? 'Special Delivery 24' : 'Tracked 48'})</span>
                   <span className="font-bold text-slate-900">£{shippingCost.toFixed(2)}</span>
                 </div>
+                {cryptoOffGbp > 0 && (
+                  <div className="flex justify-between text-emerald-700 font-bold">
+                    <span>Crypto payment (5% off)</span>
+                    <span>-£{cryptoOffGbp.toFixed(2)}</span>
+                  </div>
+                )}
                 <div className="flex justify-between text-sm font-black text-slate-900 pt-2 border-t border-slate-200">
                   <span>Total Amount Due (GBP)</span>
                   <span className="text-teal-600">£{totalAmount.toFixed(2)}</span>

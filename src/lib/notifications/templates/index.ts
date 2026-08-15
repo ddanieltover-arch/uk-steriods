@@ -74,7 +74,9 @@ function paymentInstructionsHtml(ctx: OrderNotificationContext): string {
   const p = ctx.paymentInstructions;
   if (!p) return '';
   return `<div style="margin-top:20px;padding:16px;background:#f0fdfa;border:1px solid #99f6e4;border-radius:12px;">
-    <div style="font-size:13px;font-weight:800;color:#0f766e;margin-bottom:8px;">Bank transfer instructions</div>
+    <div style="font-size:13px;font-weight:800;color:#0f766e;margin-bottom:8px;">${
+      String(ctx.paymentMethod).toUpperCase() === 'CRYPTO' ? 'Crypto payment instructions' : 'Bank transfer instructions'
+    }</div>
     <div style="font-size:13px;line-height:1.6;color:#134e4a;">
       ${p.bankName ? `<div>Bank: ${escapeHtml(p.bankName)}</div>` : ''}
       ${p.accountName ? `<div>Account name: ${escapeHtml(p.accountName)}</div>` : ''}

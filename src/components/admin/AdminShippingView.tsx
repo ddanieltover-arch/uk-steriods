@@ -12,7 +12,7 @@ export const AdminShippingView: React.FC = () => {
   const [displayName, setDisplayName] = useState('');
   const [description, setDescription] = useState('');
   const [priceGbp, setPriceGbp] = useState('3.99');
-  const [freeThresholdGbp, setFreeThresholdGbp] = useState('100.00');
+  const [freeThresholdGbp, setFreeThresholdGbp] = useState('300.00');
   const [isActive, setIsActive] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

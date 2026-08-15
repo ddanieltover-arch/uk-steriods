@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Container } from '../layout/Container';
-import { Section } from '../layout/Section';
 import { PriceDisplay } from '../commerce/PriceDisplay';
 import { QuantitySelector } from '../commerce/QuantitySelector';
 import { ProductImage } from '../commerce/ProductImage';
@@ -15,7 +14,6 @@ import {
   Trash2,
   Heart,
   Tag,
-  Truck,
   ShieldCheck,
   Lock,
   ArrowRight,
@@ -23,7 +21,6 @@ import {
   AlertTriangle,
   Check,
   X,
-  Info,
 } from 'lucide-react';
 
 interface CartPageProps {
@@ -51,7 +48,6 @@ export const CartPage: React.FC<CartPageProps> = ({
 
   const [promoCodeInput, setPromoCodeInput] = useState('');
   const [appliedCode, setAppliedCode] = useState<string | null>(null);
-  const [shippingRateId, setShippingRateId] = useState<string>('rm-tracked-48');
   const [calcResult, setCalcResult] = useState<CartCalculationResult | null>(null);
   const [isValidatingCode, setIsValidatingCode] = useState(false);
 
@@ -75,7 +71,6 @@ export const CartPage: React.FC<CartPageProps> = ({
           unitPricePence: i.unitPricePence,
         })),
         discountCode: appliedCode || undefined,
-        shippingRateId,
         customProducts,
       };
 
@@ -91,7 +86,7 @@ export const CartPage: React.FC<CartPageProps> = ({
     return () => {
       isMounted = false;
     };
-  }, [items, appliedCode, shippingRateId, customProducts]);
+  }, [items, appliedCode, customProducts]);
 
   const handleApplyPromoCode = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -143,16 +138,8 @@ export const CartPage: React.FC<CartPageProps> = ({
   const reconciledItems = calcResult ? calcResult.items : [];
   const subtotalPence = calcResult ? calcResult.subtotalPence : 0;
   const discountPence = calcResult ? calcResult.discountPence : 0;
-  const shippingPence = calcResult ? calcResult.shippingPence : 0;
-  const totalPence = calcResult ? calcResult.totalPence : 0;
+  const merchandiseTotalPence = Math.max(0, subtotalPence - discountPence);
   const reconciliationNotes = calcResult ? calcResult.reconciliationNotes : [];
-
-  const FREE_SHIPPING_THRESHOLD_PENCE = 10000; // £100.00
-  const remainingForFreeShippingPence = Math.max(0, FREE_SHIPPING_THRESHOLD_PENCE - subtotalPence);
-  const freeShippingPercent = Math.min(
-    100,
-    Math.round((subtotalPence / FREE_SHIPPING_THRESHOLD_PENCE) * 100)
-  );
 
   return (
     <div className="bg-slate-50 min-h-screen py-8 sm:py-12">
@@ -219,32 +206,6 @@ export const CartPage: React.FC<CartPageProps> = ({
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Left Column: Cart Items (lg:col-span-7) */}
             <div className="lg:col-span-7 space-y-6">
-              {/* Free Shipping Progress Card */}
-              <div className="bg-white border border-teal-200 rounded-2xl p-4 shadow-2xs space-y-2.5">
-                <div className="flex items-center justify-between text-xs font-bold text-slate-900">
-                  <div className="flex items-center gap-2">
-                    <Truck className="w-4 h-4 text-teal-600 shrink-0" />
-                    {remainingForFreeShippingPence === 0 ? (
-                      <span className="text-emerald-700 font-extrabold">
-                        Congratulations! You qualify for FREE UK Tracked Shipping.
-                      </span>
-                    ) : (
-                      <span>
-                        Add <strong className="text-teal-700">{formatGbp(remainingForFreeShippingPence)}</strong> more for <strong>FREE Tracked Shipping</strong>
-                      </span>
-                    )}
-                  </div>
-                  <span className="text-[11px] font-black text-teal-700">{freeShippingPercent}%</span>
-                </div>
-
-                <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-teal-600 transition-all duration-500 rounded-full"
-                    style={{ width: `${freeShippingPercent}%` }}
-                  />
-                </div>
-              </div>
-
               {/* Reconciliation Warnings Banner */}
               {reconciliationNotes.length > 0 && (
                 <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-xs text-amber-900 space-y-1.5">
@@ -442,61 +403,11 @@ export const CartPage: React.FC<CartPageProps> = ({
                     </div>
                   )}
 
-                  {/* Shipping Selection */}
-                  <div className="pt-3 space-y-2">
-                    <div className="flex justify-between items-center">
-                      <span>Estimated UK Shipping</span>
-                      <span className="font-extrabold text-slate-900">
-                        {shippingPence === 0 ? 'FREE' : formatGbp(shippingPence)}
-                      </span>
-                    </div>
-
-                    <div className="space-y-1.5">
-                      <label className="flex items-center justify-between p-2.5 rounded-xl border border-slate-200 bg-slate-50/80 cursor-pointer text-[11px]">
-                        <div className="flex items-center gap-2">
-                          <input
-                            type="radio"
-                            name="shippingOption"
-                            value="rm-tracked-48"
-                            checked={shippingRateId === 'rm-tracked-48'}
-                            onChange={() => setShippingRateId('rm-tracked-48')}
-                            className="text-teal-600 focus:ring-teal-600"
-                          />
-                          <span className="font-bold text-slate-900">Royal Mail Tracked 48</span>
-                        </div>
-                        <span className="font-mono font-bold text-slate-600">
-                          {subtotalPence >= FREE_SHIPPING_THRESHOLD_PENCE ? 'FREE' : '£3.99'}
-                        </span>
-                      </label>
-
-                      <label className="flex items-center justify-between p-2.5 rounded-xl border border-slate-200 bg-slate-50/80 cursor-pointer text-[11px]">
-                        <div className="flex items-center gap-2">
-                          <input
-                            type="radio"
-                            name="shippingOption"
-                            value="rm-tracked-24"
-                            checked={shippingRateId === 'rm-tracked-24'}
-                            onChange={() => setShippingRateId('rm-tracked-24')}
-                            className="text-teal-600 focus:ring-teal-600"
-                          />
-                          <span className="font-bold text-slate-900">Royal Mail Special Delivery 24</span>
-                        </div>
-                        <span className="font-mono font-bold text-slate-600">£6.99</span>
-                      </label>
-                    </div>
-
-                    <p className="text-[10px] text-slate-400 font-medium pt-1 flex items-center gap-1">
-                      <Info className="w-3 h-3 text-slate-400 shrink-0" />
-                      <span>Final delivery carrier confirmed during checkout.</span>
-                    </p>
-                  </div>
-
-                  {/* Grand Total */}
                   <div className="flex justify-between items-baseline pt-4 text-base font-black text-slate-900">
-                    <span>Total Due</span>
+                    <span>Basket total</span>
                     <div className="text-right">
-                      <span className="text-xl text-teal-700 font-black">{formatGbp(totalPence)}</span>
-                      <span className="block text-[10px] text-slate-400 font-normal">Taxes & shipping calculated at checkout</span>
+                      <span className="text-xl text-teal-700 font-black">{formatGbp(merchandiseTotalPence)}</span>
+                      <span className="block text-[10px] text-slate-400 font-normal">Shipping calculated at checkout</span>
                     </div>
                   </div>
                 </div>
@@ -505,7 +416,7 @@ export const CartPage: React.FC<CartPageProps> = ({
                 <div className="pt-2">
                   <button
                     type="button"
-                    disabled={reconciledItems.length === 0 || totalPence <= 0}
+                    disabled={reconciledItems.length === 0 || merchandiseTotalPence <= 0}
                     onClick={onProceedToCheckout}
                     className="w-full bg-teal-600 hover:bg-teal-700 active:scale-98 text-white font-black text-sm py-4 px-6 rounded-2xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-teal-600/20 cursor-pointer disabled:bg-slate-200 disabled:text-slate-400 disabled:shadow-none"
                   >

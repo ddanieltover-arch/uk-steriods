@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Sheet } from '../overlay/Sheet';
-import { ShoppingBag, Trash2, ArrowRight, Truck, Tag, Check } from 'lucide-react';
+import { ShoppingBag, Trash2, ArrowRight, Tag, Check } from 'lucide-react';
 import { ProductImage } from '../commerce/ProductImage';
 import { QuantitySelector } from '../commerce/QuantitySelector';
 import { PriceDisplay } from '../commerce/PriceDisplay';
@@ -16,8 +16,6 @@ interface CartDrawerProps {
   onProceedToCheckout: () => void;
   onViewFullCart?: () => void;
 }
-
-const FREE_SHIPPING_THRESHOLD_PENCE = 10000; // £100.00
 
 const getItemUnitPricePence = (item: any) => {
   if (item.unitPricePence !== undefined) return item.unitPricePence;
@@ -46,13 +44,6 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   const discountPence = appliedPromo === 'WELCOME10' ? Math.round(subtotalPence * 0.1) : 0;
   const finalSubtotalPence = Math.max(0, subtotalPence - discountPence);
 
-
-  const remainingForFreeShippingPence = Math.max(0, FREE_SHIPPING_THRESHOLD_PENCE - subtotalPence);
-  const freeShippingProgressPercent = Math.min(
-    100,
-    Math.round((subtotalPence / FREE_SHIPPING_THRESHOLD_PENCE) * 100)
-  );
-
   const handleApplyPromo = (e: React.FormEvent) => {
     e.preventDefault();
     if (promoCode.trim().toUpperCase() === 'WELCOME10') {
@@ -67,34 +58,10 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
       isOpen={isOpen}
       onClose={onClose}
       title={`Your Shopping Basket (${items.reduce((acc, i) => acc + i.quantity, 0)})`}
-      description="UK Royal Mail Tracked 24 Delivery"
+      description="Shipping is calculated at checkout"
       size="default"
     >
       <div className="flex flex-col h-full justify-between space-y-6 pb-6">
-        {/* Free Shipping Progress Indicator */}
-        <div className="rounded-2xl bg-teal-50/80 p-4 border border-teal-100 space-y-2">
-          <div className="flex items-center justify-between text-xs font-bold text-teal-900">
-            <span className="flex items-center gap-1.5">
-              <Truck className="w-4 h-4 text-teal-600" />
-              {remainingForFreeShippingPence === 0 ? (
-                <span className="text-emerald-700">You qualify for FREE UK Tracked 24 Shipping!</span>
-              ) : (
-                <span>
-                  Add <strong className="text-teal-700">{formatGbp(remainingForFreeShippingPence)}</strong> for FREE Shipping
-                </span>
-              )}
-            </span>
-            <span className="text-[10px] font-black text-teal-700">{freeShippingProgressPercent}%</span>
-          </div>
-
-          <div className="h-2 w-full rounded-full bg-teal-200/60 overflow-hidden">
-            <div
-              className="h-full bg-teal-600 transition-all duration-300 rounded-full"
-              style={{ width: `${freeShippingProgressPercent}%` }}
-            />
-          </div>
-        </div>
-
         {/* Cart Item List */}
         {items.length === 0 ? (
           <div className="flex-1 flex flex-col items-center justify-center py-12 text-center space-y-3">
@@ -208,16 +175,11 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   <span className="font-bold">-{formatGbp(discountPence)}</span>
                 </div>
               )}
-              <div className="flex justify-between">
-                <span>Estimated UK Shipping</span>
-                <span className="font-bold text-slate-900">
-                  {subtotalPence >= FREE_SHIPPING_THRESHOLD_PENCE ? 'FREE' : formatGbp(495)}
-                </span>
-              </div>
               <div className="flex justify-between text-sm font-black text-slate-900 pt-2 border-t border-slate-100">
-                <span>Total Due</span>
-                <span className="text-teal-700">{formatGbp(finalSubtotalPence + (subtotalPence >= FREE_SHIPPING_THRESHOLD_PENCE ? 0 : 495))}</span>
+                <span>Basket total</span>
+                <span className="text-teal-700">{formatGbp(finalSubtotalPence)}</span>
               </div>
+              <p className="text-[10px] text-slate-400">Shipping calculated at checkout</p>
             </div>
 
             {/* Action CTAs */}
