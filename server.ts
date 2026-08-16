@@ -3,7 +3,6 @@ import cookieParser from "cookie-parser";
 import compression from "compression";
 import fs from "fs";
 import path from "path";
-import { createServer as createViteServer } from "vite";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -120,11 +119,12 @@ async function injectPublicSeo(
   }
 }
 
-async function startServer() {
+export async function createApp(options: { listen?: boolean } = {}) {
   const { loadEnv } = await import("./src/lib/config/env.js");
   const env = loadEnv();
   const app = express();
   const PORT = env.PORT;
+  const onVercel = Boolean(process.env.VERCEL);
 
   const { requestIdMiddleware } = await import("./src/lib/middleware/request-id.js");
   const { securityHeaders } = await import("./src/lib/middleware/security-headers.js");
@@ -700,6 +700,7 @@ async function startServer() {
         paymentMethod: body.paymentMethod || "BANK_TRANSFER",
         discountCode: body.discountCode,
         idempotencyKey,
+        items: Array.isArray(body.items) ? body.items : undefined,
       });
 
       res.status(201).json(orderResult);
@@ -749,16 +750,20 @@ async function startServer() {
     }
   });
 
-  startNotificationWorker({ intervalMs: env.NOTIFICATION_POLL_MS });
+  if (!onVercel) {
+    startNotificationWorker({ intervalMs: env.NOTIFICATION_POLL_MS });
+  }
 
+  // On Vercel, static files and the SPA fallback are served by vercel.json.
   // Production uses static; development uses Vite. Keep NODE_ENV check explicit.
-  if (env.NODE_ENV !== "production") {
+  if (!onVercel && env.NODE_ENV !== "production") {
+    const { createServer: createViteServer } = await import("vite");
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "spa",
     });
     app.use(vite.middlewares);
-  } else {
+  } else if (!onVercel) {
     // Production: Serve static built files from dist
     const distPath = path.join(process.cwd(), "dist");
     app.use(express.static(distPath, { index: false }));
@@ -778,12 +783,18 @@ async function startServer() {
     });
   }
 
-  app.listen(PORT, "0.0.0.0", () => {
-    console.log(`UK Performance E-Commerce Server listening at http://0.0.0.0:${PORT} (${env.NODE_ENV})`);
-  });
+  if (options.listen !== false && !onVercel) {
+    app.listen(PORT, "0.0.0.0", () => {
+      console.log(`UK Performance E-Commerce Server listening at http://0.0.0.0:${PORT} (${env.NODE_ENV})`);
+    });
+  }
+
+  return app;
 }
 
-startServer().catch((err) => {
-  console.error("Failed to start server:", err);
-  process.exit(1);
-});
+if (!process.env.VERCEL) {
+  createApp({ listen: true }).catch((err) => {
+    console.error("Failed to start server:", err);
+    process.exit(1);
+  });
+}
