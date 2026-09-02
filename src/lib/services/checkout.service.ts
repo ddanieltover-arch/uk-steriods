@@ -75,6 +75,12 @@ export interface CreateOrderSubmissionInput {
 }
 
 const IDEMPOTENCY_TTL_MS = 15 * 60 * 1000;
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+function legacyProductSlug(productId: string): string | null {
+  if (productId.startsWith('prod-')) return productId.slice(5);
+  return null;
+}
 
 export class CheckoutService {
   /**
@@ -227,7 +233,7 @@ export class CheckoutService {
       imageUrl?: string;
     }> = [];
 
-    if (input.cartId) {
+    if (input.cartId && UUID_RE.test(input.cartId)) {
       const dbCart = await db.cart.findUnique({
         where: { id: input.cartId },
         include: { items: true },
@@ -277,16 +283,30 @@ export class CheckoutService {
     const paymentMethod = input.paymentMethod || PaymentMethod.BANK_TRANSFER;
 
     // 4. Perform complete Order Transaction
-    const transactionResult = await db.$transaction(async (tx) => {
+    const transactionResult = await db.$transaction(
+      async (tx) => {
       // a. Reload items with current prices & variants
       let subtotalPence = 0;
       const orderItemsSnapshots = [];
 
       for (const itemInput of itemsToProcess) {
-        const product = await tx.product.findUnique({
-          where: { id: itemInput.productId },
-          include: { images: true, variants: true },
-        });
+        const productInclude = { images: true, variants: true } as const;
+        let product = UUID_RE.test(itemInput.productId)
+          ? await tx.product.findUnique({
+              where: { id: itemInput.productId },
+              include: productInclude,
+            })
+          : null;
+
+        if (!product) {
+          const slug = legacyProductSlug(itemInput.productId);
+          if (slug) {
+            product = await tx.product.findFirst({
+              where: { slug, isPublished: true, deletedAt: null },
+              include: productInclude,
+            });
+          }
+        }
 
         let variantName: string | undefined = undefined;
         let sku = itemInput.productSku || itemInput.productId.slice(0, 12).toUpperCase();
@@ -315,8 +335,9 @@ export class CheckoutService {
             variantAttributesJson = variant.attributes;
           }
 
-          const reserved = await InventoryService.reserveStock(
-            itemInput.productId,
+          const reserved = await InventoryService.reserveStockWithTx(
+            tx,
+            product.id,
             itemInput.variantId,
             itemInput.quantity
           );
@@ -432,7 +453,7 @@ export class CheckoutService {
       });
 
       // j. Clear Purchased Cart Items
-      if (input.cartId) {
+      if (input.cartId && UUID_RE.test(input.cartId)) {
         await tx.cartItem.deleteMany({
           where: { cartId: input.cartId },
         });
@@ -444,7 +465,9 @@ export class CheckoutService {
         instructions,
         trackingToken,
       };
-    });
+    },
+      { maxWait: 10000, timeout: 20000 }
+    );
 
     // 5. Enqueue transactional notification OUTSIDE the DB transaction.
     // Provider delivery is handled asynchronously by the notification worker.

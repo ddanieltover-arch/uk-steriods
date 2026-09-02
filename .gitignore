@@ -6,3 +6,9 @@ coverage/
 *.log
 .env*
 !.env.example
+secrets/
+*-service-account.json
+google-credentials.json
+__pycache__/
+*.py[cod]
+.pytest_cache/

@@ -17,6 +17,7 @@ import { SeoService } from "./src/lib/services/seo.service.js";
 import { CatalogueApiService } from "./src/lib/services/catalogue-api.service.js";
 import { BlogService } from "./src/lib/services/blog.service.js";
 import { shouldNoIndexPath, SITE_NAME, sanitizeMetaText } from "./src/lib/seo/site.js";
+import { buildCrawlableHtml, injectCrawlableBody } from "./src/lib/seo/crawlable-content.js";
 import { startNotificationWorker } from "./src/lib/notifications/notification.worker.js";
 import { PasswordResetService } from "./src/lib/services/password-reset.service.js";
 
@@ -26,8 +27,10 @@ async function injectPublicSeo(
   query: Record<string, unknown>
 ): Promise<string> {
   try {
+    let seoHtml = html;
+
     if (shouldNoIndexPath(pathname)) {
-      return SeoService.injectIntoHtml(html, {
+      seoHtml = SeoService.injectIntoHtml(html, {
         title: `${SITE_NAME}`,
         description: "Private page",
         canonical: "",
@@ -35,26 +38,21 @@ async function injectPublicSeo(
         ogType: "website",
         jsonLd: [],
       });
+      return seoHtml;
     }
 
     if (pathname === "/" || pathname === "") {
-      return SeoService.injectIntoHtml(html, SeoService.homepageSeo());
-    }
-
-    if (pathname === "/shop") {
+      seoHtml = SeoService.injectIntoHtml(html, SeoService.homepageSeo());
+    } else if (pathname === "/shop") {
       const q = typeof query.q === "string" ? query.q : "";
-      return SeoService.injectIntoHtml(html, SeoService.shopSeo(q || undefined));
-    }
-
-    if (pathname === "/blog") {
-      return SeoService.injectIntoHtml(html, SeoService.blogIndexSeo());
-    }
-
-    if (pathname.startsWith("/blog/")) {
+      seoHtml = SeoService.injectIntoHtml(html, SeoService.shopSeo(q || undefined));
+    } else if (pathname === "/blog") {
+      seoHtml = SeoService.injectIntoHtml(html, SeoService.blogIndexSeo());
+    } else if (pathname.startsWith("/blog/")) {
       const slug = pathname.replace("/blog/", "").split("/")[0];
       const post = await BlogService.getPublishedBySlug(slug);
       if (!post) {
-        return SeoService.injectIntoHtml(html, {
+        seoHtml = SeoService.injectIntoHtml(html, {
           title: `Article not found | ${SITE_NAME}`,
           description: "This article is unavailable.",
           canonical: "",
@@ -62,15 +60,14 @@ async function injectPublicSeo(
           ogType: "article",
           jsonLd: [],
         });
+      } else {
+        seoHtml = SeoService.injectIntoHtml(html, SeoService.blogArticleSeo(post));
       }
-      return SeoService.injectIntoHtml(html, SeoService.blogArticleSeo(post));
-    }
-
-    if (pathname.startsWith("/product/")) {
+    } else if (pathname.startsWith("/product/")) {
       const slug = pathname.replace("/product/", "").split("/")[0];
       const product = await CatalogueApiService.getPublishedBySlug(slug);
       if (!product) {
-        return SeoService.injectIntoHtml(html, {
+        seoHtml = SeoService.injectIntoHtml(html, {
           title: `Product not found | ${SITE_NAME}`,
           description: "This product is unavailable.",
           canonical: "",
@@ -78,45 +75,90 @@ async function injectPublicSeo(
           ogType: "website",
           jsonLd: [],
         });
+      } else {
+        seoHtml = SeoService.injectIntoHtml(html, {
+          title: `${product.name} | ${SITE_NAME}`,
+          description: sanitizeMetaText(product.shortDescription || product.description, 160),
+          canonical:
+            SeoService.homepageSeo().canonical.replace(/\/$/, "") + `/product/${product.slug}`,
+          robots: "index,follow",
+          ogImage: product.images[0],
+          ogType: "product",
+          jsonLd: [
+            SeoService.productJsonLd({
+              name: product.name,
+              description: product.shortDescription || product.description,
+              images: product.images,
+              sku: product.sku,
+              brandName: product.brandName,
+              priceGbp: product.priceGbp,
+              availability: product.stockQuantity > 0,
+              slug: product.slug,
+              ratingAvg: product.ratingAvg,
+              reviewCount: product.reviewCount,
+            }),
+            SeoService.breadcrumbJsonLd([
+              { name: "Home", path: "/" },
+              { name: "Shop", path: "/shop" },
+              { name: product.categoryName, path: `/category/${product.categorySlug}` },
+              { name: product.name, path: `/product/${product.slug}` },
+            ]),
+          ],
+        });
       }
-      const seo = {
-        title: `${product.name} | ${SITE_NAME}`,
-        description: sanitizeMetaText(product.shortDescription || product.description, 160),
-        canonical: `${pathname.startsWith("/") ? pathname : `/${pathname}`}`,
-        robots: "index,follow",
-        ogImage: product.images[0],
-        ogType: "product",
-        jsonLd: [
-          SeoService.productJsonLd({
-            name: product.name,
-            description: product.shortDescription || product.description,
-            images: product.images,
-            sku: product.sku,
-            brandName: product.brandName,
-            priceGbp: product.priceGbp,
-            availability: product.stockQuantity > 0,
-            slug: product.slug,
-            ratingAvg: product.ratingAvg,
-            reviewCount: product.reviewCount,
-          }),
-          SeoService.breadcrumbJsonLd([
-            { name: "Home", path: "/" },
-            { name: "Shop", path: "/shop" },
-            { name: product.categoryName, path: `/category/${product.categorySlug}` },
-            { name: product.name, path: `/product/${product.slug}` },
-          ]),
-        ],
-      };
-      return SeoService.injectIntoHtml(html, {
-        ...seo,
-        canonical: SeoService.homepageSeo().canonical.replace(/\/$/, "") + `/product/${product.slug}`,
-      });
+    } else if (pathname.startsWith("/category/")) {
+      const slug = pathname.replace("/category/", "").split("/")[0];
+      const seo = await SeoService.categorySeo(slug);
+      seoHtml = seo
+        ? SeoService.injectIntoHtml(html, seo)
+        : SeoService.injectIntoHtml(html, {
+            title: `Category not found | ${SITE_NAME}`,
+            description: "This category is unavailable.",
+            canonical: "",
+            robots: "noindex,follow",
+            ogType: "website",
+            jsonLd: [],
+          });
+    } else if (pathname.startsWith("/brand/")) {
+      const slug = pathname.replace("/brand/", "").split("/")[0];
+      const seo = await SeoService.brandSeo(slug);
+      seoHtml = seo
+        ? SeoService.injectIntoHtml(html, seo)
+        : SeoService.injectIntoHtml(html, {
+            title: `Brand not found | ${SITE_NAME}`,
+            description: "This brand is unavailable.",
+            canonical: "",
+            robots: "noindex,follow",
+            ogType: "website",
+            jsonLd: [],
+          });
+    } else {
+      const resourceSeo = SeoService.resourceSeo(pathname);
+      if (resourceSeo) {
+        seoHtml = SeoService.injectIntoHtml(html, resourceSeo);
+      }
     }
 
-    return html;
+    const crawlable = await buildCrawlableHtml(pathname);
+    return injectCrawlableBody(seoHtml, crawlable);
   } catch {
     return html;
   }
+}
+
+async function serveSpaHtml(
+  req: Request,
+  res: Response,
+  distPath: string
+): Promise<void> {
+  const indexPath = path.join(distPath, "index.html");
+  let html = fs.readFileSync(indexPath, "utf8");
+  html = await injectPublicSeo(html, req.path, req.query as Record<string, unknown>);
+  res.setHeader("Content-Type", "text/html; charset=utf-8");
+  if (shouldNoIndexPath(req.path)) {
+    res.setHeader("X-Robots-Tag", "noindex, nofollow");
+  }
+  res.send(html);
 }
 
 export async function createApp(options: { listen?: boolean } = {}) {
@@ -769,16 +811,20 @@ export async function createApp(options: { listen?: boolean } = {}) {
     app.use(express.static(distPath, { index: false }));
     app.get("*", async (req, res) => {
       try {
-        const indexPath = path.join(distPath, "index.html");
-        let html = fs.readFileSync(indexPath, "utf8");
-        html = await injectPublicSeo(html, req.path, req.query as Record<string, unknown>);
-        res.setHeader("Content-Type", "text/html; charset=utf-8");
-        if (shouldNoIndexPath(req.path)) {
-          res.setHeader("X-Robots-Tag", "noindex, nofollow");
-        }
-        res.send(html);
-      } catch (err) {
+        await serveSpaHtml(req, res, distPath);
+      } catch {
         res.sendFile(path.join(distPath, "index.html"));
+      }
+    });
+  } else {
+    // Vercel: HTML routes hit the serverless API; static assets served from dist by the platform.
+    const distPath = path.join(process.cwd(), "dist");
+    app.get("*", async (req, res, next) => {
+      if (req.path.startsWith("/api/")) return next();
+      try {
+        await serveSpaHtml(req, res, distPath);
+      } catch {
+        next();
       }
     });
   }

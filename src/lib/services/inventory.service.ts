@@ -1,5 +1,5 @@
 import { db } from '../db';
-import { StockStatus } from '@prisma/client';
+import { Prisma, StockStatus } from '@prisma/client';
 
 export interface StockCheckResult {
   hasVariant: boolean;
@@ -72,41 +72,49 @@ export class InventoryService {
    * Transactionally reserves inventory during checkout to prevent overselling
    */
   static async reserveStock(productId: string, variantId: string | undefined, qty: number): Promise<boolean> {
-    return db.$transaction(async (tx) => {
-      if (variantId) {
-        const inv = await tx.variantInventory.findUnique({ where: { variantId } });
-        if (!inv) return false;
+    return db.$transaction(async (tx) => this.reserveStockWithTx(tx, productId, variantId, qty));
+  }
 
-        const available = inv.quantity - inv.reservedQuantity;
-        if (available < qty) return false;
+  /** Reserve stock using an existing Prisma transaction (avoids nested transactions during checkout). */
+  static async reserveStockWithTx(
+    tx: Prisma.TransactionClient,
+    productId: string,
+    variantId: string | undefined,
+    qty: number
+  ): Promise<boolean> {
+    if (variantId) {
+      const inv = await tx.variantInventory.findUnique({ where: { variantId } });
+      if (!inv) return false;
 
-        const newReserved = inv.reservedQuantity + qty;
-        await tx.variantInventory.update({
-          where: { variantId },
-          data: {
-            reservedQuantity: newReserved,
-            availableQuantity: inv.quantity - newReserved,
-          },
-        });
-        return true;
-      } else {
-        const inv = await tx.productInventory.findUnique({ where: { productId } });
-        if (!inv) return false;
+      const available = inv.quantity - inv.reservedQuantity;
+      if (available < qty) return false;
 
-        const available = inv.quantity - inv.reservedQuantity;
-        if (available < qty) return false;
+      const newReserved = inv.reservedQuantity + qty;
+      await tx.variantInventory.update({
+        where: { variantId },
+        data: {
+          reservedQuantity: newReserved,
+          availableQuantity: inv.quantity - newReserved,
+        },
+      });
+      return true;
+    }
 
-        const newReserved = inv.reservedQuantity + qty;
-        await tx.productInventory.update({
-          where: { productId },
-          data: {
-            reservedQuantity: newReserved,
-            availableQuantity: inv.quantity - newReserved,
-          },
-        });
-        return true;
-      }
+    const inv = await tx.productInventory.findUnique({ where: { productId } });
+    if (!inv) return false;
+
+    const available = inv.quantity - inv.reservedQuantity;
+    if (available < qty) return false;
+
+    const newReserved = inv.reservedQuantity + qty;
+    await tx.productInventory.update({
+      where: { productId },
+      data: {
+        reservedQuantity: newReserved,
+        availableQuantity: inv.quantity - newReserved,
+      },
     });
+    return true;
   }
 
   /**

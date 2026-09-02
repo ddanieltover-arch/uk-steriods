@@ -1,6 +1,8 @@
 import React from 'react';
 import { SeoHead } from '../seo/SeoHead';
+import { AnswerCapsule } from '../seo/AnswerCapsule';
 import { SITE_NAME, DEFAULT_DESCRIPTION } from '../../lib/seo/site';
+import { ANSWER_CAPSULES } from '../../lib/seo/answer-capsules';
 import { organizationJsonLd, websiteJsonLd } from '../../lib/seo/structured-data';
 import { Category, Brand, Product, ProductVariant } from '../../types';
 import { ProductCard, ProductCardData } from '../commerce/ProductCard';
@@ -136,6 +138,7 @@ export const Homepage: React.FC<HomepageProps> = ({
 
       <Section padding="sm">
         <Container>
+          <AnswerCapsule className="mb-4">{ANSWER_CAPSULES['/']}</AnswerCapsule>
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-slate-900">
             Buy from the Steroids UK catalogue
           </h1>

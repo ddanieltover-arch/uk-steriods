@@ -6,13 +6,16 @@
   "rewrites": [
     { "source": "/health", "destination": "/api" },
     { "source": "/ready", "destination": "/api" },
+    { "source": "/robots.txt", "destination": "/api" },
+    { "source": "/sitemap.xml", "destination": "/api" },
+    { "source": "/llms.txt", "destination": "/api" },
     { "source": "/api/:path*", "destination": "/api" },
-    { "source": "/:path*", "destination": "/index.html" }
+    { "source": "/(.*)", "destination": "/api" }
   ],
   "functions": {
     "api/index.ts": {
       "maxDuration": 30,
-      "includeFiles": "{prisma/**,node_modules/.prisma/client/**}"
+      "includeFiles": "{prisma/**,node_modules/.prisma/client/**,dist/index.html}"
     }
   }
 }

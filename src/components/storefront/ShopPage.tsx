@@ -229,11 +229,11 @@ export const ShopPage: React.FC<ShopPageProps> = ({
     ? `${catalogueResult.brand.name} | ${SITE_NAME}`
     : query.search
     ? `Search: ${query.search} | ${SITE_NAME}`
-    : `Shop sports nutrition | ${SITE_NAME}`;
+    : `Shop lab-tested catalogue | ${SITE_NAME}`;
   const seoDescription = sanitizeMetaText(
     catalogueResult.category?.description ||
       catalogueResult.brand?.description ||
-      'Browse UK Performance sports nutrition formulations. Prices in GBP.',
+      'Browse the lab-tested Steroids UK catalogue. UK dispatch, tracked delivery, prices in GBP.',
     160
   );
   const seoCanonical = catalogueResult.category

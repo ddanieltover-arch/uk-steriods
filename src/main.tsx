@@ -1,6 +1,7 @@
 import {Component, StrictMode, type ErrorInfo, type ReactNode} from 'react';
 import {createRoot} from 'react-dom/client';
 import App from './App.tsx';
+import { Ga4 } from './components/analytics/Ga4.tsx';
 import './index.css';
 
 class RootErrorBoundary extends Component<{children: ReactNode}, {hasError: boolean}> {
@@ -39,6 +40,7 @@ class RootErrorBoundary extends Component<{children: ReactNode}, {hasError: bool
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <RootErrorBoundary>
+      <Ga4 />
       <App />
     </RootErrorBoundary>
   </StrictMode>,

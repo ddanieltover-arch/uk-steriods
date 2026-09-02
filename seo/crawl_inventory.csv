@@ -1,0 +1,16 @@
+url,http_status,title,meta_description,h1,word_count,canonical,indexability,page_type,notes
+https://www.uk-steroids.co.uk/,200,Steroids UK | UK catalogue · lab-tested batches,"Steroids UK: lab-tested catalogue...",Buy from the Steroids UK catalogue,80+,https://uk-steroids.co.uk/,index,Homepage,SSR fallback injected post-fix
+https://www.uk-steroids.co.uk/shop,200,Shop lab-tested catalogue | Steroids UK,DEFAULT_DESCRIPTION,Shop lab-tested catalogue,60+,https://uk-steroids.co.uk/shop,index,Shop,SSR fallback
+https://www.uk-steroids.co.uk/blog,200,Knowledge Hub | Steroids UK,Guides and research notes...,Knowledge Hub,40+,https://uk-steroids.co.uk/blog,index,Blog index,SSR fallback
+https://www.uk-steroids.co.uk/product/{slug},200,{Product} | Steroids UK,{description},{Product name},40+,https://uk-steroids.co.uk/product/{slug},index,Product,Dynamic from DB
+https://www.uk-steroids.co.uk/category/{slug},200,{Category} | Steroids UK,{description},{Category},30+,https://uk-steroids.co.uk/category/{slug},index,Category,Dynamic from DB
+https://www.uk-steroids.co.uk/brand/{slug},200,{Brand} | Steroids UK,{description},{Brand},30+,https://uk-steroids.co.uk/brand/{slug},index,Brand,Dynamic from DB
+https://www.uk-steroids.co.uk/blog/{slug},200,{Post} | Steroids UK,{excerpt},{Post title},100+,https://uk-steroids.co.uk/blog/{slug},index,Article,Dynamic from DB
+https://www.uk-steroids.co.uk/about-us,200,About Us | Steroids UK,{description},About Us,40+,https://uk-steroids.co.uk/about-us,index,Resource,SSR fallback
+https://www.uk-steroids.co.uk/cycle-builder,200,Cycle Builder | Steroids UK,{description},Cycle Builder,40+,https://uk-steroids.co.uk/cycle-builder,index,Resource,SSR fallback
+https://www.uk-steroids.co.uk/delivery-and-returns,200,Delivery & Returns | Steroids UK,{description},Delivery & Returns,40+,https://uk-steroids.co.uk/delivery-and-returns,index,Resource,SSR fallback
+https://www.uk-steroids.co.uk/payment-methods,200,Payment Methods | Steroids UK,{description},Payment Methods,40+,https://uk-steroids.co.uk/payment-methods,index,Resource,SSR fallback
+https://www.uk-steroids.co.uk/crypto-payment-guides,200,Crypto Payment Guides | Steroids UK,{description},Crypto Payment Guides,40+,https://uk-steroids.co.uk/crypto-payment-guides,index,Resource,SSR fallback
+https://www.uk-steroids.co.uk/admin,noindex,Private page,Private page,,0,,noindex,Admin,Blocked
+https://www.uk-steroids.co.uk/checkout,noindex,Private page,Private page,,0,,noindex,Checkout,Blocked
+https://www.uk-steroids.co.uk/shop?q=search,noindex,Search: {term} | Steroids UK,Search results...,0,,noindex,Search,Correctly noindex

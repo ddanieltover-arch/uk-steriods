@@ -3,6 +3,8 @@ import { Product, ProductVariant } from '../../types';
 import { CatalogueService } from './catalogue.service';
 import type { DiscountResult } from './discount.service';
 
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
 async function validateDiscount(code: string, subtotalPence: number): Promise<DiscountResult> {
   if (typeof window !== 'undefined') {
     const res = await fetch('/api/v1/discounts/validate', {
@@ -86,7 +88,19 @@ export class CartCalculatorService {
 
     // 1. Process and reconcile each cart item against current catalogue data
     for (const rawItem of input.items) {
-      const product = CatalogueService.getProductById(rawItem.productId, input.customProducts);
+      let product = CatalogueService.getProductById(rawItem.productId, input.customProducts);
+
+      if (!product && typeof window === 'undefined') {
+        const { CatalogueApiService } = await import('./catalogue-api.service');
+        if (UUID_RE.test(rawItem.productId)) {
+          product = (await CatalogueApiService.getPublishedById(rawItem.productId)) ?? undefined;
+        } else {
+          const slug = rawItem.productId.startsWith('prod-')
+            ? rawItem.productId.slice(5)
+            : rawItem.productId;
+          product = (await CatalogueApiService.getPublishedBySlug(slug)) ?? undefined;
+        }
+      }
 
       if (!product || !product.isPublished) {
         reconciliationNotes.push(`An item in your basket is no longer available and was removed.`);

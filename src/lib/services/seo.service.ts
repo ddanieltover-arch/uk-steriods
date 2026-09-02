@@ -1,4 +1,6 @@
 import { db } from '../db';
+import { RESOURCE_PAGE_PATHS, RESOURCE_PAGE_SEO } from '../seo/resources';
+import { getLlmsTxt } from '../seo/crawlable-content';
 import {
   DEFAULT_DESCRIPTION,
   SITE_NAME,
@@ -38,6 +40,11 @@ export class SeoService {
       'Allow: /product/',
       'Allow: /blog',
       'Allow: /blog/',
+      'Allow: /about-us',
+      'Allow: /cycle-builder',
+      'Allow: /delivery-and-returns',
+      'Allow: /payment-methods',
+      'Allow: /crypto-payment-guides',
       'Disallow: /admin',
       'Disallow: /admin/',
       'Disallow: /account',
@@ -56,6 +63,18 @@ export class SeoService {
       'Disallow: /product-card-test',
       'Disallow: /cart-test',
       'Disallow: /api/',
+      '',
+      'User-agent: GPTBot',
+      'Allow: /',
+      '',
+      'User-agent: ClaudeBot',
+      'Allow: /',
+      '',
+      'User-agent: PerplexityBot',
+      'Allow: /',
+      '',
+      'User-agent: Google-Extended',
+      'Allow: /',
       '',
       `Sitemap: ${origin}/sitemap.xml`,
       '',
@@ -118,6 +137,16 @@ export class SeoService {
       });
     }
 
+    for (const path of RESOURCE_PAGE_PATHS) {
+      const meta = RESOURCE_PAGE_SEO[path];
+      urls.push({
+        loc: `${origin}${path}`,
+        lastmod: now,
+        changefreq: meta.changefreq,
+        priority: meta.priority,
+      });
+    }
+
     const body = urls
       .map(
         (u) =>
@@ -126,6 +155,10 @@ export class SeoService {
       .join('\n');
 
     return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</urlset>\n`;
+  }
+
+  static getLlmsTxt(): string {
+    return getLlmsTxt();
   }
 
   static organizationJsonLd() {
@@ -218,7 +251,7 @@ export class SeoService {
       return {
         title: `Search: ${searchTerm} | ${SITE_NAME}`,
         description: `Search results for “${searchTerm}” in the ${SITE_NAME} catalogue.`,
-        canonical: absoluteUrl('/shop'),
+        canonical: absoluteUrl(`/shop?q=${encodeURIComponent(searchTerm)}`),
         robots: 'noindex,follow',
         ogImage: absoluteUrl('/og-image.png'),
         ogType: 'website',
@@ -226,7 +259,7 @@ export class SeoService {
       };
     }
     return {
-      title: `Shop sports nutrition | ${SITE_NAME}`,
+      title: `Shop lab-tested catalogue | ${SITE_NAME}`,
       description: DEFAULT_DESCRIPTION,
       canonical: absoluteUrl('/shop'),
       robots: 'index,follow',
@@ -236,6 +269,79 @@ export class SeoService {
         this.breadcrumbJsonLd([
           { name: 'Home', path: '/' },
           { name: 'Shop', path: '/shop' },
+        ]),
+      ],
+    };
+  }
+
+  static resourceSeo(pathname: string): PageSeo | null {
+    const meta = RESOURCE_PAGE_SEO[pathname];
+    if (!meta) return null;
+    return {
+      title: `${meta.title} | ${SITE_NAME}`,
+      description: sanitizeMetaText(meta.description, 160),
+      canonical: absoluteUrl(pathname),
+      robots: 'index,follow',
+      ogImage: absoluteUrl('/og-image.png'),
+      ogType: 'website',
+      jsonLd: [
+        this.breadcrumbJsonLd([
+          { name: 'Home', path: '/' },
+          { name: meta.title, path: pathname },
+        ]),
+      ],
+    };
+  }
+
+  static async categorySeo(slug: string): Promise<PageSeo | null> {
+    const category = await db.category.findUnique({
+      where: { slug },
+      select: { name: true, slug: true, description: true },
+    });
+    if (!category) return null;
+    const path = `/category/${category.slug}`;
+    return {
+      title: `${category.name} | ${SITE_NAME}`,
+      description: sanitizeMetaText(
+        category.description || `Browse ${category.name} in the ${SITE_NAME} lab-tested catalogue. Prices in GBP.`,
+        160
+      ),
+      canonical: absoluteUrl(path),
+      robots: 'index,follow',
+      ogImage: absoluteUrl('/og-image.png'),
+      ogType: 'website',
+      jsonLd: [
+        this.breadcrumbJsonLd([
+          { name: 'Home', path: '/' },
+          { name: 'Shop', path: '/shop' },
+          { name: category.name, path },
+        ]),
+      ],
+    };
+  }
+
+  static async brandSeo(slug: string): Promise<PageSeo | null> {
+    const brand = await db.brand.findUnique({
+      where: { slug },
+      select: { name: true, slug: true, description: true },
+    });
+    if (!brand) return null;
+    const path = `/brand/${brand.slug}`;
+    return {
+      title: `${brand.name} | ${SITE_NAME}`,
+      description: sanitizeMetaText(
+        brand.description || `Shop ${brand.name} products at ${SITE_NAME}. Lab-tested batches, UK dispatch.`,
+        160
+      ),
+      canonical: absoluteUrl(path),
+      robots: 'index,follow',
+      ogImage: absoluteUrl('/og-image.png'),
+      ogType: 'website',
+      jsonLd: [
+        this.breadcrumbJsonLd([
+          { name: 'Home', path: '/' },
+          { name: 'Shop', path: '/shop' },
+          { name: brand.name, path },
         ]),
       ],
     };

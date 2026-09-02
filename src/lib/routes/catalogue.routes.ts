@@ -118,4 +118,8 @@ export function registerCatalogueRoutes(app: Express) {
       res.status(500).type('text/plain').send('Sitemap unavailable');
     }
   });
+
+  app.get('/llms.txt', publicCache(3600), (_req, res) => {
+    res.type('text/plain; charset=utf-8').send(SeoService.getLlmsTxt());
+  });
 }

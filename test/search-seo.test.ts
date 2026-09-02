@@ -2,6 +2,8 @@ import { scoreSearchRelevance, normalizeSearchQuery, escapeIlike } from '../src/
 import { SeoService } from '../src/lib/services/seo.service';
 import { canonicalPathFor, shouldNoIndexPath, sanitizeMetaText } from '../src/lib/seo/site';
 import { productJsonLd, breadcrumbJsonLd } from '../src/lib/seo/structured-data';
+import { injectCrawlableBody } from '../src/lib/seo/crawlable-content';
+import { ANSWER_CAPSULES } from '../src/lib/seo/answer-capsules';
 
 function assert(condition: boolean, description: string) {
   if (!condition) {
@@ -47,6 +49,13 @@ function runSeoTests() {
   assert(robots.includes('Allow: /product/'), 'robots allows products');
   assert(robots.includes('Allow: /blog'), 'robots allows blog');
   assert(robots.includes('Sitemap:'), 'robots includes sitemap');
+  assert(robots.includes('User-agent: GPTBot'), 'robots allows GPTBot');
+  assert(robots.includes('User-agent: ClaudeBot'), 'robots allows ClaudeBot');
+  assert(robots.includes('User-agent: PerplexityBot'), 'robots allows PerplexityBot');
+
+  const llms = SeoService.getLlmsTxt();
+  assert(llms.includes('# Steroids UK'), 'llms.txt has brand header');
+  assert(llms.includes('/sitemap.xml'), 'llms.txt references sitemap');
 
   assert(shouldNoIndexPath('/admin'), 'admin is noindex');
   assert(shouldNoIndexPath('/account/orders'), 'account orders are noindex');
@@ -90,6 +99,15 @@ function runSeoTests() {
 
   const truncated = sanitizeMetaText('a'.repeat(400), 160);
   assert(truncated.length <= 160, 'meta description is truncated');
+
+  assert(ANSWER_CAPSULES['/'].length >= 40, 'homepage answer capsule has substance');
+
+  const withBody = injectCrawlableBody(
+    '<html><body><div id="root"></div></body></html>',
+    '<main id="ssr-fallback"><h1>Test</h1></main>'
+  );
+  assert(withBody.includes('<h1>Test</h1>'), 'crawlable body injects into root');
+  assert(withBody.includes('id="ssr-fallback"'), 'crawlable body preserves fallback marker');
 }
 
 try {

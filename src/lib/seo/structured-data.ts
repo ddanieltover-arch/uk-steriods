@@ -1,13 +1,21 @@
+import { SUPPORT_EMAIL } from '../../data/resources';
 import { absoluteUrl, getSiteOrigin, sanitizeMetaText, SITE_NAME } from './site';
 
 export function organizationJsonLd() {
+  const origin = typeof window !== 'undefined' ? window.location.origin : getSiteOrigin();
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: SITE_NAME,
-    url: typeof window !== 'undefined' ? window.location.origin : getSiteOrigin(),
+    url: origin,
     logo: absoluteUrl('/logo.png'),
     image: absoluteUrl('/og-image.png'),
+    contactPoint: {
+      '@type': 'ContactPoint',
+      email: SUPPORT_EMAIL,
+      contactType: 'customer support',
+      availableLanguage: 'English',
+    },
   };
 }
 

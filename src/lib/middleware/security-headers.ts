@@ -27,12 +27,12 @@ export function securityHeaders(_req: Request, res: Response, next: NextFunction
   }
 
   const connectSrc = env.isDevelopment
-    ? "connect-src 'self' ws: wss: http://localhost:* https://localhost:*"
-    : "connect-src 'self'";
+    ? "connect-src 'self' ws: wss: http://localhost:* https://localhost:* https://www.google-analytics.com https://region1.google-analytics.com"
+    : "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com";
 
   const scriptSrc = env.isDevelopment
-    ? "script-src 'self' 'unsafe-eval' 'unsafe-inline'" // Vite React refresh preamble + HMR in development only
-    : "script-src 'self'";
+    ? "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com"
+    : "script-src 'self' https://www.googletagmanager.com";
 
   const csp = [
     "default-src 'self'",

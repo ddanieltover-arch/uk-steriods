@@ -1,0 +1,18 @@
+from_page,to_page,anchor_text,priority
+/,/shop,Shop lab-tested catalogue,High
+/,/blog,Knowledge hub,High
+/,/about-us,About Steroids UK,Medium
+/,/delivery-and-returns,UK tracked delivery,Medium
+/shop,/category/injectables,Injectable compounds,High
+/shop,/category/orals,Oral compounds,High
+/shop,/category/sarms,SARMs,High
+/shop,/category/pct,PCT products,High
+/blog,/shop,Browse catalogue,High
+/blog,/cycle-builder,Cycle builder tool,Medium
+/cycle-builder,/shop,View recommended products,High
+/delivery-and-returns,/shop,Start shopping,Medium
+/payment-methods,/crypto-payment-guides,Crypto payment guides,Medium
+/product/{slug},/category/{category},Back to category,High
+/product/{slug},/shop,Full catalogue,Medium
+/blog/{slug},/blog,All articles,Medium
+/blog/{slug},/shop,Related products,Low

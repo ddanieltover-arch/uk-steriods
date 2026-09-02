@@ -286,6 +286,57 @@ export class CatalogueApiService {
     return { products, brands, categories };
   }
 
+  static async getPublishedById(id: string) {
+    const product = await db.product.findFirst({
+      where: { ...publishedWhere(), id },
+      include: {
+        brand: { select: { id: true, name: true, slug: true } },
+        category: { select: { id: true, name: true, slug: true, description: true } },
+        images: {
+          orderBy: [{ isPrimary: 'desc' }, { displayOrder: 'asc' }],
+          select: { url: true, altText: true, isPrimary: true },
+        },
+        inventory: { select: { availableQuantity: true, stockStatus: true } },
+        tags: { select: { tag: { select: { name: true, slug: true } } } },
+        variants: {
+          include: {
+            inventory: { select: { availableQuantity: true, stockStatus: true } },
+          },
+        },
+        reviews: {
+          where: { isApproved: true },
+          select: { rating: true },
+        },
+      },
+    });
+
+    if (!product) return null;
+
+    const reviewCount = product.reviews.length;
+    const ratingAvg =
+      reviewCount > 0
+        ? Math.round((product.reviews.reduce((sum, r) => sum + r.rating, 0) / reviewCount) * 10) / 10
+        : 0;
+
+    const { reviews, ...rest } = product;
+    return {
+      ...mapListProduct(
+        { ...rest, description: product.description, images: product.images },
+        { avg: ratingAvg, count: reviewCount }
+      ),
+      description: product.description,
+      images: product.images.map((img) => img.url),
+      variants: product.variants.map((v) => ({
+        id: v.id,
+        sku: v.sku,
+        name: v.name,
+        priceGbp: v.pricePence / 100,
+        stockQuantity: v.inventory?.availableQuantity ?? 0,
+        attributes: v.attributes,
+      })),
+    };
+  }
+
   static async getPublishedBySlug(slug: string) {
     const product = await db.product.findFirst({
       where: { ...publishedWhere(), OR: [{ slug }, { id: slug }] },

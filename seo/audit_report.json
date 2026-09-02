@@ -1,0 +1,45 @@
+{
+  "generated_at": "2026-09-02T14:30:00Z",
+  "target_url": "https://uk-steroids.co.uk",
+  "final_url_observed": "https://www.uk-steroids.co.uk/",
+  "evidence_type": "repository-verified + live-crawl",
+  "crawl_summary": {
+    "pages_crawled": 1,
+    "pre_fix_findings": {
+      "H1_COUNT": "h1_count=0 on homepage HTML shell",
+      "THIN_TEXT": "body_word_count=4",
+      "POSSIBLE_ORPHAN": "no internal links in static shell",
+      "CANONICAL_HOST": "301 redirect non-www to www; verify SITE_URL alignment"
+    }
+  },
+  "verified_strengths": [
+    "Dynamic sitemap.xml from database",
+    "robots.txt with private route disallows",
+    "JSON-LD on products, blog, breadcrumbs",
+    "Server-side meta injection (injectPublicSeo)",
+    "Resource pages in sitemap",
+    "Search pages noindex"
+  ],
+  "fixes_applied_this_run": [
+    "SSR crawlable body injection for all indexable routes",
+    "Vercel HTML routing through API for per-route SEO",
+    "robots.txt/sitemap.xml/llms.txt Vercel rewrites",
+    "llms.txt for AI crawlers",
+    "AI bot Allow rules in robots.txt",
+    "Answer Capsule on homepage + SSR fallback",
+    "Organization contactPoint schema",
+    "GA4 component + CSP (awaiting measurement ID)"
+  ],
+  "remaining_p1": [
+    "Align canonical host (www vs non-www)",
+    "Connect GSC + GA4 connectors",
+    "Set VITE_GA4_MEASUREMENT_ID in production",
+    "Submit sitemap to GSC",
+    "FAQ hub + glossary content pages"
+  ],
+  "evidence_gaps": [
+    "gsc",
+    "ga4",
+    "serpapi"
+  ]
+}
