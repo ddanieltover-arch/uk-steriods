@@ -37,16 +37,6 @@ export interface HeroCampaignCard {
   fullBleed?: string;
 }
 
-const IMG = {
-  enan: 'https://steroids-uk.com/media/products/661cc727-5af6-4803-983d-e15a530d5adf/PROPER-ENAN-300-scaled-1.webp',
-  cyp: 'https://steroids-uk.com/media/products/5052613a-418e-4967-9179-5e4989b4051e/PROPER-CYP-200-scaled-1.webp',
-  power: 'https://steroids-uk.com/media/products/b51fbaac-9dc9-4fa6-97cd-93cb01287c14/ProperPowerbig-Front.webp',
-  clen: 'https://steroids-uk.com/media/products/471c8705-a107-44f3-893a-bd6d6d592512/ProperClen-Front.webp',
-  anavar: 'https://steroids-uk.com/media/products/6acc85dc-a1d1-40f8-8a3d-6e7d8722b316/Pro-Anavar-10_front-1.webp',
-  pharmaqo: 'https://steroids-uk.com/media/products/d41788df-33c7-4302-8b9b-105a28ef7a10/testosterone-e-300-1.webp',
-  stackVial: 'https://steroids-uk.com/media/products/baf53f4a-e56e-4dcf-b7cd-7ac2fa7f8355/test-mast-tren-formula-1.webp',
-};
-
 export const HERO_CARDS: HeroCampaignCard[] = [
   {
     id: 'proper-labs',

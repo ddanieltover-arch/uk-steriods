@@ -6,7 +6,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     "name": "Injectable Steroids",
     "slug": "injectable-steroids",
     "description": "Lab-tested injectable anabolic compounds",
-    "imageUrl": "https://steroids-uk.com/og-default.jpg",
+    "imageUrl": "/media/products/default.webp",
     "productCount": 126,
     "featured": true
   },
@@ -15,7 +15,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     "name": "Oral Steroids",
     "slug": "oral-steroids",
     "description": "Oral steroid tablets and capsules",
-    "imageUrl": "https://steroids-uk.com/og-default.jpg",
+    "imageUrl": "/media/products/default.webp",
     "productCount": 10,
     "featured": true
   },
@@ -24,7 +24,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     "name": "Fat Loss",
     "slug": "fat-loss",
     "description": "Fat burning and cutting supplements",
-    "imageUrl": "https://steroids-uk.com/og-default.jpg",
+    "imageUrl": "/media/products/default.webp",
     "productCount": 2,
     "featured": true
   },
@@ -33,7 +33,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     "name": "SARMs",
     "slug": "sarms",
     "description": "Selective Androgen Receptor Modulators",
-    "imageUrl": "https://steroids-uk.com/og-default.jpg",
+    "imageUrl": "/media/products/default.webp",
     "productCount": 0,
     "featured": true
   },
@@ -42,7 +42,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     "name": "PCT & Health",
     "slug": "pct-health",
     "description": "Post Cycle Therapy and organ protection",
-    "imageUrl": "https://steroids-uk.com/og-default.jpg",
+    "imageUrl": "/media/products/default.webp",
     "productCount": 2,
     "featured": true
   },
@@ -51,7 +51,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     "name": "Stacks & Bundles",
     "slug": "stacks-bundles",
     "description": "Pre-made stacks and combinations",
-    "imageUrl": "https://steroids-uk.com/og-default.jpg",
+    "imageUrl": "/media/products/default.webp",
     "productCount": 0,
     "featured": true
   }
@@ -63,7 +63,7 @@ export const INITIAL_BRANDS: Brand[] = [
     "name": "Pharmaqo Labs",
     "slug": "pharmaqo-labs",
     "description": "Pharmaqo Labs lab-tested anabolic products",
-    "logoUrl": "https://steroids-uk.com/logos/brands/pharmaqo-labs.webp",
+    "logoUrl": "/media/brands/pharmaqo-labs.webp",
     "productCount": 92,
     "isFeatured": true
   },
@@ -72,7 +72,7 @@ export const INITIAL_BRANDS: Brand[] = [
     "name": "Proper Labs",
     "slug": "proper-labs",
     "description": "Proper Labs lab-tested anabolic products",
-    "logoUrl": "https://steroids-uk.com/logos/brands/proper-labs.webp",
+    "logoUrl": "/media/brands/proper-labs.webp",
     "productCount": 48,
     "isFeatured": true
   },
@@ -81,7 +81,7 @@ export const INITIAL_BRANDS: Brand[] = [
     "name": "Viogen Labs",
     "slug": "viogen-labs",
     "description": "Viogen Labs lab-tested anabolic products",
-    "logoUrl": "https://steroids-uk.com/logos/brands/viogen-labs.webp",
+    "logoUrl": "/media/brands/viogen-labs.webp",
     "productCount": 0,
     "isFeatured": true
   },
@@ -90,7 +90,7 @@ export const INITIAL_BRANDS: Brand[] = [
     "name": "Intex Pharma",
     "slug": "intex-pharma",
     "description": "Intex Pharma lab-tested anabolic products",
-    "logoUrl": "https://steroids-uk.com/logos/brands/intex-pharma.webp",
+    "logoUrl": "/media/brands/intex-pharma.webp",
     "productCount": 0,
     "isFeatured": true
   },
@@ -99,7 +99,7 @@ export const INITIAL_BRANDS: Brand[] = [
     "name": "Hilma Biocare",
     "slug": "hilma-biocare",
     "description": "Hilma Biocare lab-tested anabolic products",
-    "logoUrl": "https://steroids-uk.com/logos/brands/hilma-biocare.webp",
+    "logoUrl": "/media/brands/hilma-biocare.webp",
     "productCount": 0,
     "isFeatured": true
   }
@@ -116,8 +116,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     "categoryId": "cat-oral-steroids",
     "categoryName": "Oral Steroids",
     "categorySlug": "oral-steroids",
-    "priceGbp": 41.5,
-    "salePriceGbp": 35.9,
+    "priceGbp": 35.9,
     "stockQuantity": 100,
     "isPublished": true,
     "isFeatured": true,
@@ -127,15 +126,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": "Buy Testosterone Cypionate 200 in the UK: injectable testosterone base for bulking, cutting and steady recovery.",
     "description": "Buy Testosterone Cypionate 200 in the UK: injectable testosterone base for bulking, cutting and steady recovery.",
     "images": [
-      "https://steroids-uk.com/media/products/5052613a-418e-4967-9179-5e4989b4051e/PROPER-CYP-200-scaled-1.webp"
+      "/media/products/testosterone-cypionate-proper-labs.webp"
     ],
     "tags": [
       "Proper Labs",
       "Oral Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.484Z",
-    "updatedAt": "2026-08-14T03:56:31.486Z"
+    "createdAt": "2026-09-02T12:22:29.848Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-test-enan-pharmaqo",
@@ -157,15 +156,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": "Buy Testoviron-E 300 - Pharmaqo Labs in UK. Legit Testosterone Enanthate cheap from the biggest steroids shop in UK. laboratory tested with check-codes",
     "description": "Buy Testoviron-E 300 - Pharmaqo Labs in UK. Legit Testosterone Enanthate cheap from the biggest steroids shop in UK. laboratory tested with check-codes",
     "images": [
-      "https://steroids-uk.com/media/products/d41788df-33c7-4302-8b9b-105a28ef7a10/testosterone-e-300-1.webp"
+      "/media/products/test-enan-pharmaqo.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.486Z",
-    "updatedAt": "2026-08-14T03:56:31.486Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-anavar10-proper-labs",
@@ -187,15 +186,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": "ProAnavar 10 Oxandrolone - Proper Labs. Next Day Delivery anabolic steroids shop online UK. Laboratory tested with check-codes. Pay by card and paypal",
     "description": "ProAnavar 10 Oxandrolone - Proper Labs. Next Day Delivery anabolic steroids shop online UK. Laboratory tested with check-codes. Pay by card and paypal",
     "images": [
-      "https://steroids-uk.com/media/products/6acc85dc-a1d1-40f8-8a3d-6e7d8722b316/Pro-Anavar-10_front-1.webp"
+      "/media/products/anavar10-proper-labs.webp"
     ],
     "tags": [
       "Proper Labs",
       "Oral Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.486Z",
-    "updatedAt": "2026-08-14T03:56:31.486Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-boldenone-proper-labs",
@@ -217,15 +216,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": "Proper Bold 300 - Proper Labs. Next Day Delivery anabolic steroids shop UK. Laboratory tested with check-codes. Boldenone Undecylenate",
     "description": "Proper Bold 300 - Proper Labs. Next Day Delivery anabolic steroids shop UK. Laboratory tested with check-codes. Boldenone Undecylenate",
     "images": [
-      "https://steroids-uk.com/media/products/ef10b67e-3aeb-4781-84a2-3584eaf5b9f7/PROPER-BOLD-300-scaled-1.webp"
+      "/media/products/boldenone-proper-labs.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.486Z",
-    "updatedAt": "2026-08-14T03:56:31.486Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-dianabol-pharmaqo-labs",
@@ -247,15 +246,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": "Buy Dianabol - Pharmaqo Labs in United Kingdom for NEXT DAY DELIVERY. Laboratory-tested steroids with check-codes. Trusted steroids shop in UK.",
     "description": "Buy Dianabol - Pharmaqo Labs in United Kingdom for NEXT DAY DELIVERY. Laboratory-tested steroids with check-codes. Trusted steroids shop in UK.",
     "images": [
-      "https://steroids-uk.com/media/products/50d94be7-e211-4e4a-b8df-6c85304f3f6d/Dianabol-2-768x768-1.webp"
+      "/media/products/dianabol-pharmaqo-labs.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Oral Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.486Z",
-    "updatedAt": "2026-08-14T03:56:31.486Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-testoprop-pharmaqolabs",
@@ -277,15 +276,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": "TestoProp 100 - Pharmaqo Labs in the biggest steroids shop in UK. Legit Testosterone propionate laboratory tested with check-codes.",
     "description": "TestoProp 100 - Pharmaqo Labs in the biggest steroids shop in UK. Legit Testosterone propionate laboratory tested with check-codes.",
     "images": [
-      "https://steroids-uk.com/media/products/3cbedd96-b61c-487c-a58c-630d3e92d3f0/testosterone-p-100-1.webp"
+      "/media/products/testoprop-pharmaqolabs.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-clenbuterol-proper-labs",
@@ -307,15 +306,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": "Buy Clenbuterol 40mcg (100 tabs) by Proper Labs in the UK: bestselling weight loss tablet for fat burning and cutting. Genuine, lab-tested, UK warehouse.",
     "description": "Buy Clenbuterol 40mcg (100 tabs) by Proper Labs in the UK: bestselling weight loss tablet for fat burning and cutting. Genuine, lab-tested, UK warehouse.",
     "images": [
-      "https://steroids-uk.com/media/products/471c8705-a107-44f3-893a-bd6d6d592512/ProperClen-Front.webp"
+      "/media/products/clenbuterol-proper-labs.webp"
     ],
     "tags": [
       "Proper Labs",
       "Fat Loss"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-nandrolone-decanate-proper-labs",
@@ -337,15 +336,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": "Proper Deca 300 - Proper Labs. Next Day Delivery anabolic steroids shop UK. Laboratory tested with check-codes. Nandrolone Decanoate.",
     "description": "Proper Deca 300 - Proper Labs. Next Day Delivery anabolic steroids shop UK. Laboratory tested with check-codes. Nandrolone Decanoate.",
     "images": [
-      "https://steroids-uk.com/media/products/48835081-a50c-476c-9ddb-35760b4ecc0b/PROPER-DECA-300-scaled-1.webp"
+      "/media/products/nandrolone-decanate-proper-labs.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-tri-tren-pharmaqo-labs",
@@ -367,15 +366,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": "Buy Tri-Tren - Pharmaqo Labs in United Kingdom for NEXT DAY DELIVERY. Laboratory-tested steroids with check-codes. Trusted steroids shop in UK.",
     "description": "Buy Tri-Tren - Pharmaqo Labs in United Kingdom for NEXT DAY DELIVERY. Laboratory-tested steroids with check-codes. Trusted steroids shop in UK.",
     "images": [
-      "https://steroids-uk.com/media/products/7ca070db-ccca-4ad4-8b7c-e5888184e7da/multi-ester-tren-1.webp"
+      "/media/products/tri-tren-pharmaqo-labs.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-testosterone-enanthate-proper-labs",
@@ -397,15 +396,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": "Buy Enan300, the top-rated UK testosterone enanthate injection, at the best price available online with next-day delivery.",
     "description": "Buy Enan300, the top-rated UK testosterone enanthate injection, at the best price available online with next-day delivery.",
     "images": [
-      "https://steroids-uk.com/media/products/661cc727-5af6-4803-983d-e15a530d5adf/PROPER-ENAN-300-scaled-1.webp"
+      "/media/products/testosterone-enanthate-proper-labs.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-testo-mix3-proper-labs",
@@ -427,15 +426,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": "Buy 3 Testosterones Mix 400mg - Proper Labs shop United Kingdom for NEXT DAY DELIVERY. Laboratory-tested steroids with check-codes",
     "description": "Buy 3 Testosterones Mix 400mg - Proper Labs shop United Kingdom for NEXT DAY DELIVERY. Laboratory-tested steroids with check-codes",
     "images": [
-      "https://steroids-uk.com/media/products/e3f7b50f-6a30-42cc-b7bb-46d0ad66e7d6/PROPER-TESTMIX3-400-scaled-1.webp"
+      "/media/products/testo-mix3-proper-labs.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-anadrol50-proper-labs",
@@ -457,15 +456,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": "ProAnadrol 50 / Oxymetholone - Proper Labs. Next Day Delivery anabolic steroids shop online UK. Laboratory tested with check-codes. Pay by card and paypal",
     "description": "ProAnadrol 50 / Oxymetholone - Proper Labs. Next Day Delivery anabolic steroids shop online UK. Laboratory tested with check-codes. Pay by card and paypal",
     "images": [
-      "https://steroids-uk.com/media/products/827c8850-66e8-4773-a4e7-05c32e362e4c/Pro-Anadrol-50_front.webp"
+      "/media/products/anadrol50-proper-labs.webp"
     ],
     "tags": [
       "Proper Labs",
       "Oral Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-trenbolone-enanthate-proper-labs",
@@ -487,15 +486,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": "Tren for sale at a trusted UK shop. Next-DayUK delivery, discreet packaging & secure checkout. Shop premium quality trenbolone today.",
     "description": "Tren for sale at a trusted UK shop. Next-DayUK delivery, discreet packaging & secure checkout. Shop premium quality trenbolone today.",
     "images": [
-      "https://steroids-uk.com/media/products/13ab96da-a405-4700-a281-da5aa3794f33/PROPER-TREN-E-200-scaled-1.webp"
+      "/media/products/trenbolone-enanthate-proper-labs.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-sustanon-250-pharmaqo-labs",
@@ -517,15 +516,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": "Buy Sustanon 250 - Pharmaqo Labs in United Kingdom. Legit sustanon laboratory tested with check-codes. The biggest steroids shop uk.",
     "description": "Buy Sustanon 250 - Pharmaqo Labs in United Kingdom. Legit sustanon laboratory tested with check-codes. The biggest steroids shop uk.",
     "images": [
-      "https://steroids-uk.com/media/products/64147e4e-d8c8-4f87-9666-8dd8261806f8/sustanon-1.webp"
+      "/media/products/sustanon-250-pharmaqo-labs.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-supersus-400-pharmaqo-labs",
@@ -547,15 +546,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": "Buy Supersus 400 - Pharmaqo Labs Testosterone Mix 400mg in United Kingdom for NEXT DAY DELIVERY. Laboratory-tested steroids with check-codes",
     "description": "Buy Supersus 400 - Pharmaqo Labs Testosterone Mix 400mg in United Kingdom for NEXT DAY DELIVERY. Laboratory-tested steroids with check-codes",
     "images": [
-      "https://steroids-uk.com/media/products/bed27f52-3a6f-4516-8836-32c488faa2fd/multi-ester-test-1.webp"
+      "/media/products/supersus-400-pharmaqo-labs.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-tri-test-400-spharmaqo-labs",
@@ -577,15 +576,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": "Buy Tri Test 400 by Pharmaqo Labs (Testosterone Mix 400mg) in United Kingdom for NEXT DAY DELIVERY. Laboratory-tested with check-codes",
     "description": "Buy Tri Test 400 by Pharmaqo Labs (Testosterone Mix 400mg) in United Kingdom for NEXT DAY DELIVERY. Laboratory-tested with check-codes",
     "images": [
-      "https://steroids-uk.com/media/products/d16bc6ed-de6d-4400-b4b3-5db3c1b3fb8d/tri-test-test-400-1.webp"
+      "/media/products/tri-test-400-spharmaqo-labs.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-dianabol-proper-labs",
@@ -607,15 +606,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": "Achieve rapid muscle growth and strength with Dianabol 10mg by Proper Labs. Premium Methandienone for enhanced performance and effective results.",
     "description": "Achieve rapid muscle growth and strength with Dianabol 10mg by Proper Labs. Premium Methandienone for enhanced performance and effective results.",
     "images": [
-      "https://steroids-uk.com/media/products/1a691ce2-ad21-4531-881c-f889d05367a0/pro-dianabol-10-front.webp"
+      "/media/products/dianabol-proper-labs.webp"
     ],
     "tags": [
       "Proper Labs",
       "Oral Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-boldenone-pharmaqolabs",
@@ -637,15 +636,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": "Boldenone 300 - Pharmaqo Labs in United Kingdom. Only legit steroids laboratory tested with check-codes. Order next day delivery.",
     "description": "Boldenone 300 - Pharmaqo Labs in United Kingdom. Only legit steroids laboratory tested with check-codes. Order next day delivery.",
     "images": [
-      "https://steroids-uk.com/media/products/ca6e60d7-1e84-401a-93dc-206eab6efe13/boldenone-1.webp"
+      "/media/products/boldenone-pharmaqolabs.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-superbolin-pharmaqo-labs",
@@ -667,15 +666,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": "Superbolan 400 Mg/ Ml - Injection API: Trenbolone Enanthate 100 Mg/ml Drostanolone Enanthate 100 Mg/ml Testosterone Enanthate 200 Mg/ml",
     "description": "Superbolan 400 Mg/ Ml - Injection API: Trenbolone Enanthate 100 Mg/ml Drostanolone Enanthate 100 Mg/ml Testosterone Enanthate 200 Mg/ml",
     "images": [
-      "https://steroids-uk.com/media/products/baf53f4a-e56e-4dcf-b7cd-7ac2fa7f8355/test-mast-tren-formula-1.webp"
+      "/media/products/superbolin-pharmaqo-labs.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-power-proper-labs",
@@ -697,15 +696,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": "Buy Proper Power Erection - Proper Labs in UK shop NEXT DAY DELIVERY. Pay with paypal or card. Laboratory tested anabolic steroids with verification codes.",
     "description": "Buy Proper Power Erection - Proper Labs in UK shop NEXT DAY DELIVERY. Pay with paypal or card. Laboratory tested anabolic steroids with verification codes.",
     "images": [
-      "https://steroids-uk.com/media/products/b51fbaac-9dc9-4fa6-97cd-93cb01287c14/ProperPowerbig-Front.webp"
+      "/media/products/power-proper-labs.webp"
     ],
     "tags": [
       "Proper Labs",
       "Oral Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-armidex-proper-labs",
@@ -727,15 +726,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": "Buy Arimidex - Proper Labs anastrazole in United Kingdom for NEXT DAY DELIVERY. Laboratory-tested pharmaceuticals with check-codes. Trusted steroids shop in UK",
     "description": "Buy Arimidex - Proper Labs anastrazole in United Kingdom for NEXT DAY DELIVERY. Laboratory-tested pharmaceuticals with check-codes. Trusted steroids shop in UK",
     "images": [
-      "https://steroids-uk.com/media/products/f547eb3e-ba01-4095-9b03-b1ae9b21fe35/ProperArimidex-Front.webp"
+      "/media/products/armidex-proper-labs.webp"
     ],
     "tags": [
       "Proper Labs",
       "PCT & Health"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-winstrol-proper-labs",
@@ -757,15 +756,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": "Buy ProWinstrol 10 - Proper Labs. Next Day Delivery anabolic steroids shop online UK. Laboratory tested with check-codes. Stanazolol Pay by card and paypal",
     "description": "Buy ProWinstrol 10 - Proper Labs. Next Day Delivery anabolic steroids shop online UK. Laboratory tested with check-codes. Stanazolol Pay by card and paypal",
     "images": [
-      "https://steroids-uk.com/media/products/6b95f647-989a-43e4-bba6-65f87effaffc/Pro-Winstrol-10_front.webp"
+      "/media/products/winstrol-proper-labs.webp"
     ],
     "tags": [
       "Proper Labs",
       "Oral Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-clomid-pharmaqo-labs",
@@ -787,15 +786,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": "clomid - Pharmaqo Labs in United Kingdom for NEXT DAY DELIVERY. Laboratory-tested pharmaceuticals with check-codes. Trusted steroids shop in UK",
     "description": "clomid - Pharmaqo Labs in United Kingdom for NEXT DAY DELIVERY. Laboratory-tested pharmaceuticals with check-codes. Trusted steroids shop in UK",
     "images": [
-      "https://steroids-uk.com/media/products/67efee5b-9930-4be3-975f-7b0f81dd145a/07642880-2587-41dd-bafa-66bea25b7574.webp"
+      "/media/products/clomid-pharmaqo-labs.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "PCT & Health"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-nandrophenyl-npp-pharmaqolabs",
@@ -817,15 +816,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": "Buy NPP - Pharmaqo Labs in United Kingdom for NEXT DAY DELIVERY. Laboratory-tested steroids with check-codes. Trusted steroids shop in UK.",
     "description": "Buy NPP - Pharmaqo Labs in United Kingdom for NEXT DAY DELIVERY. Laboratory-tested steroids with check-codes. Trusted steroids shop in UK.",
     "images": [
-      "https://steroids-uk.com/media/products/dbf09c89-4a49-4324-a094-064b4a883155/nandrolone-e-p-100-1.webp"
+      "/media/products/nandrophenyl-npp-pharmaqolabs.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-testex-c-200-pharmaqolabs",
@@ -847,15 +846,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": "Testex-C 200 - Pharmaqo Labs in the biggest steroids shop in UK. Legit Testosterone Cyopionate laboratory tested with check-codes.",
     "description": "Testex-C 200 - Pharmaqo Labs in the biggest steroids shop in UK. Legit Testosterone Cyopionate laboratory tested with check-codes.",
     "images": [
-      "https://steroids-uk.com/media/products/93d3d0d2-338a-4002-a06c-5367fcbc8b1d/testosterone-e-c200-1.webp"
+      "/media/products/testex-c-200-pharmaqolabs.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-t3-proper-labs",
@@ -877,15 +876,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": "T3 25mg Proper Labs in UK shop NEXT DAY DELIVERY. Pay with paypal or card. Laboratory tested anabolic steroids with verification codes.",
     "description": "T3 25mg Proper Labs in UK shop NEXT DAY DELIVERY. Pay with paypal or card. Laboratory tested anabolic steroids with verification codes.",
     "images": [
-      "https://steroids-uk.com/media/products/9f4a826f-3b09-49e3-828b-960e7a1d89e6/ProperT3-Front.webp"
+      "/media/products/t3-proper-labs.webp"
     ],
     "tags": [
       "Proper Labs",
       "Fat Loss"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-anadrol-pharmaqo-labs",
@@ -907,15 +906,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": "Buy Anadrol 50 - Pharmaqo Labs in United Kingdom for Next Day Delivery. Laboratory-tested steroids with check-codes. Trusted steroids shop in UK.",
     "description": "Buy Anadrol 50 - Pharmaqo Labs in United Kingdom for Next Day Delivery. Laboratory-tested steroids with check-codes. Trusted steroids shop in UK.",
     "images": [
-      "https://steroids-uk.com/media/products/f97299ae-96e5-4cff-a8c4-35884d4924b0/18ee9dea-8ce4-41c2-8998-79754e3b2e11.webp"
+      "/media/products/anadrol-pharmaqo-labs.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Oral Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-nandrophenyl-npp-proper-labs",
@@ -937,15 +936,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": "Buy Proper NPP 100 - Proper Labs in United Kingdom for NEXT DAY DELIVERY. Laboratory-tested steroids with check-codes. Trusted steroids shop in UK.",
     "description": "Buy Proper NPP 100 - Proper Labs in United Kingdom for NEXT DAY DELIVERY. Laboratory-tested steroids with check-codes. Trusted steroids shop in UK.",
     "images": [
-      "https://steroids-uk.com/media/products/37a9d742-c607-42d7-8425-b2334f8a255c/PROPER-NPP-100-scaled-1.webp"
+      "/media/products/nandrophenyl-npp-proper-labs.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-tamoxifen-pharmaqo-labs",
@@ -967,15 +966,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-anavar50-proper-labs",
@@ -997,15 +996,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-nandrodec-pharmaqolabs",
@@ -1027,15 +1026,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-masteron-p-pharmaqo-labs",
@@ -1057,15 +1056,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.849Z",
+    "updatedAt": "2026-09-02T12:22:29.849Z"
   },
   {
     "id": "prod-masteron-enan-pharmaqo-labs",
@@ -1087,15 +1086,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-clenbuterol-pharmaqo-labs",
@@ -1117,15 +1116,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-trenbolone-acetate-proper-labs",
@@ -1147,15 +1146,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-proviron-proper-labs",
@@ -1177,15 +1176,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-proviron-pharmaqo-labs",
@@ -1207,15 +1206,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-androbolan400-pharmaqo-labs",
@@ -1237,15 +1236,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-armidex-pharmaqo-labs",
@@ -1267,15 +1266,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-t3-pharmaqo",
@@ -1297,15 +1296,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-igf1-des-pharmaqo",
@@ -1327,15 +1326,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-pharmaqolabs-lgd4033",
@@ -1357,15 +1356,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-anavar-10-pharmaqo-labs",
@@ -1387,15 +1386,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-igf1-lr3-pharmaqo",
@@ -1417,15 +1416,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-trenbolone-enan-pharmaqo",
@@ -1447,15 +1446,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-winstrol50-pharmaqo-labs",
@@ -1477,15 +1476,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-power-proper-labs-small",
@@ -1507,15 +1506,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-trenabolone-a-pharmaqo-labs",
@@ -1537,15 +1536,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-oxydrol50-pharmaqo-labs",
@@ -1567,15 +1566,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-superdrol25-pharmaqo-labs",
@@ -1597,15 +1596,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-pharmaqo-labs-rad",
@@ -1627,15 +1626,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-trenbolone-hex-100mg-pharmaqo",
@@ -1657,15 +1656,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-dianabol25-proper-labs",
@@ -1687,15 +1686,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-ment-50-pharmaqo-labs",
@@ -1717,15 +1716,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-methyltrienolone-1mg-pharmaqo-labs",
@@ -1747,15 +1746,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-winstrol50-proper-labs",
@@ -1777,15 +1776,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-hcg-pharmaqolabs",
@@ -1807,15 +1806,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-dhb-1-testosterone-cypionate-test-cyp-dhb-pharmaqo-labs",
@@ -1837,15 +1836,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-bpc-157-pharmaqo-labs-5mg",
@@ -1867,15 +1866,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-pharmaqo-labs-mk677",
@@ -1897,15 +1896,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-fermavar-2-5mg-100-tabs-pharmaqo-labs",
@@ -1927,15 +1926,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-sustanon-250-amps-pharmaqo-labs",
@@ -1957,15 +1956,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-caber-cabergoline-pharmaqo-labs-10tab-1mg",
@@ -1987,15 +1986,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-nandrolone-d-300mg-pharmaqo-labs-amps",
@@ -2017,15 +2016,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-trt-formula-pharmaqo-labs-200-5mg",
@@ -2047,15 +2046,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-trenbolone-aq-50-pharmaqo-labs",
@@ -2077,15 +2076,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-super-lean-tab-pharmaqo-labs-60tabs-100mg",
@@ -2107,15 +2106,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-tadalafil-pharmaqo-labs-50tab-20mg",
@@ -2137,15 +2136,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-fermawin-2-5mg-100-tabs-pharmaqo-labs",
@@ -2167,15 +2166,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-drostanolone-e-200mg-pharmaqo-labs-amps",
@@ -2197,15 +2196,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-primobolan-pharmaqo-labs",
@@ -2227,15 +2226,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-winstrol-pharmaqo-labs",
@@ -2257,15 +2256,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-yk11-pharmaqo",
@@ -2287,15 +2286,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-superdrol-10mg-100-tabs-pharmaqo-labs",
@@ -2317,15 +2316,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-primobolan-methenolone-e-100mg-pharmaqo-labs-amps",
@@ -2347,15 +2346,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-eq-test-500mg-pharmaqo-labs",
@@ -2377,15 +2376,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-anavar-50-pharmaqo-labs",
@@ -2407,15 +2406,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-fastrip-pharmaqo-labs",
@@ -2437,15 +2436,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-dapoxetine-60mg-pharmaqo-labs-60mg-x-50-pills",
@@ -2467,15 +2466,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-trenbolone-hexy-pharmaqo",
@@ -2497,15 +2496,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-halotestin-pharmaqo-labs",
@@ -2527,15 +2526,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-testosterone-propionate-proper-labs",
@@ -2557,15 +2556,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-pharmaqo-sr-9009",
@@ -2587,15 +2586,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-salbutamol-proper-labs",
@@ -2617,15 +2616,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-mgf-pharmaqo",
@@ -2647,15 +2646,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-testosterone-p-100mg-pharmaqo",
@@ -2677,15 +2676,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-pharmaqo-cutting-stack-injectable",
@@ -2707,15 +2706,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-pharmaqo-bulking-stack-injectable",
@@ -2737,15 +2736,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-pharmaqo-beginners-stack-first-bulking-cycle",
@@ -2767,15 +2766,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-fermaprovi-5mg-100-tabs-pharmaqo-labs",
@@ -2797,21 +2796,21 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-pharmaqo-beginners-cutting-stack",
     "name": "",
     "slug": "pharmaqo-beginners-cutting-stack",
-    "sku": "PHARMAQO-LABS-PHARMAQO-BEGINN",
+    "sku": "PHARMAQO-LABS-PHARMAQO-B-PHARMAQO-BEGINN",
     "brandId": "brand-pharmaqo-labs",
     "brandName": "Pharmaqo Labs",
     "categoryId": "cat-injectable-steroids",
@@ -2827,15 +2826,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-pharmaqo-labs-pct-stack-advanced",
@@ -2857,15 +2856,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-pharmaqo-pct-stack",
@@ -2887,15 +2886,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-pharmaqo-labs-ultimate-precontest-stack",
@@ -2917,15 +2916,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-proper-labs-cutting-oral-stack-tablets-only",
@@ -2947,15 +2946,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-proper-labs-bulking-stack-classic",
@@ -2977,21 +2976,21 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-proper-labs-cutting-stack",
     "name": "",
     "slug": "proper-labs-cutting-stack",
-    "sku": "PROPER-LABS-PROPER-LABS-CUT",
+    "sku": "PROPER-LABS-PROPER-LABS--PROPER-LABS-CUT",
     "brandId": "brand-proper-labs",
     "brandName": "Proper Labs",
     "categoryId": "cat-injectable-steroids",
@@ -3007,15 +3006,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-pharmaqo-sarms-bulking-stack",
@@ -3037,15 +3036,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-proper-labs-fat-burning-stack-extreme",
@@ -3067,21 +3066,21 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-proper-labs-cutting-stack-ultimate",
     "name": "",
     "slug": "proper-labs-cutting-stack-ultimate",
-    "sku": "PROPER-LABS-PROPER-LABS-CUT",
+    "sku": "PROPERLABSCUTTINGSTACKULTIMATE",
     "brandId": "brand-proper-labs",
     "brandName": "Proper Labs",
     "categoryId": "cat-injectable-steroids",
@@ -3097,15 +3096,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-proper-labs-beginner-stack-first-bulking-cycle",
@@ -3127,21 +3126,21 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-proper-labs-beginner-stack-first-injection-cycle",
     "name": "",
     "slug": "proper-labs-beginner-stack-first-injection-cycle",
-    "sku": "PROPER-LABS-PROPER-LABS-BEG",
+    "sku": "PROPER-LABS-PROPER-LABS--PROPER-LABS-BEG",
     "brandId": "brand-proper-labs",
     "brandName": "Proper Labs",
     "categoryId": "cat-injectable-steroids",
@@ -3157,21 +3156,21 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-proper-labs-bulking-oral-stack",
     "name": "",
     "slug": "proper-labs-bulking-oral-stack",
-    "sku": "PROPER-LABS-PROPER-LABS-BUL",
+    "sku": "PROPER-LABS-PROPER-LABS--PROPER-LABS-BUL",
     "brandId": "brand-proper-labs",
     "brandName": "Proper Labs",
     "categoryId": "cat-injectable-steroids",
@@ -3187,21 +3186,21 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-proper-labs-fat-burn-stack",
     "name": "",
     "slug": "proper-labs-fat-burn-stack",
-    "sku": "PROPER-LABS-PROPER-LABS-FAT",
+    "sku": "PROPER-LABS-PROPER-LABS--PROPER-LABS-FAT",
     "brandId": "brand-proper-labs",
     "brandName": "Proper Labs",
     "categoryId": "cat-injectable-steroids",
@@ -3217,21 +3216,21 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-proper-labs-beginner-stack",
     "name": "",
     "slug": "proper-labs-beginner-stack",
-    "sku": "PROPER-LABS-PROPER-LABS-BEG",
+    "sku": "PROPERLABSBEGINNERSTACK",
     "brandId": "brand-proper-labs",
     "brandName": "Proper Labs",
     "categoryId": "cat-injectable-steroids",
@@ -3247,15 +3246,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-properlabs-sust-bold",
@@ -3277,15 +3276,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-proper-labs-pct-stack-oral-only",
@@ -3307,15 +3306,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-proper-labs-advanced-pct-stack",
@@ -3337,15 +3336,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-eq-tren-400mg-pharmaqo-labs",
@@ -3367,15 +3366,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-xxx-tabs-pharmaqo-labs-60-tabs-x-99mg",
@@ -3397,15 +3396,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-pct-pharmaqo-labs",
@@ -3427,15 +3426,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-pct-tablets-proper-labs-60tabs-102-5mg",
@@ -3457,15 +3456,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-primobol-5mg-100-tabs-pharmaqo-labs",
@@ -3487,15 +3486,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-trenbolone-a-100mg-pharmaqo-2",
@@ -3517,15 +3516,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-testosterone-e-300mg-pharmaqo-labs-amps",
@@ -3547,15 +3546,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-trenbolone-e-200mg-pharmaqo",
@@ -3577,15 +3576,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-tamoxifen-proper-labs",
@@ -3607,15 +3606,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-testosterone-enanthate-300mg-pharmaqo-labs-amps",
@@ -3637,15 +3636,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-primobolan-proper-labs",
@@ -3667,15 +3666,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-ett-500-pharmaqo-labs",
@@ -3697,15 +3696,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-testo-mix5-proper-labs",
@@ -3727,15 +3726,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-testosterone-c-200mg-pharmaqo-labs-amps",
@@ -3757,15 +3756,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-sustanon-250-proper-labs",
@@ -3787,15 +3786,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-primobolan175-pharmaqo-labs",
@@ -3817,21 +3816,21 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": "Buy Primobolan Depot 175 in the UK: genuine Pharmaqo Labs methenolone injectable for clean cutting gains. Discreet next-day tracked delivery, lab-tested.",
     "description": "Buy Primobolan Depot 175 in the UK: genuine Pharmaqo Labs methenolone injectable for clean cutting gains. Discreet next-day tracked delivery, lab-tested.",
     "images": [
-      "https://steroids-uk.com/media/products/5f45dd40-e08d-4a17-afa0-14407c70bfa6/b-primobolan-depot-175-3-1.webp"
+      "/media/products/primobolan175-pharmaqo-labs.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Oral Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-drostanolone-e-100mg-pharmaqo",
     "name": "",
     "slug": "drostanolone-e-100mg-pharmaqo",
-    "sku": "PHARMAQO-LABS-DROSTANOLONE-E-",
+    "sku": "PHARMAQO-LABS-DROSTANOLO-DROSTANOLONE-E-",
     "brandId": "brand-pharmaqo-labs",
     "brandName": "Pharmaqo Labs",
     "categoryId": "cat-injectable-steroids",
@@ -3847,15 +3846,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-dianabolan-50-pharmaqo-labs",
@@ -3877,15 +3876,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": "Buy Dianabolan 50 - Pharmaqo Labs in UK shop NEXT DAY DELIVERY. Pay with paypal or card. Laboratory tested anabolic steroids with verification codes.",
     "description": "Buy Dianabolan 50 - Pharmaqo Labs in UK shop NEXT DAY DELIVERY. Pay with paypal or card. Laboratory tested anabolic steroids with verification codes.",
     "images": [
-      "https://steroids-uk.com/media/products/d38a0f1c-dcac-4de9-9f65-a2a0772f5792/dianabolan-50-1.webp"
+      "/media/products/dianabolan-50-pharmaqo-labs.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Oral Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-testosterone-aq-50-pharmaqo-labs",
@@ -3907,15 +3906,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-winstrol-inject100-pharmaqo-labs",
@@ -3937,15 +3936,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-clomid-proper-labs",
@@ -3967,15 +3966,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-ostarine-mk2866-pharmaqolabs",
@@ -3997,15 +3996,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-pharmaqolabs-gw501516",
@@ -4027,15 +4026,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-caber-proper-labs1",
@@ -4057,15 +4056,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-power-proper20-labs",
@@ -4087,15 +4086,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-qomatropin-12mg-36iu-cartridge-pharmaqo-labs",
@@ -4117,21 +4116,21 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-power-proper20-labs-small",
     "name": "",
     "slug": "power-proper20-labs-small",
-    "sku": "PROPER-LABS-POWER-PROPER20-",
+    "sku": "PROPER-LABS-POWER-PROPER-POWER-PROPER20-",
     "brandId": "brand-proper-labs",
     "brandName": "Proper Labs",
     "categoryId": "cat-injectable-steroids",
@@ -4147,15 +4146,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-mt-2-melanotan-10mg-pharmaqo-labs",
@@ -4177,15 +4176,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-masteron-propionate-proper-labs",
@@ -4207,15 +4206,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-masteron-enanthate-proper-labs",
@@ -4237,15 +4236,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-tb-500-pharmaqo-labs-10mg",
@@ -4267,15 +4266,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Pharmaqo Labs",
     "description": "<p> by Pharmaqo Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Pharmaqo Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   },
   {
     "id": "prod-turinabol-proper-labs",
@@ -4297,15 +4296,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     "shortDescription": " by Proper Labs",
     "description": "<p> by Proper Labs. Lab-tested product.</p>",
     "images": [
-      "https://steroids-uk.com/og-default.jpg"
+      "/media/products/default.webp"
     ],
     "tags": [
       "Proper Labs",
       "Injectable Steroids"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-08-14T03:56:31.487Z",
-    "updatedAt": "2026-08-14T03:56:31.487Z"
+    "createdAt": "2026-09-02T12:22:29.850Z",
+    "updatedAt": "2026-09-02T12:22:29.850Z"
   }
 ];
 

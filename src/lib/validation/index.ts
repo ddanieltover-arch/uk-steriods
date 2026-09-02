@@ -1,17 +1,31 @@
 import { z } from 'zod';
 
 // Order Shipping & Billing Address Schema
-export const AddressSnapshotSchema = z.object({
-  recipient: z.string().min(2, 'Recipient name is required'),
-  line1: z.string().min(3, 'Address line 1 is required'),
-  line2: z.string().optional(),
-  city: z.string().min(2, 'City is required'),
-  county: z.string().optional(),
-  postcode: z.string().regex(/^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/i, 'Invalid UK postcode format'),
-  country: z.string().default('UK'),
-  phone: z.string().optional(),
-  email: z.string().email('Invalid email address'),
-});
+export const AddressSnapshotSchema = z
+  .object({
+    recipient: z.string().min(2, 'Recipient name is required'),
+    line1: z.string().min(3, 'Address line 1 is required'),
+    line2: z.string().optional(),
+    city: z.string().min(2, 'City is required'),
+    county: z.string().optional(),
+    postcode: z.string().min(2, 'Postcode is required'),
+    country: z.string().default('GB'),
+    phone: z.string().optional(),
+    email: z.string().email('Invalid email address'),
+  })
+  .superRefine((data, ctx) => {
+    const code = (data.country || 'GB').toUpperCase();
+    if (
+      (code === 'GB' || code === 'UK') &&
+      !/^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/i.test(data.postcode.trim())
+    ) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['postcode'],
+        message: 'Please enter a valid UK postcode format (e.g. SW1A 1AA).',
+      });
+    }
+  });
 
 export type AddressSnapshot = z.infer<typeof AddressSnapshotSchema>;
 
@@ -147,7 +161,10 @@ export const AdminProductVariantSchema = z.object({
 
 export const AdminProductImageSchema = z.object({
   id: z.string().optional(),
-  url: z.string().url('Invalid image URL'),
+  url: z
+    .string()
+    .min(1, 'Image URL is required')
+    .refine((v) => v.startsWith('/') || z.string().url().safeParse(v).success, 'Invalid image URL'),
   altText: z.string().optional().default(''),
   isPrimary: z.boolean().optional().default(false),
   displayOrder: z.number().int().min(0).optional().default(0),

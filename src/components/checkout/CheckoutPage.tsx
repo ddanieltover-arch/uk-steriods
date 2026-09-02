@@ -323,6 +323,22 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({
         paymentMethod,
         discountCode: appliedDiscountCode || undefined,
         idempotencyKey,
+        items: cartItems.map((i) => {
+          const unitPricePence =
+            i.unitPricePence ??
+            Math.round(
+              ((i.selectedVariant?.priceGbp || i.product?.salePriceGbp || i.product?.priceGbp || 0) as number) * 100
+            );
+          return {
+            productId: i.product?.id || i.productId || '',
+            variantId: i.selectedVariant?.id,
+            quantity: i.quantity,
+            productName: i.product?.name || i.productName,
+            productSku: i.selectedVariant?.sku || i.product?.sku,
+            unitPricePence,
+            imageUrl: i.productImageUrl || i.product?.images?.[0],
+          };
+        }),
       };
 
       const res = await apiFetch('/api/v1/orders', {
@@ -353,7 +369,9 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({
       }
     } catch (err: any) {
       console.error('Order submission exception:', err);
-      const errMsg = 'A network error occurred while submitting your order. Please try again.';
+      const errMsg =
+        (err && typeof err.message === 'string' && err.message) ||
+        'A network error occurred while submitting your order. Please try again.';
       setValidationErrors([errMsg]);
       showToast('Submission Error', errMsg, 'error');
     } finally {

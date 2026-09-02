@@ -22,7 +22,7 @@ const initialBrands = catalog.brands.map((b: any) => ({
   name: b.name,
   slug: b.slug,
   description: `${b.name} lab-tested anabolic products`,
-  logoUrl: `https://steroids-uk.com/logos/brands/${b.slug}.webp`,
+  logoUrl: b.logoUrl || `/media/brands/${b.slug}.webp`,
   productCount: catalog.products.filter((p: any) => p.brandSlug === b.slug).length,
   isFeatured: true,
 }));
@@ -42,7 +42,7 @@ const initialCategories = catalog.categories.map((c: any) => ({
   name: c.name,
   slug: c.slug,
   description: c.description,
-  imageUrl: `https://steroids-uk.com/og-default.jpg`,
+  imageUrl: `/media/products/default.webp`,
   productCount: catalog.products.filter((p: any) => p.categorySlug === c.slug).length,
   featured: true,
 }));

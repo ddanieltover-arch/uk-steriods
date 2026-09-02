@@ -101,7 +101,7 @@ async function main() {
         name: b.name,
         slug: b.slug,
         description: `${b.name} lab-tested anabolic products`,
-        logoUrl: `https://steroids-uk.com/logos/brands/${b.slug}.webp`,
+        logoUrl: b.logoUrl || `/media/brands/${b.slug}.webp`,
         isFeatured: true,
       },
     });

@@ -22,6 +22,8 @@
     "db:migrate:deploy": "prisma migrate deploy",
     "db:seed": "tsx prisma/seed.ts",
     "blog:import": "tsx scripts/import-blog.ts",
+    "products:download-images": "tsx scripts/download-product-images.ts",
+    "catalog:import": "tsx scripts/import-catalog.ts",
     "db:ensure-admin": "tsx scripts/ensure-admin.ts"
   },
   "dependencies": {

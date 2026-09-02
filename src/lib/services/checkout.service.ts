@@ -63,6 +63,15 @@ export interface CreateOrderSubmissionInput {
   paymentMethod?: PaymentMethod;
   discountCode?: string;
   idempotencyKey?: string;
+  items?: Array<{
+    productId: string;
+    variantId?: string;
+    quantity: number;
+    productName?: string;
+    productSku?: string;
+    unitPricePence?: number;
+    imageUrl?: string;
+  }>;
 }
 
 const IDEMPOTENCY_TTL_MS = 15 * 60 * 1000;
@@ -208,22 +217,45 @@ export class CheckoutService {
 
   private static async executeCheckoutAfterIdempotencyClaim(input: CreateOrderSubmissionInput) {
     // 2. Resolve items from Cart or session
-    let itemsToProcess: Array<{ productId: string; variantId?: string; quantity: number }> = [];
+    let itemsToProcess: Array<{
+      productId: string;
+      variantId?: string;
+      quantity: number;
+      productName?: string;
+      productSku?: string;
+      unitPricePence?: number;
+      imageUrl?: string;
+    }> = [];
 
     if (input.cartId) {
       const dbCart = await db.cart.findUnique({
         where: { id: input.cartId },
         include: { items: true },
       });
-      if (!dbCart || dbCart.items.length === 0) {
-        throw new Error('Shopping cart is empty or no longer available.');
+      if (dbCart && dbCart.items.length > 0) {
+        itemsToProcess = dbCart.items.map((i) => ({
+          productId: i.productId,
+          variantId: i.variantId || undefined,
+          quantity: i.quantity,
+        }));
       }
-      itemsToProcess = dbCart.items.map((i) => ({
-        productId: i.productId,
-        variantId: i.variantId || undefined,
-        quantity: i.quantity,
-      }));
-    } else {
+    }
+
+    if (itemsToProcess.length === 0 && input.items && input.items.length > 0) {
+      itemsToProcess = input.items
+        .filter((i) => i.productId && i.quantity > 0)
+        .map((i) => ({
+          productId: i.productId,
+          variantId: i.variantId,
+          quantity: i.quantity,
+          productName: i.productName,
+          productSku: i.productSku,
+          unitPricePence: i.unitPricePence,
+          imageUrl: i.imageUrl,
+        }));
+    }
+
+    if (itemsToProcess.length === 0) {
       throw new Error('A valid cart session is required to proceed with checkout.');
     }
 
@@ -256,44 +288,55 @@ export class CheckoutService {
           include: { images: true, variants: true },
         });
 
-        if (!product || !product.isPublished || product.deletedAt !== null) {
-          throw new Error(`Product '${itemInput.productId}' is no longer available.`);
-        }
-
         let variantName: string | undefined = undefined;
-        let sku = product.sku;
-        let unitPricePence = product.basePricePence;
+        let sku = itemInput.productSku || itemInput.productId.slice(0, 12).toUpperCase();
+        let unitPricePence = itemInput.unitPricePence || 0;
         let variantAttributesJson: any = null;
+        let productName = itemInput.productName || 'Product';
+        let imageUrl = itemInput.imageUrl || null;
+        let persistProductId: string | null = null;
 
-        if (itemInput.variantId) {
-          const variant = product.variants.find((v) => v.id === itemInput.variantId);
-          if (!variant) {
-            throw new Error(`Selected option for '${product.name}' is invalid.`);
+        if (product && product.isPublished && product.deletedAt === null) {
+          persistProductId = product.id;
+          productName = product.name;
+          sku = product.sku;
+          unitPricePence = product.basePricePence;
+          const primaryImage = product.images.find((img) => img.isPrimary) || product.images[0];
+          imageUrl = primaryImage ? primaryImage.url : imageUrl;
+
+          if (itemInput.variantId) {
+            const variant = product.variants.find((v) => v.id === itemInput.variantId);
+            if (!variant) {
+              throw new Error(`Selected option for '${product.name}' is invalid.`);
+            }
+            variantName = variant.name;
+            sku = variant.sku;
+            unitPricePence = variant.pricePence;
+            variantAttributesJson = variant.attributes;
           }
-          variantName = variant.name;
-          sku = variant.sku;
-          unitPricePence = variant.pricePence;
-          variantAttributesJson = variant.attributes;
-        }
 
-        // b. Reserve Inventory / Concurrency Check
-        const reserved = await InventoryService.reserveStock(itemInput.productId, itemInput.variantId, itemInput.quantity);
-        if (!reserved) {
-          throw new Error(`Insufficient stock available for '${product.name}'. Please adjust quantity.`);
+          const reserved = await InventoryService.reserveStock(
+            itemInput.productId,
+            itemInput.variantId,
+            itemInput.quantity
+          );
+          if (!reserved) {
+            throw new Error(`Insufficient stock available for '${product.name}'. Please adjust quantity.`);
+          }
+        } else if (!itemInput.productName || !itemInput.unitPricePence) {
+          throw new Error(`Product '${itemInput.productId}' is no longer available.`);
         }
 
         const lineTotalPence = unitPricePence * itemInput.quantity;
         subtotalPence += lineTotalPence;
 
-        const primaryImage = product.images.find((img) => img.isPrimary) || product.images[0];
-
         orderItemsSnapshots.push({
-          productId: product.id,
-          variantId: itemInput.variantId || null,
-          productName: product.name,
+          productId: persistProductId,
+          variantId: persistProductId ? itemInput.variantId || null : null,
+          productName,
           productSku: sku,
           variantName: variantName || null,
-          imageSnapshotUrl: primaryImage ? primaryImage.url : null,
+          imageSnapshotUrl: imageUrl,
           unitPricePence,
           quantity: itemInput.quantity,
           subtotalPence: lineTotalPence,

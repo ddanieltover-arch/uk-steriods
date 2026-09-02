@@ -1,5 +1,6 @@
 import { PrismaClient, StockStatus } from '@prisma/client';
 import https from 'https';
+import http from 'http';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -7,6 +8,8 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, '..');
+const productImageDir = path.join(projectRoot, 'public', 'media', 'products');
+const brandLogoDir = path.join(projectRoot, 'public', 'media', 'brands');
 
 const prisma = new PrismaClient();
 
@@ -46,6 +49,86 @@ async function fetchPage(pathUrl: string): Promise<{ status: number; body: strin
     req.on('error', () => resolve({ status: 500, body: '' }));
     req.end();
   });
+}
+
+function fetchBinary(urlStr: string, redirects = 0): Promise<{ status: number; body: Buffer; contentType: string }> {
+  return new Promise((resolve) => {
+    if (redirects > 6) {
+      resolve({ status: 0, body: Buffer.alloc(0), contentType: '' });
+      return;
+    }
+    const url = new URL(urlStr);
+    const lib = url.protocol === 'http:' ? http : https;
+    const req = lib.request(
+      {
+        hostname: url.hostname,
+        path: url.pathname + url.search,
+        method: 'GET',
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+          Accept: 'image/webp,image/*,*/*;q=0.8',
+        },
+      },
+      (res) => {
+        const loc = res.headers.location;
+        if (res.statusCode && res.statusCode >= 300 && res.statusCode < 400 && loc) {
+          const next = loc.startsWith('http') ? loc : `${url.protocol}//${url.host}${loc}`;
+          res.resume();
+          fetchBinary(next, redirects + 1).then(resolve);
+          return;
+        }
+        const chunks: Buffer[] = [];
+        res.on('data', (c) => chunks.push(Buffer.isBuffer(c) ? c : Buffer.from(c)));
+        res.on('end', () =>
+          resolve({
+            status: res.statusCode || 500,
+            body: Buffer.concat(chunks),
+            contentType: String(res.headers['content-type'] || ''),
+          })
+        );
+      }
+    );
+    req.on('error', () => resolve({ status: 0, body: Buffer.alloc(0), contentType: '' }));
+    req.setTimeout(25000, () => {
+      req.destroy();
+      resolve({ status: 0, body: Buffer.alloc(0), contentType: '' });
+    });
+    req.end();
+  });
+}
+
+function extFromUrl(url: string, contentType: string): string {
+  if (contentType.includes('png')) return '.png';
+  if (contentType.includes('jpeg') || contentType.includes('jpg')) return '.jpg';
+  if (contentType.includes('webp')) return '.webp';
+  const m = url.match(/\.(webp|jpg|jpeg|png)(\?|$)/i);
+  return m ? `.${m[1].toLowerCase().replace('jpeg', 'jpg')}` : '.webp';
+}
+
+async function downloadProductImage(remoteUrl: string, slug: string): Promise<string> {
+  if (!remoteUrl.startsWith('http')) return remoteUrl;
+
+  const res = await fetchBinary(remoteUrl);
+  if (res.status !== 200 || res.body.length < 200) return remoteUrl;
+
+  fs.mkdirSync(productImageDir, { recursive: true });
+  const ext = extFromUrl(remoteUrl, res.contentType);
+  const filename = `${slug}${ext}`;
+  fs.writeFileSync(path.join(productImageDir, filename), res.body);
+  return `/media/products/${filename}`;
+}
+
+async function downloadBrandLogo(remoteUrl: string, slug: string): Promise<string> {
+  if (!remoteUrl.startsWith('http')) return remoteUrl;
+
+  const res = await fetchBinary(remoteUrl);
+  if (res.status !== 200 || res.body.length < 200) return remoteUrl;
+
+  fs.mkdirSync(brandLogoDir, { recursive: true });
+  const ext = extFromUrl(remoteUrl, res.contentType);
+  const filename = `${slug}${ext}`;
+  fs.writeFileSync(path.join(brandLogoDir, filename), res.body);
+  return `/media/brands/${filename}`;
 }
 
 function detectCategorySlug(title: string, description: string, breadcrumbs: string[]): string {
@@ -173,6 +256,14 @@ async function main() {
   console.log(`   Total Target Products Scraped: ${scrapedProducts.length}`);
   console.log(JSON.stringify(brandStats, null, 2));
 
+  console.log('\n3b. Downloading product images locally...');
+  for (let i = 0; i < scrapedProducts.length; i++) {
+    const item = scrapedProducts[i];
+    item.imageUrl = await downloadProductImage(item.imageUrl, item.slug);
+    process.stdout.write(`   Downloaded ${i + 1} / ${scrapedProducts.length}...\r`);
+  }
+  console.log(`\n   Saved images to public/media/products/`);
+
   // Save to prisma/seed-catalog.json
   const catalogPayload = {
     brands: TARGET_BRANDS,
@@ -189,14 +280,18 @@ async function main() {
   try {
     const brandIdMap: Record<string, string> = {};
     for (const b of TARGET_BRANDS) {
+      const logoUrl = await downloadBrandLogo(
+        `https://steroids-uk.com/logos/brands/${b.slug}.webp`,
+        b.slug
+      );
       const dbBrand = await prisma.brand.upsert({
         where: { slug: b.slug },
-        update: { name: b.name },
+        update: { name: b.name, logoUrl },
         create: {
           name: b.name,
           slug: b.slug,
           description: `${b.name} lab-tested anabolic products`,
-          logoUrl: `https://steroids-uk.com/logos/brands/${b.slug}.webp`,
+          logoUrl,
           isFeatured: true,
         }
       });
