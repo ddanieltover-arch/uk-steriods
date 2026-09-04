@@ -829,6 +829,9 @@ export async function createApp(options: { listen?: boolean } = {}) {
     });
   }
 
+  const { errorHandler } = await import("./src/lib/middleware/error-handler.js");
+  app.use(errorHandler);
+
   if (options.listen !== false && !onVercel) {
     app.listen(PORT, "0.0.0.0", () => {
       console.log(`UK Performance E-Commerce Server listening at http://0.0.0.0:${PORT} (${env.NODE_ENV})`);

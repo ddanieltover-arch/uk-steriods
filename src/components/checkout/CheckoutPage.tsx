@@ -350,7 +350,20 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({
         body: JSON.stringify(payload),
       });
 
-      const data = await res.json();
+      const rawBody = await res.text();
+      let data: any = {};
+      try {
+        data = rawBody ? JSON.parse(rawBody) : {};
+      } catch {
+        const looksLikePlatformCrash =
+          /FUNCTION_INVOCATION_FAILED|A server error has occurred|Internal Server Error/i.test(rawBody);
+        const errorMessage = looksLikePlatformCrash
+          ? 'Checkout is temporarily unavailable (server error). Please try again in a moment.'
+          : `Unexpected server response (${res.status}). Please try again.`;
+        setValidationErrors([errorMessage]);
+        showToast('Order Submission Failed', errorMessage, 'error');
+        return;
+      }
 
       if (res.ok && data.success && data.orderNumber) {
         showToast('Order Placed Successfully', `Order #${data.orderNumber} created.`, 'success');
@@ -363,7 +376,7 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({
         const errorMessage =
           (typeof data.error === 'object' && data.error?.message) ||
           data.error ||
-          'Failed to place order. Please check item stock.';
+          'Failed to place order. Please check stock and try again.';
         setValidationErrors([errorMessage]);
         showToast('Order Submission Failed', String(errorMessage), 'error');
       }

@@ -33,6 +33,19 @@ let cached: AppEnv | null = null;
 export function loadEnv(env: NodeJS.ProcessEnv = process.env): AppEnv {
   if (cached) return cached;
 
+  // Prefer Prisma-oriented Neon / Vercel Postgres URLs when present.
+  if (!env.DATABASE_URL && (env.POSTGRES_PRISMA_URL || env.POSTGRES_URL || env.DATABASE_URL_UNPOOLED)) {
+    env.DATABASE_URL =
+      env.POSTGRES_PRISMA_URL || env.POSTGRES_URL || env.DATABASE_URL_UNPOOLED;
+  }
+
+  // channel_binding=require can break Prisma on some serverless runtimes.
+  if (env.DATABASE_URL && /channel_binding=require/i.test(env.DATABASE_URL)) {
+    env.DATABASE_URL = env.DATABASE_URL
+      .replace(/([?&])channel_binding=require&?/i, '$1')
+      .replace(/[?&]$/, '');
+  }
+
   const parsed = EnvSchema.safeParse(env);
   if (!parsed.success) {
     const issues = parsed.error.issues.map((i) => `${i.path.join('.')}: ${i.message}`).join('; ');
