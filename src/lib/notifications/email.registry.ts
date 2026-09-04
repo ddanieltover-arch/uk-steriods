@@ -101,12 +101,8 @@ export function getDemoOrderContext(): OrderNotificationContext {
     paymentInstructions: {
       method: 'BANK_TRANSFER',
       referenceCode: 'ORD-DEMO-0001',
-      accountName: 'DEMO MERCHANTS LTD',
-      sortCode: '00-00-00',
-      accountNumber: '00000000',
-      bankName: 'UK Commercial Bank PLC',
       formattedTotal: '£33.94',
-      note: 'Use the payment reference when transferring.',
+      note: 'Contact admin for payment instructions and payment details.',
     },
     trackingToken: 'track_demo_token',
     supportEmail: 'support@example.test',

@@ -779,9 +779,9 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({
                         <div className="bg-white p-4 rounded-xl border border-teal-200 text-xs text-slate-600 leading-relaxed space-y-2">
                           <p className="font-semibold text-slate-800">How Bank Transfer Payment Works:</p>
                           <ul className="list-disc list-inside space-y-1 text-[11px]">
-                            <li>Once you place your order, you will receive our company bank details and a unique payment reference.</li>
-                            <li>Transfer the exact total using your online banking app or website.</li>
-                            <li>Your order dispatches immediately upon payment confirmation.</li>
+                            <li>Place your order, then contact our admin team for payment instructions and payment details.</li>
+                            <li>Quote your order number when you get in touch — do not send funds until you receive those details from us.</li>
+                            <li>Your order dispatches after our team confirms payment.</li>
                           </ul>
                         </div>
                       </button>

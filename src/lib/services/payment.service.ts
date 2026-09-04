@@ -33,13 +33,9 @@ export class BankTransferProvider implements PaymentProvider {
     return {
       method: PaymentMethod.BANK_TRANSFER,
       referenceCode,
-      accountName: 'UK PERFORMANCE SUPPLIES LTD',
-      sortCode: '20-45-89',
-      accountNumber: '83920145',
-      bankName: 'Barclays Bank UK PLC',
       totalPence: amountPence,
       formattedTotal,
-      note: `Please use payment reference '${referenceCode}' when initiating your UK Faster Payments transfer. Orders dispatch upon receipt confirmation.`,
+      note: `Contact our admin team with order reference '${referenceCode}' to receive payment instructions and payment details. Do not send funds until you have those details from us.`,
     };
   }
 
@@ -60,18 +56,13 @@ export class CryptoPaymentProvider implements PaymentProvider {
     referenceCode: string
   ): Promise<PaymentInstructions> {
     const formattedTotal = `£${(amountPence / 100).toFixed(2)}`;
-    const wallet = process.env.CRYPTO_WALLET_BTC || '';
 
     return {
       method: PaymentMethod.CRYPTO,
       referenceCode,
-      accountName: wallet || 'Wallet details emailed after order',
-      bankName: 'Bitcoin / USDT',
       totalPence: amountPence,
       formattedTotal,
-      note: wallet
-        ? `Send the GBP equivalent (${formattedTotal}) in BTC or USDT. Include payment reference '${referenceCode}'.`
-        : `Pay ${formattedTotal} in BTC or USDT. Use reference '${referenceCode}'. Wallet details will be confirmed by email.`,
+      note: `Contact our admin team with order reference '${referenceCode}' to receive crypto payment instructions and payment details for ${formattedTotal}. Do not send funds until you have those details from us.`,
     };
   }
 

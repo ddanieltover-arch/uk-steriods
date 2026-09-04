@@ -2,18 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Container } from '../layout/Container';
 import {
   CheckCircle2,
-  Building2,
-  Copy,
-  Check,
+  Mail,
   Package,
   Truck,
-  ArrowRight,
   ShoppingBag,
   Info,
-  Clock,
   ShieldCheck,
 } from 'lucide-react';
-import { useToast } from '../feedback/ToastProvider';
+
+const SUPPORT_EMAIL = 'sales@uk-steroids.co.uk';
 
 interface OrderConfirmationPageProps {
   orderNumber: string;
@@ -26,11 +23,9 @@ export const OrderConfirmationPage: React.FC<OrderConfirmationPageProps> = ({
   trackingToken,
   onNavigate,
 }) => {
-  const { showToast } = useToast();
   const [order, setOrder] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [copiedRef, setCopiedRef] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -58,13 +53,6 @@ export const OrderConfirmationPage: React.FC<OrderConfirmationPageProps> = ({
       fetchOrder();
     }
   }, [orderNumber, trackingToken]);
-
-  const handleCopy = (text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedRef(true);
-    showToast('Copied', 'Payment reference copied to clipboard.', 'info');
-    setTimeout(() => setCopiedRef(false), 2000);
-  };
 
   const formatGbp = (pence: number) => `£${((pence || 0) / 100).toFixed(2)}`;
 
@@ -101,15 +89,12 @@ export const OrderConfirmationPage: React.FC<OrderConfirmationPageProps> = ({
   }
 
   const shippingAddr = order.shippingAddressSnapshot || {};
-  const paymentRecord = order.payments && order.payments.length > 0 ? order.payments[0] : null;
-  const paymentInstructions = paymentRecord?.instructions || {};
   const isCrypto = String(order.paymentMethod) === 'CRYPTO';
 
   return (
     <div className="bg-slate-50 min-h-screen py-10">
       <Container>
         <div className="max-w-3xl mx-auto space-y-8">
-          {/* Top Hero Banner */}
           <div className="bg-white rounded-3xl border border-slate-200 p-8 text-center shadow-xs space-y-4">
             <div className="w-16 h-16 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center mx-auto">
               <CheckCircle2 className="w-10 h-10 stroke-[2.5]" />
@@ -126,112 +111,56 @@ export const OrderConfirmationPage: React.FC<OrderConfirmationPageProps> = ({
               </p>
             </div>
             <p className="text-xs text-slate-600 max-w-lg mx-auto leading-relaxed">
-              We have sent a confirmation details message to <span className="font-bold text-slate-900">{order.guestEmail}</span>.
-              Please complete your {isCrypto ? 'crypto' : 'bank transfer'} payment below to dispatch your items.
+              We have recorded your order for <span className="font-bold text-slate-900">{order.guestEmail}</span>.
+              Contact our team for payment instructions and payment details before we can dispatch.
             </p>
           </div>
 
-          {/* BANK TRANSFER INSTRUCTION CARD */}
-          <div className="bg-gradient-to-br from-teal-900 via-slate-900 to-teal-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
-            <div className="flex items-center justify-between border-b border-white/10 pb-4">
+          <div className="bg-gradient-to-br from-teal-900 via-slate-900 to-teal-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl space-y-5">
+            <div className="flex items-center justify-between border-b border-white/10 pb-4 gap-3">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-2xl bg-teal-500/20 flex items-center justify-center text-teal-400">
-                  <Building2 className="w-5 h-5" />
+                  <Mail className="w-5 h-5" />
                 </div>
                 <div>
-                  <h2 className="text-base font-black text-white">
-                    {isCrypto ? 'Crypto Payment Details' : 'Bank Transfer Details'}
-                  </h2>
+                  <h2 className="text-base font-black text-white">Payment instructions</h2>
                   <p className="text-[11px] text-teal-200">
-                    {isCrypto ? 'Bitcoin / USDT' : 'Faster Payments / Online Banking'}
+                    {isCrypto ? 'Crypto payment' : 'Bank transfer'} — details provided by our team
                   </p>
                 </div>
               </div>
-              <span className="text-[10px] font-black uppercase tracking-wider bg-amber-400 text-slate-950 px-3 py-1 rounded-full">
+              <span className="text-[10px] font-black uppercase tracking-wider bg-amber-400 text-slate-950 px-3 py-1 rounded-full shrink-0">
                 Action Required
               </span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-              {isCrypto ? (
-                <>
-                  <div className="bg-white/5 border border-white/10 p-4 rounded-2xl space-y-1 sm:col-span-2">
-                    <span className="text-[10px] text-teal-300 uppercase tracking-wider block font-bold">Wallet / network</span>
-                    <span className="font-bold text-white text-sm block break-all">
-                      {paymentInstructions.accountName || paymentInstructions.note || 'Wallet details emailed after order'}
-                    </span>
-                  </div>
-                  <div className="bg-white/5 border border-white/10 p-4 rounded-2xl space-y-1">
-                    <span className="text-[10px] text-teal-300 uppercase tracking-wider block font-bold">Method</span>
-                    <span className="font-bold text-white text-sm block">{paymentInstructions.bankName || 'Bitcoin / USDT'}</span>
-                  </div>
-                  <div className="bg-white/5 border border-white/10 p-4 rounded-2xl space-y-1">
-                    <span className="text-[10px] text-teal-300 uppercase tracking-wider block font-bold">Amount due</span>
-                    <span className="font-mono font-black text-white text-base tracking-wider block">{formatGbp(order.totalPence)}</span>
-                  </div>
-                </>
-              ) : (
-                <>
-              <div className="bg-white/5 border border-white/10 p-4 rounded-2xl space-y-1">
-                <span className="text-[10px] text-teal-300 uppercase tracking-wider block font-bold">Account Beneficiary</span>
-                <span className="font-bold text-white text-sm block">{paymentInstructions.beneficiary || 'UK PERFORMANCE LTD'}</span>
-              </div>
-
-              <div className="bg-white/5 border border-white/10 p-4 rounded-2xl space-y-1">
-                <span className="text-[10px] text-teal-300 uppercase tracking-wider block font-bold">Bank Name</span>
-                <span className="font-bold text-white text-sm block">{paymentInstructions.bankName || 'Barclays Bank UK PLC'}</span>
-              </div>
-
-              <div className="bg-white/5 border border-white/10 p-4 rounded-2xl space-y-1">
-                <span className="text-[10px] text-teal-300 uppercase tracking-wider block font-bold">Sort Code</span>
-                <span className="font-mono font-black text-white text-base tracking-wider block">{paymentInstructions.sortCode || '20-45-89'}</span>
-              </div>
-
-              <div className="bg-white/5 border border-white/10 p-4 rounded-2xl space-y-1">
-                <span className="text-[10px] text-teal-300 uppercase tracking-wider block font-bold">Account Number</span>
-                <span className="font-mono font-black text-white text-base tracking-wider block">{paymentInstructions.accountNumber || '83920145'}</span>
-              </div>
-                </>
-              )}
-            </div>
-
-            {/* Crucial Reference Box */}
-            <div className="bg-amber-500/15 border-2 border-amber-400/50 p-4 rounded-2xl flex items-center justify-between gap-4">
-              <div>
-                <span className="text-[10px] text-amber-300 font-extrabold uppercase tracking-wider block">
-                  Payment Reference (Must Include Exactly)
-                </span>
-                <span className="font-mono font-black text-amber-200 text-lg tracking-wider block">
-                  {order.orderNumber}
-                </span>
-              </div>
-              <button
-                type="button"
-                onClick={() => handleCopy(order.orderNumber)}
-                className="px-4 py-2.5 bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs rounded-xl flex items-center gap-1.5 transition-all cursor-pointer shrink-0"
+            <div className="bg-white/5 border border-white/10 p-5 rounded-2xl space-y-3 text-sm leading-relaxed">
+              <p className="text-teal-50">
+                Please contact our admin team after placing your order to receive payment instructions and payment details.
+                Do not send funds until you have those details from us.
+              </p>
+              <p className="text-teal-100/90 text-xs">
+                Quote your order number <span className="font-mono font-black text-white">{order.orderNumber}</span>
+                {' '}(total due <span className="font-mono font-bold text-white">{formatGbp(order.totalPence)}</span>) when you get in touch.
+              </p>
+              <a
+                href={`mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(`Payment details for ${order.orderNumber}`)}`}
+                className="inline-flex items-center gap-2 px-4 py-2.5 bg-teal-500 hover:bg-teal-400 text-slate-950 font-black text-xs rounded-xl transition-colors"
               >
-                {copiedRef ? (
-                  <>
-                    <Check className="w-4 h-4 stroke-[3]" />
-                    <span>Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-4 h-4" />
-                    <span>Copy Reference</span>
-                  </>
-                )}
-              </button>
+                <Mail className="w-4 h-4" />
+                Contact {SUPPORT_EMAIL}
+              </a>
             </div>
 
-            <p className="text-[11px] text-teal-100/80 leading-relaxed">
-              Please send exactly <span className="font-mono font-bold text-white">{formatGbp(order.totalPence)}</span> to the account above using <span className="font-bold text-white">{order.orderNumber}</span> as the reference.
+            <p className="text-[11px] text-teal-100/70 leading-relaxed flex items-start gap-2">
+              <ShieldCheck className="w-4 h-4 shrink-0 mt-0.5 text-teal-400" />
+              <span>
+                Your order stays pending until payment is confirmed by our team. We will email you when payment is received and when your order ships.
+              </span>
             </p>
           </div>
 
-          {/* ORDER BREAKDOWN & ADDRESS GRID */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {/* Delivery Address */}
             <div className="bg-white rounded-3xl border border-slate-200 p-6 space-y-3">
               <div className="flex items-center gap-2 text-slate-900 font-black text-sm border-b border-slate-100 pb-3">
                 <Truck className="w-4 h-4 text-teal-600" />
@@ -247,7 +176,6 @@ export const OrderConfirmationPage: React.FC<OrderConfirmationPageProps> = ({
               </div>
             </div>
 
-            {/* Financial Summary */}
             <div className="bg-white rounded-3xl border border-slate-200 p-6 space-y-3">
               <div className="flex items-center gap-2 text-slate-900 font-black text-sm border-b border-slate-100 pb-3">
                 <Package className="w-4 h-4 text-teal-600" />
@@ -282,7 +210,6 @@ export const OrderConfirmationPage: React.FC<OrderConfirmationPageProps> = ({
             </div>
           </div>
 
-          {/* ITEMS LIST */}
           <div className="bg-white rounded-3xl border border-slate-200 p-6 space-y-4">
             <h3 className="text-sm font-black text-slate-900 border-b border-slate-100 pb-3">
               Ordered Items ({order.items.length})
@@ -316,7 +243,6 @@ export const OrderConfirmationPage: React.FC<OrderConfirmationPageProps> = ({
             </div>
           </div>
 
-          {/* ACTION BUTTONS */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
             <button
               onClick={() => onNavigate('/')}

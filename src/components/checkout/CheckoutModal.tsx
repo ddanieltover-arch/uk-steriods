@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CartItem, Order, Address, PaymentMethod } from '../../types';
-import { X, CheckCircle2, ShieldCheck, Truck, Building2, Copy, Check, ArrowLeft, ArrowRight, Lock } from 'lucide-react';
+import { X, CheckCircle2, ShieldCheck, Truck, Building2, ArrowLeft, ArrowRight, Lock } from 'lucide-react';
 import { StorageService } from '../../services/storage';
 import { cryptoDiscountPence, isCryptoPaymentMethod } from '../../lib/commerce/crypto-discount';
 
@@ -38,20 +38,11 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
   // Confirmation Order State
   const [createdOrder, setCreatedOrder] = useState<Order | null>(null);
-  const [copiedRef, setCopiedRef] = useState(false);
 
   const subtotal = cart.reduce((sum, item) => {
     const p = item.selectedVariant?.priceGbp || item.product.salePriceGbp || item.product.priceGbp;
     return sum + p * item.quantity;
   }, 0);
-
-  // Configurable Bank Transfer Credentials (using environment variables with clearly fictional demo fallbacks)
-  const bankConfig = {
-    beneficiary: import.meta.env.VITE_BANK_BENEFICIARY_NAME || 'DEMO MERCHANTS LTD',
-    bankName: import.meta.env.VITE_BANK_NAME || 'UK Commercial Bank PLC',
-    sortCode: import.meta.env.VITE_BANK_SORT_CODE || '00-00-00',
-    accountNumber: import.meta.env.VITE_BANK_ACCOUNT_NUMBER || '00000000',
-  };
 
   const isFreeShipping = subtotal >= 300;
   const shippingCost = shippingMethod === 'express' ? 6.99 : isFreeShipping ? 0 : 3.99;
@@ -64,12 +55,6 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
       setPaymentMethod('crypto_btc');
     }
   }, [bankTransferAllowed, paymentMethod]);
-
-  const handleCopy = (text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedRef(true);
-    setTimeout(() => setCopiedRef(false), 2000);
-  };
 
   const handleCompleteOrder = (e: React.FormEvent) => {
     e.preventDefault();
@@ -444,57 +429,24 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 <p className="text-[11px] text-slate-400">A confirmation receipt has been sent to {createdOrder.customerEmail}.</p>
               </div>
 
-              {/* Bank Transfer Details Box */}
-              {createdOrder.paymentMethod === 'bank_transfer' && (
-                <div className="bg-slate-900 text-white p-5 rounded-2xl text-left space-y-4 shadow-xl border border-slate-800">
-                  <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                    <div className="flex items-center gap-2">
-                      <Building2 className="w-5 h-5 text-teal-400" />
-                      <h4 className="font-bold text-xs uppercase text-teal-400">UK Bank Transfer Payment Details</h4>
-                    </div>
-                    <span className="text-[10px] bg-teal-900 text-teal-300 font-bold px-2 py-0.5 rounded">Faster Payments</span>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-3 text-xs">
-                    <div>
-                      <span className="text-[10px] text-slate-400 uppercase font-bold block">Beneficiary Name</span>
-                      <span className="font-extrabold text-white">{bankConfig.beneficiary}</span>
-                    </div>
-                    <div>
-                      <span className="text-[10px] text-slate-400 uppercase font-bold block">Bank</span>
-                      <span className="font-extrabold text-white">{bankConfig.bankName}</span>
-                    </div>
-                    <div>
-                      <span className="text-[10px] text-slate-400 uppercase font-bold block">Sort Code</span>
-                      <span className="font-mono font-black text-teal-400 text-sm">{bankConfig.sortCode}</span>
-                    </div>
-                    <div>
-                      <span className="text-[10px] text-slate-400 uppercase font-bold block">Account Number</span>
-                      <span className="font-mono font-black text-teal-400 text-sm">{bankConfig.accountNumber}</span>
-                    </div>
-                  </div>
-
-                  {/* Payment Reference Highlight Box */}
-                  <div className="bg-slate-800/80 p-3 rounded-xl border border-slate-700 flex items-center justify-between">
-                    <div>
-                      <span className="text-[10px] text-slate-400 uppercase font-bold block">Required Payment Reference</span>
-                      <span className="font-mono font-black text-white text-sm">{createdOrder.paymentReference}</span>
-                    </div>
-                    <button
-                      onClick={() => handleCopy(createdOrder.paymentReference)}
-                      className="bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-colors cursor-pointer"
-                    >
-                      {copiedRef ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                      <span>{copiedRef ? 'Copied!' : 'Copy Ref'}</span>
-                    </button>
-                  </div>
-
-                  <p className="text-[10px] text-slate-400 leading-relaxed italic">
-                    * Please use <strong className="text-teal-300">{createdOrder.paymentReference}</strong> as the transfer reference in your mobile banking app so our system can auto-match your payment and dispatch your package immediately.
-                  </p>
+              {/* Payment next steps — no bank / wallet details on-site */}
+              <div className="bg-slate-900 text-white p-5 rounded-2xl text-left space-y-3 shadow-xl border border-slate-800">
+                <div className="flex items-center gap-2 border-b border-slate-800 pb-3">
+                  <Building2 className="w-5 h-5 text-teal-400" />
+                  <h4 className="font-bold text-xs uppercase text-teal-400">Payment instructions</h4>
                 </div>
-              )}
-
+                <p className="text-xs text-slate-200 leading-relaxed">
+                  Please contact our admin team after your order to receive payment instructions and payment details.
+                  Do not send funds until you have those details from us.
+                </p>
+                <p className="text-[11px] text-slate-400 leading-relaxed">
+                  Quote order <span className="font-mono font-bold text-teal-300">{createdOrder.orderNumber}</span> when you email{' '}
+                  <a href="mailto:sales@uk-steroids.co.uk" className="text-teal-300 font-bold underline">
+                    sales@uk-steroids.co.uk
+                  </a>
+                  .
+                </p>
+              </div>
               {/* Action Buttons */}
               <div className="pt-4 flex flex-col sm:flex-row gap-3 justify-center">
                 <button

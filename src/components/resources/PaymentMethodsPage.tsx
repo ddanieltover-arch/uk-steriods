@@ -19,7 +19,7 @@ const faqs = [
   },
   {
     q: 'What happens after I send a bank transfer?',
-    a: 'Use the reference from your confirmation email. UK Faster Payments usually clears in 1–3 hours. The order ships within 24 hours of confirmation, then you receive tracking by email.',
+    a: 'Contact admin with your order number for payment instructions and payment details. After you pay using those details, UK Faster Payments usually clears in 1–3 hours. The order ships within 24 hours of confirmation, then you receive tracking by email.',
   },
   {
     q: 'Do you accept crypto from any wallet?',
@@ -100,8 +100,8 @@ export const PaymentMethodsPage: React.FC<PaymentMethodsPageProps> = ({ onNaviga
           <h3 className="text-xl font-black text-slate-900">UK Bank Transfer</h3>
           <p className="text-sm text-slate-500 mt-1">Faster Payments — clears in 1–3 hours, 24/7.</p>
           <ul className="mt-4 space-y-2 text-[15px] text-slate-600 list-disc pl-5 leading-relaxed">
-            <li>Pay from any UK bank (Lloyds, HSBC, Barclays, Monzo, Starling, etc.)</li>
-            <li>Bank details emailed on order. Use your order ref as the transfer reference.</li>
+            <li>Place your order, then contact admin for payment instructions and payment details</li>
+            <li>Quote your order number — do not send funds until you receive details from our team</li>
             <li>Order ships within 24h of payment confirmation</li>
             <li>No fees</li>
           </ul>
@@ -125,8 +125,8 @@ export const PaymentMethodsPage: React.FC<PaymentMethodsPageProps> = ({ onNaviga
             ))}
           </div>
           <p className="text-sm text-slate-500 mt-4">
-            Deposit address shown at checkout. Send from any wallet you own — exchanges, hardware wallets and mobile
-            wallets alike.
+            After checkout, contact admin for wallet and network details. Send from any wallet you own — exchanges,
+            hardware wallets and mobile wallets alike.
           </p>
         </section>
 

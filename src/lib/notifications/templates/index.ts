@@ -108,7 +108,7 @@ export function renderOrderCreated(ctx: OrderNotificationContext): RenderedEmail
 
   const bodyHtml = `
     ${emailStatusBanner('success', 'Thank you for your order', `We received order ${ctx.orderNumber} and it is awaiting payment.`)}
-    ${emailHeading(`Hi ${name},`, 'Your order has been placed successfully. Complete payment using the instructions below to start processing.')}
+    ${emailHeading(`Hi ${name},`, 'Your order has been placed successfully. Contact our admin team for payment instructions and payment details to start processing.')}
     ${orderMetaGrid(ctx)}
     ${emailOrderItemsTable(ctx)}
     ${emailTotalsTable(ctx)}
@@ -139,10 +139,7 @@ export function renderOrderCreated(ctx: OrderNotificationContext): RenderedEmail
     `Total: ${formatPence(ctx.totalPence)}`,
     '',
     `Payment method: ${ctx.paymentMethod}`,
-    ctx.paymentInstructions?.referenceCode ? `Payment reference: ${ctx.paymentInstructions.referenceCode}` : '',
-    ctx.paymentInstructions?.accountName ? `Account: ${ctx.paymentInstructions.accountName}` : '',
-    ctx.paymentInstructions?.sortCode ? `Sort code: ${ctx.paymentInstructions.sortCode}` : '',
-    ctx.paymentInstructions?.accountNumber ? `Account number: ${ctx.paymentInstructions.accountNumber}` : '',
+    `Contact ${supportEmail(ctx)} for payment instructions and payment details. Quote order ${ctx.orderNumber}.`,
     `Deliver to: ${addressText(ctx)}`,
     `Track: ${link}`,
     `Questions? Contact ${supportEmail(ctx)}`,

@@ -21,11 +21,10 @@ const methods = [
     ],
     steps: [
       'Select "UK Bank Transfer" at checkout and place the order.',
-      'Open your banking app and create a new payment.',
-      'Enter our sort code, account number and amount (all on confirmation email).',
-      'Use the order reference EXACTLY as the payment reference.',
-      'Send the transfer. We auto-match payments to orders by reference.',
-      'You receive a "Payment received" email once Faster Payments completes.',
+      'Contact our admin team (sales@uk-steroids.co.uk) with your order number.',
+      'Wait for payment instructions and payment details from our team.',
+      'Complete payment only after you receive those details — do not send funds earlier.',
+      'You receive a "Payment received" email once our team confirms the transfer.',
     ],
   },
   {
@@ -39,11 +38,11 @@ const methods = [
       'Works with any wallet you own (Trust, MetaMask, Ledger, exchanges)',
     ],
     steps: [
-      'Pick the coin you want to pay with at checkout (BTC, USDT, USDC, ETH or LTC).',
-      'Copy the wallet address shown — or scan the QR code.',
-      'Open your wallet/exchange and create a transfer to that address.',
-      'Send the EXACT amount displayed. Overpayments are credited to loyalty; underpayments require manual review.',
-      'Wait for blockchain confirmation. Your order moves to "Paid" automatically.',
+      'Pick crypto at checkout and place the order.',
+      'Contact our admin team (sales@uk-steroids.co.uk) with your order number.',
+      'Wait for payment instructions and payment details (wallet / network) from our team.',
+      'Complete payment only after you receive those details — do not send funds earlier.',
+      'You receive a "Payment received" email once our team confirms the transfer.',
     ],
   },
 ];

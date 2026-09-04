@@ -155,30 +155,11 @@ export function emailTotalsTable(ctx: OrderNotificationContext): string {
 
 export function emailPaymentInstructions(ctx: OrderNotificationContext): string {
   const p = ctx.paymentInstructions;
-  if (!p) return '';
-
+  const support = ctx.supportEmail || process.env.EMAIL_REPLY_TO || process.env.ADMIN_EMAIL || 'sales@uk-steroids.co.uk';
   const isCrypto = String(ctx.paymentMethod).toUpperCase() === 'CRYPTO';
-  const title = isCrypto ? 'Crypto payment instructions' : 'Bank transfer instructions';
-
-  const detailRows: Array<{ label: string; value: string; mono?: boolean }> = [];
-  if (p.bankName) detailRows.push({ label: 'Provider', value: p.bankName });
-  if (p.accountName) detailRows.push({ label: isCrypto ? 'Wallet / pay to' : 'Account name', value: p.accountName });
-  if (p.sortCode) detailRows.push({ label: 'Sort code', value: p.sortCode, mono: true });
-  if (p.accountNumber) detailRows.push({ label: 'Account number', value: p.accountNumber, mono: true });
-  if (p.referenceCode) detailRows.push({ label: 'Payment reference', value: p.referenceCode, mono: true });
-  if (p.formattedTotal) detailRows.push({ label: 'Amount due', value: p.formattedTotal });
-
-  const rows = detailRows
-    .map(
-      (row) => `
-      <tr>
-        <td style="padding:8px 0;font-size:12px;color:${EMAIL.colors.tealDark};width:42%;">${escapeHtml(row.label)}</td>
-        <td style="padding:8px 0;font-size:13px;font-weight:700;color:${EMAIL.colors.navy};text-align:right;font-family:${row.mono ? EMAIL.fonts.mono : EMAIL.fonts.stack};">
-          ${escapeHtml(row.value)}
-        </td>
-      </tr>`
-    )
-    .join('');
+  const title = 'Payment instructions';
+  const amount = p?.formattedTotal || formatPence(ctx.totalPence);
+  const ref = p?.referenceCode || ctx.orderNumber;
 
   return `
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:24px 0;border-collapse:separate;border-radius:${EMAIL.radius.md};background:${EMAIL.colors.tealLight};border:1px solid ${EMAIL.colors.tealBorder};">
@@ -187,12 +168,18 @@ export function emailPaymentInstructions(ctx: OrderNotificationContext): string 
           <div style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:${EMAIL.colors.tealDark};margin-bottom:12px;">
             ${escapeHtml(title)}
           </div>
-          <table role="presentation" width="100%" cellpadding="0" cellspacing="0">${rows}</table>
-          ${
-            p.note
-              ? `<p style="margin:14px 0 0;font-size:12px;line-height:1.55;color:${EMAIL.colors.tealDark};">${escapeHtml(p.note)}</p>`
-              : ''
-          }
+          <p style="margin:0 0 10px;font-size:13px;line-height:1.55;color:${EMAIL.colors.navy};">
+            Please contact our admin team after your order to receive ${isCrypto ? 'crypto ' : ''}payment instructions and payment details.
+            Do not send funds until you have those details from us.
+          </p>
+          <p style="margin:0 0 10px;font-size:12px;line-height:1.55;color:${EMAIL.colors.tealDark};">
+            Quote order <strong style="font-family:${EMAIL.fonts.mono};">${escapeHtml(ref)}</strong>
+            (amount due <strong>${escapeHtml(amount)}</strong>) when you get in touch.
+          </p>
+          <p style="margin:0;font-size:12px;line-height:1.55;color:${EMAIL.colors.tealDark};">
+            Email:
+            <a href="mailto:${escapeHtml(support)}" style="color:${EMAIL.colors.teal};font-weight:700;text-decoration:none;">${escapeHtml(support)}</a>
+          </p>
         </td>
       </tr>
     </table>`;
