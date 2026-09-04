@@ -6,7 +6,7 @@
   "crons": [
     {
       "path": "/api/v1/internal/notifications/process",
-      "schedule": "*/5 * * * *"
+      "schedule": "0 9 * * *"
     }
   ],
   "rewrites": [
