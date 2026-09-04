@@ -239,6 +239,36 @@ export async function createApp(options: { listen?: boolean } = {}) {
     res.json({ status: "ok", service: "UK Performance E-Commerce API", currency: "GBP" });
   });
 
+  // Vercel Cron / manual drain of the email outbox (no long-lived worker on serverless).
+  // Secure with CRON_SECRET via Authorization: Bearer <CRON_SECRET>
+  app.get("/api/v1/internal/notifications/process", async (req, res) => {
+    try {
+      const cronSecret = (process.env.CRON_SECRET || "").trim();
+      const authHeader = String(req.headers.authorization || "");
+      const bearerOk = Boolean(cronSecret) && authHeader === `Bearer ${cronSecret}`;
+
+      if (process.env.NODE_ENV === "production") {
+        if (!cronSecret) {
+          return res.status(503).json({
+            error: "CRON_SECRET is not configured. Set it in Vercel Environment Variables.",
+          });
+        }
+        if (!bearerOk) {
+          return res.status(401).json({ error: "Unauthorized" });
+        }
+      } else if (cronSecret && !bearerOk) {
+        return res.status(401).json({ error: "Unauthorized" });
+      }
+
+      const { NotificationService } = await import("./src/lib/notifications/notification.service.js");
+      const result = await NotificationService.processPending(25);
+      res.json({ ok: true, ...result });
+    } catch (err: any) {
+      console.error("[notifications/process]", err?.message || err);
+      res.status(500).json({ error: "Failed to process notifications." });
+    }
+  });
+
   app.get("/api/v1/auth/csrf", (req, res) => {
     const token = ensureCsrfCookie(req, res);
     res.json({ csrfToken: token });

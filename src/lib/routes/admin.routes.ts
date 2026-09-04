@@ -1089,6 +1089,7 @@ export function registerAdminRoutes(
       try {
         const user = (req as any).user;
         const result = await NotificationService.resend(req.params.id, user.id);
+        await NotificationService.flushPendingSafe(5);
 
         await AuditService.logAction({
           userId: user.id,

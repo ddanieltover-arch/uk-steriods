@@ -57,17 +57,47 @@ function toContext(payload: OrderNotificationPayload): OrderNotificationContext 
   };
 }
 
+function adminNotifyEmail(): string | null {
+  const email = (process.env.ADMIN_EMAIL || process.env.EMAIL_REPLY_TO || '').trim().toLowerCase();
+  return email || null;
+}
+
 /**
  * Domain-facing order notification adapter.
- * Enqueues outbox records only — never calls the email provider directly.
- * Failures here must not break checkout/admin flows.
+ * Enqueues outbox records, then flushes delivery (required on Vercel where
+ * the background worker does not run). Failures must not break checkout.
  */
 export class OrderNotificationService {
+  private static async enqueueCustomerAndAdmin(
+    eventType: NotificationEventType,
+    payload: OrderNotificationPayload,
+    idempotencyParts: string[]
+  ): Promise<void> {
+    const customerCtx = toContext(payload);
+    await NotificationService.enqueueOrderEvent(eventType, customerCtx, { idempotencyParts });
+
+    const adminEmail = adminNotifyEmail();
+    if (adminEmail && adminEmail !== customerCtx.recipientEmail.trim().toLowerCase()) {
+      await NotificationService.enqueueOrderEvent(
+        eventType,
+        {
+          ...customerCtx,
+          recipientEmail: adminEmail,
+          isAdminCopy: true,
+          customerEmail: customerCtx.recipientEmail,
+        },
+        { idempotencyParts: [...idempotencyParts, 'admin'] }
+      );
+    }
+
+    await NotificationService.flushPendingSafe(20);
+  }
+
   static async notifyOrderCreated(payload: OrderNotificationPayload): Promise<void> {
     try {
-      await NotificationService.enqueueOrderEvent(NotificationEventType.ORDER_CREATED, toContext(payload), {
-        idempotencyParts: [payload.orderId],
-      });
+      await this.enqueueCustomerAndAdmin(NotificationEventType.ORDER_CREATED, payload, [
+        payload.orderId,
+      ]);
     } catch (err) {
       console.error('[OrderNotificationService] ORDER_CREATED enqueue failed', err);
     }
@@ -75,11 +105,10 @@ export class OrderNotificationService {
 
   static async notifyPaymentConfirmed(payload: OrderNotificationPayload): Promise<void> {
     try {
-      await NotificationService.enqueueOrderEvent(
-        NotificationEventType.PAYMENT_CONFIRMED,
-        toContext(payload),
-        { idempotencyParts: [payload.orderId, payload.paymentStatus || 'PAID'] }
-      );
+      await this.enqueueCustomerAndAdmin(NotificationEventType.PAYMENT_CONFIRMED, payload, [
+        payload.orderId,
+        payload.paymentStatus || 'PAID',
+      ]);
     } catch (err) {
       console.error('[OrderNotificationService] PAYMENT_CONFIRMED enqueue failed', err);
     }
@@ -87,11 +116,9 @@ export class OrderNotificationService {
 
   static async notifyOrderProcessing(payload: OrderNotificationPayload): Promise<void> {
     try {
-      await NotificationService.enqueueOrderEvent(
-        NotificationEventType.ORDER_PROCESSING,
-        toContext(payload),
-        { idempotencyParts: [payload.orderId] }
-      );
+      await this.enqueueCustomerAndAdmin(NotificationEventType.ORDER_PROCESSING, payload, [
+        payload.orderId,
+      ]);
     } catch (err) {
       console.error('[OrderNotificationService] ORDER_PROCESSING enqueue failed', err);
     }
@@ -99,16 +126,10 @@ export class OrderNotificationService {
 
   static async notifyOrderDispatched(payload: OrderNotificationPayload): Promise<void> {
     try {
-      await NotificationService.enqueueOrderEvent(
-        NotificationEventType.ORDER_SHIPPED,
-        toContext(payload),
-        {
-          idempotencyParts: [
-            payload.orderId,
-            payload.trackingNumber || payload.shipmentProvider || 'shipped',
-          ],
-        }
-      );
+      await this.enqueueCustomerAndAdmin(NotificationEventType.ORDER_SHIPPED, payload, [
+        payload.orderId,
+        payload.trackingNumber || payload.shipmentProvider || 'shipped',
+      ]);
     } catch (err) {
       console.error('[OrderNotificationService] ORDER_SHIPPED enqueue failed', err);
     }
@@ -116,11 +137,9 @@ export class OrderNotificationService {
 
   static async notifyOrderDelivered(payload: OrderNotificationPayload): Promise<void> {
     try {
-      await NotificationService.enqueueOrderEvent(
-        NotificationEventType.ORDER_DELIVERED,
-        toContext(payload),
-        { idempotencyParts: [payload.orderId] }
-      );
+      await this.enqueueCustomerAndAdmin(NotificationEventType.ORDER_DELIVERED, payload, [
+        payload.orderId,
+      ]);
     } catch (err) {
       console.error('[OrderNotificationService] ORDER_DELIVERED enqueue failed', err);
     }
@@ -128,11 +147,9 @@ export class OrderNotificationService {
 
   static async notifyOrderCancelled(payload: OrderNotificationPayload): Promise<void> {
     try {
-      await NotificationService.enqueueOrderEvent(
-        NotificationEventType.ORDER_CANCELLED,
-        toContext(payload),
-        { idempotencyParts: [payload.orderId] }
-      );
+      await this.enqueueCustomerAndAdmin(NotificationEventType.ORDER_CANCELLED, payload, [
+        payload.orderId,
+      ]);
     } catch (err) {
       console.error('[OrderNotificationService] ORDER_CANCELLED enqueue failed', err);
     }

@@ -69,9 +69,42 @@ function orderMetaGrid(ctx: OrderNotificationContext): string {
 }
 
 export function renderOrderCreated(ctx: OrderNotificationContext): RenderedEmail {
-  const subject = `Order confirmed — ${ctx.orderNumber} | ${SITE_NAME}`;
   const link = trackingLink(ctx);
   const name = ctx.customerName || 'there';
+
+  if (ctx.isAdminCopy) {
+    const subject = `New order ${ctx.orderNumber} — ${formatPence(ctx.totalPence)} | ${SITE_NAME}`;
+    const customerEmail = ctx.customerEmail || ctx.recipientEmail;
+    const bodyHtml = `
+      ${emailStatusBanner('success', 'New order received', `Order ${ctx.orderNumber} was just placed and is awaiting payment.`)}
+      ${emailHeading('Ops alert', `Customer: ${escapeHtml(name)} (${escapeHtml(customerEmail)})`)}
+      ${orderMetaGrid(ctx)}
+      ${emailOrderItemsTable(ctx)}
+      ${emailTotalsTable(ctx)}
+      ${emailPaymentInstructions(ctx)}
+      ${emailAddressBlock(ctx)}
+      ${emailButton(link, 'Open order tracking link')}
+      ${emailSupportLine(supportEmail(ctx))}
+    `;
+    const { html } = renderEmailLayout({
+      title: subject,
+      preheader: `New order ${ctx.orderNumber} from ${customerEmail}`,
+      bodyHtml,
+    });
+    const text = [
+      `New order ${ctx.orderNumber}`,
+      `Customer: ${name} <${customerEmail}>`,
+      `Total: ${formatPence(ctx.totalPence)}`,
+      `Payment: ${ctx.paymentMethod}`,
+      `Deliver to: ${addressText(ctx)}`,
+      `Track: ${link}`,
+      '',
+      itemsText(ctx),
+    ].join('\n');
+    return { subject, html, text };
+  }
+
+  const subject = `Order confirmed — ${ctx.orderNumber} | ${SITE_NAME}`;
 
   const bodyHtml = `
     ${emailStatusBanner('success', 'Thank you for your order', `We received order ${ctx.orderNumber} and it is awaiting payment.`)}

@@ -95,6 +95,10 @@ export interface OrderNotificationContext {
   shipmentMethod?: string | null;
   estimatedDeliveryAt?: string | null;
   supportEmail?: string;
+  /** When true, render the admin/ops copy of an order email. */
+  isAdminCopy?: boolean;
+  /** Customer email shown on admin order alerts. */
+  customerEmail?: string;
 }
 
 export interface AccountNotificationContext {

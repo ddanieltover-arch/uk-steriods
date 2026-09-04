@@ -117,7 +117,7 @@ export class NotificationService {
     data: AccountNotificationContext,
     options: { isManualResend?: boolean; idempotencyParts?: string[]; tx?: Prisma.TransactionClient } = {}
   ) {
-    return this.enqueue({
+    const row = await this.enqueue({
       eventType,
       recipient: data.email,
       payload: { kind: 'account', data },
@@ -127,6 +127,11 @@ export class NotificationService {
       isManualResend: options.isManualResend,
       tx: options.tx,
     });
+    // Account flows also need inline delivery on Vercel (no background worker).
+    if (!options.tx) {
+      await this.flushPendingSafe(10);
+    }
+    return row;
   }
 
   /**
@@ -153,6 +158,21 @@ export class NotificationService {
       },
     });
     return result.count;
+  }
+
+  /**
+   * Deliver due PENDING rows now. Used on Vercel (no long-lived worker)
+   * and after enqueue so checkout emails leave in the same request.
+   */
+  static async flushPendingSafe(limit = 20): Promise<void> {
+    try {
+      const result = await this.processPending(limit);
+      if (result.processed > 0) {
+        console.info('[notification] flush', result);
+      }
+    } catch (err) {
+      console.error('[notification] flush failed', err);
+    }
   }
 
   static async processPending(limit = 10): Promise<{ processed: number; sent: number; failed: number }> {
