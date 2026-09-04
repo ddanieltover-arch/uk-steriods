@@ -12,3 +12,5 @@ google-credentials.json
 __pycache__/
 *.py[cod]
 .pytest_cache/
+api/server.bundle.cjs
+api/server.bundle.cjs.map
