@@ -6,6 +6,7 @@ interface ProductGridProps {
   products: ProductCardData[];
   wishlistIds?: string[];
   onAddToCart?: (product: ProductCardData) => void;
+  onQuickBuy?: (product: ProductCardData) => void;
   onQuickView?: (product: ProductCardData) => void;
   onToggleWishlist?: (productId: string) => void;
   columns?: 2 | 3 | 4;
@@ -17,6 +18,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
   products,
   wishlistIds = [],
   onAddToCart,
+  onQuickBuy,
   onQuickView,
   onToggleWishlist,
   columns = 4,
@@ -39,6 +41,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
             viewMode="list"
             isWishlisted={wishlistIds.includes(product.id)}
             onAddToCart={onAddToCart}
+            onQuickBuy={onQuickBuy}
             onQuickView={onQuickView}
             onToggleWishlist={onToggleWishlist}
           />
@@ -56,6 +59,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
           viewMode="grid"
           isWishlisted={wishlistIds.includes(product.id)}
           onAddToCart={onAddToCart}
+          onQuickBuy={onQuickBuy}
           onQuickView={onQuickView}
           onToggleWishlist={onToggleWishlist}
         />

@@ -37,6 +37,7 @@ export class SeoService {
       'Allow: /shop',
       'Allow: /category/',
       'Allow: /brand/',
+      'Allow: /manufacturers',
       'Allow: /product/',
       'Allow: /blog',
       'Allow: /blog/',
@@ -45,6 +46,8 @@ export class SeoService {
       'Allow: /delivery-and-returns',
       'Allow: /payment-methods',
       'Allow: /crypto-payment-guides',
+      'Allow: /privacy-policy',
+      'Allow: /terms',
       'Disallow: /admin',
       'Disallow: /admin/',
       'Disallow: /account',
@@ -88,6 +91,7 @@ export class SeoService {
     const urls: { loc: string; lastmod: string; changefreq: string; priority: string }[] = [
       { loc: `${origin}/`, lastmod: now, changefreq: 'daily', priority: '1.0' },
       { loc: `${origin}/shop`, lastmod: now, changefreq: 'daily', priority: '0.9' },
+      { loc: `${origin}/manufacturers`, lastmod: now, changefreq: 'weekly', priority: '0.8' },
       { loc: `${origin}/blog`, lastmod: now, changefreq: 'daily', priority: '0.8' },
     ];
 

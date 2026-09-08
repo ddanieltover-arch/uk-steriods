@@ -22,12 +22,17 @@ const TARGET_BRANDS = [
 ];
 
 const DEFAULT_CATEGORIES = [
-  { name: 'Injectable Steroids', slug: 'injectable-steroids', description: 'Lab-tested injectable anabolic compounds' },
-  { name: 'Oral Steroids', slug: 'oral-steroids', description: 'Oral steroid tablets and capsules' },
-  { name: 'Fat Loss', slug: 'fat-loss', description: 'Fat burning and cutting supplements' },
+  { name: 'Injectable', slug: 'injectable', description: 'Injectable anabolic steroids' },
+  { name: 'Oral', slug: 'oral', description: 'Oral steroid tablets and capsules' },
   { name: 'SARMs', slug: 'sarms', description: 'Selective Androgen Receptor Modulators' },
-  { name: 'PCT & Health', slug: 'pct-health', description: 'Post Cycle Therapy and organ protection' },
-  { name: 'Stacks & Bundles', slug: 'stacks-bundles', description: 'Pre-made stacks and combinations' },
+  { name: 'PCT', slug: 'pct', description: 'Post Cycle Therapy' },
+  { name: 'Peptides', slug: 'peptides', description: 'Research peptides' },
+  { name: 'HGH', slug: 'hgh', description: 'Human growth hormone' },
+  { name: 'ED Meds', slug: 'ed-meds', description: 'Erectile dysfunction medication' },
+  { name: 'Viagra', slug: 'viagra', description: 'Viagra tablets' },
+  { name: 'Kamagra', slug: 'kamagra', description: 'Kamagra products' },
+  { name: 'Fat Loss', slug: 'fat-loss', description: 'Fat burners and cutting aids' },
+  { name: 'Accessories', slug: 'accessories', description: 'Needles, syringes and injection supplies' },
 ];
 
 async function fetchPage(pathUrl: string): Promise<{ status: number; body: string }> {
@@ -133,23 +138,21 @@ async function downloadBrandLogo(remoteUrl: string, slug: string): Promise<strin
 
 function detectCategorySlug(title: string, description: string, breadcrumbs: string[]): string {
   const lower = (title + ' ' + description + ' ' + breadcrumbs.join(' ')).toLowerCase();
-  
-  if (lower.includes('stack') || lower.includes('bundle') || lower.includes('cycle')) {
-    return 'stacks-bundles';
-  }
-  if (lower.includes('pct') || lower.includes('nolvadex') || lower.includes('clomid') || lower.includes('arimidex') || lower.includes('tamoxifen') || lower.includes('anastrozole')) {
-    return 'pct-health';
-  }
-  if (lower.includes('sarm') || lower.includes('rad-140') || lower.includes('mk-677') || lower.includes('gw-501516') || lower.includes('lgd-4033') || lower.includes('ostarine') || lower.includes('cardarine')) {
+
+  if (/\bkamagra\b/.test(lower)) return 'kamagra';
+  if (/\bviagra\b|\bsildenafil\b/.test(lower)) return 'viagra';
+  if (/\bdapoxetine\b|\btadalafil\b|\bcialis\b|\bed med/.test(lower)) return 'ed-meds';
+  if (/\bpeptide\b|\bbpc-?157\b|\btb-?500\b|\bigf\b|\bmgf\b|\bmelanotan\b|\bmt-?2\b/.test(lower)) return 'peptides';
+  if (/\bhgh\b|\bgrowth hormone\b|\bqomatropin\b|\bsomatropin\b/.test(lower)) return 'hgh';
+  if (/\bsarm\b|\brad-?140\b|\bmk-?677\b|\bmk677\b|\bgw-?501516\b|\blgd|ostarine|cardarine|yk-?11|sr-?9009|andarine|\bs23\b/.test(lower))
     return 'sarms';
-  }
-  if (lower.includes('clenbuterol') || lower.includes('t3') || lower.includes('cytomel') || lower.includes('salbutamol') || lower.includes('fat burn')) {
-    return 'fat-loss';
-  }
-  if (lower.includes('tab') || lower.includes('pill') || lower.includes('oral') || lower.includes('anavar') || lower.includes('dianabol') || lower.includes('anadrol') || lower.includes('winstrol') || lower.includes('turinabol') || lower.includes('proviron')) {
-    return 'oral-steroids';
-  }
-  return 'injectable-steroids';
+  if (/\bpct\b|\bnolvadex\b|\btamoxifen\b|\bclomid\b|\bclomiphene\b|\barimidex\b|\banastrozole\b|\barmidex\b|\bcaber|\bcabergoline\b|\bproviron\b|\bliv\.?52\b/.test(lower))
+    return 'pct';
+  if (/\bclenbuterol\b|\bt3\b|\bcytomel\b|\bsalbutamol\b|\bfat burn|\bfat loss|\bfastrip\b/.test(lower)) return 'fat-loss';
+  if (/\bneedle\b|\bsyringe\b|\bbacteriostatic\b|\binjection water\b|\baccessories\b/.test(lower)) return 'accessories';
+  if (/\btab\b|\bpill\b|\boral\b|\banavar\b|\bdianabol\b|\banadrol\b|\banapolon\b|\bwinstrol\b|\bturinabol\b|\bhalotestin\b|\bsuperdrol\b/.test(lower))
+    return 'oral';
+  return 'injectable';
 }
 
 async function main() {

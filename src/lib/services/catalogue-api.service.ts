@@ -7,7 +7,7 @@ import {
   SEARCH_QUERY_MIN_LENGTH,
   SEARCH_QUERY_MAX_LENGTH,
 } from '../search/ranking';
-
+import { normalizeProductText } from '../text/product-text';
 const LIST_SELECT = {
   id: true,
   name: true,
@@ -79,9 +79,19 @@ function mapListProduct(
     row.inventory?.availableQuantity ??
     (row.variants?.[0]?.inventory?.availableQuantity ?? 0);
 
+  const fallbackName =
+    (typeof row.name === 'string' && row.name.trim()) ||
+    (typeof row.slug === 'string'
+      ? row.slug
+          .split('-')
+          .filter(Boolean)
+          .map((w: string) => w.charAt(0).toUpperCase() + w.slice(1))
+          .join(' ')
+      : 'Product');
+
   return {
     id: row.id,
-    name: row.name,
+    name: normalizeProductText(fallbackName),
     slug: row.slug,
     sku: row.sku,
     brandId: row.brandId,
@@ -96,8 +106,8 @@ function mapListProduct(
     isBestseller: false,
     ratingAvg: ratings?.avg || 0,
     reviewCount: ratings?.count || 0,
-    shortDescription: row.shortDescription || '',
-    description: row.description || row.shortDescription || '',
+    shortDescription: normalizeProductText(row.shortDescription || ''),
+    description: normalizeProductText(row.description || row.shortDescription || ''),
     images: (row.images || []).map((img: { url: string }) => img.url).filter(Boolean),
     tags: (row.tags || []).map((t: { tag: { name: string } }) => t.tag.name),
     createdAt: row.createdAt instanceof Date ? row.createdAt.toISOString() : row.createdAt,
@@ -128,7 +138,7 @@ async function ratingsByProductIds(ids: string[]): Promise<Map<string, { avg: nu
 export class CatalogueApiService {
   static async list(query: CatalogueQuery): Promise<CatalogueApiResult> {
     const page = query.page || 1;
-    const limit = Math.min(48, query.limit || 12);
+    const limit = Math.min(48, query.limit || 25);
     const skip = (page - 1) * limit;
 
     const where = await this.buildWhere(query);
@@ -324,7 +334,7 @@ export class CatalogueApiService {
         { ...rest, description: product.description, images: product.images },
         { avg: ratingAvg, count: reviewCount }
       ),
-      description: product.description,
+      description: normalizeProductText(product.description || product.shortDescription || ''),
       images: product.images.map((img) => img.url),
       variants: product.variants.map((v) => ({
         id: v.id,
@@ -375,7 +385,7 @@ export class CatalogueApiService {
         { ...rest, description: product.description, images: product.images },
         { avg: ratingAvg, count: reviewCount }
       ),
-      description: product.description,
+      description: normalizeProductText(product.description || product.shortDescription || ''),
       images: product.images.map((img) => img.url),
       variants: product.variants.map((v) => ({
         id: v.id,

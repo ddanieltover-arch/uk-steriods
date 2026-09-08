@@ -58,15 +58,6 @@ export const Header: React.FC<HeaderProps> = (props) => {
         onSearchChange={props.onSearchChange}
         onSearchSubmit={props.onSearchSubmit}
         onOpenAccount={props.onOpenAccount}
-        onOpenFilters={() => {
-          const onShop = window.location.pathname === '/shop' || window.location.pathname.startsWith('/shop');
-          if (onShop) {
-            window.dispatchEvent(new Event('open-mobile-filters'));
-          } else {
-            sessionStorage.setItem('open-mobile-filters', '1');
-            props.onSelectCategory('');
-          }
-        }}
         onSelectCategory={props.onSelectCategory}
         onGoHome={props.onGoHome}
       />
@@ -87,6 +78,12 @@ export const Header: React.FC<HeaderProps> = (props) => {
         brands={props.brands}
         selectedCategorySlug={props.selectedCategorySlug}
         onSelectCategory={props.onSelectCategory}
+        onSelectBrand={props.onSelectBrand}
+        onNavigate={(path) => {
+          window.history.pushState({}, '', path);
+          window.dispatchEvent(new Event('popstate'));
+          setMobileMenuOpen(false);
+        }}
         searchQuery={props.searchQuery}
         onSearchChange={props.onSearchChange}
         onSearchSubmit={props.onSearchSubmit}

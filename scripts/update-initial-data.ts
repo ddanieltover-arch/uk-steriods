@@ -29,12 +29,22 @@ const initialBrands = catalog.brands.map((b: any) => ({
 
 // Format Categories
 const categoryNames: Record<string, string> = {
-  'injectable-steroids': 'Injectable Steroids',
-  'oral-steroids': 'Oral Steroids',
+  injectable: 'Injectable',
+  oral: 'Oral',
+  sarms: 'SARMs',
+  pct: 'PCT',
+  peptides: 'Peptides',
+  hgh: 'HGH',
+  'ed-meds': 'ED Meds',
+  viagra: 'Viagra',
+  kamagra: 'Kamagra',
   'fat-loss': 'Fat Loss',
-  'sarms': 'SARMs',
-  'pct-health': 'PCT & Health',
-  'stacks-bundles': 'Stacks & Bundles',
+  accessories: 'Accessories',
+  // legacy slugs (pre-reference sync)
+  'injectable-steroids': 'Injectable',
+  'oral-steroids': 'Oral',
+  'pct-health': 'PCT',
+  'stacks-bundles': 'Injectable',
 };
 
 const initialCategories = catalog.categories.map((c: any) => ({
@@ -105,4 +115,4 @@ export const INITIAL_REVIEWS: Review[] = [
 `;
 
 fs.writeFileSync(targetTsPath, tsContent);
-console.log(`Successfully updated ${targetTsPath} with ${initialProducts.length} real products and 5 target brands!`);
+console.log(`Successfully updated ${targetTsPath} with ${initialProducts.length} products and ${initialBrands.length} brands!`);

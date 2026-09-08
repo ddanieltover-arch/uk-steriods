@@ -1,4 +1,5 @@
 import { Product } from '../../types';
+import { normalizeProductText } from '../text/product-text';
 
 export interface PerformanceScores {
   strength: number;
@@ -14,8 +15,9 @@ export interface PdpFaqItem {
 }
 
 export function displayProductTitle(product: Product): string {
+  const name = normalizeProductText(product.name);
   const brandSuffix = new RegExp(`\\s*[–—-]\\s*${escapeRegExp(product.brandName)}\\s*$`, 'i');
-  return product.name.replace(brandSuffix, '').trim() || product.name;
+  return name.replace(brandSuffix, '').trim() || name;
 }
 
 function escapeRegExp(value: string): string {

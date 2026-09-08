@@ -4,6 +4,8 @@ import { CycleBuilderPage } from './CycleBuilderPage';
 import { DeliveryReturnsPage } from './DeliveryReturnsPage';
 import { PaymentMethodsPage } from './PaymentMethodsPage';
 import { CryptoPaymentGuidesPage } from './CryptoPaymentGuidesPage';
+import { PrivacyPolicyPage } from './PrivacyPolicyPage';
+import { TermsConditionsPage } from './TermsConditionsPage';
 
 const RESOURCE_PAGES: Record<string, React.FC<{ onNavigate: (path: string) => void }>> = {
   '/about-us': AboutUsPage,
@@ -11,6 +13,8 @@ const RESOURCE_PAGES: Record<string, React.FC<{ onNavigate: (path: string) => vo
   '/delivery-and-returns': DeliveryReturnsPage,
   '/payment-methods': PaymentMethodsPage,
   '/crypto-payment-guides': CryptoPaymentGuidesPage,
+  '/privacy-policy': PrivacyPolicyPage,
+  '/terms': TermsConditionsPage,
 };
 
 interface ResourceRouterProps {

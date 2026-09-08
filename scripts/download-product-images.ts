@@ -110,10 +110,20 @@ async function ensureDefaultProductImage(): Promise<string> {
   const defaultPath = path.join(productImageDir, 'default.webp');
   if (fs.existsSync(defaultPath)) return '/media/products/default.webp';
 
+  fs.mkdirSync(productImageDir, { recursive: true });
+
   const res = await fetchUrl('https://steroids-uk.com/og-default.jpg');
-  if (res.status === 200 && res.body.length >= 200) {
-    fs.mkdirSync(productImageDir, { recursive: true });
+  if (res.status === 200 && res.body.length >= 200 && !String(res.contentType).includes('text/html')) {
     fs.writeFileSync(defaultPath, res.body);
+    return '/media/products/default.webp';
+  }
+
+  // Remote default often 500 — copy any existing product webp so the path resolves.
+  const existing = fs
+    .readdirSync(productImageDir)
+    .find((f) => f.endsWith('.webp') && f !== 'default.webp');
+  if (existing) {
+    fs.copyFileSync(path.join(productImageDir, existing), defaultPath);
     return '/media/products/default.webp';
   }
 

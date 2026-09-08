@@ -6,6 +6,7 @@ import { CartDrawer } from './components/cart/CartDrawer';
 import { ProductQuickViewModal } from './components/storefront/ProductQuickViewModal';
 import { Homepage } from './components/storefront/Homepage';
 import { ShopPage } from './components/storefront/ShopPage';
+import { ManufacturersPage } from './components/storefront/ManufacturersPage';
 import { ProductDetailPage } from './components/pdp/ProductDetailPage';
 import { CartPage } from './components/cart/CartPage';
 import { AuthModal } from './components/account/AuthModal';
@@ -93,6 +94,15 @@ function MainAppContent() {
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
+
+  // Legacy /brands → /manufacturers
+  useEffect(() => {
+    const path = window.location.pathname;
+    if (path === '/brands' || path.startsWith('/brands/')) {
+      window.history.replaceState({}, '', '/manufacturers');
+      setCurrentPath('/manufacturers');
+    }
+  }, [currentPath]);
 
   const navigateTo = (path: string) => {
     window.history.pushState({}, '', path);
@@ -221,6 +231,11 @@ function MainAppContent() {
     }
   };
 
+  const handleQuickBuy = (p: Product) => {
+    handleAddFullProductToCart(p, undefined, 1, true);
+    navigateTo('/checkout');
+  };
+
   const handleToggleWishlist = (productId: string) => {
     const updated = StorageService.toggleWishlist(productId);
     setWishlistIds(updated);
@@ -295,6 +310,11 @@ function MainAppContent() {
     // Extract params
     const isCategoryRoute = currentPath.startsWith('/category/');
     const isBrandRoute = currentPath.startsWith('/brand/');
+    const isManufacturersRoute =
+      currentPath === '/manufacturers' ||
+      currentPath.startsWith('/manufacturers?') ||
+      currentPath === '/brands' ||
+      currentPath.startsWith('/brands?');
     const isProductRoute = currentPath.startsWith('/product/');
     const isShopRoute = currentPath === '/shop' || currentPath.startsWith('/shop?');
     const categorySlugFromPath = isCategoryRoute ? currentPath.replace('/category/', '') : undefined;
@@ -443,12 +463,21 @@ function MainAppContent() {
           <BlogIndexPage path={currentPath} onNavigate={(path) => navigateTo(path)} />
         ) : isBlogArticleRoute && blogSlugFromPath ? (
           <BlogArticlePage slug={blogSlugFromPath} onNavigate={(path) => navigateTo(path)} />
+        ) : isManufacturersRoute ? (
+          <ManufacturersPage
+            brands={brands}
+            onSelectBrand={(brandSlug) => navigateTo(`/brand/${brandSlug}`)}
+            onNavigate={(path) => navigateTo(path)}
+          />
         ) : isProductRoute && productSlugFromPath ? (
           <ProductDetailPage
             slug={productSlugFromPath}
             customProducts={products}
             wishlistIds={wishlistIds}
             onAddToCart={(p, v, q, silent) => handleAddFullProductToCart(p, v, q, silent)}
+            onToggleWishlist={handleToggleWishlist}
+            onNavigate={(path) => navigateTo(path)}
+            onQuickView={(p) => setQuickViewProduct(p)}
           />
         ) : isCatalogView ? (
           <ShopPage
@@ -459,6 +488,7 @@ function MainAppContent() {
             initialCategorySlug={categorySlugFromPath}
             initialBrandSlug={brandSlugFromPath}
             onAddToCart={(p, v, q) => handleAddFullProductToCart(p, v, q)}
+            onQuickBuy={handleQuickBuy}
             onQuickView={(p) => setQuickViewProduct(p)}
             onToggleWishlist={handleToggleWishlist}
             onNavigate={(path) => navigateTo(path)}
@@ -479,6 +509,7 @@ function MainAppContent() {
             }}
             onNavigate={(path) => navigateTo(path)}
             onAddToCart={(p) => handleAddFullProductToCart(p)}
+            onQuickBuy={handleQuickBuy}
             onQuickView={(p) => setQuickViewProduct(p)}
             onToggleWishlist={handleToggleWishlist}
           />

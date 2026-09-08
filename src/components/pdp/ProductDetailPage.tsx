@@ -30,6 +30,7 @@ import {
   performanceScoresFor,
   stackCandidates,
 } from '../../lib/pdp/pdp-content';
+import { normalizeProductText } from '../../lib/text/product-text';
 import { StockStatus } from '../../types';
 import {
   ChevronRight,
@@ -39,6 +40,7 @@ import {
   Search,
   AlertTriangle,
   Info,
+  Zap,
 } from 'lucide-react';
 import { SeoHead } from '../seo/SeoHead';
 import { SITE_NAME, sanitizeMetaText } from '../../lib/seo/site';
@@ -218,6 +220,20 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
     onAddToCart(product, selectedVariant || undefined, quantity);
   };
 
+  const handleQuickBuyClick = () => {
+    if (isOutOfStock) {
+      showToast('Out of Stock', 'This formulation variant is currently unavailable.', 'error');
+      return;
+    }
+    if (product.variants && product.variants.length > 0 && !selectedVariant) {
+      showToast('Option Required', 'Please select a variant option before buying.', 'error');
+      return;
+    }
+
+    onAddToCart(product, selectedVariant || undefined, quantity, true);
+    onNavigate('/checkout');
+  };
+
   // Convert Product to ProductCardData format helper
   const mapToCardData = (p: Product): ProductCardData => ({
     id: p.id,
@@ -311,7 +327,9 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                 <p className="text-sm font-bold text-slate-500">{sizeChips.join(' · ')}</p>
               )}
               {product.shortDescription && (
-                <p className="text-sm text-slate-600 leading-relaxed">{product.shortDescription}</p>
+                <p className="text-sm text-slate-600 leading-relaxed">
+                  {normalizeProductText(product.shortDescription)}
+                </p>
               )}
             </div>
 
@@ -355,6 +373,20 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                 onChange={setQuantity}
                 disabled={isOutOfStock}
               />
+              <button
+                type="button"
+                disabled={isOutOfStock}
+                onClick={handleQuickBuyClick}
+                className={`shrink-0 h-[3.25rem] w-[3.25rem] rounded-2xl border flex items-center justify-center transition-colors cursor-pointer ${
+                  isOutOfStock
+                    ? 'border-slate-200 bg-slate-100 text-slate-300 cursor-not-allowed'
+                    : 'border-slate-200 bg-white text-slate-600 hover:border-teal-500 hover:text-teal-700 hover:bg-teal-50'
+                }`}
+                title="Quick Buy"
+                aria-label="Quick buy — add to bag and checkout"
+              >
+                <Zap className="w-5 h-5" strokeWidth={2} />
+              </button>
               <button
                 type="button"
                 disabled={isOutOfStock}
@@ -402,8 +434,8 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                   id: 'description',
                   title: 'Description',
                   content: (
-                    <div className="whitespace-pre-line space-y-3">
-                      <p>{product.description}</p>
+                    <div className="whitespace-pre-line space-y-3 text-sm text-slate-600 leading-relaxed">
+                      <p>{normalizeProductText(product.description || product.shortDescription)}</p>
                     </div>
                   ),
                 },

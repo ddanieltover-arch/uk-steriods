@@ -110,6 +110,20 @@ ${navLinks([{ href: '/shop', label: 'Shop' }, { href: '/', label: 'Home' }])}
 </main>`;
   }
 
+  if (path === '/manufacturers' || path === '/brands') {
+    const brands = await db.brand.findMany({
+      select: { name: true, slug: true },
+      orderBy: { name: 'asc' },
+      take: 40,
+    });
+    const links = brands.map((b) => ({ href: `/brand/${b.slug}`, label: b.name }));
+    return `<main id="ssr-fallback">
+<h1>Manufacturers</h1>
+<p>${escapeHtml(`Trusted pharmaceutical manufacturers available at ${SITE_NAME}.`)}</p>
+${navLinks([{ href: '/shop', label: 'Shop' }, { href: '/', label: 'Home' }, ...links])}
+</main>`;
+  }
+
   if (path.startsWith('/brand/')) {
     const slug = path.replace('/brand/', '').split('/')[0];
     const brand = await db.brand.findUnique({
@@ -164,6 +178,8 @@ ${SITE_NAME} is a UK-based e-commerce catalogue for bodybuilders and fitness res
 - /delivery-and-returns: Shipping, packaging, and returns policy
 - /payment-methods: Bank transfer and crypto checkout
 - /crypto-payment-guides: Step-by-step crypto payment instructions
+- /privacy-policy: Privacy policy and data handling
+- /terms: Terms and conditions of sale
 
 ## Primary Topics
 - Lab-tested anabolic steroids UK

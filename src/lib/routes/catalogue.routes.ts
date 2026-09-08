@@ -34,7 +34,7 @@ export function registerCatalogueRoutes(app: Express) {
         availability: req.query.availability || 'all',
         sort: req.query.sort || 'featured',
         page: req.query.page ? Number(req.query.page) : 1,
-        limit: req.query.limit ? Number(req.query.limit) : 12,
+        limit: req.query.limit ? Number(req.query.limit) : 25,
       });
 
       if (!parsed.success) {

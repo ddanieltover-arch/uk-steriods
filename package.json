@@ -21,8 +21,11 @@
     "db:migrate:status": "prisma migrate status",
     "db:migrate:deploy": "prisma migrate deploy",
     "db:seed": "tsx prisma/seed.ts",
-    "blog:import": "tsx scripts/import-blog.ts",
+    "blog:import": "tsx scripts/import-blog.ts --limit=100",
     "products:download-images": "tsx scripts/download-product-images.ts",
+    "products:backfill-images": "tsx scripts/backfill-missing-product-images.ts",
+    "products:backfill-names": "tsx scripts/backfill-product-names.ts --db",
+    "categories:sync-reference": "tsx scripts/sync-reference-categories.ts",
     "catalog:import": "tsx scripts/import-catalog.ts",
     "db:ensure-admin": "tsx scripts/ensure-admin.ts"
   },

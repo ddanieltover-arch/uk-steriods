@@ -16,6 +16,10 @@ export const ANSWER_CAPSULES: Record<string, string> = {
     'Steroids UK accepts UK bank transfer and cryptocurrency at checkout. Payment instructions are sent after order confirmation; all transactions are encrypted and processed discreetly.',
   '/crypto-payment-guides':
     'Steroids UK crypto payment guides explain how to pay with Bitcoin and other supported cryptocurrencies at checkout, including wallet setup, network fees, and order confirmation steps.',
+  '/privacy-policy':
+    'Steroids UK does not sell personal data or use third-party ad tracking. We collect account, shipping and payment references only to fulfil orders, support customers, and prevent fraud, with plain packaging and restricted staff access.',
+  '/terms':
+    'Steroids UK terms cover research-use only products for adults 18+, GBP pricing, bank transfer and crypto payment, UK/Europe/worldwide tracked shipping, a reship guarantee for lost parcels, and limited returns on sealed items.',
 };
 
 export function answerCapsuleFor(pathname: string): string | null {

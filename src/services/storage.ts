@@ -1,16 +1,26 @@
 import { Product, Category, Brand, Order, CartItem, User, Review } from '../types';
 import { INITIAL_PRODUCTS, INITIAL_CATEGORIES, INITIAL_BRANDS, INITIAL_ORDERS, INITIAL_REVIEWS } from '../data/initialData';
+import { normalizeProductText } from '../lib/text/product-text';
 
 const KEYS = {
-  PRODUCTS: 'ukp_products_v1',
-  CATEGORIES: 'ukp_categories_v1',
-  BRANDS: 'ukp_brands_v1',
+  PRODUCTS: 'ukp_products_v6',
+  CATEGORIES: 'ukp_categories_v5',
+  BRANDS: 'ukp_brands_v7',
   ORDERS: 'ukp_orders_v1',
   CART: 'ukp_cart_v1',
   WISHLIST: 'ukp_wishlist_v1',
   USER: 'ukp_user_v1',
   REVIEWS: 'ukp_reviews_v1',
 };
+
+function normalizeCachedProduct(product: Product): Product {
+  return {
+    ...product,
+    name: normalizeProductText(product.name),
+    shortDescription: normalizeProductText(product.shortDescription),
+    description: normalizeProductText(product.description),
+  };
+}
 
 // localStorage holds only non-secret storefront cache (catalogue snapshot, cart, wishlist, current user profile).
 // Do not store passwords, payment details, session secrets, or full private order payloads here.
@@ -37,10 +47,10 @@ function setItem<T>(key: string, value: T): void {
 export const StorageService = {
   // --- Products ---
   getProducts(): Product[] {
-    return getItem<Product[]>(KEYS.PRODUCTS, INITIAL_PRODUCTS);
+    return getItem<Product[]>(KEYS.PRODUCTS, INITIAL_PRODUCTS).map(normalizeCachedProduct);
   },
   saveProducts(products: Product[]): void {
-    setItem(KEYS.PRODUCTS, products);
+    setItem(KEYS.PRODUCTS, products.map(normalizeCachedProduct));
   },
   getProductBySlug(slug: string): Product | undefined {
     return this.getProducts().find((p) => p.slug === slug || p.id === slug);

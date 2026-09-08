@@ -232,10 +232,13 @@ export const GUIDE_CARDS: { title: string; excerpt: string; href: string }[] = [
 ];
 
 export const GOAL_SLUGS = [
-  'injectable-steroids',
-  'oral-steroids',
+  'injectable',
+  'oral',
   'sarms',
-  'pct-health',
+  'pct',
+  'peptides',
+  'hgh',
+  'ed-meds',
   'fat-loss',
-  'stacks-bundles',
+  'accessories',
 ] as const;

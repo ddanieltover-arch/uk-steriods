@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { User, Search, SlidersHorizontal } from 'lucide-react';
+import { User, Search } from 'lucide-react';
 import { BrandMark } from '../brand/BrandMark';
 
 interface MobileHeaderProps {
@@ -7,7 +7,6 @@ interface MobileHeaderProps {
   onSearchChange: (query: string) => void;
   onSearchSubmit?: (query: string) => void;
   onOpenAccount: () => void;
-  onOpenFilters: () => void;
   onSelectCategory: (slug: string) => void;
   onGoHome?: () => void;
 }
@@ -17,7 +16,6 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
   onSearchChange,
   onSearchSubmit,
   onOpenAccount,
-  onOpenFilters,
   onSelectCategory,
   onGoHome,
 }) => {
@@ -75,16 +73,8 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
               onSearchChange(e.target.value);
             }}
             placeholder="Search products..."
-            className="w-full rounded-full glass-box text-[#aedac2] placeholder:text-[#aedac2]/80 text-xs font-medium py-2.5 pl-10 pr-12 focus:outline-none focus:ring-2 focus:ring-white/20"
+            className="w-full rounded-full glass-box text-[#aedac2] placeholder:text-[#aedac2]/80 text-xs font-medium py-2.5 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-white/20"
           />
-          <button
-            type="button"
-            onClick={onOpenFilters}
-            className="absolute right-1.5 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full glass-box text-white flex items-center justify-center cursor-pointer"
-            aria-label="Filters"
-          >
-            <SlidersHorizontal className="h-4 w-4" />
-          </button>
         </form>
       </div>
     </div>

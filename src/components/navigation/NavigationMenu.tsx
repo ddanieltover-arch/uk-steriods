@@ -3,6 +3,7 @@ import { ChevronDown, Sparkles } from 'lucide-react';
 import { Category, Brand } from '../../types';
 import { cn } from '../../lib/utils';
 import { RESOURCE_LINKS } from '../../data/resources';
+import { sortManufacturers } from '../../data/manufacturers';
 
 interface NavigationMenuProps {
   categories: Category[];
@@ -112,24 +113,41 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
         onMouseEnter={() => setOpenDropdown('brands')}
         onMouseLeave={() => setOpenDropdown(null)}
       >
-        <button className={cn('flex items-center gap-1 py-1.5 transition-colors cursor-pointer', isDark ? 'hover:text-white' : 'hover:text-[#157a62]')}>
-          <span>Brands</span>
+        <button
+          type="button"
+          onClick={() => go('/manufacturers')}
+          className={cn(
+            'flex items-center gap-1 py-1.5 transition-colors cursor-pointer',
+            isDark ? 'hover:text-white' : 'hover:text-[#157a62]',
+            typeof window !== 'undefined' &&
+              (window.location.pathname === '/manufacturers' || window.location.pathname.startsWith('/brand/')) &&
+              (isDark ? 'text-white' : 'text-[#157a62] font-black')
+          )}
+        >
+          <span>Manufacturers</span>
           <ChevronDown className="w-3.5 h-3.5" />
         </button>
 
         {openDropdown === 'brands' && (
           <div className="absolute top-full left-0 z-50 w-64 rounded-2xl border border-slate-200 bg-white p-3 shadow-xl animate-fade-in space-y-1">
+            <button
+              type="button"
+              onClick={() => go('/manufacturers')}
+              className="w-full text-left rounded-xl px-3 py-2 text-xs font-black text-teal-700 hover:bg-teal-50 transition-colors cursor-pointer"
+            >
+              All Manufacturers
+            </button>
             <div className="px-3 py-1 text-[10px] font-black uppercase text-slate-400 tracking-wider">
-              Featured Formulators
+              Trusted Labs
             </div>
-            {brands.map((brand) => (
+            {sortManufacturers(brands).map((brand) => (
               <button
                 key={brand.id}
                 onClick={() => {
                   if (onSelectBrand) {
                     onSelectBrand(brand.slug);
                   } else {
-                    onSelectCategory('');
+                    go(`/brand/${brand.slug}`);
                   }
                   setOpenDropdown(null);
                 }}

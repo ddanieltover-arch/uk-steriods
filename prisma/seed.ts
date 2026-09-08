@@ -9,6 +9,24 @@ const __dirname = path.dirname(__filename);
 
 const prisma = new PrismaClient();
 
+function cleanText(value: string | null | undefined): string {
+  if (!value) return '';
+  return value
+    .replace(/â€“/g, '–')
+    .replace(/â€”/g, '—')
+    .replace(/â€³/g, '″')
+    .replace(/Â£/g, '£')
+    .replace(/Â/g, '')
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/p>/gi, '\n')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/&amp;/gi, '&')
+    .replace(/\n{3,}/g, '\n\n')
+    .replace(/[ \t]{2,}/g, ' ')
+    .trim();
+}
+
 async function main() {
   console.log('🌱 Starting database seed with updated Steroids UK catalog data...');
 
@@ -128,15 +146,15 @@ async function main() {
   let count = 0;
   for (const pData of catalogData.products) {
     const bId = brandIdMap[pData.brandName];
-    const cId = categoryIdMap[pData.categorySlug] || categoryIdMap['injectable-steroids'];
+    const cId = categoryIdMap[pData.categorySlug] || categoryIdMap['injectable'];
 
     const product = await prisma.product.create({
       data: {
-        name: pData.name,
+        name: cleanText(pData.name),
         slug: pData.slug,
         sku: pData.sku,
-        description: pData.description,
-        shortDescription: pData.shortDescription,
+        description: cleanText(pData.description),
+        shortDescription: cleanText(pData.shortDescription),
         basePricePence: pData.pricePence,
         brandId: bId,
         categoryId: cId,

@@ -36,6 +36,20 @@ export const RESOURCE_PAGE_SEO: Record<
     changefreq: 'monthly',
     priority: '0.5',
   },
+  '/privacy-policy': {
+    title: 'Privacy Policy',
+    description:
+      'How Steroids UK collects, uses and protects your personal data. No sold data, no third-party ad tracking.',
+    changefreq: 'monthly',
+    priority: '0.4',
+  },
+  '/terms': {
+    title: 'Terms & Conditions',
+    description:
+      'Terms governing use of Steroids UK. Research-use catalogue, UK dispatch, bank transfer and crypto payment.',
+    changefreq: 'monthly',
+    priority: '0.4',
+  },
 };
 
 export const RESOURCE_PAGE_PATHS = Object.keys(RESOURCE_PAGE_SEO);

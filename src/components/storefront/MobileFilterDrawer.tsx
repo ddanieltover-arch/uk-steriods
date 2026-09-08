@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 import { X, SlidersHorizontal, RotateCcw, Check } from 'lucide-react';
-import { Category, Brand } from '../../types';
+import { Category } from '../../types';
 import { CatalogueQuery } from '../../lib/validation';
 
 interface MobileFilterDrawerProps {
   isOpen: boolean;
   onClose: () => void;
   categories: Category[];
-  brands: Brand[];
   draftQuery: CatalogueQuery;
   onUpdateDraft: (updated: CatalogueQuery) => void;
   onApply: () => void;
@@ -19,7 +18,6 @@ export const MobileFilterDrawer: React.FC<MobileFilterDrawerProps> = ({
   isOpen,
   onClose,
   categories,
-  brands,
   draftQuery,
   onUpdateDraft,
   onApply,
@@ -47,15 +45,8 @@ export const MobileFilterDrawer: React.FC<MobileFilterDrawerProps> = ({
 
   if (!isOpen) return null;
 
-  const handleBrandToggle = (brandId: string) => {
-    const current = draftQuery.brandIds || [];
-    const exists = current.includes(brandId);
-    const updated = exists ? current.filter((id) => id !== brandId) : [...current, brandId];
-    onUpdateDraft({ ...draftQuery, brandIds: updated, page: 1 });
-  };
-
   return (
-    <div className="fixed inset-0 z-50 flex flex-col justify-end lg:hidden">
+    <div className="fixed inset-0 z-50 flex flex-col justify-end sm:justify-center sm:items-center">
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs transition-opacity duration-300"
@@ -67,14 +58,14 @@ export const MobileFilterDrawer: React.FC<MobileFilterDrawerProps> = ({
       <div
         role="dialog"
         aria-modal="true"
-        aria-label="Filter and Sort Products"
-        className="relative bg-white w-full max-h-[85vh] rounded-t-3xl shadow-2xl flex flex-col z-10 overflow-hidden animate-in slide-in-from-bottom duration-300"
+        aria-label="Filter products"
+        className="relative bg-white w-full sm:max-w-md sm:mx-4 max-h-[85vh] rounded-t-3xl sm:rounded-3xl shadow-2xl flex flex-col z-10 overflow-hidden animate-in slide-in-from-bottom sm:zoom-in-95 duration-300"
       >
         {/* Drawer Header */}
         <div className="p-4 sm:p-5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
           <div className="flex items-center gap-2">
             <SlidersHorizontal className="w-5 h-5 text-teal-600" />
-            <h2 className="text-base font-extrabold text-slate-900">Filters & Sorting</h2>
+            <h2 className="text-base font-extrabold text-slate-900">Filters</h2>
           </div>
 
           <div className="flex items-center gap-2">
@@ -97,28 +88,8 @@ export const MobileFilterDrawer: React.FC<MobileFilterDrawerProps> = ({
 
         {/* Scrollable Form Body */}
         <div className="p-5 overflow-y-auto space-y-6 text-slate-800 flex-1">
-          {/* 1. Sort Selection */}
+          {/* Categories */}
           <div className="space-y-2">
-            <label className="text-xs font-extrabold uppercase text-slate-400 tracking-wider block">
-              Sort Order
-            </label>
-            <select
-              value={draftQuery.sort || 'featured'}
-              onChange={(e) => onUpdateDraft({ ...draftQuery, sort: e.target.value as any, page: 1 })}
-              className="w-full bg-slate-50 border border-slate-300 text-slate-900 text-xs rounded-xl p-3 font-bold outline-none focus:ring-2 focus:ring-teal-500"
-            >
-              <option value="featured">Featured & Recommended</option>
-              <option value="newest">Newest Arrivals</option>
-              <option value="price_asc">Price: Low to High</option>
-              <option value="price_desc">Price: High to Low</option>
-              <option value="name_asc">Name: A–Z</option>
-              <option value="name_desc">Name: Z–A</option>
-              <option value="bestselling">Best Selling</option>
-            </select>
-          </div>
-
-          {/* 2. Categories */}
-          <div className="space-y-2 pt-2 border-t border-slate-100">
             <label className="text-xs font-extrabold uppercase text-slate-400 tracking-wider block">
               Category
             </label>
@@ -157,34 +128,7 @@ export const MobileFilterDrawer: React.FC<MobileFilterDrawerProps> = ({
             </div>
           </div>
 
-          {/* 3. Brands Checkboxes */}
-          <div className="space-y-2 pt-2 border-t border-slate-100">
-            <label className="text-xs font-extrabold uppercase text-slate-400 tracking-wider block">
-              Brands
-            </label>
-            <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
-              {brands.map((brand) => {
-                const isChecked = draftQuery.brandIds?.includes(brand.id);
-                return (
-                  <label
-                    key={brand.id}
-                    className="flex items-center gap-3 text-xs font-medium text-slate-800 p-2 rounded-lg bg-slate-50 border border-slate-200 cursor-pointer"
-                  >
-                    <input
-                      type="checkbox"
-                      checked={isChecked}
-                      onChange={() => handleBrandToggle(brand.id)}
-                      className="w-4 h-4 text-teal-600 border-slate-300 rounded focus:ring-teal-500 cursor-pointer"
-                    />
-                    <span className="flex-1 font-bold">{brand.name}</span>
-                    <span className="text-[10px] text-slate-400">({brand.productCount})</span>
-                  </label>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* 4. Availability Switches */}
+          {/* Availability */}
           <div className="space-y-3 pt-2 border-t border-slate-100">
             <label className="text-xs font-extrabold uppercase text-slate-400 tracking-wider block">
               Availability
@@ -228,7 +172,7 @@ export const MobileFilterDrawer: React.FC<MobileFilterDrawerProps> = ({
             </div>
           </div>
 
-          {/* 5. Price Range Slider */}
+          {/* Price Range */}
           <div className="space-y-3 pt-2 border-t border-slate-100">
             <div className="flex items-center justify-between text-xs font-extrabold">
               <span className="uppercase text-slate-400 tracking-wider">Max Price</span>

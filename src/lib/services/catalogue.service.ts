@@ -158,7 +158,7 @@ export class CatalogueService {
     });
 
     // 6. Pagination
-    const limit = query.limit || 12;
+    const limit = query.limit || 25;
     const totalCount = filtered.length;
     const totalPages = Math.max(1, Math.ceil(totalCount / limit));
     const normalizedPage = Math.min(Math.max(1, query.page || 1), totalPages);

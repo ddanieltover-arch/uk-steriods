@@ -23,9 +23,21 @@ export function absoluteUrl(pathname: string): string {
 
 export function sanitizeMetaText(value: string | null | undefined, max = 160): string {
   if (!value) return '';
-  const collapsed = value.replace(/\s+/g, ' ').trim();
-  if (collapsed.length <= max) return collapsed;
-  return `${collapsed.slice(0, max - 1).trimEnd()}…`;
+  // Lazy import avoided — keep SEO helpers free of HTML tags / mojibake in meta.
+  const cleaned = value
+    .replace(/â€“/g, '–')
+    .replace(/â€”/g, '—')
+    .replace(/â€™/g, '’')
+    .replace(/â€œ|â€/g, '"')
+    .replace(/Â£/g, '£')
+    .replace(/Â/g, '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/&amp;/gi, '&')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (cleaned.length <= max) return cleaned;
+  return `${cleaned.slice(0, max - 1).trimEnd()}…`;
 }
 
 export const NOINDEX_PATH_PREFIXES = [

@@ -1,28 +1,40 @@
-import React, { useState, useEffect, useTransition } from 'react';
+import React, { useState, useEffect, useTransition, useMemo } from 'react';
 import { CatalogueService, CataloguePaginatedResult } from '../../lib/services/catalogue.service';
 import { CatalogueQuery, CatalogueQuerySchema } from '../../lib/validation';
 import { Category, Brand, Product, ProductVariant } from '../../types';
 import { ProductCard, ProductCardData } from '../commerce/ProductCard';
 import { Container } from '../layout/Container';
-import { FilterSidebar } from './FilterSidebar';
 import { ActiveFiltersBar } from './ActiveFiltersBar';
 import { MobileFilterDrawer } from './MobileFilterDrawer';
 import { CataloguePagination } from './CataloguePagination';
 import { CatalogueBreadcrumbs, BreadcrumbItem } from './CatalogueBreadcrumbs';
 import { CatalogueSkeleton } from './CatalogueSkeleton';
+import { ShopCategoryChips } from './ShopCategoryChips';
 import { StockStatus } from '../../types';
 import { SeoHead } from '../seo/SeoHead';
 import { SITE_NAME, sanitizeMetaText } from '../../lib/seo/site';
 import { breadcrumbJsonLd } from '../../lib/seo/structured-data';
 import {
   Search,
-  SlidersHorizontal,
   LayoutGrid,
   List,
   X,
   PackageX,
   RotateCcw,
+  Filter,
+  ArrowUpNarrowWide,
+  ChevronDown,
 } from 'lucide-react';
+
+const SORT_LABELS: Record<string, string> = {
+  featured: 'Featured',
+  newest: 'Newest',
+  price_asc: 'Price: Low to High',
+  price_desc: 'Price: High to Low',
+  name_asc: 'Name: A–Z',
+  name_desc: 'Name: Z–A',
+  bestselling: 'Best Selling',
+};
 
 interface ShopPageProps {
   categories: Category[];
@@ -32,6 +44,7 @@ interface ShopPageProps {
   initialCategorySlug?: string;
   initialBrandSlug?: string;
   onAddToCart: (product: Product, variant?: ProductVariant, quantity?: number) => void;
+  onQuickBuy?: (product: Product) => void;
   onQuickView: (product: Product) => void;
   onToggleWishlist: (productId: string) => void;
   onNavigate?: (path: string) => void;
@@ -48,7 +61,7 @@ function parseUrlQueryParams(): Partial<CatalogueQuery> {
   const minPrice = searchParams.get('minPrice') ? Number(searchParams.get('minPrice')) : 0;
   const maxPrice = searchParams.get('maxPrice') ? Number(searchParams.get('maxPrice')) : 1000;
   const availability = searchParams.get('availability') || 'all';
-  const sort = searchParams.get('sort') || 'featured';
+  const sort = searchParams.get('sort') || 'newest';
   const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
 
   return {
@@ -61,7 +74,7 @@ function parseUrlQueryParams(): Partial<CatalogueQuery> {
     availability: availability as any,
     sort: sort as any,
     page,
-    limit: 12,
+    limit: 25,
   };
 }
 
@@ -76,7 +89,7 @@ function updateUrlQueryParams(query: CatalogueQuery, basePath = '/shop') {
   if (query.minPrice > 0) params.set('minPrice', query.minPrice.toString());
   if (query.maxPrice < 1000 && query.maxPrice > 0) params.set('maxPrice', query.maxPrice.toString());
   if (query.availability && query.availability !== 'all') params.set('availability', query.availability);
-  if (query.sort && query.sort !== 'featured') params.set('sort', query.sort);
+  if (query.sort && query.sort !== 'newest') params.set('sort', query.sort);
   if (query.page > 1) params.set('page', query.page.toString());
 
   const queryString = params.toString();
@@ -95,6 +108,7 @@ export const ShopPage: React.FC<ShopPageProps> = ({
   initialCategorySlug,
   initialBrandSlug,
   onAddToCart,
+  onQuickBuy,
   onQuickView,
   onToggleWishlist,
   onNavigate,
@@ -113,23 +127,10 @@ export const ShopPage: React.FC<ShopPageProps> = ({
 
   const [searchInput, setSearchInput] = useState(query.search || '');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
-  const [draftMobileQuery, setDraftMobileQuery] = useState<CatalogueQuery>(query);
   const [apiResult, setApiResult] = useState<CataloguePaginatedResult | null>(null);
   const [usingApi, setUsingApi] = useState(false);
-
-  useEffect(() => {
-    if (sessionStorage.getItem('open-mobile-filters') === '1') {
-      sessionStorage.removeItem('open-mobile-filters');
-      setIsMobileFilterOpen(true);
-    }
-    const open = () => {
-      setDraftMobileQuery(query);
-      setIsMobileFilterOpen(true);
-    };
-    window.addEventListener('open-mobile-filters', open);
-    return () => window.removeEventListener('open-mobile-filters', open);
-  }, [query]);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [draftQuery, setDraftQuery] = useState<CatalogueQuery>(query);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -143,7 +144,7 @@ export const ShopPage: React.FC<ShopPageProps> = ({
     if (query.availability && query.availability !== 'all') params.set('availability', query.availability);
     if (query.sort) params.set('sort', query.sort);
     params.set('page', String(query.page || 1));
-    params.set('limit', String(query.limit || 12));
+    params.set('limit', String(query.limit || 25));
 
     fetch(`/api/v1/catalogue?${params.toString()}`, { signal: controller.signal })
       .then((res) => (res.ok ? res.json() : Promise.reject(new Error('catalogue unavailable'))))
@@ -152,7 +153,7 @@ export const ShopPage: React.FC<ShopPageProps> = ({
           products: data.products || [],
           totalCount: data.totalCount || 0,
           page: data.page || 1,
-          limit: data.limit || 12,
+          limit: data.limit || 25,
           totalPages: data.totalPages || 1,
           category: data.category,
           brand: data.brand,
@@ -222,6 +223,35 @@ export const ShopPage: React.FC<ShopPageProps> = ({
     brands
   );
   const catalogueResult = usingApi && apiResult ? apiResult : localResult;
+
+  const categoriesWithCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const p of products) {
+      if (!p.isPublished) continue;
+      const slug = p.categorySlug;
+      if (!slug) continue;
+      counts[slug] = (counts[slug] || 0) + 1;
+    }
+    // Prefer API facet counts when present
+    const apiCounts = catalogueResult.filterStats?.categoryCounts || {};
+    return categories.map((c) => ({
+      ...c,
+      productCount: apiCounts[c.slug] ?? counts[c.slug] ?? c.productCount ?? 0,
+    }));
+  }, [categories, products, catalogueResult.filterStats?.categoryCounts]);
+
+  const publishedTotal = useMemo(
+    () => products.filter((p) => p.isPublished).length || catalogueResult.totalCount,
+    [products, catalogueResult.totalCount]
+  );
+
+  const handleCategoryChip = (slug: string) => {
+    if (onNavigate) {
+      onNavigate(slug ? `/category/${slug}` : '/shop');
+      return;
+    }
+    handleUpdateQuery({ category: slug, page: 1 });
+  };
 
   const seoTitle = catalogueResult.category
     ? `${catalogueResult.category.name} | ${SITE_NAME}`
@@ -306,23 +336,51 @@ export const ShopPage: React.FC<ShopPageProps> = ({
 
   const handleClearAllFilters = () => {
     setSearchInput('');
+    const cleared = CatalogueQuerySchema.parse({
+      category: initialCategorySlug || '',
+      brand: initialBrandSlug || '',
+      search: '',
+      brandIds: [],
+      minPrice: 0,
+      maxPrice: 1000,
+      availability: 'all',
+      sort: query.sort || 'newest',
+      page: 1,
+      limit: 25,
+    });
+    setDraftQuery(cleared);
     startTransition(() => {
-      setQuery(
-        CatalogueQuerySchema.parse({
-          category: initialCategorySlug || '',
-          brand: initialBrandSlug || '',
-          search: '',
-          brandIds: [],
-          minPrice: 0,
-          maxPrice: 1000,
-          availability: 'all',
-          sort: 'featured',
-          page: 1,
-          limit: 12,
-        })
-      );
+      setQuery(cleared);
     });
   };
+
+  const openFilters = () => {
+    setDraftQuery(query);
+    setIsFilterOpen(true);
+  };
+
+  const applyFilters = () => {
+    startTransition(() => {
+      setQuery(CatalogueQuerySchema.parse({ ...draftQuery, page: 1 }));
+    });
+    setIsFilterOpen(false);
+  };
+
+  const activeFilterCount = [
+    query.category,
+    query.availability && query.availability !== 'all',
+    query.minPrice > 0 || (query.maxPrice < 1000 && query.maxPrice > 0),
+  ].filter(Boolean).length;
+
+  const sortLabel = SORT_LABELS[query.sort || 'featured'] || 'Newest';
+  const rangeStart =
+    catalogueResult.totalCount === 0
+      ? 0
+      : (catalogueResult.page - 1) * catalogueResult.limit + 1;
+  const rangeEnd = Math.min(
+    catalogueResult.page * catalogueResult.limit,
+    catalogueResult.totalCount
+  );
 
   // Build Breadcrumbs Array
   const breadcrumbs: BreadcrumbItem[] = [{ label: 'Shop', href: '/shop' }];
@@ -377,28 +435,16 @@ export const ShopPage: React.FC<ShopPageProps> = ({
         {/* Dynamic Page Header & Banner */}
         <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-2xs mb-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div className="space-y-2 max-w-2xl">
-              <span className="text-[10px] font-black uppercase text-teal-600 tracking-widest block">
-                UK Performance Range
-              </span>
-
+            <div className="max-w-2xl">
               <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
                 {catalogueResult.category
                   ? catalogueResult.category.name
                   : catalogueResult.brand
-                  ? `${catalogueResult.brand.name} Formulations`
+                  ? catalogueResult.brand.name
                   : query.search
                   ? `Search: "${query.search}"`
-                  : 'Complete Sports Catalogue'}
+                  : 'All Products'}
               </h1>
-
-              <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
-                {catalogueResult.category
-                  ? catalogueResult.category.description || 'Targeted sports nutrition and recovery complexes.'
-                  : catalogueResult.brand
-                  ? catalogueResult.brand.description || 'Manufactured according to UK performance specs.'
-                  : 'Cold-filtered isolates, intra-workout electrolytes, and endurance complexes.'}
-              </p>
             </div>
 
             {/* Quick Search Input */}
@@ -426,92 +472,64 @@ export const ShopPage: React.FC<ShopPageProps> = ({
           </div>
         </div>
 
-        {/* Main Layout Grid */}
-        <div className="flex flex-col lg:flex-row gap-8 items-start">
-          {/* Desktop Filter Sidebar */}
-          <div className="hidden lg:block w-64 shrink-0 sticky top-24">
-            <FilterSidebar
-              categories={categories}
-              brands={brands}
-              filters={{
-                searchQuery: query.search || '',
-                categorySlug: query.category || '',
-                brandIds: query.brandIds || [],
-                minPrice: query.minPrice || 0,
-                maxPrice: query.maxPrice || 1000,
-                inStockOnly: query.availability === 'in_stock',
-                onSaleOnly: query.availability === 'on_sale',
-                sortBy: 'featured',
-              }}
-              onFilterChange={(newFilters) => {
-                handleUpdateQuery({
-                  category: newFilters.categorySlug,
-                  brandIds: newFilters.brandIds,
-                  availability: newFilters.inStockOnly
-                    ? 'in_stock'
-                    : newFilters.onSaleOnly
-                    ? 'on_sale'
-                    : 'all',
-                  maxPrice: newFilters.maxPrice,
-                  page: 1,
-                });
-              }}
-              onResetFilters={handleClearAllFilters}
-            />
-          </div>
-
-          {/* Main Results Column */}
-          <main className="flex-1 w-full space-y-4">
-            {/* Toolbar: Results Count, Mobile Filter Trigger, Sort, View Toggle */}
-            <div className="bg-white p-4 rounded-2xl border border-slate-200 flex flex-wrap items-center justify-between gap-4 shadow-2xs">
-              {/* Results count & Mobile Filter Button */}
-              <div className="flex items-center gap-3">
+        <main className="w-full space-y-4">
+            {/* Filters + Sort (reference-style) */}
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="flex items-center gap-2.5">
                 <button
                   type="button"
-                  onClick={() => {
-                    setDraftMobileQuery(query);
-                    setIsMobileFilterOpen(true);
-                  }}
-                  className="lg:hidden bg-slate-900 text-white text-xs font-extrabold px-3.5 py-2 rounded-xl flex items-center gap-2 cursor-pointer"
+                  onClick={openFilters}
+                  className="inline-flex items-center gap-2 bg-white border border-slate-300 text-slate-900 text-sm font-semibold rounded-xl px-4 py-2.5 hover:border-slate-400 transition-colors cursor-pointer"
                 >
-                  <SlidersHorizontal className="w-3.5 h-3.5 text-teal-400" />
-                  <span>Filter & Sort</span>
+                  <Filter className="w-4 h-4 text-slate-700" strokeWidth={2} />
+                  <span>Filters</span>
+                  {activeFilterCount > 0 && (
+                    <span className="ml-0.5 min-w-5 h-5 px-1.5 rounded-full bg-teal-600 text-white text-[10px] font-black flex items-center justify-center">
+                      {activeFilterCount}
+                    </span>
+                  )}
                 </button>
 
-                <p className="text-xs text-slate-600 font-bold">
-                  Found <span className="text-teal-600 font-black">{catalogueResult.totalCount}</span> product(s)
-                </p>
-              </div>
-
-              {/* Sort Selector & View Mode Switcher */}
-              <div className="flex items-center gap-3 ml-auto">
-                <div className="flex items-center gap-2">
-                  <label htmlFor="sort-select" className="text-xs font-extrabold text-slate-400 uppercase tracking-wider hidden sm:inline">
-                    Sort By:
-                  </label>
+                <div className="relative">
+                  <ArrowUpNarrowWide
+                    className="w-4 h-4 text-slate-700 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
+                    strokeWidth={2}
+                  />
                   <select
                     id="sort-select"
-                    value={query.sort || 'featured'}
+                    aria-label="Sort products"
+                    value={query.sort || 'newest'}
                     onChange={(e) => handleUpdateQuery({ sort: e.target.value as any, page: 1 })}
-                    className="bg-slate-50 border border-slate-200 text-slate-800 text-xs rounded-xl px-3 py-2 font-bold outline-none focus:ring-2 focus:ring-teal-500 cursor-pointer"
+                    className="appearance-none bg-white border-2 border-teal-700 text-slate-900 text-sm font-semibold rounded-xl pl-10 pr-9 py-2.5 outline-none focus:ring-2 focus:ring-teal-500/30 cursor-pointer min-w-[9.5rem]"
                   >
-                    <option value="featured">Featured & Recommended</option>
-                    <option value="newest">Newest Arrivals</option>
+                    <option value="newest">Newest</option>
+                    <option value="featured">Featured</option>
                     <option value="price_asc">Price: Low to High</option>
                     <option value="price_desc">Price: High to Low</option>
                     <option value="name_asc">Name: A–Z</option>
                     <option value="name_desc">Name: Z–A</option>
                     <option value="bestselling">Best Selling</option>
                   </select>
+                  <ChevronDown className="w-4 h-4 text-slate-600 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <span className="sr-only">{sortLabel}</span>
                 </div>
+              </div>
 
-                {/* View Mode Toggle */}
-                <div className="hidden sm:flex border border-slate-200 rounded-xl bg-slate-50 p-0.5">
+              <div className="flex items-center gap-3">
+                <p className="text-xs text-slate-600 font-medium">
+                  Showing{' '}
+                  <span className="font-bold text-slate-800">
+                    {rangeStart}–{rangeEnd}
+                  </span>{' '}
+                  of <span className="font-bold text-slate-800">{catalogueResult.totalCount}</span> results
+                </p>
+
+                <div className="hidden sm:flex border border-slate-200 rounded-xl bg-white p-0.5">
                   <button
                     type="button"
                     onClick={() => setViewMode('grid')}
                     className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
-                      viewMode === 'grid' ? 'bg-white shadow-2xs text-teal-600' : 'text-slate-400 hover:text-slate-600'
+                      viewMode === 'grid' ? 'bg-slate-100 text-teal-700' : 'text-slate-400 hover:text-slate-600'
                     }`}
                     aria-label="Grid View"
                   >
@@ -521,7 +539,7 @@ export const ShopPage: React.FC<ShopPageProps> = ({
                     type="button"
                     onClick={() => setViewMode('list')}
                     className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
-                      viewMode === 'list' ? 'bg-white shadow-2xs text-teal-600' : 'text-slate-400 hover:text-slate-600'
+                      viewMode === 'list' ? 'bg-slate-100 text-teal-700' : 'text-slate-400 hover:text-slate-600'
                     }`}
                     aria-label="List View"
                   >
@@ -534,10 +552,17 @@ export const ShopPage: React.FC<ShopPageProps> = ({
             {/* Active Filters Chips Bar */}
             <ActiveFiltersBar
               query={query}
-              categories={categories}
+              categories={categoriesWithCounts}
               brands={brands}
               onRemoveFilter={handleRemoveSingleFilter}
               onClearAll={handleClearAllFilters}
+            />
+
+            <ShopCategoryChips
+              categories={categoriesWithCounts}
+              activeSlug={query.category || initialCategorySlug || ''}
+              totalCount={publishedTotal}
+              onSelect={handleCategoryChip}
             />
 
             {/* Product Display / Loading State / Empty State */}
@@ -603,7 +628,7 @@ export const ShopPage: React.FC<ShopPageProps> = ({
               <div
                 className={
                   viewMode === 'grid'
-                    ? 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6'
+                    ? 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6'
                     : 'space-y-4'
                 }
               >
@@ -618,6 +643,7 @@ export const ShopPage: React.FC<ShopPageProps> = ({
                       isWishlisted={isWish}
                       viewMode={viewMode}
                       onAddToCart={() => onAddToCart(product)}
+                      onQuickBuy={onQuickBuy ? () => onQuickBuy(product) : undefined}
                       onQuickView={() => onQuickView(product)}
                       onToggleWishlist={onToggleWishlist}
                     />
@@ -634,25 +660,27 @@ export const ShopPage: React.FC<ShopPageProps> = ({
               limit={catalogueResult.limit}
               onPageChange={(p) => handleUpdateQuery({ page: p })}
             />
-          </main>
-        </div>
+        </main>
       </Container>
 
-      {/* Mobile Filter & Sort Drawer */}
       <MobileFilterDrawer
-        isOpen={isMobileFilterOpen}
-        onClose={() => setIsMobileFilterOpen(false)}
-        categories={categories}
-        brands={brands}
-        draftQuery={draftMobileQuery}
-        onUpdateDraft={setDraftMobileQuery}
-        onApply={() => {
-          handleUpdateQuery(draftMobileQuery);
-          setIsMobileFilterOpen(false);
-        }}
+        isOpen={isFilterOpen}
+        onClose={() => setIsFilterOpen(false)}
+        categories={categoriesWithCounts}
+        draftQuery={draftQuery}
+        onUpdateDraft={setDraftQuery}
+        onApply={applyFilters}
         onClearAll={() => {
-          handleClearAllFilters();
-          setIsMobileFilterOpen(false);
+          const cleared = CatalogueQuerySchema.parse({
+            ...draftQuery,
+            category: '',
+            brandIds: [],
+            minPrice: 0,
+            maxPrice: 1000,
+            availability: 'all',
+            page: 1,
+          });
+          setDraftQuery(cleared);
         }}
         totalMatchesCount={catalogueResult.totalCount}
       />

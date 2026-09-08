@@ -5,7 +5,7 @@ import { SITE_NAME } from '../../lib/seo/site';
 
 const shopLinks = [
   { href: '/shop', label: 'All products' },
-  { href: '/category/stacks-bundles', label: 'Stacks' },
+  { href: '/manufacturers', label: 'Manufacturers' },
   { href: '/shop', label: 'New products' },
 ];
 
@@ -20,12 +20,17 @@ const helpLinks = [
 ];
 
 const categoryLinks = [
-  { href: '/category/oral-steroids', label: 'Oral steroids' },
-  { href: '/category/injectable-steroids', label: 'Injectable steroids' },
+  { href: '/category/injectable', label: 'Injectable' },
+  { href: '/category/oral', label: 'Oral' },
   { href: '/category/sarms', label: 'SARMs' },
-  { href: '/category/pct-health', label: 'PCT' },
-  { href: '/category/fat-loss', label: 'Fat burners' },
-  { href: '/category/stacks-bundles', label: 'Stacks' },
+  { href: '/category/pct', label: 'PCT' },
+  { href: '/category/peptides', label: 'Peptides' },
+  { href: '/category/hgh', label: 'HGH' },
+  { href: '/category/ed-meds', label: 'ED Meds' },
+  { href: '/category/viagra', label: 'Viagra' },
+  { href: '/category/kamagra', label: 'Kamagra' },
+  { href: '/category/fat-loss', label: 'Fat Loss' },
+  { href: '/category/accessories', label: 'Accessories' },
 ];
 
 const compoundLinks = [
@@ -34,7 +39,7 @@ const compoundLinks = [
   { href: '/shop?q=anavar', label: 'Anavar' },
   { href: '/shop?q=trenbolone', label: 'Trenbolone' },
   { href: '/shop?q=winstrol', label: 'Winstrol' },
-  { href: '/category/pct-health', label: 'Nolvadex / Clomid' },
+  { href: '/category/pct', label: 'Nolvadex / Clomid' },
 ];
 
 export const Footer: React.FC = () => {
@@ -75,7 +80,13 @@ export const Footer: React.FC = () => {
       <div className="border-t border-slate-200 bg-slate-50 py-5 text-[11px] text-slate-500">
         <Container className="flex flex-col md:flex-row justify-between items-center gap-4">
           <p>© {new Date().getFullYear()} {SITE_NAME}. All rights reserved.</p>
-          <div className="flex flex-wrap items-center gap-2 font-bold text-[10px]">
+          <div className="flex flex-wrap items-center gap-4 font-bold text-[10px]">
+            <a href="/privacy-policy" className="hover:text-[#157a62] transition-colors">
+              Privacy
+            </a>
+            <a href="/terms" className="hover:text-[#157a62] transition-colors">
+              Terms
+            </a>
             {['Bank transfer', 'Crypto'].map((m) => (
               <span key={m} className="bg-white border border-slate-200 px-2.5 py-1 rounded-md text-slate-800">
                 {m}

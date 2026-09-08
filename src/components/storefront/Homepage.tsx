@@ -15,6 +15,7 @@ import {
   GOAL_SLUGS,
   GUIDE_CARDS,
 } from '../../data/homepage';
+import { sortManufacturers } from '../../data/manufacturers';
 import { StockStatus } from '@prisma/client';
 import {
   ArrowRight,
@@ -35,6 +36,7 @@ interface HomepageProps {
   onSelectBrand: (slug: string) => void;
   onNavigate?: (path: string) => void;
   onAddToCart: (product: Product, variant?: ProductVariant, quantity?: number) => void;
+  onQuickBuy?: (product: Product) => void;
   onQuickView: (product: Product) => void;
   onToggleWishlist: (productId: string) => void;
   isLoading?: boolean;
@@ -49,6 +51,7 @@ export const Homepage: React.FC<HomepageProps> = ({
   onSelectBrand,
   onNavigate,
   onAddToCart,
+  onQuickBuy,
   onQuickView,
   onToggleWishlist,
   isLoading = false,
@@ -115,6 +118,7 @@ export const Homepage: React.FC<HomepageProps> = ({
               product={mapProductToCardData(product)}
               isWishlisted={wishlist.includes(product.id)}
               onAddToCart={() => onAddToCart(product)}
+              onQuickBuy={onQuickBuy ? () => onQuickBuy(product) : undefined}
               onQuickView={() => onQuickView(product)}
               onToggleWishlist={onToggleWishlist}
             />
@@ -241,23 +245,30 @@ export const Homepage: React.FC<HomepageProps> = ({
       {brands.length > 0 && (
         <Section padding="sm" background="subtle">
           <Container>
-            <SectionHeading kicker="Trusted suppliers" title="Our manufacturers" actionLabel="See all" onAction={() => go('/shop')} />
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-              {brands.map((brand) => (
+            <SectionHeading kicker="Trusted suppliers" title="Our manufacturers" actionLabel="See all" onAction={() => go('/manufacturers')} />
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+              {sortManufacturers(brands).slice(0, 11).map((brand) => (
                 <button
                   key={brand.id}
                   type="button"
                   onClick={() => onSelectBrand(brand.slug)}
-                  className="bg-white rounded-2xl border border-slate-200 p-4 hover:border-[#157a62] cursor-pointer flex flex-col items-center gap-3"
+                  className="bg-white rounded-lg border border-slate-200 p-4 hover:shadow-md hover:border-[#157a62] cursor-pointer flex flex-col items-center justify-center min-h-[100px]"
                 >
                   {brand.logoUrl ? (
-                    <img src={brand.logoUrl} alt="" className="h-12 w-auto object-contain" />
-                  ) : (
-                    <span className="h-12 w-12 rounded-lg bg-[#003d30] text-[#aedac2] text-xs font-black flex items-center justify-center">
-                      {brand.name.slice(0, 2)}
-                    </span>
-                  )}
-                  <span className="text-xs font-extrabold text-slate-900 text-center">{brand.name}</span>
+                    <img
+                      src={brand.logoUrl}
+                      alt={brand.name}
+                      className="h-12 w-auto max-w-full object-contain"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        const fallback = e.currentTarget.nextElementSibling as HTMLElement | null;
+                        if (fallback) fallback.classList.remove('hidden');
+                      }}
+                    />
+                  ) : null}
+                  <span className={`text-xs font-semibold text-slate-600 text-center ${brand.logoUrl ? 'hidden' : ''}`}>
+                    {brand.name}
+                  </span>
                 </button>
               ))}
             </div>

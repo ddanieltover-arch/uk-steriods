@@ -131,7 +131,7 @@ export const CatalogueQuerySchema = z.object({
   tags: z.array(z.string()).optional().default([]),
   sort: CatalogueSortOptions.optional().default('featured'),
   page: z.number().int().positive().optional().default(1),
-  limit: z.number().int().min(1).max(48).optional().default(12),
+  limit: z.number().int().min(1).max(48).optional().default(25),
 });
 
 export type CatalogueQuery = z.infer<typeof CatalogueQuerySchema>;

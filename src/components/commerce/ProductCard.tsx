@@ -1,5 +1,5 @@
 import React from 'react';
-import { Star, Eye } from 'lucide-react';
+import { Star, Eye, Zap } from 'lucide-react';
 import { ProductImage } from './ProductImage';
 import { PriceDisplay } from './PriceDisplay';
 import { ProductBadge } from './ProductBadge';
@@ -9,6 +9,7 @@ import { AddToCartButton } from './AddToCartButton';
 import { CryptoPriceBadge } from './CryptoPriceBadge';
 import { StockStatus } from '../../types';
 import { cn } from '../../lib/utils';
+import { getDisplayRating } from '../../lib/commerce/display-rating';
 
 export interface ProductCardData {
   id: string;
@@ -32,6 +33,7 @@ interface ProductCardProps {
   product: ProductCardData;
   isWishlisted?: boolean;
   onAddToCart?: (product: ProductCardData) => void;
+  onQuickBuy?: (product: ProductCardData) => void;
   onQuickView?: (product: ProductCardData) => void;
   onToggleWishlist?: (productId: string) => void;
   onProductClick?: (product: ProductCardData) => void;
@@ -43,6 +45,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   product,
   isWishlisted = false,
   onAddToCart,
+  onQuickBuy,
   onQuickView,
   onToggleWishlist,
   onProductClick,
@@ -65,6 +68,55 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   const isOnSale =
     product.isOnSale ||
     (product.compareAtPricePence !== undefined && product.compareAtPricePence > product.pricePence);
+
+  const displayRating = getDisplayRating(
+    product.slug || product.id,
+    product.ratingAvg,
+    product.reviewCount
+  );
+
+  const ratingRow = displayRating ? (
+    <div className="flex items-center gap-1">
+      <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+      <span className="font-bold text-slate-800 text-[11px]">{displayRating.avg.toFixed(1)}</span>
+      <span className="text-[10px] text-slate-400">({displayRating.count})</span>
+    </div>
+  ) : (
+    <span className="text-[10px] font-medium text-slate-400">Unrated</span>
+  );
+
+  const cartActions = (onAddToCart || onQuickBuy) && (
+    <div className="flex items-center gap-2 w-full">
+      {onQuickBuy && (
+        <button
+          type="button"
+          disabled={isOutOfStock}
+          onClick={(e) => {
+            e.stopPropagation();
+            onQuickBuy(product);
+          }}
+          className={cn(
+            'shrink-0 h-9 w-9 rounded-xl border border-slate-200 bg-white text-slate-600',
+            'flex items-center justify-center transition-colors cursor-pointer',
+            'hover:border-teal-500 hover:text-teal-700 hover:bg-teal-50',
+            'disabled:opacity-40 disabled:pointer-events-none disabled:cursor-not-allowed'
+          )}
+          title="Quick Buy"
+          aria-label={`Quick buy ${product.name}`}
+        >
+          <Zap className="w-4 h-4" strokeWidth={2} />
+        </button>
+      )}
+      {onAddToCart && (
+        <AddToCartButton
+          onClick={() => onAddToCart(product)}
+          isOutOfStock={isOutOfStock}
+          size="sm"
+          className="flex-1"
+        />
+      )}
+    </div>
+  );
 
   if (viewMode === 'list') {
     return (
@@ -123,17 +175,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             </h3>
 
             {/* Rating Stars */}
-            {product.ratingAvg !== undefined && (
-              <div className="flex items-center gap-1.5 text-xs text-slate-500">
-                <div className="flex text-amber-400">
-                  <Star className="w-3.5 h-3.5 fill-current" />
-                </div>
-                <span className="font-bold text-slate-800">{product.ratingAvg.toFixed(1)}</span>
-                {product.reviewCount !== undefined && (
-                  <span className="text-slate-400">({product.reviewCount} reviews)</span>
-                )}
-              </div>
-            )}
+            <div className="flex items-center gap-1.5 text-xs text-slate-500">{ratingRow}</div>
           </div>
 
           <div className="flex items-center justify-between gap-4 pt-2 border-t border-slate-100">
@@ -164,13 +206,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                 </button>
               )}
 
-              {onAddToCart && (
-                <AddToCartButton
-                  onClick={() => onAddToCart(product)}
-                  isOutOfStock={isOutOfStock}
-                  className="w-auto px-5"
-                />
-              )}
+              {cartActions}
             </div>
           </div>
         </div>
@@ -254,17 +290,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
           {/* Rating */}
           <div className="flex items-center justify-between text-xs py-0.5">
-            {product.ratingAvg !== undefined && product.ratingAvg > 0 ? (
-              <div className="flex items-center gap-1">
-                <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
-                <span className="font-bold text-slate-800 text-[11px]">{product.ratingAvg.toFixed(1)}</span>
-                {product.reviewCount !== undefined && (
-                  <span className="text-[10px] text-slate-400">({product.reviewCount})</span>
-                )}
-              </div>
-            ) : (
-              <span className="text-[10px] text-slate-400">Unrated</span>
-            )}
+            {ratingRow}
 
             <StockIndicator
               status={product.stockStatus}
@@ -285,13 +311,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         />
         <CryptoPriceBadge pricePence={product.pricePence} />
 
-        {onAddToCart && (
-          <AddToCartButton
-            onClick={() => onAddToCart(product)}
-            isOutOfStock={isOutOfStock}
-            size="sm"
-          />
-        )}
+        {cartActions}
       </div>
     </div>
   );

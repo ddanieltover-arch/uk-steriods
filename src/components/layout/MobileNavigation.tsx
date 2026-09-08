@@ -5,6 +5,7 @@ import { SearchInput } from '../forms/SearchInput';
 import { User, Package, ShieldCheck, Truck, ChevronRight } from 'lucide-react';
 import { SITE_NAME } from '../../lib/seo/site';
 import { RESOURCE_LINKS } from '../../data/resources';
+import { sortManufacturers } from '../../data/manufacturers';
 
 interface MobileNavigationProps {
   isOpen: boolean;
@@ -13,6 +14,8 @@ interface MobileNavigationProps {
   brands: Brand[];
   selectedCategorySlug: string;
   onSelectCategory: (slug: string) => void;
+  onSelectBrand?: (brandSlug: string) => void;
+  onNavigate?: (path: string) => void;
   searchQuery: string;
   onSearchChange: (query: string) => void;
   onSearchSubmit?: (query: string) => void;
@@ -29,6 +32,8 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
   brands,
   selectedCategorySlug,
   onSelectCategory,
+  onSelectBrand,
+  onNavigate,
   searchQuery,
   onSearchChange,
   onSearchSubmit,
@@ -152,20 +157,34 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
           ))}
         </div>
 
-        {/* Featured Brands */}
+        {/* Manufacturers */}
         <div className="space-y-2 pt-2 border-t border-slate-100">
-          <h4 className="text-[10px] font-black uppercase tracking-wider text-slate-400 px-1">
-            Featured Brands
-          </h4>
+          <div className="flex items-center justify-between px-1">
+            <h4 className="text-[10px] font-black uppercase tracking-wider text-slate-400">
+              Manufacturers
+            </h4>
+            <button
+              type="button"
+              onClick={() => {
+                onNavigate?.('/manufacturers');
+                onClose();
+              }}
+              className="text-[10px] font-black uppercase tracking-wider text-teal-700 cursor-pointer"
+            >
+              View all
+            </button>
+          </div>
           <div className="grid grid-cols-2 gap-2">
-            {brands.map((brand) => (
+            {sortManufacturers(brands).slice(0, 8).map((brand) => (
               <button
                 key={brand.id}
+                type="button"
                 onClick={() => {
-                  onSelectCategory('');
+                  if (onSelectBrand) onSelectBrand(brand.slug);
+                  else onNavigate?.(`/brand/${brand.slug}`);
                   onClose();
                 }}
-                className="rounded-xl border border-slate-200 bg-slate-50 p-2.5 text-left text-xs font-bold text-slate-800 hover:border-teal-400 transition-colors"
+                className="rounded-xl border border-slate-200 bg-slate-50 p-2.5 text-left text-xs font-bold text-slate-800 hover:border-teal-400 transition-colors cursor-pointer"
               >
                 {brand.name}
               </button>

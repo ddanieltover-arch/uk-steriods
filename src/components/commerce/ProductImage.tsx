@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Package } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
@@ -23,6 +23,11 @@ export const ProductImage: React.FC<ProductImageProps> = ({
 }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    setHasError(false);
+  }, [src]);
 
   const aspectClasses = {
     square: 'aspect-square',

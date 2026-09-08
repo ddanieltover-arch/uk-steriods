@@ -119,6 +119,16 @@ async function injectPublicSeo(
             ogType: "website",
             jsonLd: [],
           });
+    } else if (pathname === "/manufacturers" || pathname === "/brands") {
+      const origin = process.env.PUBLIC_SITE_URL || process.env.SITE_URL || "";
+      seoHtml = SeoService.injectIntoHtml(html, {
+        title: `Manufacturers | ${SITE_NAME}`,
+        description: `Trusted pharmaceutical manufacturers at ${SITE_NAME}: Pharmaqo Labs, Proper Labs, Syncom Labs, Beligas, and more.`,
+        canonical: origin ? `${origin.replace(/\/$/, "")}/manufacturers` : "/manufacturers",
+        robots: "index,follow",
+        ogType: "website",
+        jsonLd: [],
+      });
     } else if (pathname.startsWith("/brand/")) {
       const slug = pathname.replace("/brand/", "").split("/")[0];
       const seo = await SeoService.brandSeo(slug);
