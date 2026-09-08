@@ -11,7 +11,7 @@ export const AdminShippingView: React.FC = () => {
   const [code, setCode] = useState('');
   const [displayName, setDisplayName] = useState('');
   const [description, setDescription] = useState('');
-  const [priceGbp, setPriceGbp] = useState('3.99');
+  const [priceGbp, setPriceGbp] = useState('10.00');
   const [freeThresholdGbp, setFreeThresholdGbp] = useState('300.00');
   const [isActive, setIsActive] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -42,7 +42,7 @@ export const AdminShippingView: React.FC = () => {
     setCode('express-next-day');
     setDisplayName('Express Next Day Tracked');
     setDescription('1 - 2 Working Days via Royal Mail');
-    setPriceGbp('6.99');
+    setPriceGbp('15.00');
     setFreeThresholdGbp('150.00');
     setIsActive(true);
     setError(null);

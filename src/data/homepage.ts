@@ -1,5 +1,5 @@
 export const PROMO_TICKER_ITEMS: { icon: 'truck' | 'bitcoin' | 'flask'; text: string }[] = [
-  { icon: 'truck', text: 'UK from £3.99 · Europe £15 · Rest of world £25' },
+  { icon: 'truck', text: 'UK from £10 · Europe £25 · Rest of world £35' },
   { icon: 'truck', text: 'Free UK Tracked 48 on orders £300+' },
   { icon: 'bitcoin', text: 'Pay by UK bank transfer or crypto · discreet plain packaging' },
   { icon: 'bitcoin', text: 'Pay by crypto and save 5% automatically' },

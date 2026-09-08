@@ -14,3 +14,7 @@ export function isResourcePath(pathname: string): boolean {
 }
 
 export const SUPPORT_EMAIL = 'support@steroids-uk.com';
+
+/** E.164 digits only (no +) for wa.me links */
+export const WHATSAPP_NUMBER = '447352953985';
+export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;

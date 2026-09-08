@@ -141,14 +141,14 @@ export const TermsConditionsPage: React.FC<TermsConditionsPageProps> = ({ onNavi
           <p>We ship from our UK warehouse to the United Kingdom, the rest of Europe, and worldwide.</p>
           <ul className="list-disc pl-5 space-y-2">
             <li>
-              <strong>United Kingdom:</strong> Royal Mail Tracked 48 from £3.99 (free on UK orders of £300 or more);
-              Royal Mail Special Delivery 24 from £6.99
+              <strong>United Kingdom:</strong> Royal Mail Tracked 48 from £10.00 (free on UK orders of £300 or more);
+              Royal Mail Special Delivery 24 from £15.00; Discrete Delivery from £20.00
             </li>
             <li>
-              <strong>Europe:</strong> £15.00 tracked
+              <strong>Europe:</strong> £25.00 tracked
             </li>
             <li>
-              <strong>Rest of world:</strong> £25.00 tracked
+              <strong>Rest of world:</strong> £35.00 tracked
             </li>
           </ul>
           <p>

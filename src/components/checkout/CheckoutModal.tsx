@@ -33,7 +33,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   const [postcode, setPostcode] = useState('');
 
   // Shipping & Payment
-  const [shippingMethod, setShippingMethod] = useState<'standard' | 'express'>('standard');
+  const [shippingMethod, setShippingMethod] = useState<'standard' | 'express' | 'discrete'>('standard');
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('bank_transfer');
 
   // Confirmation Order State
@@ -45,7 +45,14 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   }, 0);
 
   const isFreeShipping = subtotal >= 300;
-  const shippingCost = shippingMethod === 'express' ? 6.99 : isFreeShipping ? 0 : 3.99;
+  const shippingCost =
+    shippingMethod === 'express'
+      ? 15
+      : shippingMethod === 'discrete'
+        ? 20
+        : isFreeShipping
+          ? 0
+          : 10;
   const cryptoOffGbp = isCryptoPaymentMethod(paymentMethod) ? cryptoDiscountPence(Math.round(subtotal * 100)) / 100 : 0;
   const totalAmount = Math.max(0, subtotal - cryptoOffGbp + shippingCost);
   const bankTransferAllowed = subtotal + shippingCost >= 100;
@@ -100,7 +107,14 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
       paymentStatus: 'awaiting_transfer',
       paymentMethod: paymentMethod,
       paymentReference: `UKP-${Date.now().toString().slice(-6)}-${firstName.substring(0, 2).toUpperCase()}`,
-      shippingMethodName: shippingMethod === 'express' ? 'Royal Mail Special Delivery 24 (£6.99)' : isFreeShipping ? 'Royal Mail Tracked 48 (FREE)' : 'Royal Mail Tracked 48 (£3.99)',
+      shippingMethodName:
+        shippingMethod === 'express'
+          ? 'Royal Mail Special Delivery 24 (£15.00)'
+          : shippingMethod === 'discrete'
+            ? 'Discrete Delivery (£20.00)'
+            : isFreeShipping
+              ? 'Royal Mail Tracked 48 (FREE)'
+              : 'Royal Mail Tracked 48 (£10.00)',
     });
 
     setCreatedOrder(newOrder);
@@ -274,7 +288,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
           {step === 2 && (
             <div className="space-y-4">
               <h3 className="text-sm font-extrabold text-slate-900 uppercase tracking-wider mb-2">2. Select Shipping Method</h3>
-              <p className="text-[11px] text-slate-500 mb-3">UK prices below. Europe is £15.00 and rest of world is £25.00 at checkout.</p>
+              <p className="text-[11px] text-slate-500 mb-3">UK prices below. Europe is £25.00 and rest of world is £35.00 at checkout.</p>
 
               <div className="space-y-3">
                 <label
@@ -287,7 +301,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   <div className="flex-1">
                     <div className="flex justify-between font-bold text-xs text-slate-900">
                       <span>Royal Mail Tracked 48</span>
-                      <span>{isFreeShipping ? 'FREE' : '£3.99'}</span>
+                      <span>{isFreeShipping ? 'FREE' : '£10.00'}</span>
                     </div>
                     <p className="text-[11px] text-slate-500 mt-0.5">2–3 working days. Free on UK orders of £300 or more.</p>
                   </div>
@@ -303,9 +317,25 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   <div className="flex-1">
                     <div className="flex justify-between font-bold text-xs text-slate-900">
                       <span>Royal Mail Special Delivery 24</span>
-                      <span>£6.99</span>
+                      <span>£15.00</span>
                     </div>
                     <p className="text-[11px] text-slate-500 mt-0.5">1–2 working days, tracked from the UK.</p>
+                  </div>
+                </label>
+
+                <label
+                  onClick={() => setShippingMethod('discrete')}
+                  className={`p-4 rounded-xl border flex items-start gap-3 cursor-pointer transition-all ${
+                    shippingMethod === 'discrete' ? 'border-teal-600 bg-teal-50/50 ring-1 ring-teal-600' : 'border-slate-200 hover:border-slate-300'
+                  }`}
+                >
+                  <input type="radio" name="shipping" checked={shippingMethod === 'discrete'} readOnly className="mt-0.5 text-teal-600" />
+                  <div className="flex-1">
+                    <div className="flex justify-between font-bold text-xs text-slate-900">
+                      <span>Discrete Delivery</span>
+                      <span>£20.00</span>
+                    </div>
+                    <p className="text-[11px] text-slate-500 mt-0.5">Plain packaging priority · 2–4 working days.</p>
                   </div>
                 </label>
               </div>
@@ -380,7 +410,15 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   <span className="font-bold text-slate-900">£{subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-slate-600">
-                  <span>Shipping ({shippingMethod === 'express' ? 'Special Delivery 24' : 'Tracked 48'})</span>
+                  <span>
+                    Shipping (
+                    {shippingMethod === 'express'
+                      ? 'Special Delivery 24'
+                      : shippingMethod === 'discrete'
+                        ? 'Discrete Delivery'
+                        : 'Tracked 48'}
+                    )
+                  </span>
                   <span className="font-bold text-slate-900">£{shippingCost.toFixed(2)}</span>
                 </div>
                 {cryptoOffGbp > 0 && (

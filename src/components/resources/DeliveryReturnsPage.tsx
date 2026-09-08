@@ -15,7 +15,7 @@ const SHIPPING = [
   },
   {
     q: 'How much is shipping?',
-    a: 'United Kingdom: Royal Mail Tracked 48 is £3.99 (free on UK orders of £300 or more) and Royal Mail Special Delivery 24 is £6.99. Europe: £15.00 tracked. Rest of world: £25.00 tracked.',
+    a: 'United Kingdom: Royal Mail Tracked 48 is £10.00 (free on UK orders of £300 or more), Royal Mail Special Delivery 24 is £15.00, and Discrete Delivery is £20.00. Europe: £25.00 tracked. Rest of world: £35.00 tracked.',
   },
   {
     q: 'Is the packaging discreet?',
@@ -23,7 +23,7 @@ const SHIPPING = [
   },
   {
     q: 'How long does delivery take?',
-    a: 'UK Tracked 48 typically arrives in 2–3 working days. UK Special Delivery 24 is 1–2 working days. Europe is typically 4–8 working days. Rest of world is typically 7–14 working days. Times are estimates, not guarantees.',
+    a: 'UK Tracked 48 typically arrives in 2–3 working days. UK Special Delivery 24 is 1–2 working days. Discrete Delivery is typically 2–4 working days. Europe is typically 4–8 working days. Rest of world is typically 7–14 working days. Times are estimates, not guarantees.',
   },
   {
     q: 'Will I get a tracking number?',
@@ -61,7 +61,7 @@ export const DeliveryReturnsPage: React.FC<DeliveryReturnsPageProps> = ({ onNavi
       <ResourcePageShell
         kicker="Help"
         title="Delivery & Returns"
-        intro="Tracked dispatch from the UK. UK from £3.99, Europe £15, rest of world £25."
+        intro="Tracked dispatch from the UK. UK from £10, Europe £25, rest of world £35."
         currentPath="/delivery-and-returns"
         onNavigate={onNavigate}
       >

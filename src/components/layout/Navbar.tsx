@@ -40,7 +40,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center gap-4 overflow-x-auto whitespace-nowrap scrollbar-none">
           <span className="flex items-center gap-1.5 text-teal-400 font-bold">
             <Truck className="w-3.5 h-3.5" />
-            Free UK delivery over £300 · EU £15 · World £25
+            Free UK delivery over £300 · EU £25 · World £35
           </span>
           <span className="text-slate-600 hidden sm:inline">|</span>
           <span className="hidden sm:inline flex items-center gap-1">

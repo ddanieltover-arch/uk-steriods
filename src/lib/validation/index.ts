@@ -10,7 +10,10 @@ export const AddressSnapshotSchema = z
     county: z.string().optional(),
     postcode: z.string().min(2, 'Postcode is required'),
     country: z.string().default('GB'),
-    phone: z.string().optional(),
+    phone: z
+      .string()
+      .trim()
+      .min(7, 'A phone number is required for delivery'),
     email: z.string().email('Invalid email address'),
   })
   .superRefine((data, ctx) => {

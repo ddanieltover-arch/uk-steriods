@@ -211,6 +211,9 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({
     if (!email.trim() || !email.includes('@')) {
       errors.push('A valid contact email address is required.');
     }
+    if (!phone.trim() || phone.trim().replace(/\s/g, '').length < 7) {
+      errors.push('A phone number is required for delivery.');
+    }
     setValidationErrors(errors);
     return errors.length === 0;
   };
@@ -307,7 +310,7 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({
       const payload = {
         cartId: storedCartId,
         email: email.trim(),
-        phone: phone.trim() || undefined,
+        phone: phone.trim(),
         shippingAddress: {
           recipient: recipient.trim(),
           line1: line1.trim(),
@@ -316,7 +319,7 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({
           county: county.trim() || undefined,
           postcode: postcode.trim().toUpperCase(),
           country: country || 'GB',
-          phone: phone.trim() || undefined,
+          phone: phone.trim(),
           email: email.trim(),
         },
         shippingMethodId: localShipping.id,
@@ -550,10 +553,11 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({
 
                     <div>
                       <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                        Phone Number <span className="text-slate-400 font-normal">(Optional for delivery SMS)</span>
+                        Phone Number <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="tel"
+                        required
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder="07123 456789"
@@ -688,7 +692,7 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({
                   <div className="border-b border-slate-100 pb-4">
                     <h2 className="text-lg font-black text-slate-900">Step 3: Delivery Method</h2>
                     <p className="text-xs text-slate-500 mt-0.5">
-                      UK Tracked 48 is £3.99, free only on UK orders of £300 or more. Europe £15.00 · Rest of world £25.00.
+                      UK Tracked 48 is £10.00, Special Delivery £15.00, Discrete Delivery £20.00. Free Tracked 48 on UK orders of £300 or more. Europe £25.00 · Rest of world £35.00.
                     </p>
                   </div>
 

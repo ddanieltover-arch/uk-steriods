@@ -2,6 +2,7 @@ import React, { useState, useEffect, useLayoutEffect, lazy, Suspense } from 'rea
 import { ToastProvider, useToast } from './components/feedback/ToastProvider';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
+import { WhatsAppFloat } from './components/layout/WhatsAppFloat';
 import { CartDrawer } from './components/cart/CartDrawer';
 import { ProductQuickViewModal } from './components/storefront/ProductQuickViewModal';
 import { Homepage } from './components/storefront/Homepage';
@@ -517,6 +518,7 @@ function MainAppContent() {
 
         {/* Global Shell Footer */}
         <Footer />
+        <WhatsAppFloat />
 
         {/* Global Cart Drawer Panel */}
         <CartDrawer

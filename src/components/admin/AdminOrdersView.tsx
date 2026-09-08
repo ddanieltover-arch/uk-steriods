@@ -314,7 +314,7 @@ export const AdminOrdersView: React.FC<AdminOrdersViewProps> = ({ onNavigate, se
           <label className="font-bold text-slate-500 uppercase text-[10px] block mb-1">{label}</label>
           <input
             type={key === 'email' ? 'email' : 'text'}
-            required={key !== 'line2' && key !== 'county' && key !== 'phone'}
+            required={key !== 'line2' && key !== 'county'}
             value={value[key]}
             onChange={(e) => onChange({ ...value, [key]: e.target.value })}
             className="w-full border border-slate-200 rounded-lg p-2.5 outline-none font-medium"

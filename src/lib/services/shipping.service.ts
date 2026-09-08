@@ -15,10 +15,11 @@ export const SHIP_COUNTRY_STORAGE_KEY = 'ukp-ship-country';
 export const SHIP_RATE_STORAGE_KEY = 'ukp-shipping-rate-id';
 
 export const SHIPPING_PRICES = {
-  ukStandardPence: 399,
-  ukExpressPence: 699,
-  europePence: 1500,
-  internationalPence: 2500,
+  ukStandardPence: 1000,
+  ukExpressPence: 1500,
+  ukDiscretePence: 2000,
+  europePence: 2500,
+  internationalPence: 3500,
 } as const;
 
 const EUROPE_CODES = new Set(EUROPEAN_COUNTRIES.map((c) => c.code));
@@ -86,6 +87,14 @@ export class ShippingService {
           SHIPPING_PRICES.ukExpressPence,
           1,
           2
+        ),
+        toRate(
+          'discrete-delivery',
+          'Discrete Delivery',
+          'Plain packaging priority · 2 - 4 working days',
+          SHIPPING_PRICES.ukDiscretePence,
+          2,
+          4
         ),
       ];
     }

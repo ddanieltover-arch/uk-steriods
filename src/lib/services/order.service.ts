@@ -90,7 +90,7 @@ export class OrderService {
     }
 
     // 3. Shipping cost
-    const shippingPence = input.shippingPence !== undefined ? input.shippingPence : (subtotalPence >= 30000 ? 0 : 399);
+    const shippingPence = input.shippingPence !== undefined ? input.shippingPence : (subtotalPence >= 30000 ? 0 : 1000);
 
     // 4. Calculate final total pence
     const totalPence = Math.max(0, subtotalPence - discountPence + shippingPence);
