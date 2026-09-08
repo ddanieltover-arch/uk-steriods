@@ -240,6 +240,27 @@ export const AdminShipmentUpdateSchema = z.object({
   estimatedDeliveryAt: z.string().optional(),
 });
 
+export const AdminOrderEditSchema = z
+  .object({
+    guestEmail: z.string().email('Invalid email address').optional(),
+    shippingAddressSnapshot: AddressSnapshotSchema.optional(),
+    billingAddressSnapshot: AddressSnapshotSchema.optional(),
+    shippingPence: z.number().int().min(0).optional(),
+    discountPence: z.number().int().min(0).optional(),
+    note: z.string().max(500).optional(),
+  })
+  .refine(
+    (data) =>
+      data.guestEmail !== undefined ||
+      data.shippingAddressSnapshot !== undefined ||
+      data.billingAddressSnapshot !== undefined ||
+      data.shippingPence !== undefined ||
+      data.discountPence !== undefined,
+    { message: 'Provide at least one field to update.' }
+  );
+
+export type AdminOrderEditInput = z.infer<typeof AdminOrderEditSchema>;
+
 export const AdminCustomerRoleUpdateSchema = z.object({
   role: z.enum(['SUPER_ADMIN', 'ADMIN', 'STAFF', 'CUSTOMER']),
 });

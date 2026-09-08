@@ -1,5 +1,5 @@
 import { db } from '../db';
-import { OrderStatus, PaymentStatus, ShipmentStatus } from '@prisma/client';
+import { OrderStatus, PaymentStatus, ShipmentStatus, Prisma } from '@prisma/client';
 import { InventoryService } from './inventory.service';
 import { OrderNotificationService } from './order-notification.service';
 import { buildOrderNotificationPayload } from './order-notification-payload';
@@ -328,5 +328,105 @@ export class AdminOrderService {
     }
 
     return shipment;
+  }
+
+  /**
+   * Edit mutable order fields (contact, addresses, shipping/discount totals).
+   * Line items remain historical snapshots and are not rewritten here.
+   */
+  static async updateOrder(
+    orderNumber: string,
+    data: {
+      guestEmail?: string;
+      shippingAddressSnapshot?: Record<string, unknown>;
+      billingAddressSnapshot?: Record<string, unknown>;
+      shippingPence?: number;
+      discountPence?: number;
+    }
+  ) {
+    const order = await db.order.findUnique({ where: { orderNumber } });
+    if (!order) {
+      throw new Error(`Order #${orderNumber} not found.`);
+    }
+
+    if (order.status === OrderStatus.REFUNDED) {
+      throw new Error(`Order #${orderNumber} is refunded and cannot be edited.`);
+    }
+
+    const shippingPence = data.shippingPence ?? order.shippingPence;
+    const discountPence = data.discountPence ?? order.discountPence;
+    const totalPence = Math.max(
+      0,
+      order.subtotalPence - discountPence + shippingPence + order.taxPence
+    );
+
+    const updateData: Prisma.OrderUpdateInput = {};
+    if (data.guestEmail !== undefined) updateData.guestEmail = data.guestEmail;
+    if (data.shippingAddressSnapshot !== undefined) {
+      updateData.shippingAddressSnapshot = data.shippingAddressSnapshot as Prisma.InputJsonValue;
+    }
+    if (data.billingAddressSnapshot !== undefined) {
+      updateData.billingAddressSnapshot = data.billingAddressSnapshot as Prisma.InputJsonValue;
+    }
+    if (data.shippingPence !== undefined || data.discountPence !== undefined) {
+      updateData.shippingPence = shippingPence;
+      updateData.discountPence = discountPence;
+      updateData.totalPence = totalPence;
+    }
+
+    return db.order.update({
+      where: { id: order.id },
+      data: updateData,
+      include: {
+        items: true,
+        payments: true,
+        shipments: true,
+        user: { select: { id: true, email: true, firstName: true, lastName: true, phone: true } },
+      },
+    });
+  }
+
+  /**
+   * Permanently delete an order (cascades items, payments, shipments).
+   * Releases reserved/deducted stock when the order was not already cancelled/refunded.
+   */
+  static async deleteOrder(orderNumber: string) {
+    const order = await db.order.findUnique({
+      where: { orderNumber },
+      include: { items: true },
+    });
+
+    if (!order) {
+      throw new Error(`Order #${orderNumber} not found.`);
+    }
+
+    await db.$transaction(async (tx) => {
+      if (order.status !== OrderStatus.CANCELLED && order.status !== OrderStatus.REFUNDED) {
+        for (const item of order.items) {
+          if (item.productId) {
+            await InventoryService.releaseStock(
+              item.productId,
+              item.variantId || undefined,
+              item.quantity
+            );
+          }
+        }
+      }
+
+      await tx.checkoutIdempotency.deleteMany({
+        where: {
+          OR: [{ orderId: order.id }, { orderNumber: order.orderNumber }],
+        },
+      });
+
+      await tx.order.delete({ where: { id: order.id } });
+    });
+
+    return {
+      orderNumber: order.orderNumber,
+      previousStatus: order.status,
+      previousPaymentStatus: order.paymentStatus,
+      totalPence: order.totalPence,
+    };
   }
 }

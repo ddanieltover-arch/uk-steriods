@@ -58,7 +58,14 @@ function toContext(payload: OrderNotificationPayload): OrderNotificationContext 
 }
 
 function adminNotifyEmail(): string | null {
-  const email = (process.env.ADMIN_EMAIL || process.env.EMAIL_REPLY_TO || '').trim().toLowerCase();
+  const email = (
+    process.env.ADMIN_EMAIL ||
+    process.env.EMAIL_REPLY_TO ||
+    process.env.EMAIL_FROM_ADDRESS ||
+    'sales@uk-steroids.co.uk'
+  )
+    .trim()
+    .toLowerCase();
   return email || null;
 }
 

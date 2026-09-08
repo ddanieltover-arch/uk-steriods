@@ -141,14 +141,54 @@ export class ResendEmailProvider implements EmailProvider {
 }
 
 export function createEmailProvider(): EmailProvider {
-  const providerName = (process.env.EMAIL_PROVIDER || 'dev').toLowerCase();
-  const apiKey = process.env.EMAIL_API_KEY || process.env.RESEND_API_KEY;
+  const providerName = (process.env.EMAIL_PROVIDER || 'dev').toLowerCase().trim();
+  const apiKey = (process.env.EMAIL_API_KEY || process.env.RESEND_API_KEY || '').trim();
+  const isProduction = (process.env.NODE_ENV || '').toLowerCase() === 'production';
 
-  if (providerName === 'resend' && apiKey) {
+  if (providerName === 'resend') {
+    if (!apiKey) {
+      const msg =
+        '[email] EMAIL_PROVIDER=resend but EMAIL_API_KEY / RESEND_API_KEY is missing — cannot send mail';
+      console.error(msg);
+      if (isProduction) {
+        throw new Error(msg);
+      }
+      console.warn('[email] Falling back to DevLoggingEmailProvider (non-production only)');
+      return new DevLoggingEmailProvider();
+    }
+
+    console.info('[email] Active provider: resend', {
+      from: process.env.EMAIL_FROM_ADDRESS || 'sales@uk-steroids.co.uk',
+      keyPrefix: `${apiKey.slice(0, 3)}…`,
+    });
     return new ResendEmailProvider(apiKey);
   }
 
+  console.warn(
+    `[email] Active provider: dev-logging (EMAIL_PROVIDER=${providerName || 'dev'}). ` +
+      'Set EMAIL_PROVIDER=resend and EMAIL_API_KEY on the server to deliver real email.'
+  );
   return new DevLoggingEmailProvider();
+}
+
+export function describeEmailProvider(): {
+  configured: string;
+  active: string;
+  hasApiKey: boolean;
+  from: string;
+  replyTo: string | null;
+  adminEmail: string | null;
+} {
+  const configured = (process.env.EMAIL_PROVIDER || 'dev').toLowerCase().trim();
+  const apiKey = (process.env.EMAIL_API_KEY || process.env.RESEND_API_KEY || '').trim();
+  return {
+    configured,
+    active: configured === 'resend' && apiKey ? 'resend' : 'dev-logging',
+    hasApiKey: Boolean(apiKey),
+    from: process.env.EMAIL_FROM_ADDRESS || 'sales@uk-steroids.co.uk',
+    replyTo: process.env.EMAIL_REPLY_TO || null,
+    adminEmail: process.env.ADMIN_EMAIL || process.env.EMAIL_REPLY_TO || null,
+  };
 }
 
 export function getEmailFromConfig() {

@@ -52,7 +52,7 @@ const initialCategories = catalog.categories.map((c: any) => ({
   name: c.name,
   slug: c.slug,
   description: c.description,
-  imageUrl: `/media/products/default.webp`,
+  imageUrl: c.imageUrl || `/media/products/default.webp`,
   productCount: catalog.products.filter((p: any) => p.categorySlug === c.slug).length,
   featured: true,
 }));

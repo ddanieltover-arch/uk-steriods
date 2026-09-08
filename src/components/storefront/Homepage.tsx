@@ -103,6 +103,19 @@ export const Homepage: React.FC<HomepageProps> = ({
   );
   const shopCategories = (goalCategories.length > 0 ? goalCategories : categories).slice(0, 6);
 
+  const categoryImageFor = (category: Category): string | null => {
+    const configured = category.imageUrl?.trim();
+    if (configured && !configured.includes('/default.')) return configured;
+
+    const product = published.find(
+      (p) =>
+        (p.categorySlug === category.slug || p.categoryId === category.id) &&
+        p.images?.[0] &&
+        !p.images[0].includes('/default.')
+    );
+    return product?.images?.[0] || configured || null;
+  };
+
   const renderProductRow = (list: Product[]) =>
     isLoading ? (
       <div className="flex gap-4 overflow-hidden">
@@ -219,15 +232,21 @@ export const Homepage: React.FC<HomepageProps> = ({
         <Container>
           <SectionHeading kicker="Browse" title="Shop by category" />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {shopCategories.map((category) => (
+            {shopCategories.map((category) => {
+              const imageUrl = categoryImageFor(category);
+              return (
               <button
                 key={`large-${category.id}`}
                 type="button"
                 onClick={() => onSelectCategory(category.slug)}
                 className="group relative h-40 rounded-2xl overflow-hidden border border-slate-200 cursor-pointer text-left"
               >
-                {category.imageUrl ? (
-                  <img src={category.imageUrl} alt="" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                {imageUrl ? (
+                  <img
+                    src={imageUrl}
+                    alt={category.name}
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform"
+                  />
                 ) : (
                   <div className="absolute inset-0 bg-[#003d30]" />
                 )}
@@ -237,7 +256,8 @@ export const Homepage: React.FC<HomepageProps> = ({
                   <ChevronRight className="w-5 h-5" />
                 </div>
               </button>
-            ))}
+              );
+            })}
           </div>
         </Container>
       </Section>

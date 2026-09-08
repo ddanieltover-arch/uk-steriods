@@ -26,6 +26,14 @@ export const AdminNotificationsView: React.FC = () => {
   const [error, setError] = useState('');
   const [preview, setPreview] = useState<{ subject: string; html: string; text: string } | null>(null);
   const [message, setMessage] = useState('');
+  const [emailHealth, setEmailHealth] = useState<{
+    ready?: boolean;
+    runtimeProvider?: string;
+    configured?: string;
+    warning?: string | null;
+    from?: string;
+    adminEmail?: string | null;
+  } | null>(null);
 
   const headers = () => {
     return {};
@@ -41,6 +49,7 @@ export const AdminNotificationsView: React.FC = () => {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Failed to load notifications');
       setRows(data.notifications || []);
+      setEmailHealth(data.emailHealth || null);
     } catch (err: any) {
       setError(err?.message || 'Failed to load notifications');
     } finally {
@@ -124,6 +133,26 @@ export const AdminNotificationsView: React.FC = () => {
           </button>
         </div>
       </div>
+
+      {emailHealth && (
+        <div
+          className={`rounded-xl border px-3 py-2 text-xs font-medium ${
+            emailHealth.ready
+              ? 'bg-teal-50 border-teal-100 text-teal-800'
+              : 'bg-amber-50 border-amber-200 text-amber-900'
+          }`}
+        >
+          <p className="font-black uppercase tracking-wider text-[10px] mb-1">Email provider</p>
+          <p>
+            Runtime: <span className="font-bold">{emailHealth.runtimeProvider}</span>
+            {' · '}
+            Configured: <span className="font-bold">{emailHealth.configured}</span>
+            {emailHealth.from ? ` · From: ${emailHealth.from}` : ''}
+            {emailHealth.adminEmail ? ` · Admin: ${emailHealth.adminEmail}` : ''}
+          </p>
+          {emailHealth.warning && <p className="mt-1 font-bold">{emailHealth.warning}</p>}
+        </div>
+      )}
 
       {message && <p className="text-xs font-bold text-teal-700 bg-teal-50 border border-teal-100 rounded-xl px-3 py-2">{message}</p>}
       {error && <p className="text-xs font-bold text-red-600">{error}</p>}

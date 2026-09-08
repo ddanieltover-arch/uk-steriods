@@ -32,78 +32,79 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   onUserChanged,
 }) => {
   // Dispatch Subroute
+  const pathOnly = currentPath.split('?')[0];
   const renderView = () => {
-    if (currentPath === '/admin/products/new') {
+    if (pathOnly === '/admin/products/new') {
       return <AdminProductsView onNavigate={onNavigate} isNew={true} />;
     }
-    if (currentPath.startsWith('/admin/products/')) {
-      const id = currentPath.replace('/admin/products/', '');
+    if (pathOnly.startsWith('/admin/products/') && pathOnly !== '/admin/products/') {
+      const id = pathOnly.replace('/admin/products/', '');
       return <AdminProductsView onNavigate={onNavigate} selectedProductId={id} />;
     }
-    if (currentPath === '/admin/products') {
+    if (pathOnly === '/admin/products') {
       return <AdminProductsView onNavigate={onNavigate} />;
     }
 
-    if (currentPath === '/admin/categories') {
+    if (pathOnly === '/admin/categories') {
       return <AdminCategoriesView />;
     }
 
-    if (currentPath === '/admin/brands') {
+    if (pathOnly === '/admin/brands') {
       return <AdminBrandsView />;
     }
 
-    if (currentPath === '/admin/inventory') {
+    if (pathOnly === '/admin/inventory') {
       return <AdminInventoryView />;
     }
 
-    if (currentPath.startsWith('/admin/orders/')) {
-      const orderNumber = currentPath.replace('/admin/orders/', '');
+    if (pathOnly.startsWith('/admin/orders/')) {
+      const orderNumber = pathOnly.replace('/admin/orders/', '').split('/')[0];
       return <AdminOrdersView onNavigate={onNavigate} selectedOrderNumber={orderNumber} />;
     }
-    if (currentPath === '/admin/orders') {
-      return <AdminOrdersView onNavigate={onNavigate} />;
+    if (pathOnly === '/admin/orders') {
+      return <AdminOrdersView key={currentPath} onNavigate={onNavigate} />;
     }
 
-    if (currentPath.startsWith('/admin/customers/')) {
-      const id = currentPath.replace('/admin/customers/', '');
+    if (pathOnly.startsWith('/admin/customers/')) {
+      const id = pathOnly.replace('/admin/customers/', '');
       return <AdminCustomersView currentUser={currentUser} onNavigate={onNavigate} selectedCustomerId={id} />;
     }
-    if (currentPath === '/admin/customers') {
+    if (pathOnly === '/admin/customers') {
       return <AdminCustomersView currentUser={currentUser} onNavigate={onNavigate} />;
     }
 
-    if (currentPath === '/admin/discounts') {
+    if (pathOnly === '/admin/discounts') {
       return <AdminDiscountsView />;
     }
 
-    if (currentPath === '/admin/reviews') {
+    if (pathOnly === '/admin/reviews') {
       return <AdminReviewsView />;
     }
 
-    if (currentPath === '/admin/shipping') {
+    if (pathOnly === '/admin/shipping') {
       return <AdminShippingView />;
     }
 
-    if (currentPath === '/admin/settings') {
+    if (pathOnly === '/admin/settings') {
       return <AdminSettingsView currentUser={currentUser} />;
     }
 
-    if (currentPath === '/admin/audit-log') {
+    if (pathOnly === '/admin/audit-log') {
       return <AdminAuditLogView />;
     }
 
-    if (currentPath === '/admin/notifications' || currentPath.startsWith('/admin/notifications/')) {
+    if (pathOnly === '/admin/notifications' || pathOnly.startsWith('/admin/notifications/')) {
       return <AdminNotificationsView />;
     }
 
-    if (currentPath === '/admin/blog/new') {
+    if (pathOnly === '/admin/blog/new') {
       return <AdminBlogView onNavigate={onNavigate} isNew />;
     }
-    if (currentPath.startsWith('/admin/blog/')) {
-      const id = currentPath.replace('/admin/blog/', '');
+    if (pathOnly.startsWith('/admin/blog/')) {
+      const id = pathOnly.replace('/admin/blog/', '');
       return <AdminBlogView onNavigate={onNavigate} selectedId={id} />;
     }
-    if (currentPath === '/admin/blog') {
+    if (pathOnly === '/admin/blog') {
       return <AdminBlogView onNavigate={onNavigate} />;
     }
 

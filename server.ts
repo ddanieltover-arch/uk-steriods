@@ -178,6 +178,19 @@ export async function createApp(options: { listen?: boolean } = {}) {
   const PORT = env.PORT;
   const onVercel = Boolean(process.env.VERCEL);
 
+  // Surface email delivery mode immediately (dev-logging = no real mail).
+  try {
+    const { NotificationService } = await import("./src/lib/notifications/notification.service.js");
+    const health = NotificationService.getEmailHealth();
+    if (health.ready) {
+      console.info("[email] Ready via Resend", { from: health.from, admin: health.adminEmail });
+    } else {
+      console.warn("[email] NOT delivering externally", health);
+    }
+  } catch (err: any) {
+    console.warn("[email] health check failed:", err?.message || err);
+  }
+
   const { requestIdMiddleware } = await import("./src/lib/middleware/request-id.js");
   const { securityHeaders } = await import("./src/lib/middleware/security-headers.js");
   const { corsMiddleware } = await import("./src/lib/middleware/cors.js");

@@ -1,6 +1,6 @@
 import { apiFetch } from '../../lib/api/client';
 import React, { useEffect, useState } from 'react';
-import { ShoppingCart, DollarSign, Package, AlertTriangle, ArrowRight, RefreshCw, CheckCircle, Clock } from 'lucide-react';
+import { ShoppingCart, DollarSign, AlertTriangle, ArrowRight, RefreshCw, Clock } from 'lucide-react';
 
 interface DashboardMetrics {
   revenuePence: number;
@@ -92,6 +92,9 @@ export const AdminDashboardOverview: React.FC<AdminDashboardOverviewProps> = ({ 
 
   const formattedRevenue = `£${(metrics.revenuePence / 100).toFixed(2)}`;
 
+  const cardClass =
+    'bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-3 text-left transition-all hover:border-teal-300 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 cursor-pointer w-full';
+
   return (
     <div className="space-y-6">
       {/* Header Bar */}
@@ -111,8 +114,7 @@ export const AdminDashboardOverview: React.FC<AdminDashboardOverviewProps> = ({ 
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {/* Total Revenue Card */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-3 relative overflow-hidden">
+        <button type="button" onClick={() => onNavigate('/admin/orders')} className={cardClass}>
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">Total Net Revenue</span>
             <div className="w-8 h-8 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center font-bold">
@@ -120,11 +122,13 @@ export const AdminDashboardOverview: React.FC<AdminDashboardOverviewProps> = ({ 
             </div>
           </div>
           <p className="text-2xl font-black text-slate-900">{formattedRevenue}</p>
-          <p className="text-[10px] text-teal-600 font-bold">GBP Authoritative Orders</p>
-        </div>
+          <p className="text-[10px] text-teal-600 font-bold flex items-center gap-1">
+            GBP Authoritative Orders
+            <ArrowRight className="w-3 h-3 opacity-60" />
+          </p>
+        </button>
 
-        {/* Total Orders Card */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+        <button type="button" onClick={() => onNavigate('/admin/orders')} className={cardClass}>
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">Total Orders</span>
             <div className="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
@@ -141,10 +145,9 @@ export const AdminDashboardOverview: React.FC<AdminDashboardOverviewProps> = ({ 
               {metrics.ordersLast24h ?? 0} / 24h · {metrics.ordersLast7d ?? 0} / 7d
             </p>
           )}
-        </div>
+        </button>
 
-        {/* Low Stock Warning Card */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+        <button type="button" onClick={() => onNavigate('/admin/inventory')} className={cardClass}>
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">Stock Alerts</span>
             <div className="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
@@ -152,11 +155,17 @@ export const AdminDashboardOverview: React.FC<AdminDashboardOverviewProps> = ({ 
             </div>
           </div>
           <p className="text-2xl font-black text-amber-600">{metrics.lowStockCount}</p>
-          <p className="text-[10px] text-slate-500 font-medium">{metrics.outOfStockCount} Out-of-Stock SKUs</p>
-        </div>
+          <p className="text-[10px] text-slate-500 font-medium flex items-center gap-1">
+            {metrics.outOfStockCount} Out-of-Stock SKUs
+            <ArrowRight className="w-3 h-3 opacity-60" />
+          </p>
+        </button>
 
-        {/* Pending Payments Card */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+        <button
+          type="button"
+          onClick={() => onNavigate('/admin/orders?paymentStatus=PENDING')}
+          className={cardClass}
+        >
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">Pending Payments</span>
             <div className="w-8 h-8 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold">
@@ -164,17 +173,22 @@ export const AdminDashboardOverview: React.FC<AdminDashboardOverviewProps> = ({ 
             </div>
           </div>
           <p className="text-2xl font-black text-purple-700">{metrics.pendingPayments}</p>
-          <p className="text-[10px] text-slate-500 font-medium">
+          <p className="text-[10px] text-slate-500 font-medium flex items-center gap-1">
             Bank Transfers Awaiting Match
             {typeof metrics.failedPayments === 'number' ? ` · ${metrics.failedPayments} failed` : ''}
+            <ArrowRight className="w-3 h-3 opacity-60" />
           </p>
-        </div>
+        </button>
       </div>
 
       {/* Operational indicators */}
       {(metrics.notificationQueue || metrics.recentAudit) && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+          <button
+            type="button"
+            onClick={() => onNavigate('/admin/notifications')}
+            className={cardClass}
+          >
             <h3 className="font-black text-xs uppercase tracking-wider text-slate-900">Notification Queue</h3>
             <div className="flex gap-6 text-sm">
               <div>
@@ -186,68 +200,84 @@ export const AdminDashboardOverview: React.FC<AdminDashboardOverviewProps> = ({ 
                 <p className="text-xl font-black text-red-600">{metrics.notificationQueue?.failed ?? 0}</p>
               </div>
             </div>
-            <button
-              type="button"
-              onClick={() => onNavigate('/admin/notifications')}
-              className="text-xs font-bold text-teal-600 hover:underline cursor-pointer"
-            >
+            <span className="text-xs font-bold text-teal-600 inline-flex items-center gap-1">
               Open notifications
-            </button>
-          </div>
-          <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+              <ArrowRight className="w-3.5 h-3.5" />
+            </span>
+          </button>
+          <button
+            type="button"
+            onClick={() => onNavigate('/admin/audit-log')}
+            className={cardClass}
+          >
             <h3 className="font-black text-xs uppercase tracking-wider text-slate-900">Recent Audit Activity</h3>
             {(metrics.recentAudit || []).length === 0 ? (
               <p className="text-xs text-slate-400 font-medium">No recent audit entries.</p>
             ) : (
-              <ul className="space-y-2">
+              <ul className="space-y-2 w-full">
                 {(metrics.recentAudit || []).slice(0, 5).map((entry) => (
-                  <li key={entry.id} className="text-[11px] text-slate-600 flex justify-between gap-2 border-b border-slate-100 pb-1">
+                  <li
+                    key={entry.id}
+                    className="text-[11px] text-slate-600 flex justify-between gap-2 border-b border-slate-100 pb-1"
+                  >
                     <span className="font-bold text-slate-800 truncate">
                       {entry.action} · {entry.entity}
                     </span>
                     <span className="text-slate-400 shrink-0">
-                      {new Date(entry.createdAt).toLocaleString('en-GB', { dateStyle: 'short', timeStyle: 'short' })}
+                      {new Date(entry.createdAt).toLocaleString('en-GB', {
+                        dateStyle: 'short',
+                        timeStyle: 'short',
+                      })}
                     </span>
                   </li>
                 ))}
               </ul>
             )}
-          </div>
+            <span className="text-xs font-bold text-teal-600 inline-flex items-center gap-1">
+              Open audit log
+              <ArrowRight className="w-3.5 h-3.5" />
+            </span>
+          </button>
         </div>
       )}
 
       {/* Order Status Breakdown */}
       <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
-        <h3 className="font-black text-xs uppercase tracking-wider text-slate-900">Order Pipeline Breakdown</h3>
+        <div className="flex items-center justify-between gap-3">
+          <h3 className="font-black text-xs uppercase tracking-wider text-slate-900">Order Pipeline Breakdown</h3>
+          <button
+            type="button"
+            onClick={() => onNavigate('/admin/orders')}
+            className="text-xs font-bold text-teal-600 hover:underline flex items-center gap-1 cursor-pointer"
+          >
+            View all
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
+        </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
-          <div className="bg-slate-50 p-3 rounded-xl border border-slate-100 text-center">
-            <span className="text-[10px] text-slate-400 font-bold uppercase block">Pending</span>
-            <span className="text-lg font-black text-amber-600">{metrics.orderStatuses.pending}</span>
-          </div>
-          <div className="bg-slate-50 p-3 rounded-xl border border-slate-100 text-center">
-            <span className="text-[10px] text-slate-400 font-bold uppercase block">Confirmed</span>
-            <span className="text-lg font-black text-blue-600">{metrics.orderStatuses.confirmed}</span>
-          </div>
-          <div className="bg-slate-50 p-3 rounded-xl border border-slate-100 text-center">
-            <span className="text-[10px] text-slate-400 font-bold uppercase block">Processing</span>
-            <span className="text-lg font-black text-indigo-600">{metrics.orderStatuses.processing}</span>
-          </div>
-          <div className="bg-slate-50 p-3 rounded-xl border border-slate-100 text-center">
-            <span className="text-[10px] text-slate-400 font-bold uppercase block">Shipped</span>
-            <span className="text-lg font-black text-teal-600">{metrics.orderStatuses.shipped}</span>
-          </div>
-          <div className="bg-slate-50 p-3 rounded-xl border border-slate-100 text-center">
-            <span className="text-[10px] text-slate-400 font-bold uppercase block">Delivered</span>
-            <span className="text-lg font-black text-emerald-600">{metrics.orderStatuses.delivered}</span>
-          </div>
-          <div className="bg-slate-50 p-3 rounded-xl border border-slate-100 text-center">
-            <span className="text-[10px] text-slate-400 font-bold uppercase block">Cancelled</span>
-            <span className="text-lg font-black text-red-600">{metrics.orderStatuses.cancelled}</span>
-          </div>
-          <div className="bg-slate-50 p-3 rounded-xl border border-slate-100 text-center">
-            <span className="text-[10px] text-slate-400 font-bold uppercase block">Refunded</span>
-            <span className="text-lg font-black text-slate-600">{metrics.orderStatuses.refunded}</span>
-          </div>
+          {(
+            [
+              { key: 'pending', label: 'Pending', status: 'PENDING', className: 'text-amber-600' },
+              { key: 'confirmed', label: 'Confirmed', status: 'CONFIRMED', className: 'text-blue-600' },
+              { key: 'processing', label: 'Processing', status: 'PROCESSING', className: 'text-indigo-600' },
+              { key: 'shipped', label: 'Shipped', status: 'SHIPPED', className: 'text-teal-600' },
+              { key: 'delivered', label: 'Delivered', status: 'DELIVERED', className: 'text-emerald-600' },
+              { key: 'cancelled', label: 'Cancelled', status: 'CANCELLED', className: 'text-red-600' },
+              { key: 'refunded', label: 'Refunded', status: 'REFUNDED', className: 'text-slate-600' },
+            ] as const
+          ).map((item) => (
+            <button
+              key={item.key}
+              type="button"
+              onClick={() => onNavigate(`/admin/orders?status=${item.status}`)}
+              className="bg-slate-50 p-3 rounded-xl border border-slate-100 text-center hover:border-teal-300 hover:bg-white transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500"
+            >
+              <span className="text-[10px] text-slate-400 font-bold uppercase block">{item.label}</span>
+              <span className={`text-lg font-black ${item.className}`}>
+                {metrics.orderStatuses[item.key]}
+              </span>
+            </button>
+          ))}
         </div>
       </div>
 

@@ -38,6 +38,12 @@ Never prefix these with `VITE_`. Never log API keys or reset tokens.
 
 ## Phase 15 status
 
-**Production email delivery pending provider credential verification.**
+Transactional email is live when `EMAIL_PROVIDER=resend` and `EMAIL_API_KEY` (or `RESEND_API_KEY`) are set on the **running server / Vercel project**.
 
-`.env` in this environment did not contain `EMAIL_PROVIDER=resend` or `EMAIL_API_KEY`. No live Resend send was attempted.
+If Admin → Notifications shows `provider: dev-logging`, real mail was not sent. Fix env vars, redeploy/restart, then run:
+
+```bash
+npm run email:requeue-dev
+```
+
+to re-deliver rows that were falsely marked SENT.

@@ -19,6 +19,8 @@ export type Permission =
   | 'order:update_payment'
   | 'order:update_shipment'
   | 'order:cancel'
+  | 'order:edit'
+  | 'order:delete'
   | 'customer:read'
   | 'customer:manage'
   | 'discount:read'
@@ -57,6 +59,8 @@ const ROLE_PERMISSIONS: Record<Role, Permission[]> = {
     'order:update_payment',
     'order:update_shipment',
     'order:cancel',
+    'order:edit',
+    'order:delete',
     'customer:read',
     'customer:manage',
     'discount:read',
@@ -94,6 +98,8 @@ const ROLE_PERMISSIONS: Record<Role, Permission[]> = {
     'order:update_payment',
     'order:update_shipment',
     'order:cancel',
+    'order:edit',
+    'order:delete',
     'customer:read',
     'customer:manage',
     'discount:read',

@@ -16,6 +16,7 @@ import {
   createEmailProvider,
   getEmailFromConfig,
   getEmailReplyTo,
+  describeEmailProvider,
   EmailProvider,
 } from './email.provider';
 import { renderNotificationEmail } from './email.registry';
@@ -36,15 +37,39 @@ export class NotificationService {
   private static provider: EmailProvider | null = null;
 
   static getProvider(): EmailProvider {
+    const configured = (process.env.EMAIL_PROVIDER || 'dev').toLowerCase().trim();
+    const apiKey = (process.env.EMAIL_API_KEY || process.env.RESEND_API_KEY || '').trim();
+    const shouldUseResend = configured === 'resend' && Boolean(apiKey);
+
     if (!this.provider) {
       this.provider = createEmailProvider();
+    } else if (shouldUseResend && this.provider.name !== 'resend') {
+      console.warn('[email] Recreating provider — previous was', this.provider.name);
+      this.provider = createEmailProvider();
+    } else if (!shouldUseResend && this.provider.name === 'resend' && configured !== 'resend') {
+      this.provider = createEmailProvider();
     }
+
     return this.provider;
   }
 
   /** Test hook — allows injecting a mock/dev provider */
   static setProvider(provider: EmailProvider | null) {
     this.provider = provider;
+  }
+
+  static getEmailHealth() {
+    const described = describeEmailProvider();
+    const active = this.getProvider();
+    return {
+      ...described,
+      runtimeProvider: active.name,
+      ready: active.name === 'resend',
+      warning:
+        active.name === 'dev-logging'
+          ? 'Emails are not delivered externally. Set EMAIL_PROVIDER=resend and EMAIL_API_KEY on the deployment environment, then redeploy/restart.'
+          : null,
+    };
   }
 
   /**

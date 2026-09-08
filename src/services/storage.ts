@@ -4,7 +4,7 @@ import { normalizeProductText } from '../lib/text/product-text';
 
 const KEYS = {
   PRODUCTS: 'ukp_products_v6',
-  CATEGORIES: 'ukp_categories_v5',
+  CATEGORIES: 'ukp_categories_v6',
   BRANDS: 'ukp_brands_v7',
   ORDERS: 'ukp_orders_v1',
   CART: 'ukp_cart_v1',

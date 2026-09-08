@@ -22,6 +22,7 @@
     "db:migrate:deploy": "prisma migrate deploy",
     "db:seed": "tsx prisma/seed.ts",
     "blog:import": "tsx scripts/import-blog.ts --limit=100",
+    "email:requeue-dev": "tsx scripts/requeue-dev-logged-emails.ts --flush",
     "products:download-images": "tsx scripts/download-product-images.ts",
     "products:backfill-images": "tsx scripts/backfill-missing-product-images.ts",
     "products:backfill-names": "tsx scripts/backfill-product-names.ts --db",

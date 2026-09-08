@@ -6,7 +6,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     "name": "Injectable",
     "slug": "injectable",
     "description": "Injectable",
-    "imageUrl": "/media/products/default.webp",
+    "imageUrl": "/media/products/testosterone-cypionate-proper-labs.webp",
     "productCount": 109,
     "featured": true
   },
@@ -15,7 +15,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     "name": "Oral",
     "slug": "oral",
     "description": "Oral",
-    "imageUrl": "/media/products/default.webp",
+    "imageUrl": "/media/products/anavar10-proper-labs.webp",
     "productCount": 51,
     "featured": true
   },
@@ -24,7 +24,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     "name": "SARMs",
     "slug": "sarms",
     "description": "SARMs",
-    "imageUrl": "/media/products/default.webp",
+    "imageUrl": "/media/products/pharmaqolabs-lgd4033.webp",
     "productCount": 42,
     "featured": true
   },
@@ -33,7 +33,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     "name": "PCT",
     "slug": "pct",
     "description": "PCT",
-    "imageUrl": "/media/products/default.webp",
+    "imageUrl": "/media/products/clomid-pharmaqo-labs.webp",
     "productCount": 37,
     "featured": true
   },
@@ -42,7 +42,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     "name": "Peptides",
     "slug": "peptides",
     "description": "Peptides",
-    "imageUrl": "/media/products/default.webp",
+    "imageUrl": "/media/products/bpc-157-pharmaqo-labs-5mg.webp",
     "productCount": 22,
     "featured": true
   },
@@ -51,7 +51,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     "name": "HGH",
     "slug": "hgh",
     "description": "HGH",
-    "imageUrl": "/media/products/default.webp",
+    "imageUrl": "/media/products/qomatropin-12mg-36iu-cartridge-pharmaqo-labs.webp",
     "productCount": 7,
     "featured": true
   },
@@ -60,7 +60,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     "name": "ED Meds",
     "slug": "ed-meds",
     "description": "ED Meds",
-    "imageUrl": "/media/products/default.webp",
+    "imageUrl": "/media/products/tadalafil-pharmaqo-labs-50tab-20mg.webp",
     "productCount": 12,
     "featured": true
   },
@@ -69,7 +69,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     "name": "Viagra",
     "slug": "viagra",
     "description": "Viagra",
-    "imageUrl": "/media/products/default.webp",
+    "imageUrl": "/media/products/viagra-sildenafil-citrate-100mg-20caps-syncom-labs.webp",
     "productCount": 1,
     "featured": true
   },
@@ -78,7 +78,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     "name": "Kamagra",
     "slug": "kamagra",
     "description": "Kamagra",
-    "imageUrl": "/media/products/default.webp",
+    "imageUrl": "/media/products/shopkamagra-jelly.webp",
     "productCount": 7,
     "featured": true
   },
@@ -87,7 +87,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     "name": "Fat Loss",
     "slug": "fat-loss",
     "description": "Fat Loss",
-    "imageUrl": "/media/products/default.webp",
+    "imageUrl": "/media/products/clenbuterol-pharmaqo-labs.webp",
     "productCount": 16,
     "featured": true
   },
@@ -96,7 +96,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     "name": "Accessories",
     "slug": "accessories",
     "description": "Accessories",
-    "imageUrl": "/media/products/default.webp",
+    "imageUrl": "/media/products/needle-21gx1-0-8x25mm-pack-of-10.webp",
     "productCount": 13,
     "featured": true
   }
@@ -268,8 +268,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.619Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-test-enan-pharmaqo",
@@ -298,8 +298,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-anavar10-proper-labs",
@@ -328,8 +328,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-boldenone-proper-labs",
@@ -358,8 +358,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-dianabol-pharmaqo-labs",
@@ -388,8 +388,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-testoprop-pharmaqolabs",
@@ -418,8 +418,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-clenbuterol-proper-labs",
@@ -448,8 +448,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Fat Loss"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-nandrolone-decanate-proper-labs",
@@ -478,8 +478,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-tri-tren-pharmaqo-labs",
@@ -508,8 +508,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-testosterone-enanthate-proper-labs",
@@ -538,8 +538,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-testo-mix3-proper-labs",
@@ -568,8 +568,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-anadrol50-proper-labs",
@@ -598,8 +598,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-trenbolone-enanthate-proper-labs",
@@ -628,8 +628,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-sustanon-250-pharmaqo-labs",
@@ -658,8 +658,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-supersus-400-pharmaqo-labs",
@@ -688,8 +688,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-tri-test-400-spharmaqo-labs",
@@ -718,8 +718,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-dianabol-proper-labs",
@@ -748,8 +748,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-boldenone-pharmaqolabs",
@@ -778,8 +778,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-superbolin-pharmaqo-labs",
@@ -808,8 +808,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-power-proper-labs",
@@ -838,8 +838,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "ED Meds"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-armidex-proper-labs",
@@ -868,8 +868,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-winstrol-proper-labs",
@@ -898,8 +898,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-clomid-pharmaqo-labs",
@@ -928,8 +928,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-nandrophenyl-npp-pharmaqolabs",
@@ -958,8 +958,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-testex-c-200-pharmaqolabs",
@@ -988,8 +988,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-t3-proper-labs",
@@ -1018,8 +1018,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Fat Loss"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-anadrol-pharmaqo-labs",
@@ -1048,8 +1048,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-nandrophenyl-npp-proper-labs",
@@ -1078,8 +1078,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-tamoxifen-pharmaqo-labs",
@@ -1108,8 +1108,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-anavar50-proper-labs",
@@ -1138,8 +1138,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-nandrodec-pharmaqolabs",
@@ -1168,8 +1168,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-masteron-p-pharmaqo-labs",
@@ -1198,8 +1198,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-masteron-enan-pharmaqo-labs",
@@ -1228,8 +1228,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-clenbuterol-pharmaqo-labs",
@@ -1258,8 +1258,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Fat Loss"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-trenbolone-acetate-proper-labs",
@@ -1288,8 +1288,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-proviron-proper-labs",
@@ -1318,8 +1318,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-proviron-pharmaqo-labs",
@@ -1348,8 +1348,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-androbolan400-pharmaqo-labs",
@@ -1378,8 +1378,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-armidex-pharmaqo-labs",
@@ -1408,8 +1408,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-t3-pharmaqo",
@@ -1438,8 +1438,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Fat Loss"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-igf1-des-pharmaqo",
@@ -1468,8 +1468,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Peptides"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-pharmaqolabs-lgd4033",
@@ -1498,8 +1498,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-anavar-10-pharmaqo-labs",
@@ -1528,8 +1528,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-igf1-lr3-pharmaqo",
@@ -1558,8 +1558,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Peptides"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-trenbolone-enan-pharmaqo",
@@ -1588,8 +1588,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-winstrol50-pharmaqo-labs",
@@ -1618,8 +1618,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-power-proper-labs-small",
@@ -1648,8 +1648,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "ED Meds"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.784Z",
-    "updatedAt": "2026-09-08T07:08:29.784Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-trenabolone-a-pharmaqo-labs",
@@ -1678,8 +1678,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-oxydrol50-pharmaqo-labs",
@@ -1708,8 +1708,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-superdrol25-pharmaqo-labs",
@@ -1738,8 +1738,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-pharmaqo-labs-rad",
@@ -1768,8 +1768,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-trenbolone-hex-100mg-pharmaqo",
@@ -1798,8 +1798,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-dianabol25-proper-labs",
@@ -1828,8 +1828,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-ment-50-pharmaqo-labs",
@@ -1858,8 +1858,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-methyltrienolone-1mg-pharmaqo-labs",
@@ -1888,8 +1888,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-winstrol50-proper-labs",
@@ -1918,8 +1918,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-hcg-pharmaqolabs",
@@ -1948,8 +1948,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-dhb-1-testosterone-cypionate-test-cyp-dhb-pharmaqo-labs",
@@ -1978,8 +1978,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-bpc-157-pharmaqo-labs-5mg",
@@ -2008,8 +2008,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Peptides"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-pharmaqo-labs-mk677",
@@ -2038,8 +2038,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.620Z",
+    "updatedAt": "2026-09-08T08:02:30.620Z"
   },
   {
     "id": "prod-fermavar-2-5mg-100-tabs-pharmaqo-labs",
@@ -2068,8 +2068,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-sustanon-250-amps-pharmaqo-labs",
@@ -2098,8 +2098,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-caber-cabergoline-pharmaqo-labs-10tab-1mg",
@@ -2128,8 +2128,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-nandrolone-d-300mg-pharmaqo-labs-amps",
@@ -2158,8 +2158,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-trt-formula-pharmaqo-labs-200-5mg",
@@ -2188,8 +2188,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-trenbolone-aq-50-pharmaqo-labs",
@@ -2218,8 +2218,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-super-lean-tab-pharmaqo-labs-60tabs-100mg",
@@ -2248,8 +2248,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-tadalafil-pharmaqo-labs-50tab-20mg",
@@ -2278,8 +2278,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "ED Meds"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-fermawin-2-5mg-100-tabs-pharmaqo-labs",
@@ -2308,8 +2308,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-drostanolone-e-200mg-pharmaqo-labs-amps",
@@ -2338,8 +2338,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-primobolan-pharmaqo-labs",
@@ -2368,8 +2368,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-winstrol-pharmaqo-labs",
@@ -2398,8 +2398,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-yk11-pharmaqo",
@@ -2428,8 +2428,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-superdrol-10mg-100-tabs-pharmaqo-labs",
@@ -2458,8 +2458,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-primobolan-methenolone-e-100mg-pharmaqo-labs-amps",
@@ -2488,8 +2488,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-eq-test-500mg-pharmaqo-labs",
@@ -2518,8 +2518,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-anavar-50-pharmaqo-labs",
@@ -2548,8 +2548,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-fastrip-pharmaqo-labs",
@@ -2578,8 +2578,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Fat Loss"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-dapoxetine-60mg-pharmaqo-labs-60mg-x-50-pills",
@@ -2608,8 +2608,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "ED Meds"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-trenbolone-hexy-pharmaqo",
@@ -2638,8 +2638,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-halotestin-pharmaqo-labs",
@@ -2668,8 +2668,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-testosterone-propionate-proper-labs",
@@ -2698,8 +2698,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-pharmaqo-sr-9009",
@@ -2728,8 +2728,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-salbutamol-proper-labs",
@@ -2758,8 +2758,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Fat Loss"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-mgf-pharmaqo",
@@ -2788,8 +2788,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Peptides"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-testosterone-p-100mg-pharmaqo",
@@ -2818,8 +2818,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-pharmaqo-cutting-stack-injectable",
@@ -2848,8 +2848,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-pharmaqo-bulking-stack-injectable",
@@ -2878,8 +2878,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-pharmaqo-beginners-stack-first-bulking-cycle",
@@ -2908,8 +2908,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-fermaprovi-5mg-100-tabs-pharmaqo-labs",
@@ -2938,8 +2938,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-pharmaqo-beginners-cutting-stack",
@@ -2968,8 +2968,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-pharmaqo-labs-pct-stack-advanced",
@@ -2998,8 +2998,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-pharmaqo-pct-stack",
@@ -3028,8 +3028,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-pharmaqo-labs-ultimate-precontest-stack",
@@ -3058,8 +3058,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-proper-labs-cutting-oral-stack-tablets-only",
@@ -3088,8 +3088,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-proper-labs-bulking-stack-classic",
@@ -3118,8 +3118,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-proper-labs-cutting-stack",
@@ -3148,8 +3148,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-pharmaqo-sarms-bulking-stack",
@@ -3178,8 +3178,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-proper-labs-fat-burning-stack-extreme",
@@ -3208,8 +3208,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Fat Loss"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-proper-labs-cutting-stack-ultimate",
@@ -3238,8 +3238,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-proper-labs-beginner-stack-first-bulking-cycle",
@@ -3268,8 +3268,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-proper-labs-beginner-stack-first-injection-cycle",
@@ -3298,8 +3298,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-proper-labs-bulking-oral-stack",
@@ -3328,8 +3328,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-proper-labs-fat-burn-stack",
@@ -3358,8 +3358,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Fat Loss"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-proper-labs-beginner-stack",
@@ -3388,8 +3388,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-properlabs-sust-bold",
@@ -3418,8 +3418,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-proper-labs-pct-stack-oral-only",
@@ -3448,8 +3448,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-proper-labs-advanced-pct-stack",
@@ -3478,8 +3478,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-eq-tren-400mg-pharmaqo-labs",
@@ -3508,8 +3508,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-xxx-tabs-pharmaqo-labs-60-tabs-x-99mg",
@@ -3538,8 +3538,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "ED Meds"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-pct-pharmaqo-labs",
@@ -3568,8 +3568,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-pct-tablets-proper-labs-60tabs-102-5mg",
@@ -3598,8 +3598,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-primobol-5mg-100-tabs-pharmaqo-labs",
@@ -3628,8 +3628,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-trenbolone-a-100mg-pharmaqo-2",
@@ -3658,8 +3658,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-testosterone-e-300mg-pharmaqo-labs-amps",
@@ -3688,8 +3688,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-trenbolone-e-200mg-pharmaqo",
@@ -3718,8 +3718,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-tamoxifen-proper-labs",
@@ -3748,8 +3748,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-testosterone-enanthate-300mg-pharmaqo-labs-amps",
@@ -3778,8 +3778,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-primobolan-proper-labs",
@@ -3808,8 +3808,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-ett-500-pharmaqo-labs",
@@ -3838,8 +3838,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-testo-mix5-proper-labs",
@@ -3868,8 +3868,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-testosterone-c-200mg-pharmaqo-labs-amps",
@@ -3898,8 +3898,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-sustanon-250-proper-labs",
@@ -3928,8 +3928,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-primobolan175-pharmaqo-labs",
@@ -3958,8 +3958,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-drostanolone-e-100mg-pharmaqo",
@@ -3988,8 +3988,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-dianabolan-50-pharmaqo-labs",
@@ -4018,8 +4018,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-testosterone-aq-50-pharmaqo-labs",
@@ -4048,8 +4048,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-winstrol-inject100-pharmaqo-labs",
@@ -4078,8 +4078,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-clomid-proper-labs",
@@ -4108,8 +4108,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-ostarine-mk2866-pharmaqolabs",
@@ -4138,8 +4138,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-pharmaqolabs-gw501516",
@@ -4168,8 +4168,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.785Z",
-    "updatedAt": "2026-09-08T07:08:29.785Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-caber-proper-labs1",
@@ -4198,8 +4198,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.789Z",
-    "updatedAt": "2026-09-08T07:08:29.789Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-power-proper20-labs",
@@ -4228,8 +4228,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "ED Meds"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.789Z",
-    "updatedAt": "2026-09-08T07:08:29.789Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-qomatropin-12mg-36iu-cartridge-pharmaqo-labs",
@@ -4258,8 +4258,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "HGH"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.789Z",
-    "updatedAt": "2026-09-08T07:08:29.789Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-power-proper20-labs-small",
@@ -4288,8 +4288,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "ED Meds"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.789Z",
-    "updatedAt": "2026-09-08T07:08:29.789Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-mt-2-melanotan-10mg-pharmaqo-labs",
@@ -4318,8 +4318,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Peptides"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.789Z",
-    "updatedAt": "2026-09-08T07:08:29.789Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-masteron-propionate-proper-labs",
@@ -4348,8 +4348,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.789Z",
-    "updatedAt": "2026-09-08T07:08:29.789Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-masteron-enanthate-proper-labs",
@@ -4378,8 +4378,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.789Z",
-    "updatedAt": "2026-09-08T07:08:29.789Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-tb-500-pharmaqo-labs-10mg",
@@ -4408,8 +4408,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Peptides"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.789Z",
-    "updatedAt": "2026-09-08T07:08:29.789Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-turinabol-proper-labs",
@@ -4438,8 +4438,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.789Z",
-    "updatedAt": "2026-09-08T07:08:29.789Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-deca-300-nandrolone-decanoate-syncom-labs",
@@ -4468,8 +4468,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.789Z",
-    "updatedAt": "2026-09-08T07:08:29.789Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-hcg-eutrig-hp",
@@ -4498,8 +4498,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.789Z",
-    "updatedAt": "2026-09-08T07:08:29.789Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-needles-syringes",
@@ -4528,8 +4528,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.789Z",
-    "updatedAt": "2026-09-08T07:08:29.789Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-npp-nandrolone-phenylpropionate-100mg-beligas-pharmaceuticals",
@@ -4558,8 +4558,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.789Z",
-    "updatedAt": "2026-09-08T07:08:29.789Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-sustanon-300-testosterone-mix-syncom-labs",
@@ -4578,8 +4578,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     "isBestseller": false,
     "ratingAvg": 4.8,
     "reviewCount": 39,
-    "shortDescription": "<strong>Sustanon 300</strong> contain:</p><p><strong>Testosterone propionate</strong> 36 mg/ml, <br><strong>Testosterone Phenylpropionate</strong> 72 mg/ml, <br><strong>Testosterone Isocaproate</strong> 72 mg/ml,<br><strong>Testosterone Decanoate</strong> 120 mg/ml",
-    "description": "<p><strong>Sustanon 300</strong> contain:</p><p><strong>Testosterone propionate</strong> 36 mg/ml, <br><strong>Testosterone Phenylpropionate</strong> 72 mg/ml, <br><strong>Testosterone Isocaproate</strong> 72 mg/ml,<br><strong>Testosterone Decanoate</strong> 120 mg/ml</p>",
+    "shortDescription": "Sustanon 300 contain:\nTestosterone propionate 36 mg/ml,\nTestosterone Phenylpropionate 72 mg/ml,\nTestosterone Isocaproate 72 mg/ml,\nTestosterone Decanoate 120 mg/ml",
+    "description": "Sustanon 300 contain:\nTestosterone propionate 36 mg/ml,\nTestosterone Phenylpropionate 72 mg/ml,\nTestosterone Isocaproate 72 mg/ml,\nTestosterone Decanoate 120 mg/ml",
     "images": [
       "/media/products/sustanon-300-testosterone-mix-syncom-labs.webp"
     ],
@@ -4588,8 +4588,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.789Z",
-    "updatedAt": "2026-09-08T07:08:29.789Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-testosterone-enanthate-ultima-enan-250mg-10ml",
@@ -4618,8 +4618,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-npp-100-nandrolone-phenylpropionate-syncom-labs",
@@ -4648,8 +4648,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-viogen-primobolan",
@@ -4669,7 +4669,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     "ratingAvg": 4.8,
     "reviewCount": 42,
     "shortDescription": "Viogen Pharmaceuticals Primobolan Enanthate 150",
-    "description": "<p>Viogen Pharmaceuticals Primobolan Enanthate 150</p>",
+    "description": "Viogen Pharmaceuticals Primobolan Enanthate 150",
     "images": [
       "/media/products/viogen-primobolan.png"
     ],
@@ -4678,8 +4678,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-testosterone-propionate-100mg-beligas-pharmaceuticals",
@@ -4708,8 +4708,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-testo-enan-300-testosterone-enanthate-syncom-labs",
@@ -4738,8 +4738,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-primo-ena-200-methenolone-enanthate-syncom-labs",
@@ -4768,8 +4768,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-boldenone-undecylenate-ultima-bold-250mg",
@@ -4798,8 +4798,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-bolden-cyp-200-boldenone-cypionate-syncom-labs",
@@ -4828,8 +4828,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-drosta-prop-100-drostanolone-propionate-syncom-labs",
@@ -4858,8 +4858,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-tren-ace-100-trenbolone-acetate-syncom-labs",
@@ -4888,8 +4888,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-ment-tresto-ena-200-trestolone-enanthate-syncom-labs",
@@ -4918,8 +4918,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-trenbolone-enanthate-200mg-beligas-pharmaceuticals",
@@ -4948,8 +4948,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-masteron-propionate-100mg-beligas-pharmaceuticals",
@@ -4978,8 +4978,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-boldenone-undecylenate-bolden-u-300-syncom-labs",
@@ -5008,8 +5008,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-testosterone-cypionate-200-beligas-pharmaceuticals",
@@ -5038,8 +5038,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-deca-durabolin-300mg-beligas-pharmaceuticals",
@@ -5068,8 +5068,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-drosta-ena-200-drostanolone-enanthate-syncom-labs",
@@ -5098,8 +5098,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-testo-cyp-200-testosterone-cypionate-syncom-labs",
@@ -5128,8 +5128,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-tri-tren-150-trenbolone-mix-syncom-labs",
@@ -5148,8 +5148,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     "isBestseller": false,
     "ratingAvg": 4.8,
     "reviewCount": 28,
-    "shortDescription": "Syncom Tri-Trenbolone contain:</p><p><strong>Trenbolone Enanthate</strong> 50 Mg/ml,<br><strong>Trenbolone Acetate</strong> 50 Mg/ml,<br><strong>Trenbolone Hexyhydrobenzylcarbonate</strong> 50 Mg/ml",
-    "description": "<p>Syncom Tri-Trenbolone contain:</p><p><strong>Trenbolone Enanthate</strong> 50 Mg/ml,<br><strong>Trenbolone Acetate</strong> 50 Mg/ml,<br><strong>Trenbolone Hexyhydrobenzylcarbonate</strong> 50 Mg/ml</p>",
+    "shortDescription": "Syncom Tri-Trenbolone contain:\nTrenbolone Enanthate 50 Mg/ml,\nTrenbolone Acetate 50 Mg/ml,\nTrenbolone Hexyhydrobenzylcarbonate 50 Mg/ml",
+    "description": "Syncom Tri-Trenbolone contain:\nTrenbolone Enanthate 50 Mg/ml,\nTrenbolone Acetate 50 Mg/ml,\nTrenbolone Hexyhydrobenzylcarbonate 50 Mg/ml",
     "images": [
       "/media/products/tri-tren-150-trenbolone-mix-syncom-labs.webp"
     ],
@@ -5158,8 +5158,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-sustanon-250-beligas-pharmaceuticals",
@@ -5178,8 +5178,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     "isBestseller": false,
     "ratingAvg": 4.8,
     "reviewCount": 29,
-    "shortDescription": "Sustanon 250 contain:</p><p><strong>Testosterone propionate: 30 mg/ml,</strong><br><strong>Testosterone phenylpropionate: 60 mg/ml,&nbsp;</strong><br><strong>Testosterone isocaproate: 60 mg/ml,&nbsp;</strong><br><strong>Testosterone decanoate: 100 mg/ml</strong>",
-    "description": "<p>Sustanon 250 contain:</p><p><strong>Testosterone propionate: 30 mg/ml,</strong><br><strong>Testosterone phenylpropionate: 60 mg/ml,&nbsp;</strong><br><strong>Testosterone isocaproate: 60 mg/ml,&nbsp;</strong><br><strong>Testosterone decanoate: 100 mg/ml</strong></p>",
+    "shortDescription": "Sustanon 250 contain:\nTestosterone propionate: 30 mg/ml,\nTestosterone phenylpropionate: 60 mg/ml,\nTestosterone isocaproate: 60 mg/ml,\nTestosterone decanoate: 100 mg/ml",
+    "description": "Sustanon 250 contain:\nTestosterone propionate: 30 mg/ml,\nTestosterone phenylpropionate: 60 mg/ml,\nTestosterone isocaproate: 60 mg/ml,\nTestosterone decanoate: 100 mg/ml",
     "images": [
       "/media/products/sustanon-250-beligas-pharmaceuticals.webp"
     ],
@@ -5188,8 +5188,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-water-injections-5ml",
@@ -5218,8 +5218,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-evotropin-100iu",
@@ -5248,8 +5248,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "HGH"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-testosterone-propionate-150mg-beligas-pharmaceuticals",
@@ -5278,8 +5278,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-equipoise-boldenone-300mg-beligas-pharmaceuticals",
@@ -5308,8 +5308,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-testo-prop-100-testosterone-propionate-syncom-labs",
@@ -5338,8 +5338,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-beltropin-hgh-10x10iu-beligas-pharmaceuticals",
@@ -5368,8 +5368,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "HGH"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-viromone-100-testosterone-propionate-syncom-labs",
@@ -5398,8 +5398,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-dhb-100-dihydroboldenone-syncom-labs",
@@ -5428,8 +5428,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-testo-dec-300-testosterone-decanoate-syncom-labs",
@@ -5458,8 +5458,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-primo-ace-100-methenolone-acetate-syncom-labs",
@@ -5488,8 +5488,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-tren-ena-200-trenbolone-enanthate-syncom-labs",
@@ -5518,8 +5518,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-water-injections",
@@ -5548,8 +5548,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-etho-testosterone-enanthate-300mg-beligas-pharmaceuticals",
@@ -5578,8 +5578,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-primo-ena-100-primobolan-depot-syncom-labs",
@@ -5608,8 +5608,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-testo-phen-100-testosterone-phenlylpropionate-syncom-labs",
@@ -5638,8 +5638,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-testo-base-100-testosterone-base-syncom-labs",
@@ -5668,8 +5668,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-tresto-ace-100-trestolone-acetate-syncom-labs",
@@ -5698,8 +5698,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Injectable"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-qomatropin-100iu",
@@ -5728,8 +5728,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "HGH"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-anapolon-oxymetholone-25mg-100tabs-syncom-labs",
@@ -5758,8 +5758,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-turinabol-t-bol-10mg-100tabs-syncom-labs",
@@ -5788,8 +5788,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-turinabol-sis-labs",
@@ -5818,8 +5818,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-winstrol-stanozolol-100tabs-50mg-beligas-pharmaceuticals",
@@ -5848,8 +5848,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-methandienone-dianabol-10mg-100tabs-syncom-labs",
@@ -5878,8 +5878,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-tudca-180mg-100caps-syncom-labs",
@@ -5908,8 +5908,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-stenabolic-sr-9009",
@@ -5938,8 +5938,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-clenbuterol-spiropent-40mcg-100tabs-syncom-labs",
@@ -5968,8 +5968,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Fat Loss"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-stanozolol-winstrol-10mg-100tabs-syncom-labs",
@@ -5998,8 +5998,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-winstrol-lite-stanozolol-100tabs-10mg-beligas-pharmaceuticals",
@@ -6028,8 +6028,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-superdrol-methasterone-20mg-100caps-syncom-labs",
@@ -6058,8 +6058,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-cardarine-gw501516",
@@ -6088,8 +6088,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-jack3d-dmaa-20mg-100caps-syncom-labs",
@@ -6118,8 +6118,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-ultima-oxa-anavar-10mg-50tabs",
@@ -6148,8 +6148,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Fat Loss"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-synephrin-ephderine-50mg-100caps-syncom-labs",
@@ -6178,8 +6178,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Fat Loss"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-stanozolol-winstrol-10mg-100caps-syncom-labs",
@@ -6208,8 +6208,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-mesterolone-proviron-25mg-50tabs-syncom-labs",
@@ -6238,8 +6238,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-yk11",
@@ -6268,8 +6268,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-sliv52ds-himalaya",
@@ -6298,8 +6298,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.621Z",
+    "updatedAt": "2026-09-08T08:02:30.621Z"
   },
   {
     "id": "prod-tadalafil-cialis-20mg-20caps-syncom-labs",
@@ -6328,8 +6328,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "ED Meds"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-dianabol-methandienone-100tabs-10mg-beligas-pharmaceutical",
@@ -6358,8 +6358,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-superdrol-17a-methyltestosterone-25mg-50tabs-syncom-labs",
@@ -6388,8 +6388,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-anapolon-oxymetholone-50mg-50tabs-syncom-labs",
@@ -6418,8 +6418,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-levitra-verdanafil-20mg-20caps-syncom-labs",
@@ -6448,8 +6448,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "ED Meds"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-anavar-lite-oxandrolone-10mg-100tabs-beligas-pharmaceuticals",
@@ -6478,8 +6478,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-s-23",
@@ -6508,8 +6508,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-shopkamagra-jelly",
@@ -6538,8 +6538,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Kamagra"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-kamagra-effervescent-tab",
@@ -6568,8 +6568,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Kamagra"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-anavar-oxandrolon-10mg-100caps-syncom-labs",
@@ -6598,8 +6598,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-turinabol-10mg-100tabs-beligas-pharmaceuticals",
@@ -6628,8 +6628,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-oral-turinabol-10mg-100caps-syncom-labs",
@@ -6658,8 +6658,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-ibutamoren-mk677",
@@ -6688,8 +6688,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-ligandrol-lgd4033-2",
@@ -6718,8 +6718,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-methyltestosterone-25mg-100caps-syncom-labs",
@@ -6748,8 +6748,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-andarine-s4",
@@ -6778,8 +6778,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-dapoxetine-hcl-60mg-20caps-syncom-labs",
@@ -6808,8 +6808,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "ED Meds"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-aromasin-exemestane-20mg-100caps-syncom-labs",
@@ -6838,8 +6838,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-primo-ace-primobolan-caps-25mg-100caps-syncom-labs",
@@ -6868,8 +6868,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-tamoxifen-citrate-20mg-100caps-syncom-labs",
@@ -6898,8 +6898,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-winstrol-50-stanozolol-syncom-labs",
@@ -6928,8 +6928,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-halotestin-fluoxymesterone-10mg-100caps-syncom-labs",
@@ -6958,8 +6958,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-t4-thyroxin-100mcg-50tabs-syncom-labs",
@@ -6988,8 +6988,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-sibutramin-reductil-10mg-100tabs-syncom-labs",
@@ -7018,8 +7018,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Fat Loss"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-oxymetholone-anapolon-50mg-100caps-syncom-labs",
@@ -7048,8 +7048,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-roaccutan-isotretinoin-20mg-100caps-syncom-labs",
@@ -7078,8 +7078,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-exemestane-aromasin-20mg-100tabs-syncom-labs",
@@ -7108,8 +7108,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-ostarine-mk2866-60caps-15mg",
@@ -7138,8 +7138,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-clomid-clomifene-citrate-50mg-100caps-syncom-labs",
@@ -7168,8 +7168,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-methyl-1-test-metribolone-10mg-100caps-syncom-labs",
@@ -7198,8 +7198,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-methandienone-dianabol-10mg-100caps-syncom-labs",
@@ -7228,8 +7228,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-testolone-rad",
@@ -7258,8 +7258,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-oxandrolone-anavar-10mg-100tabs-syncom-labs",
@@ -7288,8 +7288,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-anavar-oxandrolone-50mg-100tabs-beligas-pharmaceutical",
@@ -7318,8 +7318,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Oral"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-sarms-advanced-hardness-stack",
@@ -7339,7 +7339,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     "ratingAvg": 4.8,
     "reviewCount": 41,
     "shortDescription": "Core SARMs Duo Advanced hardness + metabolic cutting stack",
-    "description": "<p>Core SARMs Duo Advanced hardness + metabolic cutting stack</p>",
+    "description": "Core SARMs Duo Advanced hardness + metabolic cutting stack",
     "images": [
       "/media/products/sarms-advanced-hardness-stack.png"
     ],
@@ -7348,8 +7348,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.790Z",
-    "updatedAt": "2026-09-08T07:08:29.790Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-viogen-ibutamoren-mk677",
@@ -7369,7 +7369,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     "ratingAvg": 4.8,
     "reviewCount": 42,
     "shortDescription": "Viogen Pharmaceuticals MK677 Ibutamoren tablets",
-    "description": "<p>Viogen Pharmaceuticals MK677 Ibutamoren tablets</p>",
+    "description": "Viogen Pharmaceuticals MK677 Ibutamoren tablets",
     "images": [
       "/media/products/viogen-ibutamoren-mk677.png"
     ],
@@ -7378,8 +7378,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-viogen-cardarine-gw501516",
@@ -7399,7 +7399,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     "ratingAvg": 4.8,
     "reviewCount": 43,
     "shortDescription": "Viogen Pharmaceuticals Cardarine GW501516",
-    "description": "<p>Viogen Pharmaceuticals Cardarine GW501516</p>",
+    "description": "Viogen Pharmaceuticals Cardarine GW501516",
     "images": [
       "/media/products/viogen-cardarine-gw501516.png"
     ],
@@ -7408,8 +7408,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-sarms-advanced-cutting-stack",
@@ -7429,7 +7429,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     "ratingAvg": 4.8,
     "reviewCount": 44,
     "shortDescription": "The hardest, driest, most aggressive SARMs cutting stack",
-    "description": "<p>The hardest, driest, most aggressive SARMs cutting stack</p>",
+    "description": "The hardest, driest, most aggressive SARMs cutting stack",
     "images": [
       "/media/products/sarms-advanced-cutting-stack.png"
     ],
@@ -7438,8 +7438,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-sarms",
@@ -7459,7 +7459,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     "ratingAvg": 4.8,
     "reviewCount": 15,
     "shortDescription": "The classic beginner cutting / recomp stack",
-    "description": "<p>The classic beginner cutting / recomp stack</p>",
+    "description": "The classic beginner cutting / recomp stack",
     "images": [
       "/media/products/sarms.png"
     ],
@@ -7468,12 +7468,12 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-sarms-stack-advanced-bulking",
-    "name": "Sarms  Advanced Bulking Stack",
+    "name": "Sarms Advanced Bulking Stack",
     "slug": "sarms-stack-advanced-bulking",
     "sku": "STACK-1784635365863",
     "brandId": "brand-imuscle-sarms",
@@ -7488,8 +7488,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     "isBestseller": false,
     "ratingAvg": 4.8,
     "reviewCount": 16,
-    "shortDescription": "The most aggressive and popular advanced SARMs bulking ",
-    "description": "<p>The most aggressive and popular advanced SARMs bulking </p>",
+    "shortDescription": "The most aggressive and popular advanced SARMs bulking",
+    "description": "The most aggressive and popular advanced SARMs bulking",
     "images": [
       "/media/products/sarms-stack-advanced-bulking.png"
     ],
@@ -7498,8 +7498,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-lgd-4033-mk-677",
@@ -7519,7 +7519,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     "ratingAvg": 4.8,
     "reviewCount": 17,
     "shortDescription": "The most popular SARMS bulking stack",
-    "description": "<p>The most popular SARMS bulking stack</p>",
+    "description": "The most popular SARMS bulking stack",
     "images": [
       "/media/products/lgd-4033-mk-677.png"
     ],
@@ -7528,8 +7528,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-s23-mastorin-s-23-25mg-30ml-syncom-labs",
@@ -7558,8 +7558,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-sr9009-stenabolic-liquid-25mg-30ml-syncom-labs",
@@ -7588,8 +7588,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-andarine-s4-10mg-100-caps-syncom-labs",
@@ -7618,8 +7618,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-mastorin-s23-10mg-100caps-syncom-labs",
@@ -7648,8 +7648,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-yk11-liquid-sarm-25mg-30ml-syncom-labs",
@@ -7678,8 +7678,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-stenabolic-sr9009-10mg-100caps-syncom-labs",
@@ -7708,8 +7708,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-gw501516-cardarin-liquid-25mg-30ml-syncom-labs",
@@ -7738,8 +7738,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-andarine-s4-liquid-25mg-30ml-syncom-labs",
@@ -7768,8 +7768,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-ligandrol-lgd-4033-5mg-100caps-syncom-labs",
@@ -7798,8 +7798,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-rad-140-testolone-liquid-25mg-30ml-syncom-labs",
@@ -7828,8 +7828,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-mk2866-ostarine-liquid-25mg-30ml-syncom-labs",
@@ -7858,8 +7858,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-yk11-10mg-100caps-syncom-labs",
@@ -7888,8 +7888,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-ibutamoren-mk677-10mg-100caps-syncom-labs",
@@ -7918,8 +7918,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-testolon-rad-140-10mg-100caps-syncom-labs",
@@ -7948,8 +7948,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-cardarine-gw501516-10mg-100caps-syncom-labs",
@@ -7978,8 +7978,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-ostarin-mk2866-10mg-100caps-syncom-labs",
@@ -8008,8 +8008,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-mk677-ibutamoren-liquid-25mg-30ml-syncom-labs",
@@ -8038,8 +8038,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-lgd4033-ligandrol-liquid-25mg-30ml-syncom-labs",
@@ -8068,8 +8068,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "SARMs"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-viogen-performance-pct",
@@ -8088,8 +8088,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     "isBestseller": false,
     "ratingAvg": 4.8,
     "reviewCount": 36,
-    "shortDescription": "Viogen Pharmaceuticals Performance PCT Blend contain,</p><p><strong>Clomiphene Citrate, Tamoxifen Citrate, Tadalafil</strong>",
-    "description": "<p>Viogen Pharmaceuticals Performance PCT Blend contain,</p><p><strong>Clomiphene Citrate, Tamoxifen Citrate, Tadalafil</strong></p>",
+    "shortDescription": "Viogen Pharmaceuticals Performance PCT Blend contain,\nClomiphene Citrate, Tamoxifen Citrate, Tadalafil",
+    "description": "Viogen Pharmaceuticals Performance PCT Blend contain,\nClomiphene Citrate, Tamoxifen Citrate, Tadalafil",
     "images": [
       "/media/products/viogen-performance-pct.png"
     ],
@@ -8098,8 +8098,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-syncom-pct-stack-advanced",
@@ -8119,7 +8119,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     "ratingAvg": 4.8,
     "reviewCount": 37,
     "shortDescription": "Complete recovery protocol with testicular priming and liver support",
-    "description": "<p>Complete recovery protocol with testicular priming and liver support</p>",
+    "description": "Complete recovery protocol with testicular priming and liver support",
     "images": [
       "/media/products/syncom-pct-stack-advanced.png"
     ],
@@ -8128,8 +8128,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-syncom-labs-pct-stack-oral",
@@ -8149,7 +8149,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     "ratingAvg": 4.8,
     "reviewCount": 38,
     "shortDescription": "Standard dual-SERM recovery protocol with liver support",
-    "description": "<p>Standard dual-SERM recovery protocol with liver support</p>",
+    "description": "Standard dual-SERM recovery protocol with liver support",
     "images": [
       "/media/products/syncom-labs-pct-stack-oral.png"
     ],
@@ -8158,8 +8158,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-clomid-clomiphene-citrate-50mg-50tabs-syncom-labs",
@@ -8188,8 +8188,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-hcg-10000iu-beligas-pharmaceuticals",
@@ -8218,8 +8218,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-ultima-clomid-50mg-50tabs",
@@ -8248,8 +8248,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-nolvadex-tamoxifen-50tabs-20mg-beligas-pharmaceuticals",
@@ -8278,8 +8278,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-bpc-157-5mg-beligas-pharmaceuticals",
@@ -8308,8 +8308,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Peptides"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-anastrozole-arimidex-1mg-50tabs-syncom-labs",
@@ -8338,8 +8338,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-tamoxifen-nolvadex-20mg-100tabs-syncom-labs",
@@ -8368,8 +8368,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-raloxifene-50tabs-20mg-beligas-pharmaceuticals",
@@ -8398,8 +8398,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-mono-femara-letrozole-50tabs-2-5mg-beligas-pharmaceuticals",
@@ -8428,8 +8428,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-anastrozole-arimidex-1mg-100tabs-syncom-labs",
@@ -8458,8 +8458,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "PCT"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-sermorelin-ghrh-10mg-syncom-labs",
@@ -8488,8 +8488,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Peptides"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-adipotide-prohibitin-targeting-peptide-1-5mg-syncom-labs",
@@ -8518,8 +8518,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Peptides"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-aicar-aica-ribonucleotide-50mg-syncom-labs",
@@ -8548,8 +8548,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Peptides"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-mgf-mechano-growth-factor-10mg-syncom-labs",
@@ -8578,8 +8578,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Peptides"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-hexarelin-examorelin-5mg-syncom-labs",
@@ -8608,8 +8608,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Peptides"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-mots-c-peptide-10mg-syncom-labs",
@@ -8638,8 +8638,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Peptides"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-metastin-kisspetin-5mg-syncom-labs",
@@ -8668,8 +8668,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Peptides"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-epithalon-epitalon-10mg-syncom-labs",
@@ -8698,8 +8698,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Peptides"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-lipotropin-aod9604-5mg-syncom-labs",
@@ -8728,8 +8728,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Peptides"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-ipamorelin-peptide-10mg-syncom-labs",
@@ -8758,8 +8758,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Peptides"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-melanotan2-mt-ii-nosespray-10-syncom-labs",
@@ -8788,8 +8788,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Peptides"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-ghrp-2-peptide-syncom-labs",
@@ -8818,8 +8818,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Peptides"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-pt141-bremelanotide-10mg-syncom-labs",
@@ -8848,8 +8848,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Peptides"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-ghrp-6-peptide-10mg-syncom-labs",
@@ -8878,8 +8878,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Peptides"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-follistatin-fst-1mg-syncom-labs",
@@ -8908,8 +8908,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Peptides"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-viogentropin-hgh-pen-50iu",
@@ -8928,8 +8928,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     "isBestseller": false,
     "ratingAvg": 4.8,
     "reviewCount": 34,
-    "shortDescription": "Viogen Pharmaceuticals HGH 50iu Pen - Viogentropin - Human Growth Hormone.<br>1 Click = 0.02ml / 0.33mg </p><p>",
-    "description": "<p>Viogen Pharmaceuticals HGH 50iu Pen - Viogentropin - Human Growth Hormone.<br>1 Click = 0.02ml / 0.33mg </p><p></p>",
+    "shortDescription": "Viogen Pharmaceuticals HGH 50iu Pen - Viogentropin - Human Growth Hormone.\n1 Click = 0.02ml / 0.33mg",
+    "description": "Viogen Pharmaceuticals HGH 50iu Pen - Viogentropin - Human Growth Hormone.\n1 Click = 0.02ml / 0.33mg",
     "images": [
       "/media/products/viogentropin-hgh-pen-50iu.png"
     ],
@@ -8938,8 +8938,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "HGH"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-syntropin-hgh-24iu-8mg-syncom-labs",
@@ -8968,8 +8968,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "HGH"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-rdna-syntropin-hgh-human-growth-hormone-100-i-u-syncom-labs",
@@ -8998,8 +8998,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "HGH"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-tadafire-20-kamagra-tadalafil-20mg-10tabs",
@@ -9028,8 +9028,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Kamagra"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-shopkamagra-super",
@@ -9058,8 +9058,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Kamagra"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-lovegra-kamagra",
@@ -9088,8 +9088,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Kamagra"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-cialis-tadalafil-liquid-25mg-30ml-syncom-labs",
@@ -9118,8 +9118,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "ED Meds"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-tadalafil-5-vidalista",
@@ -9148,8 +9148,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "ED Meds"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-shopkamagra-tabs",
@@ -9178,8 +9178,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Kamagra"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-lovegra-women",
@@ -9208,8 +9208,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Kamagra"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-viagra-sildenafil-citrate-100mg-20caps-syncom-labs",
@@ -9238,8 +9238,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Viagra"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-t3-tiromel-25mcg-50tabs-syncom-labs",
@@ -9268,8 +9268,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Fat Loss"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-viogen-helios-liquid-thermo-burner",
@@ -9288,8 +9288,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     "isBestseller": false,
     "ratingAvg": 4.8,
     "reviewCount": 16,
-    "shortDescription": "Viogen Pharmaceuticals Helios Liquid Thermo Burner Contain: </p><p><strong>60mcg </strong>of <strong>Clenbuterol</strong>, <strong>30mcg </strong>of <strong>T3 Liothyronine</strong>, and <strong>5mg </strong>of <strong>Yohimbine HCL</strong>",
-    "description": "<p>Viogen Pharmaceuticals Helios Liquid Thermo Burner Contain: </p><p><strong>60mcg </strong>of <strong>Clenbuterol</strong>, <strong>30mcg </strong>of <strong>T3 Liothyronine</strong>, and <strong>5mg </strong>of <strong>Yohimbine HCL</strong></p>",
+    "shortDescription": "Viogen Pharmaceuticals Helios Liquid Thermo Burner Contain:\n60mcg of Clenbuterol, 30mcg of T3 Liothyronine, and 5mg of Yohimbine HCL",
+    "description": "Viogen Pharmaceuticals Helios Liquid Thermo Burner Contain:\n60mcg of Clenbuterol, 30mcg of T3 Liothyronine, and 5mg of Yohimbine HCL",
     "images": [
       "/media/products/viogen-helios-liquid-thermo-burner.png"
     ],
@@ -9298,8 +9298,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Fat Loss"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-viogen-clenbuterol-40",
@@ -9319,7 +9319,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     "ratingAvg": 4.8,
     "reviewCount": 17,
     "shortDescription": "Viogen Clenbuterol Tablets 40mcg",
-    "description": "<p>Viogen Clenbuterol Tablets 40mcg</p>",
+    "description": "Viogen Clenbuterol Tablets 40mcg",
     "images": [
       "/media/products/viogen-clenbuterol-40.png"
     ],
@@ -9328,8 +9328,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Fat Loss"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-helio-clenbuterol-yohimbine-10ml-40mcg5-5mg-beligas-pharmaceuticals",
@@ -9358,8 +9358,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Fat Loss"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-needle-21gx1-0-8x25mm-pack-of-10",
@@ -9388,8 +9388,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Accessories"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-needle-25gx1-0-5x25mm-pack-of-10",
@@ -9418,8 +9418,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Accessories"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-5ml-syringes-pack-of-10",
@@ -9448,8 +9448,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Accessories"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-hgh-syringe",
@@ -9478,8 +9478,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Accessories"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-3ml-syringes-pack-of-10",
@@ -9508,8 +9508,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Accessories"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.622Z"
   },
   {
     "id": "prod-2ml-syringes-pack-of-10",
@@ -9538,8 +9538,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Accessories"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.622Z",
+    "updatedAt": "2026-09-08T08:02:30.623Z"
   },
   {
     "id": "prod-full-cycle-injection-kit",
@@ -9568,8 +9568,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Accessories"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.623Z",
+    "updatedAt": "2026-09-08T08:02:30.623Z"
   },
   {
     "id": "prod-peptide-hgh-injection-kit",
@@ -9598,8 +9598,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Accessories"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.623Z",
+    "updatedAt": "2026-09-08T08:02:30.623Z"
   },
   {
     "id": "prod-essential-injection-kit",
@@ -9628,8 +9628,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Accessories"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.623Z",
+    "updatedAt": "2026-09-08T08:02:30.623Z"
   },
   {
     "id": "prod-complete-injection-kit",
@@ -9658,8 +9658,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Accessories"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.623Z",
+    "updatedAt": "2026-09-08T08:02:30.623Z"
   },
   {
     "id": "prod-large-volume-injection-kit",
@@ -9688,8 +9688,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Accessories"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.623Z",
+    "updatedAt": "2026-09-08T08:02:30.623Z"
   },
   {
     "id": "prod-needle-23gx1-0-6x25mm-pack-of-10",
@@ -9718,8 +9718,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Accessories"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.623Z",
+    "updatedAt": "2026-09-08T08:02:30.623Z"
   },
   {
     "id": "prod-swabs",
@@ -9748,8 +9748,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       "Accessories"
     ],
     "purityScore": "99.4% HPLC Tested",
-    "createdAt": "2026-09-08T07:08:29.791Z",
-    "updatedAt": "2026-09-08T07:08:29.791Z"
+    "createdAt": "2026-09-08T08:02:30.623Z",
+    "updatedAt": "2026-09-08T08:02:30.623Z"
   }
 ];
 

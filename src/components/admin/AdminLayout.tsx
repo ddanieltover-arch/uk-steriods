@@ -157,7 +157,8 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
         {/* Navigation Items */}
         <nav className="flex-1 p-3 space-y-1">
           {navItems.map((item) => {
-            const isActive = currentRoute === item.id || (item.id !== '/admin' && currentRoute.startsWith(item.id));
+            const routePath = currentRoute.split('?')[0];
+            const isActive = routePath === item.id || (item.id !== '/admin' && routePath.startsWith(item.id));
             const Icon = item.icon;
 
             return (
@@ -216,7 +217,8 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
         <div className="md:hidden bg-slate-900 border-b border-slate-800 text-white p-4 space-y-2 z-30">
           {navItems.map((item) => {
             const Icon = item.icon;
-            const isActive = currentRoute === item.id || (item.id !== '/admin' && currentRoute.startsWith(item.id));
+            const routePath = currentRoute.split('?')[0];
+            const isActive = routePath === item.id || (item.id !== '/admin' && routePath.startsWith(item.id));
             return (
               <button
                 key={item.id}

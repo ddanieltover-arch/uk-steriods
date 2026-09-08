@@ -28,6 +28,7 @@ import {
   AdminOrderStatusUpdateSchema,
   AdminPaymentStatusUpdateSchema,
   AdminShipmentUpdateSchema,
+  AdminOrderEditSchema,
   AdminCustomerRoleUpdateSchema,
   AdminDiscountSchema,
   AdminModerateReviewSchema,
@@ -671,6 +672,73 @@ export function registerAdminRoutes(
     }
   );
 
+  app.patch(
+    '/api/v1/admin/orders/:orderNumber',
+    requireAuth,
+    requirePermission('order:edit'),
+    async (req, res) => {
+      try {
+        const parsed = AdminOrderEditSchema.safeParse(req.body);
+        if (!parsed.success) {
+          const errors = parsed.error.issues.map((i) => `${i.path.join('.')}: ${i.message}`);
+          return res.status(400).json({ error: 'Validation failed', errors });
+        }
+
+        const user = (req as any).user;
+        const { note, ...updateData } = parsed.data;
+        const order = await AdminOrderService.updateOrder(req.params.orderNumber, updateData);
+
+        await AuditService.logAction({
+          userId: user.id,
+          action: 'ORDER_UPDATED',
+          entity: 'Order',
+          entityId: order.id,
+          metadata: {
+            orderNumber: order.orderNumber,
+            fields: Object.keys(updateData),
+            note: note || null,
+          },
+          ipAddress: req.ip,
+        });
+
+        res.json({ success: true, order });
+      } catch (err: any) {
+        const status = String(err?.message || '').includes('not found') ? 404 : 400;
+        res.status(status).json({ error: err?.message || 'Failed to update order.' });
+      }
+    }
+  );
+
+  app.delete(
+    '/api/v1/admin/orders/:orderNumber',
+    requireAuth,
+    requirePermission('order:delete'),
+    async (req, res) => {
+      try {
+        const user = (req as any).user;
+        const deleted = await AdminOrderService.deleteOrder(req.params.orderNumber);
+
+        await AuditService.logAction({
+          userId: user.id,
+          action: 'ORDER_DELETED',
+          entity: 'Order',
+          entityId: deleted.orderNumber,
+          metadata: deleted,
+          ipAddress: req.ip,
+        });
+
+        res.json({
+          success: true,
+          message: `Order #${deleted.orderNumber} permanently deleted.`,
+          deleted,
+        });
+      } catch (err: any) {
+        const status = String(err?.message || '').includes('not found') ? 404 : 400;
+        res.status(status).json({ error: err?.message || 'Failed to delete order.' });
+      }
+    }
+  );
+
   // ==========================================
   // 7. CUSTOMER & ROLE MANAGEMENT
   // ==========================================
@@ -1073,9 +1141,22 @@ export function registerAdminRoutes(
         const page = parseInt(req.query.page as string, 10) || 1;
         const limit = parseInt(req.query.limit as string, 10) || 20;
         const result = await NotificationService.listForAdmin({ status, eventType, orderId, page, limit });
-        res.json(result);
+        res.json({ ...result, emailHealth: NotificationService.getEmailHealth() });
       } catch (err: any) {
         res.status(500).json({ error: 'Failed to list notifications.' });
+      }
+    }
+  );
+
+  app.get(
+    '/api/v1/admin/notifications/health',
+    requireAuth,
+    requirePermission('notification:read'),
+    async (_req, res) => {
+      try {
+        res.json({ emailHealth: NotificationService.getEmailHealth() });
+      } catch (err: any) {
+        res.status(500).json({ error: err?.message || 'Failed to read email health.' });
       }
     }
   );
