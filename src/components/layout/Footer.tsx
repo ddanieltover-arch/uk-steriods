@@ -12,6 +12,7 @@ const shopLinks = [
 const helpLinks = [
   { href: '/track-order', label: 'Track order' },
   { href: '/about-us', label: 'About Us' },
+  { href: '/faq', label: 'FAQ' },
   { href: '/cycle-builder', label: 'Cycle Builder' },
   { href: '/blog', label: 'Blog' },
   { href: '/delivery-and-returns', label: 'Delivery & Returns' },

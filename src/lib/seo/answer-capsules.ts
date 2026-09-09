@@ -8,6 +8,8 @@ export const ANSWER_CAPSULES: Record<string, string> = {
     'The Steroids UK knowledge hub publishes educational guides on compounds, cycles, PCT, and safe research practices. Articles are written for catalogue context only and are not medical advice.',
   '/about-us':
     'Steroids UK is run by lifters from a UK warehouse, offering a lab-tested catalogue with tracked delivery, plain packaging, and direct support — built for bodybuilders who want honest stock and responsive service.',
+  '/faq':
+    'Steroids UK FAQ covers UK catalogue buying context, lab testing, discreet tracked delivery, bank transfer and crypto payment, and PCT category basics. Answers are educational only and are not medical or legal advice.',
   '/cycle-builder':
     'The Steroids UK cycle builder recommends catalogue compounds, support, and PCT based on five questions about your goal and experience. Output is educational only and not a medical or coaching protocol.',
   '/delivery-and-returns':

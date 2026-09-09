@@ -4,6 +4,7 @@ import { CatalogueApiService } from '../services/catalogue-api.service';
 import { SUPPORT_EMAIL } from '../../data/resources';
 import { answerCapsuleFor } from './answer-capsules';
 import { RESOURCE_PAGE_SEO } from './resources';
+import { FAQ_HUB_PATH, flatFaqHubItems } from './faq-hub';
 import { DEFAULT_DESCRIPTION, SITE_NAME, sanitizeMetaText } from './site';
 
 function escapeHtml(value: string): string {
@@ -140,11 +141,21 @@ ${navLinks([{ href: '/shop', label: 'Shop' }, { href: '/', label: 'Home' }])}
 
   const resource = RESOURCE_PAGE_SEO[path];
   if (resource) {
+    let faqBlock = '';
+    if (path === FAQ_HUB_PATH) {
+      faqBlock = flatFaqHubItems()
+        .map(
+          (item) =>
+            `<section><h2>${escapeHtml(item.question)}</h2><p>${escapeHtml(item.answer)}</p></section>`
+        )
+        .join('\n');
+    }
     return `<main id="ssr-fallback">
 ${answerSection(path)}
 <h1>${escapeHtml(resource.title)}</h1>
 <p>${escapeHtml(resource.description)}</p>
-${navLinks([{ href: '/', label: 'Home' }, { href: '/shop', label: 'Shop' }])}
+${faqBlock}
+${navLinks([{ href: '/', label: 'Home' }, { href: '/shop', label: 'Shop' }, { href: '/blog', label: 'Blog' }])}
 </main>`;
   }
 
@@ -174,6 +185,7 @@ ${SITE_NAME} is a UK-based e-commerce catalogue for bodybuilders and fitness res
 - /shop: Full product catalogue with filters and search
 - /blog: Knowledge hub — compounds, cycles, PCT guides (educational)
 - /about-us: Company background and trust signals
+- /faq: FAQ hub — UK buying context, delivery, payment, PCT (educational)
 - /cycle-builder: Educational compound recommendation tool
 - /delivery-and-returns: Shipping, packaging, and returns policy
 - /payment-methods: Bank transfer and crypto checkout

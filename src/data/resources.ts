@@ -1,5 +1,6 @@
 export const RESOURCE_LINKS = [
   { href: '/about-us', label: 'About Us' },
+  { href: '/faq', label: 'FAQ' },
   { href: '/cycle-builder', label: 'Cycle Builder' },
   { href: '/delivery-and-returns', label: 'Delivery & Returns' },
   { href: '/payment-methods', label: 'Payment Methods' },

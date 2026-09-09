@@ -1,5 +1,6 @@
 import React from 'react';
 import { AboutUsPage } from './AboutUsPage';
+import { FaqHubPage } from './FaqHubPage';
 import { CycleBuilderPage } from './CycleBuilderPage';
 import { DeliveryReturnsPage } from './DeliveryReturnsPage';
 import { PaymentMethodsPage } from './PaymentMethodsPage';
@@ -9,6 +10,7 @@ import { TermsConditionsPage } from './TermsConditionsPage';
 
 const RESOURCE_PAGES: Record<string, React.FC<{ onNavigate: (path: string) => void }>> = {
   '/about-us': AboutUsPage,
+  '/faq': FaqHubPage,
   '/cycle-builder': CycleBuilderPage,
   '/delivery-and-returns': DeliveryReturnsPage,
   '/payment-methods': PaymentMethodsPage,

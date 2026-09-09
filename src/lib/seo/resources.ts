@@ -10,6 +10,13 @@ export const RESOURCE_PAGE_SEO: Record<
     changefreq: 'monthly',
     priority: '0.6',
   },
+  '/faq': {
+    title: 'FAQ: Buying Steroids in the UK',
+    description:
+      'Answers on UK catalogue buying, legality context, lab testing, delivery, payment, and PCT. Educational only — not medical advice.',
+    changefreq: 'weekly',
+    priority: '0.8',
+  },
   '/cycle-builder': {
     title: 'Cycle Builder',
     description:
