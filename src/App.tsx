@@ -19,6 +19,7 @@ import { SITE_NAME } from './lib/seo/site';
 import { shouldNoIndexPath } from './lib/seo/site';
 import { apiFetch } from './lib/api/client';
 import { isResourcePath } from './data/resources';
+import { trackAddToCart, trackPageView } from './lib/analytics/gtag';
 
 const DesignSystemDemo = lazy(() =>
   import('./components/demo/DesignSystemDemo').then((m) => ({ default: m.DesignSystemDemo }))
@@ -114,6 +115,11 @@ function MainAppContent() {
     window.scrollTo(0, 0);
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
+  }, [currentPath]);
+
+  // SPA page views for GA4 (initial config already sends the first hit).
+  useEffect(() => {
+    trackPageView(currentPath);
   }, [currentPath]);
 
   // Persistent State from StorageService
@@ -213,6 +219,15 @@ function MainAppContent() {
       StorageService.saveCart(next);
       return next;
     });
+    const unit = fullProduct.salePriceGbp || fullProduct.priceGbp || 0;
+    trackAddToCart({
+      item_id: fullProduct.sku || fullProduct.id,
+      item_name: fullProduct.name,
+      item_brand: fullProduct.brandName,
+      item_category: fullProduct.categoryName,
+      price: unit,
+      quantity: 1,
+    });
     showToast('Added to Basket', `${productData.name} added to cart!`, 'success');
   };
 
@@ -226,6 +241,16 @@ function MainAppContent() {
       const next = addProductLine(prev, p, variant, qty);
       StorageService.saveCart(next);
       return next;
+    });
+    const unit = variant?.priceGbp || p.salePriceGbp || p.priceGbp || 0;
+    trackAddToCart({
+      item_id: variant?.sku || p.sku || p.id,
+      item_name: p.name,
+      item_brand: p.brandName,
+      item_category: p.categoryName,
+      item_variant: variant?.name,
+      price: unit,
+      quantity: qty,
     });
     if (!silent) {
       showToast('Added to Basket', `${p.name} added to cart!`, 'success');

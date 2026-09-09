@@ -10,7 +10,9 @@
    ```
 4. Redeploy — `Ga4` component in `src/main.tsx` loads gtag lazily
 5. Enable enhanced measurement in GA4 Admin (scrolls, outbound clicks, site search)
-6. Mark conversions: `purchase`, `begin_checkout`, `sign_up`, `generate_lead`
+6. Mark conversions in GA4 Admin → Events: `purchase`, `begin_checkout`, `add_to_cart`, `view_item`
+7. Ecommerce events are implemented in `src/lib/analytics/gtag.ts` and wired from cart / checkout / PDP / order confirmation
+8. SPA navigations emit `page_view` from `App.tsx`
 
 ## GA4 (API — Search Growth Engineering)
 

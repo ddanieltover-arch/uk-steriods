@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 const MEASUREMENT_ID = import.meta.env.VITE_GA4_MEASUREMENT_ID as string | undefined;
 
-/** Loads GA4 gtag when VITE_GA4_MEASUREMENT_ID is set. No-op in development without the env var. */
+/** Loads GA4 gtag when VITE_GA4_MEASUREMENT_ID is set. No-op without the env var. */
 export function Ga4() {
   useEffect(() => {
     if (!MEASUREMENT_ID || typeof window === 'undefined') return;
@@ -16,12 +16,17 @@ export function Ga4() {
     }
 
     window.dataLayer = window.dataLayer || [];
-    function gtag(...args: unknown[]) {
-      window.dataLayer!.push(args);
-    }
-    window.gtag = gtag;
-    gtag('js', new Date());
-    gtag('config', MEASUREMENT_ID, { anonymize_ip: true });
+    // Match the official snippet: push the Arguments object, not a rest array.
+    window.gtag = function gtag(..._args: unknown[]) {
+      // eslint-disable-next-line prefer-rest-params
+      window.dataLayer!.push(arguments);
+    };
+    window.gtag('js', new Date());
+    window.gtag('config', MEASUREMENT_ID, {
+      anonymize_ip: true,
+      // SPA navigations are tracked from App.tsx via trackPageView.
+      send_page_view: false,
+    });
   }, []);
 
   return null;

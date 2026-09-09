@@ -9,6 +9,7 @@ import {
   Info,
   ShieldCheck,
 } from 'lucide-react';
+import { trackPurchase, penceToGbp } from '../../lib/analytics/gtag';
 
 const SUPPORT_EMAIL = 'sales@uk-steroids.co.uk';
 
@@ -53,6 +54,24 @@ export const OrderConfirmationPage: React.FC<OrderConfirmationPageProps> = ({
       fetchOrder();
     }
   }, [orderNumber, trackingToken]);
+
+  useEffect(() => {
+    if (!order?.orderNumber || !Array.isArray(order.items)) return;
+    trackPurchase({
+      transactionId: order.orderNumber,
+      value: penceToGbp(order.totalPence),
+      shipping: penceToGbp(order.shippingPence),
+      tax: penceToGbp(order.taxPence),
+      paymentType: order.paymentMethod ? String(order.paymentMethod) : undefined,
+      items: order.items.map((item: any) => ({
+        item_id: item.productSku || item.productId || item.id,
+        item_name: item.productName || 'Item',
+        item_variant: item.variantName,
+        price: penceToGbp(item.unitPricePence),
+        quantity: item.quantity || 1,
+      })),
+    });
+  }, [order]);
 
   const formatGbp = (pence: number) => `£${((pence || 0) / 100).toFixed(2)}`;
 

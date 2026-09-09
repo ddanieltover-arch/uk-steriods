@@ -32,6 +32,7 @@ import {
 } from '../../lib/pdp/pdp-content';
 import { normalizeProductText } from '../../lib/text/product-text';
 import { StockStatus } from '../../types';
+import { trackViewItem } from '../../lib/analytics/gtag';
 import {
   ChevronRight,
   Star,
@@ -105,6 +106,20 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
       StorageService.addRecentlyViewedId(product.id);
     }
   }, [product]);
+
+  useEffect(() => {
+    if (!product) return;
+    const price = selectedVariant?.priceGbp || product.salePriceGbp || product.priceGbp || 0;
+    trackViewItem({
+      item_id: selectedVariant?.sku || product.sku || product.id,
+      item_name: product.name,
+      item_brand: product.brandName,
+      item_category: product.categoryName,
+      item_variant: selectedVariant?.name,
+      price,
+      quantity: 1,
+    });
+  }, [product?.id]);
 
   useEffect(() => {
     if (!product) return;

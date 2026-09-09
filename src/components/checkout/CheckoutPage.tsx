@@ -30,6 +30,7 @@ import {
   FileText,
 } from 'lucide-react';
 import { useToast } from '../feedback/ToastProvider';
+import { trackBeginCheckout, penceToGbp } from '../../lib/analytics/gtag';
 
 interface ShippingMethod {
   id: string;
@@ -114,8 +115,30 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
 
-  // Idempotency token generated once per session
   const [idempotencyKey] = useState(() => 'idemp_' + Math.random().toString(36).substring(2, 11) + Date.now().toString(36));
+
+  useEffect(() => {
+    if (!cartItems.length) return;
+    const items = cartItems.map((i) => {
+      const unit =
+        i.unitPricePence != null
+          ? penceToGbp(i.unitPricePence)
+          : i.selectedVariant?.priceGbp || i.product?.salePriceGbp || i.product?.priceGbp || 0;
+      return {
+        item_id: i.selectedVariant?.sku || i.product?.sku || i.productId || i.id,
+        item_name: i.product?.name || i.productName || 'Item',
+        item_brand: i.product?.brandName,
+        item_category: i.product?.categoryName,
+        item_variant: i.variantName || i.selectedVariant?.name,
+        price: unit,
+        quantity: i.quantity,
+      };
+    });
+    const value = items.reduce((sum, item) => sum + (item.price || 0) * (item.quantity || 1), 0);
+    trackBeginCheckout(items, value);
+    // Fire once when checkout mounts with the current basket.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const cartSubtotalPence = cartItems.reduce((sum, item) => {
     const p = item.selectedVariant?.priceGbp || item.product.salePriceGbp || item.product.priceGbp;
