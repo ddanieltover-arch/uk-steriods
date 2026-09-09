@@ -124,6 +124,8 @@ function runSeoTests() {
   );
   assert(withBody.includes('<h1>Test</h1>'), 'crawlable body injects into root');
   assert(withBody.includes('id="ssr-fallback"'), 'crawlable body preserves fallback marker');
+  assert(withBody.includes('id="ssr-crawl"'), 'crawlable body uses visually hidden crawl node');
+  assert(withBody.includes('<div id="root"></div>'), 'React root stays empty for hydration');
 }
 
 try {

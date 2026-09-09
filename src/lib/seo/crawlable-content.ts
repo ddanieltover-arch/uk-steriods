@@ -164,12 +164,17 @@ ${navLinks([{ href: '/', label: 'Home' }, { href: '/shop', label: 'Shop' }, { hr
 
 export function injectCrawlableBody(html: string, bodyContent: string): string {
   if (!bodyContent.trim()) return html;
-  const wrapped = `<div id="root">${bodyContent}</div>`;
+
+  // Keep #root empty for React, and park crawlable HTML in a visually hidden sibling.
+  // Users no longer flash unstyled SSR text; crawlers still see the markup in the HTML response.
+  const crawlBlock = `<style id="ssr-crawl-style">#ssr-crawl{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}</style><div id="ssr-crawl">${bodyContent}</div>`;
+  const withRoot = `<div id="root"></div>${crawlBlock}`;
+
   if (html.includes('<div id="root"></div>')) {
-    return html.replace('<div id="root"></div>', wrapped);
+    return html.replace('<div id="root"></div>', withRoot);
   }
   if (html.includes('<!-- SSR_CONTENT -->')) {
-    return html.replace('<!-- SSR_CONTENT -->', bodyContent);
+    return html.replace('<!-- SSR_CONTENT -->', crawlBlock);
   }
   return html;
 }

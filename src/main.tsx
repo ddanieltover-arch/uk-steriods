@@ -45,3 +45,7 @@ createRoot(document.getElementById('root')!).render(
     </RootErrorBoundary>
   </StrictMode>,
 );
+
+// Remove crawl-only SSR shell after mount so AT users don't hear duplicate FAQ/copy.
+document.getElementById('ssr-crawl')?.remove();
+document.getElementById('ssr-crawl-style')?.remove();
