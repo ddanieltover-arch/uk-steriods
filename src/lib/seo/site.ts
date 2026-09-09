@@ -6,13 +6,29 @@ export const SITE_OG_IMAGE_PATH = '/og-image.png';
 export const DEFAULT_DESCRIPTION =
   'Steroids UK: lab-tested catalogue with UK dispatch, next-day tracked delivery in plain packaging, and a reship if tracked delivery fails. Prices in GBP.';
 
+function withHttps(hostOrUrl: string): string {
+  return hostOrUrl.startsWith('http') ? hostOrUrl : `https://${hostOrUrl}`;
+}
+
+/**
+ * Canonical public origin for sitemap, meta, JSON-LD, and email links.
+ * Never prefer ephemeral Vercel deployment URLs over an explicit SITE_URL /
+ * production domain — those hosts SSO-redirect and break GSC sitemap indexing.
+ */
 export function getSiteOrigin(): string {
-  const raw =
+  const explicit =
     process.env.SITE_URL ||
     process.env.PUBLIC_SITE_URL ||
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    'http://localhost:3001';
-  return raw.replace(/\/$/, '');
+    process.env.NEXT_PUBLIC_SITE_URL;
+  if (explicit) return explicit.replace(/\/$/, '');
+
+  const productionHost = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+  if (productionHost) return withHttps(productionHost).replace(/\/$/, '');
+
+  // Last resort (local / preview without custom domain).
+  if (process.env.VERCEL_URL) return withHttps(process.env.VERCEL_URL).replace(/\/$/, '');
+
+  return 'http://localhost:3001';
 }
 
 export function absoluteUrl(pathname: string): string {

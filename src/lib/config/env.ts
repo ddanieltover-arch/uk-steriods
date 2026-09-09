@@ -65,11 +65,13 @@ export function loadEnv(env: NodeJS.ProcessEnv = process.env): AppEnv {
       .replace(/[?&]$/, '');
   }
 
-  // Vercel provides VERCEL_URL without protocol when custom SITE_URL is unset.
-  if (!env.SITE_URL && !env.PUBLIC_SITE_URL && !env.NEXT_PUBLIC_SITE_URL && env.VERCEL_URL) {
-    env.SITE_URL = env.VERCEL_URL.startsWith('http')
-      ? env.VERCEL_URL
-      : `https://${env.VERCEL_URL}`;
+  // Public SEO/email URLs must never use ephemeral deployment hosts (*.vercel.app).
+  // Prefer VERCEL_PROJECT_PRODUCTION_URL (custom domain) over VERCEL_URL.
+  if (!env.SITE_URL && !env.PUBLIC_SITE_URL && !env.NEXT_PUBLIC_SITE_URL) {
+    const vercelHost = env.VERCEL_PROJECT_PRODUCTION_URL || env.VERCEL_URL;
+    if (vercelHost) {
+      env.SITE_URL = vercelHost.startsWith('http') ? vercelHost : `https://${vercelHost}`;
+    }
   }
 
   const parsed = EnvSchema.safeParse(env);
@@ -106,6 +108,13 @@ export function loadEnv(env: NodeJS.ProcessEnv = process.env): AppEnv {
     data.NEXT_PUBLIC_SITE_URL ||
     `http://localhost:${data.PORT}`
   ).replace(/\/$/, '');
+
+  if (isProduction && /\.vercel\.app$/i.test(new URL(siteUrl).hostname)) {
+    console.error(
+      `[env] SITE_URL is a Vercel deployment host (${siteUrl}). ` +
+        'Set SITE_URL=https://www.uk-steroids.co.uk in Vercel env vars — sitemap/canonicals will otherwise fail in GSC.'
+    );
+  }
 
   const clientOrigins = (data.CLIENT_ORIGIN || `${siteUrl},https://uk-steroids.co.uk,https://www.uk-steroids.co.uk`)
     .split(',')
