@@ -156,15 +156,30 @@ async function injectPublicSeo(
   }
 }
 
+function resolveSpaShellPath(distPath: string): string {
+  // spa-shell.html is produced by scripts/prepare-vercel-spa.mjs so Vercel does
+  // not statically serve dist/index.html for `/` ahead of the API rewrite.
+  const candidates = [
+    path.join(distPath, "spa-shell.html"),
+    path.join(distPath, "index.html"),
+  ];
+  const found = candidates.find((candidate) => fs.existsSync(candidate));
+  if (!found) {
+    throw new Error(`SPA shell not found under ${distPath}`);
+  }
+  return found;
+}
+
 async function serveSpaHtml(
   req: Request,
   res: Response,
   distPath: string
 ): Promise<void> {
-  const indexPath = path.join(distPath, "index.html");
+  const indexPath = resolveSpaShellPath(distPath);
   let html = fs.readFileSync(indexPath, "utf8");
   html = await injectPublicSeo(html, req.path, req.query as Record<string, unknown>);
   res.setHeader("Content-Type", "text/html; charset=utf-8");
+  res.setHeader("Cache-Control", "public, max-age=0, must-revalidate");
   if (shouldNoIndexPath(req.path)) {
     res.setHeader("X-Robots-Tag", "noindex, nofollow");
   }
@@ -865,18 +880,25 @@ export async function createApp(options: { listen?: boolean } = {}) {
     app.get("*", async (req, res) => {
       try {
         await serveSpaHtml(req, res, distPath);
-      } catch {
-        res.sendFile(path.join(distPath, "index.html"));
+      } catch (err) {
+        console.error("[spa] failed to inject SEO shell:", err);
+        try {
+          res.sendFile(resolveSpaShellPath(distPath));
+        } catch {
+          res.status(500).send("Application shell unavailable.");
+        }
       }
     });
   } else {
     // Vercel: HTML routes hit the serverless API; static assets served from dist by the platform.
+    // Root `/` only reaches here when dist/index.html was renamed to spa-shell.html at build time.
     const distPath = path.join(process.cwd(), "dist");
     app.get("*", async (req, res, next) => {
       if (req.path.startsWith("/api/")) return next();
       try {
         await serveSpaHtml(req, res, distPath);
-      } catch {
+      } catch (err) {
+        console.error("[spa] Vercel SEO shell failed:", err);
         next();
       }
     });
