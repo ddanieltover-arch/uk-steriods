@@ -1,7 +1,7 @@
 import { scoreSearchRelevance, normalizeSearchQuery, escapeIlike } from '../src/lib/search/ranking';
 import { SeoService } from '../src/lib/services/seo.service';
 import { canonicalPathFor, shouldNoIndexPath, sanitizeMetaText } from '../src/lib/seo/site';
-import { productJsonLd, breadcrumbJsonLd } from '../src/lib/seo/structured-data';
+import { productJsonLd, breadcrumbJsonLd, collectionPageJsonLd } from '../src/lib/seo/structured-data';
 import { injectCrawlableBody } from '../src/lib/seo/crawlable-content';
 import { ANSWER_CAPSULES } from '../src/lib/seo/answer-capsules';
 
@@ -89,6 +89,15 @@ function runSeoTests() {
   ]);
   assert((crumbs.itemListElement as any[]).length === 3, 'breadcrumb has 3 items');
 
+  const collection = collectionPageJsonLd({
+    name: 'Injectables',
+    description: 'Browse injectables.',
+    path: '/category/injectable',
+    items: [{ name: 'Test E', slug: 'test-e' }],
+  });
+  assert(collection['@type'] === 'CollectionPage', 'collection JSON-LD type');
+  assert((collection.mainEntity as any)['@type'] === 'ItemList', 'collection has ItemList');
+
   const html = SeoService.injectIntoHtml(
     '<html><head><title>Old</title></head><body></body></html>',
     SeoService.homepageSeo()
@@ -96,11 +105,18 @@ function runSeoTests() {
   assert(html.includes('<title>'), 'homepage injects title');
   assert(html.includes('meta name="description"'), 'homepage injects description');
   assert(html.includes('rel="canonical"'), 'homepage injects canonical');
+  assert(html.includes('data-seo-jsonld="ssr"'), 'SSR JSON-LD is tagged for client dedupe');
 
   const truncated = sanitizeMetaText('a'.repeat(400), 160);
   assert(truncated.length <= 160, 'meta description is truncated');
 
   assert(ANSWER_CAPSULES['/'].length >= 40, 'homepage answer capsule has substance');
+  assert(ANSWER_CAPSULES['/faq'].length >= 40, 'FAQ hub answer capsule has substance');
+
+  const faqSeo = SeoService.resourceSeo('/faq');
+  assert(!!faqSeo, 'FAQ hub resource SEO exists');
+  assert(faqSeo!.canonical.endsWith('/faq'), 'FAQ hub canonical path');
+  assert(faqSeo!.jsonLd.some((b) => b['@type'] === 'FAQPage'), 'FAQ hub includes FAQPage JSON-LD');
 
   const withBody = injectCrawlableBody(
     '<html><body><div id="root"></div></body></html>',

@@ -14,6 +14,8 @@ const LIST_SELECT = {
   slug: true,
   sku: true,
   shortDescription: true,
+  seoTitle: true,
+  seoDescription: true,
   basePricePence: true,
   isFeatured: true,
   isPublished: true,
@@ -39,6 +41,7 @@ export interface PublicCatalogueProduct {
   sku: string;
   brandId: string;
   brandName: string;
+  brandSlug: string;
   categoryId: string;
   categoryName: string;
   categorySlug: string;
@@ -51,6 +54,8 @@ export interface PublicCatalogueProduct {
   reviewCount: number;
   shortDescription: string;
   description: string;
+  seoTitle?: string | null;
+  seoDescription?: string | null;
   images: string[];
   tags: string[];
   createdAt: string;
@@ -96,6 +101,7 @@ function mapListProduct(
     sku: row.sku,
     brandId: row.brandId,
     brandName: row.brand?.name || '',
+    brandSlug: row.brand?.slug || '',
     categoryId: row.categoryId,
     categoryName: row.category?.name || '',
     categorySlug: row.category?.slug || '',
@@ -108,6 +114,8 @@ function mapListProduct(
     reviewCount: ratings?.count || 0,
     shortDescription: normalizeProductText(row.shortDescription || ''),
     description: normalizeProductText(row.description || row.shortDescription || ''),
+    seoTitle: row.seoTitle || null,
+    seoDescription: row.seoDescription || null,
     images: (row.images || []).map((img: { url: string }) => img.url).filter(Boolean),
     tags: (row.tags || []).map((t: { tag: { name: string } }) => t.tag.name),
     createdAt: row.createdAt instanceof Date ? row.createdAt.toISOString() : row.createdAt,

@@ -188,9 +188,12 @@ export class CatalogueService {
    */
   static getProductBySlug(slug: string, customProducts?: Product[]): Product | undefined {
     const products = customProducts || StorageService.getProducts();
-    return products.find(
+    const product = products.find(
       (p) => (p.slug === slug || p.id === slug) && p.isPublished !== false
     );
+    if (!product || product.brandSlug) return product;
+    const brand = StorageService.getBrands().find((b) => b.id === product.brandId);
+    return brand ? { ...product, brandSlug: brand.slug } : product;
   }
 
   /**

@@ -76,9 +76,14 @@ async function injectPublicSeo(
           jsonLd: [],
         });
       } else {
+        const productTitle = product.seoTitle || `${product.name} | ${SITE_NAME}`;
+        const productDescription = sanitizeMetaText(
+          product.seoDescription || product.shortDescription || product.description,
+          160
+        );
         seoHtml = SeoService.injectIntoHtml(html, {
-          title: `${product.name} | ${SITE_NAME}`,
-          description: sanitizeMetaText(product.shortDescription || product.description, 160),
+          title: productTitle,
+          description: productDescription,
           canonical:
             SeoService.homepageSeo().canonical.replace(/\/$/, "") + `/product/${product.slug}`,
           robots: "index,follow",

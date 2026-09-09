@@ -122,3 +122,30 @@ export function faqPageJsonLd(items: { question: string; answer: string }[]) {
     })),
   };
 }
+
+/** Collection + ItemList for category/brand catalogue pages. */
+export function collectionPageJsonLd(input: {
+  name: string;
+  description: string;
+  path: string;
+  items: { name: string; slug: string }[];
+}) {
+  const url = absoluteUrl(input.path);
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: input.name,
+    description: sanitizeMetaText(input.description, 300),
+    url,
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: input.items.length,
+      itemListElement: input.items.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.name,
+        url: absoluteUrl(`/product/${item.slug}`),
+      })),
+    },
+  };
+}

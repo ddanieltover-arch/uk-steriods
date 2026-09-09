@@ -55,6 +55,7 @@ export const ProductImage: React.FC<ProductImageProps> = ({
           alt={alt}
           width={width}
           height={height}
+          sizes={priority ? '(min-width: 1024px) 600px, 50vw' : '(min-width: 640px) 33vw, 50vw'}
           loading={priority ? 'eager' : 'lazy'}
           fetchPriority={priority ? 'high' : 'auto'}
           decoding={priority ? 'sync' : 'async'}

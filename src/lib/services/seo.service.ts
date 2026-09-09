@@ -12,11 +12,13 @@ import {
 import {
   blogPostingJsonLd,
   breadcrumbJsonLd,
+  collectionPageJsonLd,
   faqPageJsonLd,
   organizationJsonLd,
   productJsonLd,
   websiteJsonLd,
 } from '../seo/structured-data';
+import { FAQ_HUB_PATH, flatFaqHubItems } from '../seo/faq-hub';
 
 export interface PageSeo {
   title: string;
@@ -281,6 +283,15 @@ export class SeoService {
   static resourceSeo(pathname: string): PageSeo | null {
     const meta = RESOURCE_PAGE_SEO[pathname];
     if (!meta) return null;
+    const jsonLd: Record<string, unknown>[] = [
+      this.breadcrumbJsonLd([
+        { name: 'Home', path: '/' },
+        { name: meta.title, path: pathname },
+      ]),
+    ];
+    if (pathname === FAQ_HUB_PATH) {
+      jsonLd.push(faqPageJsonLd(flatFaqHubItems()));
+    }
     return {
       title: `${meta.title} | ${SITE_NAME}`,
       description: sanitizeMetaText(meta.description, 160),
@@ -288,28 +299,30 @@ export class SeoService {
       robots: 'index,follow',
       ogImage: absoluteUrl('/og-image.png'),
       ogType: 'website',
-      jsonLd: [
-        this.breadcrumbJsonLd([
-          { name: 'Home', path: '/' },
-          { name: meta.title, path: pathname },
-        ]),
-      ],
+      jsonLd,
     };
   }
 
   static async categorySeo(slug: string): Promise<PageSeo | null> {
     const category = await db.category.findUnique({
       where: { slug },
-      select: { name: true, slug: true, description: true },
+      select: { id: true, name: true, slug: true, description: true },
     });
     if (!category) return null;
     const path = `/category/${category.slug}`;
+    const description = sanitizeMetaText(
+      category.description || `Browse ${category.name} in the ${SITE_NAME} lab-tested catalogue. Prices in GBP.`,
+      160
+    );
+    const products = await db.product.findMany({
+      where: { categoryId: category.id, isPublished: true, deletedAt: null },
+      select: { name: true, slug: true },
+      orderBy: { updatedAt: 'desc' },
+      take: 50,
+    });
     return {
       title: `${category.name} | ${SITE_NAME}`,
-      description: sanitizeMetaText(
-        category.description || `Browse ${category.name} in the ${SITE_NAME} lab-tested catalogue. Prices in GBP.`,
-        160
-      ),
+      description,
       canonical: absoluteUrl(path),
       robots: 'index,follow',
       ogImage: absoluteUrl('/og-image.png'),
@@ -320,6 +333,12 @@ export class SeoService {
           { name: 'Shop', path: '/shop' },
           { name: category.name, path },
         ]),
+        collectionPageJsonLd({
+          name: category.name,
+          description,
+          path,
+          items: products,
+        }),
       ],
     };
   }
@@ -327,16 +346,23 @@ export class SeoService {
   static async brandSeo(slug: string): Promise<PageSeo | null> {
     const brand = await db.brand.findUnique({
       where: { slug },
-      select: { name: true, slug: true, description: true },
+      select: { id: true, name: true, slug: true, description: true },
     });
     if (!brand) return null;
     const path = `/brand/${brand.slug}`;
+    const description = sanitizeMetaText(
+      brand.description || `Shop ${brand.name} products at ${SITE_NAME}. Lab-tested batches, UK dispatch.`,
+      160
+    );
+    const products = await db.product.findMany({
+      where: { brandId: brand.id, isPublished: true, deletedAt: null },
+      select: { name: true, slug: true },
+      orderBy: { updatedAt: 'desc' },
+      take: 50,
+    });
     return {
       title: `${brand.name} | ${SITE_NAME}`,
-      description: sanitizeMetaText(
-        brand.description || `Shop ${brand.name} products at ${SITE_NAME}. Lab-tested batches, UK dispatch.`,
-        160
-      ),
+      description,
       canonical: absoluteUrl(path),
       robots: 'index,follow',
       ogImage: absoluteUrl('/og-image.png'),
@@ -347,6 +373,12 @@ export class SeoService {
           { name: 'Shop', path: '/shop' },
           { name: brand.name, path },
         ]),
+        collectionPageJsonLd({
+          name: brand.name,
+          description,
+          path,
+          items: products,
+        }),
       ],
     };
   }
@@ -376,7 +408,9 @@ export class SeoService {
     tags.push(`<link rel="apple-touch-icon" href="${escapeHtml(absoluteUrl('/apple-touch-icon.png'))}" />`);
 
     for (const block of seo.jsonLd) {
-      tags.push(`<script type="application/ld+json">${JSON.stringify(block)}</script>`);
+      tags.push(
+        `<script type="application/ld+json" data-seo-jsonld="ssr">${JSON.stringify(block)}</script>`
+      );
     }
 
     if (next.includes('</head>')) {

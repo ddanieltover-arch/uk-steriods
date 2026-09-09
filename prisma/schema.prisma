@@ -212,6 +212,8 @@ model Product {
   sku              String    @unique
   description      String
   shortDescription String
+  seoTitle         String?
+  seoDescription   String?
   basePricePence   Int       // Stored in integer pence (£29.99 = 2999)
   isPublished      Boolean   @default(true)
   isFeatured       Boolean   @default(false)

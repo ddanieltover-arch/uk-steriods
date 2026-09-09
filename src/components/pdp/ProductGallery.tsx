@@ -174,7 +174,11 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({
               >
                 <img
                   src={img}
-                  alt={`${productName} thumbnail ${idx + 1}`}
+                  alt={`${productName} — view ${idx + 1}`}
+                  width={80}
+                  height={80}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover object-center"
                 />
               </button>

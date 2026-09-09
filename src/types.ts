@@ -77,6 +77,7 @@ export interface Product {
   sku: string;
   brandId: string;
   brandName: string;
+  brandSlug?: string;
   categoryId: string;
   categoryName: string;
   categorySlug: string;
@@ -91,6 +92,8 @@ export interface Product {
   reviewCount: number;
   shortDescription: string;
   description: string;
+  seoTitle?: string | null;
+  seoDescription?: string | null;
   images: string[];
   tags: string[];
   purityScore?: string; // e.g. "99.4% HPLC Tested"

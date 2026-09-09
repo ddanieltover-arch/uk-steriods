@@ -69,12 +69,12 @@ export function SeoHead({
     setLink('icon', `${window.location.origin}/favicon.ico`, { sizes: 'any' });
     setLink('apple-touch-icon', `${window.location.origin}/apple-touch-icon.png`);
 
-    const existing = document.head.querySelectorAll('script[data-seo-jsonld="true"]');
-    existing.forEach((n) => n.remove());
+    // Remove SSR + prior client JSON-LD to avoid duplicate structured data after hydrate.
+    document.head.querySelectorAll('script[type="application/ld+json"]').forEach((n) => n.remove());
     jsonLd.forEach((block) => {
       const script = document.createElement('script');
       script.type = 'application/ld+json';
-      script.dataset.seoJsonld = 'true';
+      script.dataset.seoJsonld = 'client';
       script.textContent = JSON.stringify(block);
       document.head.appendChild(script);
     });

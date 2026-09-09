@@ -36,6 +36,8 @@ export const AdminProductsView: React.FC<AdminProductsViewProps> = ({
     hasVariants: false,
     primaryImageUrl: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=800&q=80',
     initialQuantity: '20',
+    seoTitle: '',
+    seoDescription: '',
   });
 
   const [formError, setFormDataError] = useState<string | null>(null);
@@ -94,6 +96,8 @@ export const AdminProductsView: React.FC<AdminProductsViewProps> = ({
           hasVariants: p.hasVariants,
           primaryImageUrl: p.images?.[0]?.url || '',
           initialQuantity: p.inventory?.quantity?.toString() || '0',
+          seoTitle: p.seoTitle || '',
+          seoDescription: p.seoDescription || '',
         });
         setIsEditing(true);
       }
@@ -113,6 +117,8 @@ export const AdminProductsView: React.FC<AdminProductsViewProps> = ({
         hasVariants: false,
         primaryImageUrl: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=800&q=80',
         initialQuantity: '25',
+        seoTitle: '',
+        seoDescription: '',
       });
       setIsEditing(true);
     }
@@ -132,6 +138,8 @@ export const AdminProductsView: React.FC<AdminProductsViewProps> = ({
       sku: formData.sku,
       description: formData.description,
       shortDescription: formData.shortDescription,
+      seoTitle: formData.seoTitle.trim() || null,
+      seoDescription: formData.seoDescription.trim() || null,
       basePricePence: pricePence,
       categoryId: formData.categoryId || categories[0]?.id,
       brandId: formData.brandId || brands[0]?.id,
@@ -326,6 +334,30 @@ export const AdminProductsView: React.FC<AdminProductsViewProps> = ({
                   onChange={(e) => setFormData({ ...formData, primaryImageUrl: e.target.value })}
                   className="w-full border border-slate-200 rounded-lg p-2.5 focus:ring-1 focus:ring-teal-500 outline-none font-mono"
                 />
+              </div>
+
+              <div className="grid grid-cols-1 gap-3 pt-1 border-t border-slate-100">
+                <p className="text-[10px] font-bold uppercase text-slate-400 tracking-wider">SEO overrides (optional)</p>
+                <div>
+                  <label className="font-bold text-slate-500 uppercase text-[10px] block mb-1">SEO title</label>
+                  <input
+                    type="text"
+                    value={formData.seoTitle}
+                    onChange={(e) => setFormData({ ...formData, seoTitle: e.target.value })}
+                    placeholder="Defaults to product name"
+                    className="w-full border border-slate-200 rounded-lg p-2.5 text-sm focus:ring-1 focus:ring-teal-500 outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="font-bold text-slate-500 uppercase text-[10px] block mb-1">SEO description</label>
+                  <textarea
+                    rows={2}
+                    value={formData.seoDescription}
+                    onChange={(e) => setFormData({ ...formData, seoDescription: e.target.value })}
+                    placeholder="Defaults to short description"
+                    className="w-full border border-slate-200 rounded-lg p-2.5 text-sm focus:ring-1 focus:ring-teal-500 outline-none resize-y"
+                  />
+                </div>
               </div>
 
               <div>

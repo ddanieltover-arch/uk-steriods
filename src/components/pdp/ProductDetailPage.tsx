@@ -195,6 +195,12 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
 
   const catalogue = customProducts || StorageService.getProducts();
   const title = displayProductTitle(product);
+  const brandPath = `/brand/${product.brandSlug || product.brandId}`;
+  const seoTitle = product.seoTitle || `${product.name} | ${SITE_NAME}`;
+  const seoDescription = sanitizeMetaText(
+    product.seoDescription || product.shortDescription || product.description,
+    160
+  );
   const sizeChips = inferSizeChips(product);
   const usageLabel = inferUsageLabel(product);
   const goalLabel = inferGoalLabel(product);
@@ -275,8 +281,8 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
   return (
     <div className="bg-slate-50 min-h-screen py-6 sm:py-10">
       <SeoHead
-        title={`${product.name} | ${SITE_NAME}`}
-        description={sanitizeMetaText(product.shortDescription || product.description, 160)}
+        title={seoTitle}
+        description={seoDescription}
         canonical={`${window.location.origin}/product/${product.slug}`}
         ogImage={product.images?.[0]}
         ogType="product"
@@ -296,7 +302,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
           breadcrumbJsonLd([
             { name: 'Home', path: '/' },
             { name: 'Shop', path: '/shop' },
-            { name: product.brandName, path: `/brand/${product.brandId}` },
+            { name: product.categoryName, path: `/category/${product.categorySlug}` },
             { name: product.name, path: `/product/${product.slug}` },
           ]),
         ]}
@@ -308,7 +314,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
           </button>
           <ChevronRight className="w-3.5 h-3.5 text-slate-300 shrink-0" />
           <button
-            onClick={() => onNavigate(`/brand/${product.brandId}`)}
+            onClick={() => onNavigate(brandPath)}
             className="hover:text-teal-600 shrink-0 cursor-pointer"
           >
             {product.brandName}
@@ -330,7 +336,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
 
           <div className="lg:col-span-6 space-y-5">
             <button
-              onClick={() => onNavigate(`/brand/${product.brandId}`)}
+              onClick={() => onNavigate(brandPath)}
               className="text-xs font-black uppercase tracking-widest text-teal-600 hover:underline cursor-pointer"
             >
               {product.brandName}
@@ -525,7 +531,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                   <p className="text-xs text-slate-500 mt-0.5">Curated picks from {product.brandName}.</p>
                 </div>
                 <button
-                  onClick={() => onNavigate(`/brand/${product.brandId}`)}
+                  onClick={() => onNavigate(brandPath)}
                   className="text-xs font-bold text-teal-600 hover:underline cursor-pointer"
                 >
                   See all

@@ -179,6 +179,8 @@ export const AdminProductSchema = z.object({
   sku: z.string().min(2, 'Valid SKU is required'),
   description: z.string().min(5, 'Description is required'),
   shortDescription: z.string().min(5, 'Short description is required'),
+  seoTitle: z.string().optional().nullable(),
+  seoDescription: z.string().optional().nullable(),
   basePricePence: z.number().int().positive('Price must be greater than 0'),
   isPublished: z.boolean().optional().default(true),
   isFeatured: z.boolean().optional().default(false),
