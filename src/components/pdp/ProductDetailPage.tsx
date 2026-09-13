@@ -46,6 +46,13 @@ import {
 import { SeoHead } from '../seo/SeoHead';
 import { SITE_NAME, sanitizeMetaText } from '../../lib/seo/site';
 import { breadcrumbJsonLd, productJsonLd } from '../../lib/seo/structured-data';
+import {
+  enrichProductDescription,
+  enrichProductSeoDescription,
+  enrichProductSeoTitle,
+  enrichProductShortDescription,
+  productSeoFor,
+} from '../../lib/seo/product-copy';
 import { useToast } from '../feedback/ToastProvider';
 
 interface ProductDetailPageProps {
@@ -196,9 +203,16 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
   const catalogue = customProducts || StorageService.getProducts();
   const title = displayProductTitle(product);
   const brandPath = `/brand/${product.brandSlug || product.brandId}`;
-  const seoTitle = product.seoTitle || `${product.name} | ${SITE_NAME}`;
+  const seoTitle = enrichProductSeoTitle(product.slug, product.name, product.seoTitle);
+  const displayShort = enrichProductShortDescription(product.slug, product.shortDescription);
+  const displayDescription = enrichProductDescription(product.slug, product.description);
+  const keywordLinks = productSeoFor(product.slug)?.relatedLinks ?? [];
   const seoDescription = sanitizeMetaText(
-    product.seoDescription || product.shortDescription || product.description,
+    enrichProductSeoDescription(
+      product.slug,
+      displayShort || displayDescription,
+      product.seoDescription
+    ),
     160
   );
   const sizeChips = inferSizeChips(product);
@@ -289,7 +303,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
         jsonLd={[
           productJsonLd({
             name: product.name,
-            description: product.shortDescription || product.description,
+            description: displayShort || displayDescription,
             images: product.images || [],
             sku: selectedVariant?.sku || product.sku,
             brandName: product.brandName,
@@ -347,10 +361,24 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
               {sizeChips.length > 0 && (
                 <p className="text-sm font-bold text-slate-500">{sizeChips.join(' · ')}</p>
               )}
-              {product.shortDescription && (
+              {displayShort && (
                 <p className="text-sm text-slate-600 leading-relaxed">
-                  {normalizeProductText(product.shortDescription)}
+                  {normalizeProductText(displayShort)}
                 </p>
+              )}
+              {keywordLinks.length > 0 && (
+                <nav aria-label="Related searches" className="flex flex-wrap gap-2 pt-1">
+                  {keywordLinks.map((link) => (
+                    <button
+                      key={`${link.href}-${link.label}`}
+                      type="button"
+                      onClick={() => onNavigate(link.href)}
+                      className="rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-[11px] font-bold text-slate-700 hover:border-teal-600 cursor-pointer"
+                    >
+                      {link.label}
+                    </button>
+                  ))}
+                </nav>
               )}
             </div>
 
@@ -456,7 +484,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                   title: 'Description',
                   content: (
                     <div className="whitespace-pre-line space-y-3 text-sm text-slate-600 leading-relaxed">
-                      <p>{normalizeProductText(product.description || product.shortDescription)}</p>
+                      <p>{normalizeProductText(displayDescription || displayShort)}</p>
                     </div>
                   ),
                 },

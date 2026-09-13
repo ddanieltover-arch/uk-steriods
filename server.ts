@@ -16,8 +16,12 @@ import { noStore } from "./src/lib/middleware/http-cache.js";
 import { SeoService } from "./src/lib/services/seo.service.js";
 import { CatalogueApiService } from "./src/lib/services/catalogue-api.service.js";
 import { BlogService } from "./src/lib/services/blog.service.js";
-import { shouldNoIndexPath, SITE_NAME, sanitizeMetaText } from "./src/lib/seo/site.js";
+import { shouldNoIndexPath, SITE_NAME, sanitizeMetaText, shopRequestQueryShouldNoIndex } from "./src/lib/seo/site.js";
 import { buildCrawlableHtml, injectCrawlableBody } from "./src/lib/seo/crawlable-content.js";
+import {
+  enrichProductSeoDescription,
+  enrichProductSeoTitle,
+} from "./src/lib/seo/product-copy.js";
 import { startNotificationWorker } from "./src/lib/notifications/notification.worker.js";
 import { PasswordResetService } from "./src/lib/services/password-reset.service.js";
 
@@ -45,7 +49,11 @@ async function injectPublicSeo(
       seoHtml = SeoService.injectIntoHtml(html, SeoService.homepageSeo());
     } else if (pathname === "/shop") {
       const q = typeof query.q === "string" ? query.q : "";
-      seoHtml = SeoService.injectIntoHtml(html, SeoService.shopSeo(q || undefined));
+      const facetNoIndex = shopRequestQueryShouldNoIndex(query);
+      seoHtml = SeoService.injectIntoHtml(
+        html,
+        SeoService.shopSeo(q || undefined, { noindex: facetNoIndex && !q })
+      );
     } else if (pathname === "/blog") {
       seoHtml = SeoService.injectIntoHtml(html, SeoService.blogIndexSeo());
     } else if (pathname.startsWith("/blog/")) {
@@ -76,9 +84,13 @@ async function injectPublicSeo(
           jsonLd: [],
         });
       } else {
-        const productTitle = product.seoTitle || `${product.name} | ${SITE_NAME}`;
+        const productTitle = enrichProductSeoTitle(product.slug, product.name, product.seoTitle);
         const productDescription = sanitizeMetaText(
-          product.seoDescription || product.shortDescription || product.description,
+          enrichProductSeoDescription(
+            product.slug,
+            product.shortDescription || product.description || '',
+            product.seoDescription
+          ),
           160
         );
         seoHtml = SeoService.injectIntoHtml(html, {
@@ -187,6 +199,8 @@ async function serveSpaHtml(
   res.setHeader("Cache-Control", "public, max-age=0, must-revalidate");
   if (shouldNoIndexPath(req.path)) {
     res.setHeader("X-Robots-Tag", "noindex, nofollow");
+  } else if (req.path === "/shop" && shopRequestQueryShouldNoIndex(req.query as Record<string, unknown>)) {
+    res.setHeader("X-Robots-Tag", "noindex, follow");
   }
   res.send(html);
 }
@@ -225,6 +239,18 @@ export async function createApp(options: { listen?: boolean } = {}) {
   app.use(compression());
   app.use(express.json({ limit: "64kb" }));
   app.use(cookieParser());
+
+  // Permanent redirects for legacy / alternate URLs (HTTP 301 for crawlers).
+  app.get(["/brands", "/brands/"], (_req, res) => {
+    res.redirect(301, "/manufacturers");
+  });
+  app.get("/category/pct-health", (_req, res) => {
+    res.redirect(301, "/category/pct");
+  });
+  app.get("/category/pct-health/", (_req, res) => {
+    res.redirect(301, "/category/pct");
+  });
+
   const { accessLog } = await import("./src/lib/middleware/access-log.js");
   app.use(accessLog);
   app.use(requestTiming);

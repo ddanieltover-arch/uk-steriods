@@ -1,10 +1,10 @@
 # SEO + GEO Strategy — Steroids UK
 
-**Target:** https://uk-steroids.co.uk (live redirects to https://www.uk-steroids.co.uk/)  
+**Target:** https://www.uk-steroids.co.uk  
 **Niche:** UK e-commerce catalogue — anabolic compounds, SARMs, PCT  
 **Stack:** React 19 + Vite 6 + Express + Prisma + PostgreSQL  
-**Generated:** 2026-09-02  
-**Evidence:** Repository-verified + live crawl (SGE intelligence CLI)
+**Updated:** 2026-09-09  
+**Evidence:** Repository-verified (Search Growth Engineer + SEO_GEO_Master_Prompt)
 
 ---
 
@@ -16,112 +16,113 @@
 | Geography | United Kingdom (primary), EU/worldwide shipping |
 | Language | en-GB |
 | Conversion goal | Product purchase (bank transfer / crypto) |
-| Activated modules | Technical SEO, On-page, Content, Semantic/Entity, E-commerce, Internal linking, GEO/AIO, Performance |
+| Activated modules | Technical SEO, On-page, Content, Semantic/Entity, E-commerce, Internal linking, GEO/AIO, Performance, Analytics |
+
+**Not activated:** Local SEO (no storefront NAP), International SEO (no hreflang), ASO, News SEO, SaaS SEO.
 
 ---
 
-## Phase 1 — Completed (this run)
+## Phase status vs Master Prompt
 
-### P0 — Crawlability blockers (fixed)
-
-1. **CSR shell** — Homepage returned `body_word_count=4`, `h1_count=0` to non-JS crawlers.  
-   **Fix:** Server-side crawlable HTML injection via `buildCrawlableHtml()` + `injectCrawlableBody()` in `server.ts` for all indexable routes.
-
-2. **Vercel SEO gap** — HTML pages were served as static `index.html` without per-route meta or body injection.  
-   **Fix:** `vercel.json` routes HTML through `/api`; Express `serveSpaHtml()` injects meta + crawlable body on Vercel.
-
-3. **robots.txt / sitemap.xml on Vercel** — Catch-all rewrite sent these to `index.html`.  
-   **Fix:** Explicit rewrites to `/api` for `/robots.txt`, `/sitemap.xml`, `/llms.txt`.
-
-### P1 — GEO / technical SEO (fixed)
-
-4. **`/llms.txt`** — AI crawler index file added (master prompt §5.6).
-5. **AI bot access** — GPTBot, ClaudeBot, PerplexityBot, Google-Extended explicitly allowed in `robots.txt`.
-6. **Answer Capsules** — Homepage + resource pages; SSR fallback includes `#answer` blocks.
-7. **Organization schema** — `contactPoint` added with support email.
-8. **GA4 readiness** — `Ga4` component + CSP updated; set `VITE_GA4_MEASUREMENT_ID` to activate.
-
-### Already in place (verified)
-
-- Dynamic `sitemap.xml` (products, categories, brands, blog, resource pages)
-- `robots.txt` with disallow for admin/account/checkout/cart
-- JSON-LD: Organization, WebSite, Product, BreadcrumbList, BlogPosting, FAQPage
-- Server-side meta injection (`injectPublicSeo`) for all public routes
-- Search/filter pages correctly `noindex`
+| Section | Status |
+|---------|--------|
+| 0 Pre-flight audit | Done (repo + prior live crawl artifacts in `seo/`) |
+| 1 Keyword research | Seeded in `keyword_map.csv` — volumes require SerpAPI/GSC |
+| 2 Technical SEO | **Implemented** (robots, sitemap, meta, CWV code hygiene ongoing) |
+| 3 On-page | **Improved** (category copy enrichment, slug fixes) |
+| 4 Structured data | **Implemented** (+ DefinedTermSet on glossary) |
+| 5 GEO/AEO | **Implemented** (answer capsules, FAQ, glossary, llms.txt, AI bots) |
+| 6 Local SEO | N/A |
+| 7 Content calendar | Seeded — **3 GEO guides shipped**; more blog pillars optional |
+| 8 Analytics | **Connected** (SITE_URL, GSC/Bing sitemap, GA4 ID) |
+| 9 Link building | Templates ready — outreach is offline |
+| 10 International | N/A |
+| 11 CI automation | Partial (unit tests); Lighthouse CI optional next |
 
 ---
 
-## Phase 2 — Requires your action
+## Completed this run (2026-09-09)
 
-### Connect first-party data (P0 for strategy)
+### P0 / P1 technical
 
-Configure `secrets/sge-connectors.env` per `docs/search-growth-connectors.md`:
+1. **Canonical host** — `normalizeSiteOrigin()` forces apex → `https://www.uk-steroids.co.uk` for sitemap/JSON-LD.
+2. **HTTP 301s** — `/brands` → `/manufacturers`; `/category/pct-health` → `/category/pct` (Express + `vercel.json`).
+3. **Facet / pagination noindex** — client + SSR `shopQueryShouldNoIndex`; robots Disallow patterns for filtered `/shop?*`.
+4. **Broken PCT links** — homepage + cycle builder now point at `/category/pct`.
+5. **Entity email** — support contact aligned to `sales@uk-steroids.co.uk` (matches brand domain).
 
-| Connector | Purpose |
-|-----------|---------|
-| GSC | Indexed pages, queries, CTR, coverage |
-| GA4 | Organic sessions, conversions |
-| SerpAPI (optional) | Competitor + keyword volume |
+### GEO / on-page
 
-```powershell
-$env:SGE_ENV_FILE = "secrets\sge-connectors.env"
-cd "Search Growth Engineering Skill"
-python -m sge connectors sync --id gsc
-python -m sge connectors sync --id ga4
-python -m sge orchestrate --workspace uk-steroids --path ".." --url "https://uk-steroids.co.uk" --mode strategy --sync
-```
-
-### Canonical host alignment (P1)
-
-Live site 301-redirects `uk-steroids.co.uk` → `www.uk-steroids.co.uk`.  
-**Action:** Pick one canonical host and align `SITE_URL` in `.env`, GSC property, and sitemap URLs. Mismatch dilutes link equity.
-
-### GA4 browser tagging (P1)
-
-Set `VITE_GA4_MEASUREMENT_ID=G-XXXXXXXX` in production `.env` and redeploy.
-
-### GSC setup (P1)
-
-1. Verify domain in Search Console  
-2. Submit `https://www.uk-steroids.co.uk/sitemap.xml` (after canonical decision)  
-3. Monitor Coverage + Core Web Vitals weekly
+6. **Glossary** — `/glossary` with DefinedTermSet JSON-LD, answer capsule, SSR crawl body, sitemap via resource paths.
+7. **Category copy enrichment** — thin DB descriptions (name-only) get unique meta/SSR copy via `category-copy.ts`.
+8. **robots / llms** — FAQ + glossary Allow; glossary listed in `llms.txt`.
 
 ---
 
-## Phase 3 — Content & GEO expansion (90 days)
+## Your action required (cannot do from code alone)
 
-See `content_calendar.csv` and `keyword_map.csv` in this folder.
-
-| Priority | Initiative | Type |
-|----------|-----------|------|
-| High | FAQ hub page with FAQPage schema | GEO |
-| High | Glossary — key compound terms | GEO |
-| High | Pillar: "Buy steroids UK" guide (educational) | Content |
-| Medium | Comparison pages (oral vs injectable, SARMs vs steroids) | GEO |
-| Medium | Blog cluster map + internal linking audit | Content |
-| Low | Statistics/research roundup with citations | Link bait |
+| Priority | Action | Status (2026-09-13) |
+|----------|--------|---------------------|
+| P0 | Confirm Vercel `SITE_URL` (www canonical) | **Done** — user confirmed set |
+| P0 | Verify GSC; submit sitemap | **Done** — GSC Success, 460 pages discovered (`https://www.uk-steroids.co.uk/sitemap.xml`) |
+| P0 | Bing Webmaster sitemap | **Done** — Success, 459 URLs discovered |
+| P0 | Domain live on Vercel | **Done** — `uk-steroids.co.uk` attached |
+| P0 | Set `VITE_GA4_MEASUREMENT_ID` and redeploy | **Done** — set in Vercel (`G-…`); confirm latest production deploy picked it up |
+| P1 | Connect SGE connectors (`docs/search-growth-connectors.md`) for real keyword volumes | Open |
+| P1 | Persist enriched category descriptions into DB via admin (runtime enrichment already covers meta) | Open |
+| P2 | CWV: migrate Google Fonts `@import` to `font-face` / self-host; measure Lighthouse on live | Open |
 
 ---
 
-## KPI targets (set baselines after GSC/GA4 connect)
+## Competitor keyword ingestion (merge-ready)
+
+When new Semrush/Ahrefs position CSVs arrive:
+
+1. Save under `seo/competitor_*.csv` (batches stored: `competitor_positions_mobile_uk_20260912.csv`, `competitor_positions_uk_20260912.csv`).
+2. Deduplicate keywords → append rows to `keyword_map.csv` with `SourceBatch`, `Cluster`, `PrimaryURL`, `Status`.
+3. Skip competitor brand / typo navigational queries (`steroids-uk.com`, `uksteroids`, `upsteroids`, etc.) — keep our brand entity.
+4. Add `internal_linking_plan.csv` edges (homepage-heavy inbound; keyword anchors; few homepage related-search outbounds).
+5. Patch only owning pages + link edges (titles, capsules, category/PDP copy, crawlable HTML) — no full-site rewrite.
+
+**Batches merged:** mobile-uk-20260912 · desktop-uk-20260912
+
+**Linking rules:** Homepage gets the most inbound keyword links; homepage outbound is a short related-searches set. Blogs/FAQ/glossary outbound heavily to money pages. PDPs link parent category + 1–2 related compounds + home/shop.
+
+---
+
+## Content & GEO backlog (90 days)
+
+See `content_calendar.csv`, `keyword_map.csv`, `geo_content_briefs.md`.
+
+| Priority | Initiative | Status |
+|----------|------------|--------|
+| High | Pillar: educational “UK steroids catalogue” / PCT guide | **Shipped** `/what-is-pct` |
+| High | Comparison: oral vs injectable; SARMs vs steroids | **Shipped** |
+| Medium | Blog cluster internal links per `internal_linking_plan.csv` | Open |
+| Medium | Author bios / Last Updated on evergreen posts | Partial (guides show Last updated) |
+| Low | Statistics roundup with .gov/.edu citations | Open |
+
+---
+
+## KPI targets (baselines after GSC/GA4)
 
 | KPI | Target (90 days) | Source |
 |-----|------------------|--------|
 | Indexed pages | Match sitemap URL count | GSC |
 | Organic sessions | +30% vs baseline | GA4 |
-| Average position (top 20 queries) | < 15 | GSC |
+| Avg position (top 20 queries) | < 15 | GSC |
 | CTR | > 3% | GSC |
 | LCP | ≤ 2.5s | GSC CWV |
-| AI citation rate | Track manually | Perplexity/ChatGPT spot checks |
+| AI citation rate | Track manually | Perplexity / ChatGPT spot checks |
 
 ---
 
-## Risks & constraints
+## Risks
 
-- **Regulated niche** — Content must stay educational; no medical claims; E-E-A-T via author bios and citations.
-- **No fabricated metrics** — Keyword volumes and rankings require connected APIs.
-- **CSR for interactivity** — React still hydrates over SSR fallback; test that fallback does not flash on load.
+- **Regulated / YMYL-adjacent niche** — keep educational framing; no medical claims; E-E-A-T via citations and clear disclaimers.
+- **No fabricated metrics** — keyword volumes and rankings require connected APIs.
+- **CSR hydration** — crawlable HTML injects into `#root`; verify no flash regressions after deploy.
 
 ---
 
-*Aligned with SEO_GEO_Master_Prompt.md and Search Growth Engineering skill v2.1.2.*
+*Aligned with SEO_GEO_Master_Prompt.md and Search Growth Engineering skill.*

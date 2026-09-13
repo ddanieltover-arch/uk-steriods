@@ -1,4 +1,9 @@
-import { PaymentMethod, PaymentStatus } from '@prisma/client';
+import { PaymentMethod } from '@prisma/client';
+import {
+  getCryptoWalletsFromEnv,
+  hasCryptoWallets,
+  type CryptoWalletAddresses,
+} from '../commerce/crypto-wallets';
 
 export const BANK_TRANSFER_MIN_PENCE = 10000;
 
@@ -12,6 +17,9 @@ export interface PaymentInstructions {
   totalPence: number;
   formattedTotal: string;
   note: string;
+  btcAddress?: string;
+  ethAddress?: string;
+  bchAddress?: string;
 }
 
 export interface PaymentProvider {
@@ -47,6 +55,18 @@ export class BankTransferProvider implements PaymentProvider {
   }
 }
 
+function cryptoPaymentNote(
+  referenceCode: string,
+  formattedTotal: string,
+  wallets: CryptoWalletAddresses
+): string {
+  if (!hasCryptoWallets(wallets)) {
+    return `Contact our admin team with order reference '${referenceCode}' to receive crypto payment instructions and payment details for ${formattedTotal}. Do not send funds until you have those details from us.`;
+  }
+
+  return `Send crypto covering ${formattedTotal} to one of the wallet addresses below (BTC, ETH, or BCH). Use the correct network for each coin. Quote order reference '${referenceCode}' in the memo/description where your wallet supports it, then email us the transaction hash.`;
+}
+
 export class CryptoPaymentProvider implements PaymentProvider {
   method: PaymentMethod = PaymentMethod.CRYPTO;
 
@@ -56,13 +76,15 @@ export class CryptoPaymentProvider implements PaymentProvider {
     referenceCode: string
   ): Promise<PaymentInstructions> {
     const formattedTotal = `£${(amountPence / 100).toFixed(2)}`;
+    const wallets = getCryptoWalletsFromEnv();
 
     return {
       method: PaymentMethod.CRYPTO,
       referenceCode,
       totalPence: amountPence,
       formattedTotal,
-      note: `Contact our admin team with order reference '${referenceCode}' to receive crypto payment instructions and payment details for ${formattedTotal}. Do not send funds until you have those details from us.`,
+      note: cryptoPaymentNote(referenceCode, formattedTotal, wallets),
+      ...wallets,
     };
   }
 
@@ -93,3 +115,6 @@ export class PaymentProviderRegistry {
 // Register default BankTransferProvider
 PaymentProviderRegistry.registerProvider(new BankTransferProvider());
 PaymentProviderRegistry.registerProvider(new CryptoPaymentProvider());
+
+/** Re-export for callers that only need wallet shape from stored instructions. */
+export type { CryptoWalletAddresses };

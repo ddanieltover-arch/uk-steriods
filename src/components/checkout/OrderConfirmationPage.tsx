@@ -10,6 +10,8 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import { trackPurchase, penceToGbp } from '../../lib/analytics/gtag';
+import { CryptoPaymentDetails } from '../commerce/CryptoPaymentDetails';
+import { hasCryptoWallets } from '../../lib/commerce/crypto-wallets';
 
 const SUPPORT_EMAIL = 'sales@uk-steroids.co.uk';
 
@@ -109,6 +111,8 @@ export const OrderConfirmationPage: React.FC<OrderConfirmationPageProps> = ({
 
   const shippingAddr = order.shippingAddressSnapshot || {};
   const isCrypto = String(order.paymentMethod) === 'CRYPTO';
+  const paymentInstructions = order.payments?.[0]?.instructions || null;
+  const showCryptoWallets = isCrypto && hasCryptoWallets(paymentInstructions);
 
   return (
     <div className="bg-slate-50 min-h-screen py-10">
@@ -131,7 +135,9 @@ export const OrderConfirmationPage: React.FC<OrderConfirmationPageProps> = ({
             </div>
             <p className="text-xs text-slate-600 max-w-lg mx-auto leading-relaxed">
               We have recorded your order for <span className="font-bold text-slate-900">{order.guestEmail}</span>.
-              Contact our team for payment instructions and payment details before we can dispatch.
+              {showCryptoWallets
+                ? ' Send crypto to one of the wallets below, then email us the transaction hash.'
+                : ' Contact our team for payment instructions and payment details before we can dispatch.'}
             </p>
           </div>
 
@@ -144,7 +150,11 @@ export const OrderConfirmationPage: React.FC<OrderConfirmationPageProps> = ({
                 <div>
                   <h2 className="text-base font-black text-white">Payment instructions</h2>
                   <p className="text-[11px] text-teal-200">
-                    {isCrypto ? 'Crypto payment' : 'Bank transfer'} — details provided by our team
+                    {isCrypto
+                      ? showCryptoWallets
+                        ? 'Crypto payment — BTC, ETH or BCH'
+                        : 'Crypto payment — details from our team'
+                      : 'Bank transfer — details provided by our team'}
                   </p>
                 </div>
               </div>
@@ -154,14 +164,26 @@ export const OrderConfirmationPage: React.FC<OrderConfirmationPageProps> = ({
             </div>
 
             <div className="bg-white/5 border border-white/10 p-5 rounded-2xl space-y-3 text-sm leading-relaxed">
-              <p className="text-teal-50">
-                Please contact our admin team after placing your order to receive payment instructions and payment details.
-                Do not send funds until you have those details from us.
-              </p>
-              <p className="text-teal-100/90 text-xs">
-                Quote your order number <span className="font-mono font-black text-white">{order.orderNumber}</span>
-                {' '}(total due <span className="font-mono font-bold text-white">{formatGbp(order.totalPence)}</span>) when you get in touch.
-              </p>
+              {showCryptoWallets ? (
+                <CryptoPaymentDetails
+                  tone="dark"
+                  wallets={paymentInstructions}
+                  referenceCode={paymentInstructions?.referenceCode || order.orderNumber}
+                  formattedTotal={paymentInstructions?.formattedTotal || formatGbp(order.totalPence)}
+                  note={paymentInstructions?.note}
+                />
+              ) : (
+                <>
+                  <p className="text-teal-50">
+                    Please contact our admin team after placing your order to receive payment instructions and payment details.
+                    Do not send funds until you have those details from us.
+                  </p>
+                  <p className="text-teal-100/90 text-xs">
+                    Quote your order number <span className="font-mono font-black text-white">{order.orderNumber}</span>
+                    {' '}(total due <span className="font-mono font-bold text-white">{formatGbp(order.totalPence)}</span>) when you get in touch.
+                  </p>
+                </>
+              )}
               <a
                 href={`mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(`Payment details for ${order.orderNumber}`)}`}
                 className="inline-flex items-center gap-2 px-4 py-2.5 bg-teal-500 hover:bg-teal-400 text-slate-950 font-black text-xs rounded-xl transition-colors"

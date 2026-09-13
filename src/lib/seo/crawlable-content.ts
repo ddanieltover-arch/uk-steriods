@@ -5,7 +5,16 @@ import { SUPPORT_EMAIL } from '../../data/resources';
 import { answerCapsuleFor } from './answer-capsules';
 import { RESOURCE_PAGE_SEO } from './resources';
 import { FAQ_HUB_PATH, flatFaqHubItems } from './faq-hub';
+import { GLOSSARY_PATH, GLOSSARY_TERMS } from './glossary';
+import { getGeoGuide } from './geo-guides';
+import { enrichCategoryDescription, categoryAnswerCapsule } from './category-copy';
 import { DEFAULT_DESCRIPTION, SITE_NAME, sanitizeMetaText } from './site';
+import { RELATED_SEARCHES } from '../../data/homepage';
+import {
+  enrichProductDescription,
+  enrichProductShortDescription,
+  productSeoFor,
+} from './product-copy';
 
 function escapeHtml(value: string): string {
   return value
@@ -41,18 +50,22 @@ export async function buildCrawlableHtml(pathname: string): Promise<string> {
   if (path === '/' || path === '') {
     return `<main id="ssr-fallback">
 ${answerSection('/')}
-<h1>Buy from the ${escapeHtml(SITE_NAME)} catalogue</h1>
+<h1>Buy steroids UK from ${escapeHtml(SITE_NAME)}</h1>
 <p>${escapeHtml(DEFAULT_DESCRIPTION)}</p>
 ${navLinks(PRIMARY_NAV)}
+<section aria-label="Related searches">
+<h2>Related searches</h2>
+${navLinks(RELATED_SEARCHES.map((l) => ({ href: l.href, label: l.label })))}
+</section>
 </main>`;
   }
 
   if (path === '/shop') {
     return `<main id="ssr-fallback">
 ${answerSection('/shop')}
-<h1>Shop lab-tested catalogue</h1>
+<h1>Steroids UK buy — shop lab-tested catalogue</h1>
 <p>${escapeHtml(DEFAULT_DESCRIPTION)}</p>
-${navLinks([{ href: '/', label: 'Home' }, ...PRIMARY_NAV])}
+${navLinks([{ href: '/', label: 'Buy steroids UK' }, ...PRIMARY_NAV])}
 </main>`;
   }
 
@@ -61,7 +74,14 @@ ${navLinks([{ href: '/', label: 'Home' }, ...PRIMARY_NAV])}
 ${answerSection('/blog')}
 <h1>Knowledge Hub</h1>
 <p>Guides and research notes on compounds, PCT, and stacking — for educational context only.</p>
-${navLinks([{ href: '/', label: 'Home' }, { href: '/shop', label: 'Shop' }])}
+${navLinks([
+  { href: '/', label: 'Buy steroids UK' },
+  { href: '/shop', label: 'Steroids UK buy' },
+  { href: '/shop?q=testosterone', label: 'Buy testosterone' },
+  { href: '/category/sarms', label: 'UK SARMs' },
+  { href: '/category/oral', label: 'Buy Anavar UK' },
+  { href: '/category/pct', label: 'Buy Clomid UK' },
+])}
 </main>`;
   }
 
@@ -75,7 +95,12 @@ ${navLinks([{ href: '/', label: 'Home' }, { href: '/shop', label: 'Shop' }])}
 <p>${escapeHtml(sanitizeMetaText(post.excerpt, 300))}</p>
 <p>By ${escapeHtml(post.authorName)}</p>
 </article>
-${navLinks([{ href: '/blog', label: 'All articles' }, { href: '/shop', label: 'Shop' }])}
+${navLinks([
+  { href: '/blog', label: 'All articles' },
+  { href: '/', label: 'Buy steroids UK' },
+  { href: '/shop', label: 'Steroids UK buy' },
+  { href: '/category/sarms', label: 'UK SARMs' },
+])}
 </main>`;
   }
 
@@ -83,16 +108,21 @@ ${navLinks([{ href: '/blog', label: 'All articles' }, { href: '/shop', label: 'S
     const slug = path.replace('/product/', '').split('/')[0];
     const product = await CatalogueApiService.getPublishedBySlug(slug);
     if (!product) return '';
+    const shortDesc = enrichProductShortDescription(slug, product.shortDescription);
+    const longDesc = enrichProductDescription(slug, product.description);
+    const related = productSeoFor(slug)?.relatedLinks ?? [];
     return `<main id="ssr-fallback">
 <article>
 <h1>${escapeHtml(product.name)}</h1>
-<p>${escapeHtml(sanitizeMetaText(product.shortDescription || product.description, 300))}</p>
+<p>${escapeHtml(sanitizeMetaText(shortDesc || longDesc, 300))}</p>
 <p>Brand: ${escapeHtml(product.brandName)} · Category: ${escapeHtml(product.categoryName)} · SKU: ${escapeHtml(product.sku)}</p>
 <p>Price: £${product.priceGbp.toFixed(2)} GBP</p>
 </article>
 ${navLinks([
   { href: `/category/${product.categorySlug}`, label: product.categoryName },
-  { href: '/shop', label: 'Shop' },
+  { href: '/shop', label: 'Steroids UK buy' },
+  { href: '/', label: 'Buy steroids UK' },
+  ...related,
 ])}
 </main>`;
   }
@@ -101,13 +131,20 @@ ${navLinks([
     const slug = path.replace('/category/', '').split('/')[0];
     const category = await db.category.findUnique({
       where: { slug },
-      select: { name: true, description: true },
+      select: { name: true, description: true, slug: true },
     });
     if (!category) return '';
+    const description = enrichCategoryDescription(category.slug, category.name, category.description);
+    const capsule = categoryAnswerCapsule(category.slug);
     return `<main id="ssr-fallback">
+${capsule ? answerSection(path, capsule) : ''}
 <h1>${escapeHtml(category.name)}</h1>
-<p>${escapeHtml(sanitizeMetaText(category.description || `Browse ${category.name} in the ${SITE_NAME} catalogue.`, 300))}</p>
-${navLinks([{ href: '/shop', label: 'Shop' }, { href: '/', label: 'Home' }])}
+<p>${escapeHtml(sanitizeMetaText(description, 300))}</p>
+${navLinks([
+  { href: '/', label: 'Buy steroids UK' },
+  { href: '/shop', label: 'Steroids UK buy' },
+  { href: '/glossary', label: 'Glossary' },
+])}
 </main>`;
   }
 
@@ -121,7 +158,7 @@ ${navLinks([{ href: '/shop', label: 'Shop' }, { href: '/', label: 'Home' }])}
     return `<main id="ssr-fallback">
 <h1>Manufacturers</h1>
 <p>${escapeHtml(`Trusted pharmaceutical manufacturers available at ${SITE_NAME}.`)}</p>
-${navLinks([{ href: '/shop', label: 'Shop' }, { href: '/', label: 'Home' }, ...links])}
+${navLinks([{ href: '/', label: 'Buy steroids UK' }, { href: '/shop', label: 'Shop' }, ...links])}
 </main>`;
   }
 
@@ -132,10 +169,60 @@ ${navLinks([{ href: '/shop', label: 'Shop' }, { href: '/', label: 'Home' }, ...l
       select: { name: true, description: true },
     });
     if (!brand) return '';
+    const brandDesc =
+      slug === 'pharmaqo-labs'
+        ? brand.description ||
+          'Pharmaqo Labs (Pharmaqo) — lab-tested anabolic and HGH catalogue lines including Test 400 with GBP pricing and UK dispatch.'
+        : brand.description || `Shop ${brand.name} at ${SITE_NAME}.`;
+    const brandLinks =
+      slug === 'pharmaqo-labs'
+        ? [
+            { href: '/', label: 'UK steroid shop' },
+            { href: '/product/tri-test-400-spharmaqo-labs', label: 'Test 400' },
+            { href: '/shop', label: 'Steroids UK buy' },
+          ]
+        : [
+            { href: '/', label: 'Buy steroids UK' },
+            { href: '/shop', label: 'Shop' },
+          ];
     return `<main id="ssr-fallback">
 <h1>${escapeHtml(brand.name)}</h1>
-<p>${escapeHtml(sanitizeMetaText(brand.description || `Shop ${brand.name} at ${SITE_NAME}.`, 300))}</p>
-${navLinks([{ href: '/shop', label: 'Shop' }, { href: '/', label: 'Home' }])}
+<p>${escapeHtml(sanitizeMetaText(brandDesc, 300))}</p>
+${navLinks(brandLinks)}
+</main>`;
+  }
+
+  const guide = getGeoGuide(path);
+  if (guide) {
+    const sections = guide.sections
+      .map(
+        (section) =>
+          `<section id="${escapeHtml(section.id)}"><h2>${escapeHtml(section.heading)}</h2>${section.paragraphs
+            .map((p) => `<p>${escapeHtml(p)}</p>`)
+            .join('')}</section>`
+      )
+      .join('\n');
+    const faqs = guide.faqs
+      .map(
+        (item) =>
+          `<section><h2>${escapeHtml(item.question)}</h2><p>${escapeHtml(item.answer)}</p></section>`
+      )
+      .join('\n');
+    return `<main id="ssr-fallback">
+${answerSection(path, guide.answerCapsule)}
+<article>
+<h1>${escapeHtml(guide.title)}</h1>
+<p>${escapeHtml(guide.description)}</p>
+<p>Last updated: ${escapeHtml(guide.dateModified)}</p>
+${sections}
+${faqs}
+</article>
+${navLinks([
+  { href: '/', label: 'Home' },
+  { href: '/shop', label: 'Shop' },
+  { href: '/glossary', label: 'Glossary' },
+  ...guide.primaryCtas,
+])}
 </main>`;
   }
 
@@ -150,12 +237,20 @@ ${navLinks([{ href: '/shop', label: 'Shop' }, { href: '/', label: 'Home' }])}
         )
         .join('\n');
     }
+    let glossaryBlock = '';
+    if (path === GLOSSARY_PATH) {
+      glossaryBlock = GLOSSARY_TERMS.map(
+        (item) =>
+          `<section id="${escapeHtml(item.slug)}"><h2>${escapeHtml(item.term)}</h2><p>${escapeHtml(item.definition)}</p></section>`
+      ).join('\n');
+    }
     return `<main id="ssr-fallback">
 ${answerSection(path)}
 <h1>${escapeHtml(resource.title)}</h1>
 <p>${escapeHtml(resource.description)}</p>
 ${faqBlock}
-${navLinks([{ href: '/', label: 'Home' }, { href: '/shop', label: 'Shop' }, { href: '/blog', label: 'Blog' }])}
+${glossaryBlock}
+${navLinks([{ href: '/', label: 'Buy steroids UK' }, { href: '/shop', label: 'Steroids for sale UK' }, { href: '/blog', label: 'Blog' }, { href: '/glossary', label: 'Glossary' }])}
 </main>`;
   }
 
@@ -191,6 +286,10 @@ ${SITE_NAME} is a UK-based e-commerce catalogue for bodybuilders and fitness res
 - /blog: Knowledge hub — compounds, cycles, PCT guides (educational)
 - /about-us: Company background and trust signals
 - /faq: FAQ hub — UK buying context, delivery, payment, PCT (educational)
+- /glossary: Plain-language definitions of catalogue and PCT terms (educational)
+- /oral-vs-injectable: Oral tablets vs injectable esters — catalogue comparison
+- /sarms-vs-steroids: SARMs vs anabolic steroids — research catalogue context
+- /what-is-pct: Post-cycle therapy literacy for PCT category buyers
 - /cycle-builder: Educational compound recommendation tool
 - /delivery-and-returns: Shipping, packaging, and returns policy
 - /payment-methods: Bank transfer and crypto checkout
@@ -202,9 +301,11 @@ ${SITE_NAME} is a UK-based e-commerce catalogue for bodybuilders and fitness res
 - Lab-tested anabolic steroids UK
 - SARMs and research compounds
 - Post-cycle therapy (PCT)
+- Oral vs injectable formats
 - Injectable and oral compounds
 - UK and worldwide tracked delivery
 - Cryptocurrency checkout
+- Catalogue glossary and entity definitions
 
 ## Contact
 - Support: ${SUPPORT_EMAIL}

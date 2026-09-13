@@ -1,20 +1,166 @@
-Keyword,Volume,Difficulty,Intent,Assigned Page URL,Page Type,Gap,Priority,Notes
-steroids uk,unknown,unknown,Commercial,/,Homepage,N,High,Primary brand term — needs GSC for volume
-buy steroids uk,unknown,unknown,Transactional,/shop,Shop,N,High,Commercial landing
-lab tested steroids uk,unknown,unknown,Commercial,/,Homepage,N,High,Differentiator in copy
-anabolic steroids uk delivery,unknown,unknown,Transactional,/delivery-and-returns,Resource,N,Medium,Delivery page target
-steroids uk next day delivery,unknown,unknown,Transactional,/delivery-and-returns,Resource,N,Medium,Answer capsule present
-buy sarms uk,unknown,unknown,Transactional,/category/sarms,Category,Y,High,Verify category slug exists
-pct uk,unknown,unknown,Commercial,/category/pct,Category,Y,High,Post-cycle therapy cluster
-what are sarms,unknown,unknown,Informational,/blog,Blog,N,Medium,Existing blog content
-how to pay crypto steroids uk,unknown,unknown,Navigational,/crypto-payment-guides,Resource,N,Medium,Guide page exists
-steroids uk cycle guide,unknown,unknown,Informational,/cycle-builder,Resource,N,Medium,Tool + educational
-testosterone uk buy,unknown,unknown,Transactional,/shop,Shop,N,High,Product cluster
-oral steroids uk,unknown,unknown,Transactional,/category/orals,Category,Y,High,Category landing
-injectable steroids uk,unknown,unknown,Transactional,/category/injectables,Category,Y,High,Category landing
-steroids uk reviews,unknown,unknown,Commercial,/about-us,Resource,Y,Medium,Trust page — add reviews schema
-is it legal to buy steroids uk,unknown,unknown,Informational,/faq,FAQ,N,High,GEO question — FAQ hub live at /faq
-best steroids for beginners uk,unknown,unknown,Informational,/blog,Blog,Y,High,Pillar content opportunity
-winstrol vs anavar,unknown,unknown,Informational,/blog,Blog,Y,Medium,Comparison content
-trenbolone side effects,unknown,unknown,Informational,/blog,Blog,N,Low,Likely existing blog posts
-steroids uk cryptocurrency payment,unknown,unknown,Navigational,/payment-methods,Resource,N,Low,Page exists
+Keyword,Volume,KD,Intent,Cluster,PrimaryURL,SecondaryURLs,Priority,SourceBatch,Status,Notes
+buy steroids uk,2900,50,transactional,uk-shop,/,/shop,High,mobile-uk-20260912,mapped,Homepage primary commercial
+uk steroid shop,2400,43,commercial,uk-shop,/,/shop|/category/injectable,High,mobile-uk-20260912,mapped,Home + injectable support
+uk steroids shop,1600,48,commercial,uk-shop,/,/shop|/category/injectable,High,mobile-uk-20260912|desktop-uk-20260912,mapped,
+steroid shop uk,1600,44,commercial,uk-shop,/,/shop,High,mobile-uk-20260912,mapped,
+steroids for sale uk,720,43,transactional,uk-shop,/,/shop,High,mobile-uk-20260912,mapped,
+steroids uk buy,1000,50,transactional,uk-shop,/shop,/,High,mobile-uk-20260912,mapped,Shop reinforces home cluster
+steroid shop,1000,54,navigational,uk-shop,/shop,/,Medium,mobile-uk-20260912,mapped,
+steroid uk,590,45,informational,uk-shop,/,/shop,Medium,mobile-uk-20260912,mapped,
+buying steroids online,590,42,informational,uk-shop,/,/shop|/faq,Medium,mobile-uk-20260912,mapped,
+best site to buy testosterone online uk,1000,39,commercial,testosterone,/shop?q=testosterone,/category/injectable|/product/testosterone-cypionate-proper-labs,High,mobile-uk-20260912,mapped,
+buy testosterone,1000,49,transactional,testosterone,/shop?q=testosterone,/category/injectable,High,mobile-uk-20260912,mapped,
+testosterone for sale,590,44,transactional,testosterone,/shop?q=testosterone,/product/testosterone-cypionate-proper-labs,High,mobile-uk-20260912,mapped,
+testosterone uk buy,880,44,informational,testosterone,/shop?q=testosterone,/category/injectable,High,mobile-uk-20260912,mapped,
+testosterone cypionate,2900,61,informational,testosterone,/product/testosterone-cypionate-proper-labs,/shop?q=testosterone|/brand/proper-labs,High,mobile-uk-20260912,mapped,
+testosterone propionate,720,52,informational,testosterone,/product/testosterone-propionate-proper-labs,/shop?q=testosterone,High,mobile-uk-20260912,mapped,
+testosterone base,8100,12,informational,testosterone,/blog/testosterone-base-vs-suspension,/shop?q=testosterone|/glossary,High,mobile-uk-20260912|desktop-uk-20260912,briefed,Pillar blog gap — brief in geo_content_briefs
+test 400,1600,9,informational,testosterone,/product/tri-test-400-spharmaqo-labs,/brand/pharmaqo-labs|/blog,High,mobile-uk-20260912|desktop-uk-20260912,mapped,
+clenbuterol tablet,3600,64,informational,clen-fat-loss,/category/fat-loss,/product/clenbuterol-proper-labs|/product/clenbuterol-pharmaqo-labs,High,mobile-uk-20260912,mapped,
+clen pills,2900,67,informational,clen-fat-loss,/category/fat-loss,/product/clenbuterol-proper-labs,High,mobile-uk-20260912,mapped,
+clen tablets,880,63,informational,clen-fat-loss,/category/fat-loss,/product/clenbuterol-pharmaqo-labs,Medium,mobile-uk-20260912,mapped,
+kamagra kamagra,2900,55,informational,kamagra,/category/kamagra,/product/shopkamagra-jelly,Medium,mobile-uk-20260912,mapped,Duplicate-style query — category owner
+kamagra 100mg,1600,54,informational,kamagra,/product/shopkamagra-jelly,/category/kamagra,High,mobile-uk-20260912,mapped,
+kamagra uk,1600,61,informational,kamagra,/category/kamagra,/product/shopkamagra-jelly,High,mobile-uk-20260912,mapped,
+kamagra jelly,1300,50,informational,kamagra,/product/shopkamagra-jelly,/category/kamagra,High,mobile-uk-20260912,mapped,
+kamagra oral jelly 100mg,1300,51,informational,kamagra,/product/shopkamagra-jelly,/category/kamagra,High,mobile-uk-20260912,mapped,
+kamagra oral jelly where to buy,1000,55,transactional,kamagra,/product/shopkamagra-jelly,/category/kamagra,High,mobile-uk-20260912,mapped,
+kamagra oral jelly uk,1000,53,informational,kamagra,/product/shopkamagra-jelly,/category/kamagra,High,mobile-uk-20260912,mapped,
+purchase anavar,1000,6,transactional,anavar,/product/anavar-10-pharmaqo-labs,/category/oral|/shop?q=anavar,High,mobile-uk-20260912|desktop-uk-20260912,mapped,
+anavar for sale,1000,20,transactional,anavar,/shop?q=anavar,/category/oral|/product/anavar10-proper-labs,High,mobile-uk-20260912|desktop-uk-20260912,mapped,
+anavar order,1000,21,commercial,anavar,/shop?q=anavar,/category/oral,High,mobile-uk-20260912|desktop-uk-20260912,mapped,
+anavar buy,880,11,transactional,anavar,/shop?q=anavar,/product/anavar10-proper-labs,High,mobile-uk-20260912|desktop-uk-20260912,mapped,
+anavar uk,1000,30,commercial,anavar,/category/oral,/shop?q=anavar|/blog,High,mobile-uk-20260912|desktop-uk-20260912,mapped,
+trenbolone acetate price 10ml,1000,43,commercial,tren,/product/trenbolone-acetate-proper-labs,/shop?q=trenbolone|/category/injectable,High,mobile-uk-20260912,mapped,
+deca steroid,1000,68,informational,deca-boldenone,/product/deca-300-nandrolone-decanoate-syncom-labs,/shop?q=deca|/category/injectable,High,mobile-uk-20260912,mapped,
+boldenone undecylenate,720,57,informational,deca-boldenone,/product/boldenone-proper-labs,/shop?q=boldenone|/category/injectable,High,mobile-uk-20260912,mapped,
+hgh injections,880,76,informational,hgh,/category/hgh,/product/qomatropin-12mg-36iu-cartridge-pharmaqo-labs,High,mobile-uk-20260912,mapped,
+mk 677 uk,720,13,commercial,mk677,/category/sarms,/product/mk677-ibutamoren-liquid-25mg-30ml-syncom-labs|/shop?q=mk677,High,mobile-uk-20260912|desktop-uk-20260912,mapped,
+pharmaqo,720,18,informational,pharmaqo,/brand/pharmaqo-labs,/,High,mobile-uk-20260912|desktop-uk-20260912,mapped,
+pharmaqo labs,720,5,informational,pharmaqo,/brand/pharmaqo-labs,/product/tri-test-400-spharmaqo-labs,High,mobile-uk-20260912|desktop-uk-20260912,mapped,
+steroids uk,unknown,unknown,commercial,uk-shop,/,/shop,High,legacy-seed,mapped,Brand term retained
+lab tested steroids uk,unknown,unknown,commercial,uk-shop,/,/shop,High,legacy-seed,mapped,Differentiator
+anabolic steroids uk delivery,unknown,unknown,transactional,uk-shop,/delivery-and-returns,/,Medium,legacy-seed,mapped,
+steroids uk next day delivery,unknown,unknown,transactional,uk-shop,/delivery-and-returns,/,Medium,legacy-seed,mapped,
+buy sarms uk,720,unknown,transactional,mk677,/category/sarms,/,High,legacy-seed|desktop-uk-20260912,mapped,
+pct uk,unknown,unknown,commercial,pct,/category/pct,/what-is-pct,High,legacy-seed,mapped,
+what are sarms,unknown,unknown,informational,mk677,/sarms-vs-steroids,/category/sarms|/blog,Medium,legacy-seed,mapped,
+how to pay crypto steroids uk,unknown,unknown,navigational,uk-shop,/crypto-payment-guides,/payment-methods,Medium,legacy-seed,mapped,
+steroids uk cycle guide,unknown,unknown,informational,uk-shop,/cycle-builder,/blog,Medium,legacy-seed,mapped,
+oral steroids uk,unknown,unknown,transactional,anavar,/category/oral,/,High,legacy-seed,mapped,
+injectable steroids uk,unknown,unknown,transactional,testosterone,/category/injectable,/,High,legacy-seed,mapped,
+steroids uk reviews,unknown,unknown,commercial,uk-shop,/about-us,/,Medium,legacy-seed,mapped,
+is it legal to buy steroids uk,unknown,unknown,informational,uk-shop,/faq,/,High,legacy-seed,mapped,
+best steroids for beginners uk,unknown,unknown,informational,uk-shop,/blog,/cycle-builder,High,legacy-seed,mapped,
+winstrol vs anavar,unknown,unknown,informational,anavar,/blog,/shop?q=winstrol|/shop?q=anavar,Medium,legacy-seed,mapped,
+trenbolone side effects,unknown,unknown,informational,tren,/blog,/shop?q=trenbolone,Low,legacy-seed,mapped,
+steroids uk cryptocurrency payment,unknown,unknown,navigational,uk-shop,/payment-methods,/crypto-payment-guides,Low,legacy-seed,mapped,
+steroids-uk.com,720,53,navigational,skip,—,—,Skip,mobile-uk-20260912,skip,Competitor brand — do not target
+uksteroids.shop,1600,57,commercial,skip,—,—,Skip,mobile-uk-20260912,skip,Competitor brand
+uksteroids,1300,42,commercial,skip,—,—,Skip,mobile-uk-20260912,skip,Competitor brand
+steroidsuk,1300,41,commercial,skip,—,—,Skip,mobile-uk-20260912,skip,Competitor brand
+steroids-uk,1000,52,navigational,skip,—,—,Skip,mobile-uk-20260912,skip,Competitor brand
+uksteroidsshop,720,39,navigational,skip,—,—,Skip,mobile-uk-20260912,skip,Competitor brand
+eroids uk,1000,30,navigational,skip,—,—,Skip,mobile-uk-20260912,skip,Competitor typo
+uk sarms,4400,21,"commercial, navigational",mk677,/category/sarms,/shop?q=sarms|/,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/sarms/
+bpc 157 uk,2900,9,informational,peptides,/product/bpc-157-pharmaqo-labs-5mg,/category/peptides,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /shop/bpc-157-pharmaqo-labs-5mg/
+uksteroidshop,2400,8,informational,skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+sarms uk,2400,28,navigational,mk677,/category/sarms,/,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/sarms/
+upsteroids,1900,9,informational,skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+supreme steroids,1900,19,commercial,skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+400/12,1600,26,informational,skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+mk677 uk,1600,18,informational,mk677,/product/mk677-ibutamoren-liquid-25mg-30ml-syncom-labs,/category/sarms|/shop?q=mk677,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /shop/pharmaqo-labs-mk677/
+enclomiphene uk,1600,13,informational,pct,/category/pct,/what-is-pct|/shop?q=clomid,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/clomid/
+igf 1 lr3,1300,28,informational,peptides,/product/igf1-lr3-pharmaqo,/category/peptides,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /shop/igf1-lr3-pharmaqo/
+mk667,1300,27,informational,mk677,/product/mk677-ibutamoren-liquid-25mg-30ml-syncom-labs,/category/sarms,Medium,desktop-uk-20260912,mapped,Typo of mk677 — support only
+clomid tablets,1300,28,informational,pct,/category/pct,/product/clomid-pharmaqo-labs,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/clomid/
+liv 52,1000,12,informational,pct,/shop?q=liv+52,/category/pct|/,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /shop/himalaya-liv-52/
+pharma labs,880,17,informational,skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+400 12,880,15,informational,skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+cipla vs arimidex,720,28,commercial,skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+provixin,720,23,informational,skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+t bolin,720,28,informational,skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+critical anabolics,590,7,commercial,skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+anavar buy uk,590,26,transactional,anavar,/shop?q=anavar,/category/oral,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /shop/anavar-50-pharmaqo-labs/
+pharma labz,590,14,informational,skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+estrocontrol,590,11,informational,skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+first pct,590,15,informational,pct,/category/pct,/what-is-pct|/cycle-builder,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/pct/
+ostavar,590,18,informational,skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+sarms4u,590,22,informational,skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+anavar uk buy,480,16,transactional,anavar,/category/oral,/shop?q=anavar,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/anavar/
+buy hcg,480,22,transactional,pct,/product/hcg-pharmaqolabs,/shop?q=hcg,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/hcg/
+hgh uk,480,28,commercial,hgh,/category/hgh,/,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/growth-hormone/
+steroxxe,480,23,informational,skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+buy anavar uk,480,28,informational,anavar,/shop?q=anavar,/category/oral|/,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/anavar/
+stedsnmeds,480,26,informational,skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+delta sleep peptide,480,25,informational,peptides,/category/peptides,/shop?q=dsip,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /shop/dsip-delta-sleep-inducing-peptide-5mg-syncom-labs/
+pharmaqo labs review,480,7,commercial,pharmaqo,/brand/pharmaqo-labs,/about-us,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/manufacturers/pharmaqo-labs/
+hcg peptide,480,16,informational,pct,/shop?q=hcg,/category/pct,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/hcg/
+mt 2,480,27,informational,peptides,/product/mt-2-melanotan-10mg-pharmaqo-labs,/category/peptides,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /shop/mt-2-melanotan-10mg-pharmaqo-labs/
+lovegra,480,21,informational,kamagra,/product/lovegra-kamagra,/category/kamagra,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /shop/lovegra-kamagra/
+buy hgh uk,390,22,transactional,hgh,/category/hgh,/product/qomatropin-12mg-36iu-cartridge-pharmaqo-labs,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/growth-hormone/
+buy clomid,390,26,transactional,pct,/category/pct,/product/clomid-pharmaqo-labs,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/clomid/
+steroid sanctuary,390,26,navigational,skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+pharma labs uk,390,19,informational,skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+buy clomid uk,390,15,transactional,pct,/category/pct,/,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/clomid/
+dunning labs,390,4,informational,skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+mk677 for sale,390,17,transactional,mk677,/category/sarms,/product/mk677-ibutamoren-liquid-25mg-30ml-syncom-labs,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/ibutamoren-mk-677/
+dianabol before and after,390,24,informational,anavar,/blog,/shop?q=dianabol,Low,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /blog/how-soon-do-you-see-results-from-dbol/
+peptide needles,390,29,informational,accessories,/category/accessories,/product/needles-syringes|/product/hgh-syringe,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /shop/hgh-syringe/
+uk steroids shop review,390,29,commercial,uk-shop,/about-us,/faq|/,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /reviews/
+lipomax uk,390,28,informational,skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+buy clomid online,390,28,transactional,pct,/category/pct,/shop?q=clomid,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/clomid/
+test 300,320,8,"commercial, informational",testosterone,/product/testosterone-enanthate-proper-labs,/shop?q=testosterone,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /shop/testosterone-enanthate-proper-labs/
+testabol 400,320,3,informational,testosterone,/product/tri-test-400-spharmaqo-labs,/brand/pharmaqo-labs,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /shop/tri-test-400-spharmaqo-labs/
+buy hcg uk,320,23,transactional,pct,/product/hcg-pharmaqolabs,/category/pct,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /shop/hcg-pharmaqolabs/
+test 500,320,13,informational,testosterone,/shop?q=testosterone,/category/injectable,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /shop/eq-test-500mg-pharmaqo-labs/
+dianabol for sale uk,320,16,transactional,anavar,/product/dianabol25-proper-labs,/category/oral|/shop?q=dianabol,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /shop/dianabol25-proper-labs/
+anavar purchase,320,22,informational,anavar,/shop?q=anavar,/product/anavar10-proper-labs,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/anavar/
+hcg 5000iu,320,29,informational,pct,/product/hcg-pharmaqolabs,/shop?q=hcg,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /shop/hcg-eutrig-hp/
+anavar only cycle,320,17,informational,anavar,/blog,/cycle-builder|/shop?q=anavar,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /
+evo pharma,320,11,"commercial, informational",skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+buy mk677,320,22,transactional,mk677,/product/mk677-ibutamoren-liquid-25mg-30ml-syncom-labs,/category/sarms,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/ibutamoren-mk-677/
+buy letrozole online,320,9,transactional,pct,/category/pct,/shop?q=letrozole,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /shop/mono-femara-letrozole-50tabs-2-5mg-beligas-pharmaceuticals/
+supreme steriods,320,14,informational,skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+yohimbine uk,320,13,informational,clen-fat-loss,/category/fat-loss,/shop?q=yohimbine,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/yohambine/
+gelgra,320,3,informational,skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+buying anavar,320,13,informational,anavar,/shop?q=anavar,/category/oral,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/anavar/
+clomifene tablets,320,29,informational,pct,/category/pct,/shop?q=clomid,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/clomid/
+oralsonly,320,23,informational,skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+liv52,320,15,informational,pct,/shop?q=liv+52,/category/pct,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /shop/himalaya-liv-52/
+testosterone 400,260,5,informational,testosterone,/product/tri-test-400-spharmaqo-labs,/brand/pharmaqo-labs,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /shop/tri-test-400-spharmaqo-labs/
+buy clenbuterol,260,9,transactional,clen-fat-loss,/category/fat-loss,/product/clenbuterol-proper-labs,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/clenbuterol/
+clenbuterol for sale,260,4,transactional,clen-fat-loss,/category/fat-loss,/,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/clenbuterol/
+buy cabergoline uk,260,5,transactional,pct,/product/caber-cabergoline-pharmaqo-labs-10tab-1mg,/category/pct,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/cabaser/
+hgh buy uk,260,23,transactional,hgh,/category/hgh,/,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/growth-hormone/
+cabaser,260,12,informational,pct,/product/caber-cabergoline-pharmaqo-labs-10tab-1mg,/category/pct,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/cabaser/
+test suspension,260,28,informational,testosterone,/blog/testosterone-base-vs-suspension,/shop?q=testosterone,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /blog/testosterone-base-vs-testosterone-suspension-explained/
+anavar for sale uk,260,3,transactional,anavar,/shop?q=anavar,/category/oral,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/anavar/
+trenbolone uk,260,15,informational,tren,/shop?q=trenbolone,/category/injectable,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/trenbolone/
+critical labs uk,260,12,commercial,skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+test 250,260,28,informational,testosterone,/shop?q=testosterone,/category/injectable,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/testosterone-enan/
+needles for testosterone,260,28,informational,accessories,/product/needles-syringes,/category/accessories|/shop?q=testosterone,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /shop/needles-syringes/
+pharmalabz,260,9,informational,skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+mk677 buy,260,22,transactional,mk677,/category/sarms,/shop?q=mk677,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/ibutamoren-mk-677/
+buy syringes,260,22,transactional,accessories,/category/accessories,/product/needles-syringes,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /shop/hgh-syringe/
+masterolona,260,28,informational,skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+rad 140 uk,260,13,informational,mk677,/product/rad-140-testolone-liquid-25mg-30ml-syncom-labs,/category/sarms,High,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /shop/pharmaqo-labs-rad/
+purchase hcg,260,11,informational,pct,/shop?q=hcg,/category/pct,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/hcg/
+hcg buy,260,22,transactional,pct,/shop?q=hcg,/product/hcg-pharmaqolabs,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/hcg/
+anavar before after,260,24,informational,anavar,/blog,/shop?q=anavar,Low,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /blog/rapid-transformation-unveiling-impressive-anavar-results-after-just-2-weeks/
+clomid uk boots,260,18,informational,pct,/category/pct,/faq,Low,desktop-uk-20260912,mapped,Brand-comparison SERP — do not impersonate Boots
+order hcg,260,25,informational,pct,/product/hcg-pharmaqolabs,/shop?q=hcg,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/hcg/
+stenabolic,260,28,informational,skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+liv 52 tablets,260,18,informational,pct,/shop?q=liv+52,/category/pct,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /shop/himalaya-liv-52/
+purchase clomid online,260,22,informational,pct,/category/pct,/shop?q=clomid,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/clomid/
+igf lr3,260,23,informational,peptides,/product/igf1-lr3-pharmaqo,/category/peptides,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /shop/igf1-lr3-pharmaqo/
+carderine,260,28,informational,skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+anavar vs dianabol,260,24,commercial,anavar,/blog,/shop?q=anavar|/shop?q=dianabol,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /blog/anvarol-vs-anavar/
+sea lions fat metaboliser,260,24,informational,skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+clomid tablet price,260,11,transactional,pct,/category/pct,/product/clomid-proper-labs,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/clomid/
+peptiology uk,260,27,"navigational, transactional",skip,—,—,Skip,desktop-uk-20260912,skip,Competitor brand / junk / non-target
+buy cabergoline,210,9,transactional,pct,/product/caber-cabergoline-pharmaqo-labs-10tab-1mg,/category/pct,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/cabaser/
+test 400 cycle,210,10,informational,testosterone,/product/tri-test-400-spharmaqo-labs,/cycle-builder|/blog,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /blog/test-400/
+needles for peptides,210,28,informational,accessories,/category/accessories,/product/hgh-syringe,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /shop/hgh-syringe/
+buy clomid online uk,210,18,transactional,pct,/category/pct,/,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /product-category/clomid/
+test and deca cycle,210,13,informational,deca-boldenone,/blog,/shop?q=deca|/shop?q=testosterone|/cycle-builder,Medium,desktop-uk-20260912,mapped,Desktop UK batch; competitor URL /blog/deca-durabolin-cycle-guide/

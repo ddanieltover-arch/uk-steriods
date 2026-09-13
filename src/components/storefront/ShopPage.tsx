@@ -12,8 +12,9 @@ import { CatalogueSkeleton } from './CatalogueSkeleton';
 import { ShopCategoryChips } from './ShopCategoryChips';
 import { StockStatus } from '../../types';
 import { SeoHead } from '../seo/SeoHead';
-import { SITE_NAME, sanitizeMetaText } from '../../lib/seo/site';
+import { SITE_NAME, sanitizeMetaText, shopQueryShouldNoIndex } from '../../lib/seo/site';
 import { breadcrumbJsonLd } from '../../lib/seo/structured-data';
+import { enrichCategoryDescription } from '../../lib/seo/category-copy';
 import {
   Search,
   LayoutGrid,
@@ -261,9 +262,14 @@ export const ShopPage: React.FC<ShopPageProps> = ({
     ? `Search: ${query.search} | ${SITE_NAME}`
     : `Shop lab-tested catalogue | ${SITE_NAME}`;
   const seoDescription = sanitizeMetaText(
-    catalogueResult.category?.description ||
-      catalogueResult.brand?.description ||
-      'Browse the lab-tested Steroids UK catalogue. UK dispatch, tracked delivery, prices in GBP.',
+    catalogueResult.category
+      ? enrichCategoryDescription(
+          catalogueResult.category.slug,
+          catalogueResult.category.name,
+          catalogueResult.category.description
+        )
+      : catalogueResult.brand?.description ||
+          'Browse the lab-tested Steroids UK catalogue. UK dispatch, tracked delivery, prices in GBP.',
     160
   );
   const seoCanonical = catalogueResult.category
@@ -271,7 +277,7 @@ export const ShopPage: React.FC<ShopPageProps> = ({
     : catalogueResult.brand
     ? `${window.location.origin}/brand/${catalogueResult.brand.slug}`
     : `${window.location.origin}/shop`;
-  const seoRobots = query.search ? 'noindex,follow' : 'index,follow';
+  const seoRobots = shopQueryShouldNoIndex(query) ? 'noindex,follow' : 'index,follow';
   const breadcrumbJson = breadcrumbJsonLd(
     [
       { name: 'Home', path: '/' },

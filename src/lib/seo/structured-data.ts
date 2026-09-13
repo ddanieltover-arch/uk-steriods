@@ -123,6 +123,78 @@ export function faqPageJsonLd(items: { question: string; answer: string }[]) {
   };
 }
 
+/** Article schema for evergreen GEO / resource guides. */
+export function articleJsonLd(input: {
+  title: string;
+  description: string;
+  path: string;
+  datePublished: string;
+  dateModified?: string;
+  authorName?: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: input.title,
+    description: sanitizeMetaText(input.description, 300),
+    url: absoluteUrl(input.path),
+    mainEntityOfPage: { '@type': 'WebPage', '@id': absoluteUrl(input.path) },
+    image: absoluteUrl('/og-image.png'),
+    datePublished: input.datePublished,
+    dateModified: input.dateModified || input.datePublished,
+    author: { '@type': 'Organization', name: input.authorName || SITE_NAME },
+    publisher: {
+      '@type': 'Organization',
+      name: SITE_NAME,
+      logo: { '@type': 'ImageObject', url: absoluteUrl('/logo.png') },
+    },
+  };
+}
+
+/** Shopping / browsing HowTo only — never dosing or medical protocols. */
+export function howToJsonLd(input: {
+  name: string;
+  description: string;
+  steps: { name: string; text: string }[];
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: input.name,
+    description: sanitizeMetaText(input.description, 300),
+    step: input.steps.map((step, index) => ({
+      '@type': 'HowToStep',
+      position: index + 1,
+      name: step.name,
+      text: step.text,
+    })),
+  };
+}
+
+/** DefinedTermSet for glossary / entity GEO pages. */
+export function definedTermSetJsonLd(input: {
+  name: string;
+  description: string;
+  path: string;
+  terms: { term: string; slug: string; definition: string }[];
+}) {
+  const pageUrl = absoluteUrl(input.path);
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'DefinedTermSet',
+    name: input.name,
+    description: sanitizeMetaText(input.description, 300),
+    url: pageUrl,
+    hasDefinedTerm: input.terms.map((t) => ({
+      '@type': 'DefinedTerm',
+      name: t.term,
+      description: sanitizeMetaText(t.definition, 300),
+      url: `${pageUrl}#${t.slug}`,
+      inDefinedTermSet: pageUrl,
+    })),
+  };
+}
+
 /** Collection + ItemList for category/brand catalogue pages. */
 export function collectionPageJsonLd(input: {
   name: string;

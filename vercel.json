@@ -9,6 +9,12 @@
       "schedule": "0 9 * * *"
     }
   ],
+  "redirects": [
+    { "source": "/brands", "destination": "/manufacturers", "permanent": true },
+    { "source": "/brands/", "destination": "/manufacturers", "permanent": true },
+    { "source": "/category/pct-health", "destination": "/category/pct", "permanent": true },
+    { "source": "/category/pct-health/", "destination": "/category/pct", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/health", "destination": "/api" },
     { "source": "/ready", "destination": "/api" },

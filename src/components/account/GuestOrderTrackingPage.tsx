@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Search, ShieldCheck, Package, Truck, MapPin, Calendar, Lock, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { CryptoPaymentDetails } from '../commerce/CryptoPaymentDetails';
+import { hasCryptoWallets } from '../../lib/commerce/crypto-wallets';
 
 interface GuestOrderTrackingPageProps {
   onNavigate: (path: string) => void;
@@ -192,6 +194,27 @@ export const GuestOrderTrackingPage: React.FC<GuestOrderTrackingPageProps> = ({
                 </div>
               </div>
             </div>
+
+            {trackingData.paymentStatus === 'AWAITING_TRANSFER' &&
+              hasCryptoWallets(trackingData.paymentInstructions) && (
+                <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 space-y-2">
+                  <p className="text-[11px] font-extrabold uppercase tracking-wider text-amber-900">
+                    Crypto payment instructions
+                  </p>
+                  <CryptoPaymentDetails
+                    tone="amber"
+                    wallets={trackingData.paymentInstructions}
+                    referenceCode={
+                      trackingData.paymentInstructions?.referenceCode || trackingData.orderNumber
+                    }
+                    formattedTotal={
+                      trackingData.paymentInstructions?.formattedTotal ||
+                      `£${((trackingData.totalPence || 0) / 100).toFixed(2)}`
+                    }
+                    note={trackingData.paymentInstructions?.note}
+                  />
+                </div>
+              )}
 
             {/* Masked Customer & Address Details */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs bg-white border border-slate-100 p-4 rounded-xl">

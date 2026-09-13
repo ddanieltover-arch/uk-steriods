@@ -77,10 +77,18 @@ export const FaqHubPage: React.FC<FaqHubPageProps> = ({ onNavigate }) => {
           <h2 className="text-xl font-black text-slate-900">Continue shopping or reading</h2>
           <div className="flex flex-wrap gap-2">
             {[
-              { href: '/shop', label: 'Shop catalogue' },
+              { href: '/', label: 'Buy steroids UK' },
+              { href: '/shop', label: 'Steroids for sale UK' },
+              { href: '/shop?q=testosterone', label: 'Buy testosterone' },
+              { href: '/category/sarms', label: 'UK SARMs' },
+              { href: '/product/bpc-157-pharmaqo-labs-5mg', label: 'BPC 157 UK' },
+              { href: '/category/pct', label: 'Buy Clomid UK' },
+              { href: '/glossary', label: 'Glossary' },
+              { href: '/oral-vs-injectable', label: 'Oral vs injectable' },
+              { href: '/sarms-vs-steroids', label: 'SARMs vs steroids' },
+              { href: '/what-is-pct', label: 'What is PCT?' },
               { href: '/delivery-and-returns', label: 'Delivery & Returns' },
               { href: '/payment-methods', label: 'Payment Methods' },
-              { href: '/category/pct', label: 'PCT category' },
               { href: '/blog', label: 'Blog' },
               { href: '/cycle-builder', label: 'Cycle Builder' },
             ].map((link) => (

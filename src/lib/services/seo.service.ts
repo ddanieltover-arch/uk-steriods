@@ -13,12 +13,23 @@ import {
   blogPostingJsonLd,
   breadcrumbJsonLd,
   collectionPageJsonLd,
+  definedTermSetJsonLd,
+  articleJsonLd,
   faqPageJsonLd,
+  howToJsonLd,
   organizationJsonLd,
   productJsonLd,
   websiteJsonLd,
 } from '../seo/structured-data';
 import { FAQ_HUB_PATH, flatFaqHubItems } from '../seo/faq-hub';
+import { enrichCategoryDescription } from '../seo/category-copy';
+import {
+  GLOSSARY_DESCRIPTION,
+  GLOSSARY_PATH,
+  GLOSSARY_TERMS,
+  GLOSSARY_TITLE,
+} from '../seo/glossary';
+import { getGeoGuide } from '../seo/geo-guides';
 
 export interface PageSeo {
   title: string;
@@ -44,6 +55,11 @@ export class SeoService {
       'Allow: /blog',
       'Allow: /blog/',
       'Allow: /about-us',
+      'Allow: /faq',
+      'Allow: /glossary',
+      'Allow: /oral-vs-injectable',
+      'Allow: /sarms-vs-steroids',
+      'Allow: /what-is-pct',
       'Allow: /cycle-builder',
       'Allow: /delivery-and-returns',
       'Allow: /payment-methods',
@@ -63,11 +79,19 @@ export class SeoService {
       'Disallow: /orders/',
       'Disallow: /reset-password',
       'Disallow: /wishlist',
+      'Disallow: /brands',
       'Disallow: /design-system',
       'Disallow: /header-test',
       'Disallow: /product-card-test',
       'Disallow: /cart-test',
       'Disallow: /api/',
+      '# Faceted / paginated shop duplicates — canonical lives on /shop or /category|/brand',
+      'Disallow: /shop?*page=',
+      'Disallow: /shop?*sort=',
+      'Disallow: /shop?*minPrice=',
+      'Disallow: /shop?*maxPrice=',
+      'Disallow: /shop?*availability=',
+      'Disallow: /shop?*brandIds=',
       '',
       'User-agent: GPTBot',
       'Allow: /',
@@ -252,7 +276,7 @@ export class SeoService {
     };
   }
 
-  static shopSeo(searchTerm?: string): PageSeo {
+  static shopSeo(searchTerm?: string, options?: { noindex?: boolean }): PageSeo {
     if (searchTerm) {
       return {
         title: `Search: ${searchTerm} | ${SITE_NAME}`,
@@ -264,19 +288,22 @@ export class SeoService {
         jsonLd: [],
       };
     }
+    const noindex = Boolean(options?.noindex);
     return {
-      title: `Shop lab-tested catalogue | ${SITE_NAME}`,
+      title: `Steroids UK buy — shop lab-tested catalogue | ${SITE_NAME}`,
       description: DEFAULT_DESCRIPTION,
       canonical: absoluteUrl('/shop'),
-      robots: 'index,follow',
+      robots: noindex ? 'noindex,follow' : 'index,follow',
       ogImage: absoluteUrl('/og-image.png'),
       ogType: 'website',
-      jsonLd: [
-        this.breadcrumbJsonLd([
-          { name: 'Home', path: '/' },
-          { name: 'Shop', path: '/shop' },
-        ]),
-      ],
+      jsonLd: noindex
+        ? []
+        : [
+            this.breadcrumbJsonLd([
+              { name: 'Home', path: '/' },
+              { name: 'Shop', path: '/shop' },
+            ]),
+          ],
     };
   }
 
@@ -291,6 +318,32 @@ export class SeoService {
     ];
     if (pathname === FAQ_HUB_PATH) {
       jsonLd.push(faqPageJsonLd(flatFaqHubItems()));
+    }
+    if (pathname === GLOSSARY_PATH) {
+      jsonLd.push(
+        definedTermSetJsonLd({
+          name: GLOSSARY_TITLE,
+          description: GLOSSARY_DESCRIPTION,
+          path: GLOSSARY_PATH,
+          terms: GLOSSARY_TERMS,
+        })
+      );
+    }
+    const guide = getGeoGuide(pathname);
+    if (guide) {
+      jsonLd.push(
+        articleJsonLd({
+          title: guide.title,
+          description: guide.description,
+          path: guide.path,
+          datePublished: guide.datePublished,
+          dateModified: guide.dateModified,
+        }),
+        faqPageJsonLd(guide.faqs)
+      );
+      if (guide.howTo) {
+        jsonLd.push(howToJsonLd(guide.howTo));
+      }
     }
     return {
       title: `${meta.title} | ${SITE_NAME}`,
@@ -311,7 +364,7 @@ export class SeoService {
     if (!category) return null;
     const path = `/category/${category.slug}`;
     const description = sanitizeMetaText(
-      category.description || `Browse ${category.name} in the ${SITE_NAME} lab-tested catalogue. Prices in GBP.`,
+      enrichCategoryDescription(category.slug, category.name, category.description),
       160
     );
     const products = await db.product.findMany({
@@ -351,7 +404,10 @@ export class SeoService {
     if (!brand) return null;
     const path = `/brand/${brand.slug}`;
     const description = sanitizeMetaText(
-      brand.description || `Shop ${brand.name} products at ${SITE_NAME}. Lab-tested batches, UK dispatch.`,
+      brand.slug === 'pharmaqo-labs'
+        ? brand.description ||
+            `Pharmaqo Labs (Pharmaqo) lab-tested catalogue at ${SITE_NAME} — Test 400, testosterone esters and more with UK dispatch.`
+        : brand.description || `Shop ${brand.name} products at ${SITE_NAME}. Lab-tested batches, UK dispatch.`,
       160
     );
     const products = await db.product.findMany({

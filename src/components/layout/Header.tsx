@@ -9,6 +9,7 @@ import { Sheet } from '../overlay/Sheet';
 import { SocialProofToast } from '../feedback/SocialProofToast';
 import { Category, Brand, User as UserType } from '../../types';
 import { SITE_NAME } from '../../lib/seo/site';
+import { SUPPORT_EMAIL } from '../../data/resources';
 import { StorageService } from '../../services/storage';
 
 interface HeaderProps {
@@ -115,7 +116,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
             Ask about stock, tracking, or your order. We typically reply during UK daytime hours.
           </p>
           <a
-            href="mailto:support@steroids-uk.com"
+            href={`mailto:${SUPPORT_EMAIL}`}
             className="block w-full text-center rounded-xl bg-[#003d30] text-white font-black text-xs py-3"
           >
             Email support

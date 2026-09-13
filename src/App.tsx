@@ -97,12 +97,17 @@ function MainAppContent() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  // Legacy /brands → /manufacturers
+  // Legacy /brands → /manufacturers; /category/pct-health → /category/pct
   useEffect(() => {
     const path = window.location.pathname;
     if (path === '/brands' || path.startsWith('/brands/')) {
       window.history.replaceState({}, '', '/manufacturers');
       setCurrentPath('/manufacturers');
+      return;
+    }
+    if (path === '/category/pct-health' || path.startsWith('/category/pct-health/')) {
+      window.history.replaceState({}, '', '/category/pct');
+      setCurrentPath('/category/pct');
     }
   }, [currentPath]);
 

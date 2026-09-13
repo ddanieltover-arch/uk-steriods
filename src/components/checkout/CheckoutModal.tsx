@@ -397,7 +397,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                     <div className="flex items-center gap-2 font-bold text-xs text-slate-900">
                       <span>Bitcoin / Crypto (USDT)</span>
                     </div>
-                    <p className="text-[11px] text-slate-500 mt-0.5">Automated wallet address generated with 5% crypto discount.</p>
+                    <p className="text-[11px] text-slate-500 mt-0.5">BTC, ETH or BCH wallets shown after checkout — 5% crypto discount.</p>
                   </div>
                 </label>
               </div>
@@ -467,15 +467,16 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 <p className="text-[11px] text-slate-400">A confirmation receipt has been sent to {createdOrder.customerEmail}.</p>
               </div>
 
-              {/* Payment next steps — no bank / wallet details on-site */}
+              {/* Payment next steps */}
               <div className="bg-slate-900 text-white p-5 rounded-2xl text-left space-y-3 shadow-xl border border-slate-800">
                 <div className="flex items-center gap-2 border-b border-slate-800 pb-3">
                   <Building2 className="w-5 h-5 text-teal-400" />
                   <h4 className="font-bold text-xs uppercase text-teal-400">Payment instructions</h4>
                 </div>
                 <p className="text-xs text-slate-200 leading-relaxed">
-                  Please contact our admin team after your order to receive payment instructions and payment details.
-                  Do not send funds until you have those details from us.
+                  {isCryptoPaymentMethod(paymentMethod)
+                    ? 'Your confirmation email includes BTC, ETH and BCH wallet addresses for this order. Send the amount due, then email us the transaction hash.'
+                    : 'Please contact our admin team after your order to receive payment instructions and payment details. Do not send funds until you have those details from us.'}
                 </p>
                 <p className="text-[11px] text-slate-400 leading-relaxed">
                   Quote order <span className="font-mono font-bold text-teal-300">{createdOrder.orderNumber}</span> when you email{' '}

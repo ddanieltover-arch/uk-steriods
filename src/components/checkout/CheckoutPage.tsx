@@ -846,7 +846,7 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({
                         </span>
                       </div>
                       <p className="text-[11px] text-slate-600 leading-relaxed">
-                        5% is taken off automatically when you pay by crypto. After you place the order, contact admin for payment instructions and payment details.
+                        5% is taken off automatically when you pay by crypto. After you place the order, wallet addresses for BTC, ETH and BCH are shown on the confirmation page and in your email.
                       </p>
                     </button>
                   </div>

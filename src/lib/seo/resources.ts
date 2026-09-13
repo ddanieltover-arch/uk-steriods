@@ -17,6 +17,34 @@ export const RESOURCE_PAGE_SEO: Record<
     changefreq: 'weekly',
     priority: '0.8',
   },
+  '/glossary': {
+    title: 'Steroids & PCT Glossary',
+    description:
+      'Plain-language definitions of steroids, SARMs, PCT, esters, stacks and UK shipping terms. Educational catalogue context only.',
+    changefreq: 'monthly',
+    priority: '0.7',
+  },
+  '/oral-vs-injectable': {
+    title: 'Oral vs Injectable Steroids',
+    description:
+      'How oral tablets and injectable esters differ in the Steroids UK catalogue. Educational only — not medical advice.',
+    changefreq: 'monthly',
+    priority: '0.8',
+  },
+  '/sarms-vs-steroids': {
+    title: 'SARMs vs Anabolic Steroids',
+    description:
+      'SARMs and anabolic steroids as separate Steroids UK catalogue categories. Research literacy only — not medicines.',
+    changefreq: 'monthly',
+    priority: '0.8',
+  },
+  '/what-is-pct': {
+    title: 'What Is PCT? Post-Cycle Therapy',
+    description:
+      'What PCT means for catalogue buyers, SERMs in the PCT category, and how to browse support products. Educational only.',
+    changefreq: 'monthly',
+    priority: '0.8',
+  },
   '/cycle-builder': {
     title: 'Cycle Builder',
     description:

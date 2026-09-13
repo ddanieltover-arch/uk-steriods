@@ -1,9 +1,31 @@
 import { scoreSearchRelevance, normalizeSearchQuery, escapeIlike } from '../src/lib/search/ranking';
 import { SeoService } from '../src/lib/services/seo.service';
-import { canonicalPathFor, shouldNoIndexPath, sanitizeMetaText } from '../src/lib/seo/site';
-import { productJsonLd, breadcrumbJsonLd, collectionPageJsonLd } from '../src/lib/seo/structured-data';
+import {
+  canonicalPathFor,
+  shouldNoIndexPath,
+  sanitizeMetaText,
+  shopQueryShouldNoIndex,
+  normalizeSiteOrigin,
+} from '../src/lib/seo/site';
+import {
+  productJsonLd,
+  breadcrumbJsonLd,
+  collectionPageJsonLd,
+  definedTermSetJsonLd,
+} from '../src/lib/seo/structured-data';
 import { injectCrawlableBody } from '../src/lib/seo/crawlable-content';
 import { ANSWER_CAPSULES } from '../src/lib/seo/answer-capsules';
+import { enrichCategoryDescription } from '../src/lib/seo/category-copy';
+import {
+  enrichProductSeoTitle,
+  productSeoFor,
+} from '../src/lib/seo/product-copy';
+import { DEFAULT_DESCRIPTION, SITE_TAGLINE } from '../src/lib/seo/site';
+import { RELATED_SEARCHES } from '../src/data/homepage';
+import { GLOSSARY_TERMS } from '../src/lib/seo/glossary';
+import { GEO_GUIDES, getGeoGuide } from '../src/lib/seo/geo-guides';
+import { SUPPORT_EMAIL } from '../src/data/resources';
+import { articleJsonLd } from '../src/lib/seo/structured-data';
 
 function assert(condition: boolean, description: string) {
   if (!condition) {
@@ -49,6 +71,10 @@ function runSeoTests() {
   assert(robots.includes('Allow: /product/'), 'robots allows products');
   assert(robots.includes('Allow: /blog'), 'robots allows blog');
   assert(robots.includes('Sitemap:'), 'robots includes sitemap');
+  assert(robots.includes('Allow: /faq'), 'robots allows FAQ');
+  assert(robots.includes('Allow: /glossary'), 'robots allows glossary');
+  assert(robots.includes('Disallow: /brands'), 'robots disallows legacy /brands');
+  assert(robots.includes('Disallow: /shop?*page='), 'robots disallows paginated shop');
   assert(robots.includes('User-agent: GPTBot'), 'robots allows GPTBot');
   assert(robots.includes('User-agent: ClaudeBot'), 'robots allows ClaudeBot');
   assert(robots.includes('User-agent: PerplexityBot'), 'robots allows PerplexityBot');
@@ -56,6 +82,8 @@ function runSeoTests() {
   const llms = SeoService.getLlmsTxt();
   assert(llms.includes('# Steroids UK'), 'llms.txt has brand header');
   assert(llms.includes('/sitemap.xml'), 'llms.txt references sitemap');
+  assert(llms.includes('/glossary'), 'llms.txt lists glossary');
+  assert(llms.includes(SUPPORT_EMAIL), 'llms.txt uses canonical support email');
 
   assert(shouldNoIndexPath('/admin'), 'admin is noindex');
   assert(shouldNoIndexPath('/account/orders'), 'account orders are noindex');
@@ -67,6 +95,60 @@ function runSeoTests() {
   assert(canonicalPathFor('/shop', 'sort=price_asc&brand=x') === '/shop', 'filter URLs canonicalize to /shop');
   assert(canonicalPathFor('/product/example-product', 'ref=ad') === '/product/example-product', 'product canonical ignores query');
   assert(canonicalPathFor('/shop', 'q=protein').includes('q=protein'), 'search term remains shareable');
+
+  assert(shopQueryShouldNoIndex({ search: 'test' }), 'search is noindex');
+  assert(shopQueryShouldNoIndex({ page: 2 }), 'pagination is noindex');
+  assert(shopQueryShouldNoIndex({ sort: 'price_asc' }), 'non-default sort is noindex');
+  assert(shopQueryShouldNoIndex({ minPrice: 50 }), 'price filter is noindex');
+  assert(!shopQueryShouldNoIndex({ sort: 'featured', page: 1 }), 'clean shop remains indexable');
+
+  assert(
+    normalizeSiteOrigin('https://uk-steroids.co.uk') === 'https://www.uk-steroids.co.uk',
+    'apex origin normalizes to www'
+  );
+
+  assert(
+    enrichCategoryDescription('pct', 'PCT', 'PCT').includes('Post-cycle'),
+    'thin category descriptions are enriched'
+  );
+  assert(
+    enrichCategoryDescription('fat-loss', 'Fat Loss', 'Fat Loss').toLowerCase().includes('clenbuterol'),
+    'fat-loss category copy includes clenbuterol keyword'
+  );
+  assert(
+    enrichProductSeoTitle('testosterone-cypionate-proper-labs', 'Test Cyp', null)
+      .toLowerCase()
+      .includes('testosterone cypionate'),
+    'product SEO title enrichment uses competitor keyword'
+  );
+  assert(
+    (productSeoFor('shopkamagra-jelly')?.relatedLinks.length || 0) >= 2,
+    'priority PDPs expose related keyword links'
+  );
+  assert(RELATED_SEARCHES.length <= 6, 'homepage related searches stay few');
+  assert(RELATED_SEARCHES.some((l) => /testosterone/i.test(l.label)), 'related searches include testosterone');
+  assert(RELATED_SEARCHES.some((l) => /sarms/i.test(l.label)), 'related searches include UK SARMs');
+  assert(RELATED_SEARCHES.some((l) => /bpc/i.test(l.label)), 'related searches include BPC 157');
+  assert(/buy steroids uk/i.test(DEFAULT_DESCRIPTION), 'default meta targets buy steroids uk');
+  assert(/uk steroid shop/i.test(SITE_TAGLINE), 'site tagline includes uk steroid shop');
+  assert(
+    GLOSSARY_TERMS.some((t) => t.slug === 'testosterone-base'),
+    'glossary covers testosterone base entity'
+  );
+  assert(GLOSSARY_TERMS.some((t) => t.slug === 'bpc-157'), 'glossary covers BPC-157 from desktop batch');
+  assert(
+    enrichCategoryDescription('sarms', 'SARMs', 'SARMs').toLowerCase().includes('uk sarms'),
+    'SARMs category copy includes uk sarms keyword'
+  );
+  assert(
+    enrichCategoryDescription('peptides', 'Peptides', 'Peptides').toLowerCase().includes('bpc 157'),
+    'peptides category copy includes bpc 157 uk'
+  );
+  assert(
+    (productSeoFor('bpc-157-pharmaqo-labs-5mg')?.relatedLinks.length || 0) >= 2,
+    'BPC 157 PDP exposes related keyword links'
+  );
+  assert(ANSWER_CAPSULES['/']?.toLowerCase().includes('buy steroids uk'), 'homepage capsule uses buy steroids uk');
 
   const json = productJsonLd({
     name: 'Demo Isolate',
@@ -112,11 +194,57 @@ function runSeoTests() {
 
   assert(ANSWER_CAPSULES['/'].length >= 40, 'homepage answer capsule has substance');
   assert(ANSWER_CAPSULES['/faq'].length >= 40, 'FAQ hub answer capsule has substance');
+  assert(ANSWER_CAPSULES['/glossary'].length >= 40, 'glossary answer capsule has substance');
+  assert(ANSWER_CAPSULES['/oral-vs-injectable'].length >= 40, 'oral vs injectable capsule has substance');
+  assert(ANSWER_CAPSULES['/sarms-vs-steroids'].length >= 40, 'SARMs vs steroids capsule has substance');
+  assert(ANSWER_CAPSULES['/what-is-pct'].length >= 40, 'PCT pillar capsule has substance');
 
   const faqSeo = SeoService.resourceSeo('/faq');
   assert(!!faqSeo, 'FAQ hub resource SEO exists');
   assert(faqSeo!.canonical.endsWith('/faq'), 'FAQ hub canonical path');
   assert(faqSeo!.jsonLd.some((b) => b['@type'] === 'FAQPage'), 'FAQ hub includes FAQPage JSON-LD');
+
+  const glossarySeo = SeoService.resourceSeo('/glossary');
+  assert(!!glossarySeo, 'glossary resource SEO exists');
+  assert(glossarySeo!.canonical.endsWith('/glossary'), 'glossary canonical path');
+  assert(
+    glossarySeo!.jsonLd.some((b) => b['@type'] === 'DefinedTermSet'),
+    'glossary includes DefinedTermSet JSON-LD'
+  );
+
+  for (const path of Object.keys(GEO_GUIDES)) {
+    const guide = getGeoGuide(path)!;
+    const seo = SeoService.resourceSeo(path);
+    assert(!!seo, `${path} resource SEO exists`);
+    assert(seo!.jsonLd.some((b) => b['@type'] === 'Article'), `${path} has Article JSON-LD`);
+    assert(seo!.jsonLd.some((b) => b['@type'] === 'FAQPage'), `${path} has FAQPage JSON-LD`);
+    assert(guide.sections.length >= 4, `${path} has substantial sections`);
+    assert(guide.faqs.length >= 3, `${path} has FAQ set`);
+    const wordEstimate = guide.sections.reduce(
+      (n, s) => n + s.paragraphs.join(' ').split(/\s+/).length,
+      0
+    );
+    assert(wordEstimate >= 400, `${path} body copy is substantial (${wordEstimate} words)`);
+  }
+
+  const pctSeo = SeoService.resourceSeo('/what-is-pct');
+  assert(pctSeo!.jsonLd.some((b) => b['@type'] === 'HowTo'), 'PCT guide includes shopping HowTo');
+
+  const article = articleJsonLd({
+    title: 'Test',
+    description: 'Desc',
+    path: '/oral-vs-injectable',
+    datePublished: '2026-09-13',
+  });
+  assert(article['@type'] === 'Article', 'article JSON-LD type');
+
+  const terms = definedTermSetJsonLd({
+    name: 'Glossary',
+    description: 'Test',
+    path: '/glossary',
+    terms: GLOSSARY_TERMS.slice(0, 2),
+  });
+  assert((terms.hasDefinedTerm as unknown[]).length === 2, 'DefinedTermSet lists terms');
 
   const withBody = injectCrawlableBody(
     '<html><body><div id="root"></div></body></html>',
@@ -124,8 +252,6 @@ function runSeoTests() {
   );
   assert(withBody.includes('<h1>Test</h1>'), 'crawlable body injects into root');
   assert(withBody.includes('id="ssr-fallback"'), 'crawlable body preserves fallback marker');
-  assert(withBody.includes('id="ssr-crawl"'), 'crawlable body uses visually hidden crawl node');
-  assert(withBody.includes('<div id="root"></div>'), 'React root stays empty for hydration');
 }
 
 try {

@@ -2,10 +2,10 @@
 
 export const FAQ_HUB_PATH = '/faq';
 
-export const FAQ_HUB_TITLE = 'FAQ: Buying Steroids in the UK';
+export const FAQ_HUB_TITLE = 'FAQ: Buy Steroids UK — Catalogue Answers';
 
 export const FAQ_HUB_DESCRIPTION =
-  'Answers on UK catalogue buying, legality context, lab testing, delivery, payment, and PCT. Educational only — not medical advice.';
+  'Answers on buying steroids online in the UK, lab testing, delivery, payment, Anavar UK, testosterone and PCT. Educational only — not medical advice.';
 
 export type FaqItem = { question: string; answer: string };
 
@@ -41,7 +41,7 @@ export const FAQ_HUB_SECTIONS: { heading: string; items: FaqItem[] }[] = [
       {
         question: 'Which product types do you stock?',
         answer:
-          'The catalogue typically covers injectables, orals, SARMs, PCT support, peptides, HGH-related listings, fat-loss compounds, ED meds, and accessories. Browse by category or use shop search to find a specific compound or brand.',
+          'The catalogue typically covers injectable steroids UK, buy Anavar UK / orals, UK SARMs including MK677 UK and RAD 140 UK, PCT (buy Clomid UK, HCG), peptides such as BPC 157 UK, HGH UK, fat-loss buy Clenbuterol options, Kamagra UK, ED meds, and peptide needles / accessories. Browse by category or start from the homepage to buy steroids UK.',
       },
       {
         question: 'How do I choose a beginner-friendly product?',

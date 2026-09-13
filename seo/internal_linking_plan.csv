@@ -1,18 +1,209 @@
-from_page,to_page,anchor_text,priority
-/,/shop,Shop lab-tested catalogue,High
-/,/blog,Knowledge hub,High
-/,/about-us,About Steroids UK,Medium
-/,/delivery-and-returns,UK tracked delivery,Medium
-/shop,/category/injectables,Injectable compounds,High
-/shop,/category/orals,Oral compounds,High
-/shop,/category/sarms,SARMs,High
-/shop,/category/pct,PCT products,High
-/blog,/shop,Browse catalogue,High
-/blog,/cycle-builder,Cycle builder tool,Medium
-/cycle-builder,/shop,View recommended products,High
-/delivery-and-returns,/shop,Start shopping,Medium
-/payment-methods,/crypto-payment-guides,Crypto payment guides,Medium
-/product/{slug},/category/{category},Back to category,High
-/product/{slug},/shop,Full catalogue,Medium
-/blog/{slug},/blog,All articles,Medium
-/blog/{slug},/shop,Related products,Low
+from_page,to_page,anchor_text,link_role,priority
+/shop,/,buy steroids uk,inbound,High
+/category/injectable,/,uk steroid shop,inbound,High
+/category/oral,/,steroid shop uk,inbound,High
+/category/fat-loss,/,buy steroids uk,inbound,High
+/category/kamagra,/,UK steroids shop,inbound,Medium
+/category/hgh,/,steroids for sale uk,inbound,Medium
+/category/sarms,/,buy steroids uk,inbound,Medium
+/brand/pharmaqo-labs,/,UK steroid shop,inbound,High
+/blog,/,buy steroids uk,inbound,High
+/faq,/,buying steroids online,inbound,High
+/glossary,/,steroid uk catalogue,inbound,Medium
+/about-us,/,uk steroids shop,inbound,Medium
+/delivery-and-returns,/,buy steroids uk,inbound,Medium
+/cycle-builder,/,steroid shop uk,inbound,Medium
+/product/testosterone-cypionate-proper-labs,/,buy steroids uk,inbound,High
+/product/anavar10-proper-labs,/,steroids for sale uk,inbound,High
+/product/clenbuterol-proper-labs,/,uk steroid shop,inbound,Medium
+/product/shopkamagra-jelly,/,buy steroids uk,inbound,Medium
+/,/shop,steroids uk buy,related,High
+/,/shop?q=testosterone,buy testosterone,related,High
+/,/category/fat-loss,clenbuterol tablet,related,High
+/,/category/oral,anavar uk,related,High
+/,/category/kamagra,kamagra jelly,related,High
+/,/category/sarms,mk 677 uk,related,High
+/,/category/hgh,hgh injections,related,Medium
+/,/brand/pharmaqo-labs,pharmaqo labs,related,Medium
+/shop,/category/injectable,injectable steroids uk,outbound,High
+/shop,/category/oral,oral steroids uk,outbound,High
+/shop,/category/sarms,buy sarms uk,outbound,High
+/shop,/category/pct,pct uk,outbound,High
+/shop,/shop?q=testosterone,testosterone for sale,outbound,High
+/shop,/,buy steroids uk,inbound,High
+/category/fat-loss,/product/clenbuterol-proper-labs,clenbuterol tablet,outbound,High
+/category/fat-loss,/product/clenbuterol-pharmaqo-labs,clen pills,outbound,Medium
+/category/fat-loss,/,uk steroid shop,inbound,High
+/category/kamagra,/product/shopkamagra-jelly,kamagra oral jelly uk,outbound,High
+/category/kamagra,/product/shopkamagra-jelly,kamagra 100mg,outbound,Medium
+/category/oral,/shop?q=anavar,anavar for sale,outbound,High
+/category/oral,/product/anavar-10-pharmaqo-labs,purchase anavar,outbound,High
+/category/oral,/shop?q=anavar,anavar buy,outbound,Medium
+/category/hgh,/product/qomatropin-12mg-36iu-cartridge-pharmaqo-labs,hgh injections,outbound,High
+/category/sarms,/product/mk677-ibutamoren-liquid-25mg-30ml-syncom-labs,mk 677 uk,outbound,High
+/category/injectable,/shop?q=testosterone,buy testosterone,outbound,High
+/category/injectable,/product/testosterone-cypionate-proper-labs,testosterone cypionate,outbound,High
+/brand/pharmaqo-labs,/product/tri-test-400-spharmaqo-labs,test 400,outbound,High
+/brand/pharmaqo-labs,/,buy steroids uk,inbound,High
+/product/testosterone-cypionate-proper-labs,/shop?q=testosterone,buy testosterone,outbound,High
+/product/testosterone-cypionate-proper-labs,/category/injectable,injectable steroids uk,outbound,Medium
+/product/testosterone-cypionate-proper-labs,/product/testosterone-propionate-proper-labs,testosterone propionate,outbound,Medium
+/product/testosterone-propionate-proper-labs,/shop?q=testosterone,testosterone uk buy,outbound,High
+/product/testosterone-propionate-proper-labs,/category/injectable,injectable category,outbound,Medium
+/product/tri-test-400-spharmaqo-labs,/brand/pharmaqo-labs,pharmaqo labs,outbound,High
+/product/tri-test-400-spharmaqo-labs,/shop?q=testosterone,testosterone for sale,outbound,Medium
+/product/anavar10-proper-labs,/shop?q=anavar,anavar order,outbound,High
+/product/anavar10-proper-labs,/category/oral,anavar uk,outbound,High
+/product/anavar-10-pharmaqo-labs,/shop?q=anavar,anavar buy,outbound,High
+/product/anavar-10-pharmaqo-labs,/brand/pharmaqo-labs,pharmaqo,outbound,Medium
+/product/clenbuterol-proper-labs,/category/fat-loss,clen tablets,outbound,High
+/product/clenbuterol-proper-labs,/,buy steroids uk,inbound,Medium
+/product/clenbuterol-pharmaqo-labs,/category/fat-loss,clen pills,outbound,High
+/product/shopkamagra-jelly,/category/kamagra,kamagra uk,outbound,High
+/product/shopkamagra-jelly,/,steroid shop uk,inbound,Medium
+/product/trenbolone-acetate-proper-labs,/shop?q=trenbolone,trenbolone acetate price 10ml,outbound,High
+/product/trenbolone-acetate-proper-labs,/category/injectable,injectable steroids uk,outbound,Medium
+/product/deca-300-nandrolone-decanoate-syncom-labs,/shop?q=deca,deca steroid,outbound,High
+/product/boldenone-proper-labs,/shop?q=boldenone,boldenone undecylenate,outbound,High
+/product/mk677-ibutamoren-liquid-25mg-30ml-syncom-labs,/category/sarms,mk 677 uk,outbound,High
+/product/qomatropin-12mg-36iu-cartridge-pharmaqo-labs,/category/hgh,hgh injections,outbound,High
+/blog,/shop,steroids uk buy,outbound,High
+/blog,/shop?q=testosterone,buy testosterone,outbound,High
+/blog,/category/oral,anavar uk,outbound,Medium
+/blog,/cycle-builder,steroids uk cycle guide,outbound,Medium
+/blog/testosterone-base-vs-suspension,/shop?q=testosterone,testosterone base,outbound,High
+/blog/testosterone-base-vs-suspension,/product/testosterone-cypionate-proper-labs,testosterone cypionate,outbound,High
+/blog/testosterone-base-vs-suspension,/,buy steroids uk,inbound,High
+/faq,/,buy steroids uk,inbound,High
+/faq,/shop,steroids for sale uk,outbound,High
+/faq,/category/pct,pct uk,outbound,Medium
+/glossary,/,uk steroid shop,inbound,Medium
+/glossary,/shop?q=testosterone,testosterone cypionate,outbound,High
+/glossary,/category/fat-loss,clenbuterol tablet,outbound,Medium
+/glossary,/category/oral,anavar uk,outbound,Medium
+/cycle-builder,/shop,steroids uk buy,outbound,High
+/cycle-builder,/category/pct,pct uk,outbound,Medium
+/category/sarms,/shop?q=sarms,uk sarms,outbound,High
+/category/sarms,/,uk sarms,outbound,High
+/product/bpc-157-pharmaqo-labs-5mg,/,buy steroids uk,inbound,High
+/product/bpc-157-pharmaqo-labs-5mg,/category/peptides,bpc 157 uk,outbound,High
+/category/sarms,/,sarms uk,outbound,High
+/product/mk677-ibutamoren-liquid-25mg-30ml-syncom-labs,/,buy steroids uk,inbound,High
+/product/mk677-ibutamoren-liquid-25mg-30ml-syncom-labs,/category/sarms,mk677 uk,outbound,High
+/product/mk677-ibutamoren-liquid-25mg-30ml-syncom-labs,/shop?q=mk677,mk677 uk,outbound,High
+/category/pct,/,buy steroids uk,inbound,High
+/category/pct,/what-is-pct,enclomiphene uk,outbound,High
+/category/pct,/shop?q=clomid,enclomiphene uk,outbound,High
+/product/igf1-lr3-pharmaqo,/,buy steroids uk,inbound,High
+/product/igf1-lr3-pharmaqo,/category/peptides,igf 1 lr3,outbound,High
+/product/mk677-ibutamoren-liquid-25mg-30ml-syncom-labs,/category/sarms,mk667,outbound,Medium
+/category/pct,/product/clomid-pharmaqo-labs,clomid tablets,outbound,High
+/shop?q=liv+52,/,buy steroids uk,inbound,High
+/shop?q=liv+52,/category/pct,liv 52,outbound,High
+/shop?q=liv+52,/,liv 52,outbound,High
+/shop?q=anavar,/,buy steroids uk,inbound,High
+/shop?q=anavar,/category/oral,anavar buy uk,outbound,High
+/category/pct,/what-is-pct,first pct,outbound,Medium
+/category/pct,/cycle-builder,first pct,outbound,Medium
+/category/oral,/,buy steroids uk,inbound,High
+/category/oral,/shop?q=anavar,anavar uk buy,outbound,High
+/product/hcg-pharmaqolabs,/,buy steroids uk,inbound,High
+/product/hcg-pharmaqolabs,/shop?q=hcg,buy hcg,outbound,High
+/category/hgh,/,buy steroids uk,inbound,High
+/category/hgh,/,hgh uk,outbound,High
+/shop?q=anavar,/category/oral,buy anavar uk,outbound,High
+/shop?q=anavar,/,buy anavar uk,outbound,High
+/category/peptides,/,buy steroids uk,inbound,Medium
+/category/peptides,/shop?q=dsip,delta sleep peptide,outbound,Medium
+/brand/pharmaqo-labs,/about-us,pharmaqo labs review,outbound,Medium
+/shop?q=hcg,/,buy steroids uk,inbound,High
+/shop?q=hcg,/category/pct,hcg peptide,outbound,High
+/product/mt-2-melanotan-10mg-pharmaqo-labs,/,buy steroids uk,inbound,High
+/product/mt-2-melanotan-10mg-pharmaqo-labs,/category/peptides,mt 2,outbound,High
+/product/lovegra-kamagra,/,buy steroids uk,inbound,Medium
+/product/lovegra-kamagra,/category/kamagra,lovegra,outbound,Medium
+/category/hgh,/product/qomatropin-12mg-36iu-cartridge-pharmaqo-labs,buy hgh uk,outbound,High
+/category/pct,/product/clomid-pharmaqo-labs,buy clomid,outbound,High
+/category/pct,/,buy clomid uk,outbound,High
+/category/sarms,/product/mk677-ibutamoren-liquid-25mg-30ml-syncom-labs,mk677 for sale,outbound,High
+/blog,/shop?q=dianabol,dianabol before and after,outbound,Low
+/category/accessories,/,buy steroids uk,inbound,High
+/category/accessories,/product/needles-syringes,peptide needles,outbound,High
+/category/accessories,/product/hgh-syringe,peptide needles,outbound,High
+/about-us,/,uk steroids shop review,inbound,Medium
+/about-us,/faq,uk steroids shop review,outbound,Medium
+/category/pct,/shop?q=clomid,buy clomid online,outbound,High
+/product/testosterone-enanthate-proper-labs,/,buy steroids uk,inbound,High
+/product/testosterone-enanthate-proper-labs,/shop?q=testosterone,test 300,outbound,High
+/product/tri-test-400-spharmaqo-labs,/,buy steroids uk,inbound,Medium
+/product/tri-test-400-spharmaqo-labs,/brand/pharmaqo-labs,testabol 400,outbound,Medium
+/product/hcg-pharmaqolabs,/category/pct,buy hcg uk,outbound,High
+/shop?q=testosterone,/,buy steroids uk,inbound,Medium
+/shop?q=testosterone,/category/injectable,test 500,outbound,Medium
+/product/dianabol25-proper-labs,/,buy steroids uk,inbound,High
+/product/dianabol25-proper-labs,/category/oral,dianabol for sale uk,outbound,High
+/product/dianabol25-proper-labs,/shop?q=dianabol,dianabol for sale uk,outbound,High
+/shop?q=anavar,/product/anavar10-proper-labs,anavar purchase,outbound,Medium
+/product/hcg-pharmaqolabs,/shop?q=hcg,hcg 5000iu,outbound,Medium
+/blog,/cycle-builder,anavar only cycle,outbound,Medium
+/blog,/shop?q=anavar,anavar only cycle,outbound,Medium
+/product/mk677-ibutamoren-liquid-25mg-30ml-syncom-labs,/category/sarms,buy mk677,outbound,High
+/category/pct,/shop?q=letrozole,buy letrozole online,outbound,Medium
+/category/fat-loss,/shop?q=yohimbine,yohimbine uk,outbound,Medium
+/shop?q=anavar,/category/oral,buying anavar,outbound,Medium
+/category/pct,/shop?q=clomid,clomifene tablets,outbound,Medium
+/shop?q=liv+52,/category/pct,liv52,outbound,Medium
+/product/tri-test-400-spharmaqo-labs,/brand/pharmaqo-labs,testosterone 400,outbound,Medium
+/category/fat-loss,/product/clenbuterol-proper-labs,buy clenbuterol,outbound,High
+/category/fat-loss,/,clenbuterol for sale,outbound,High
+/product/caber-cabergoline-pharmaqo-labs-10tab-1mg,/,buy steroids uk,inbound,High
+/product/caber-cabergoline-pharmaqo-labs-10tab-1mg,/category/pct,buy cabergoline uk,outbound,High
+/category/hgh,/,hgh buy uk,outbound,High
+/product/caber-cabergoline-pharmaqo-labs-10tab-1mg,/category/pct,cabaser,outbound,Medium
+/blog/testosterone-base-vs-suspension,/shop?q=testosterone,test suspension,outbound,Medium
+/shop?q=anavar,/category/oral,anavar for sale uk,outbound,High
+/shop?q=trenbolone,/,buy steroids uk,inbound,High
+/shop?q=trenbolone,/category/injectable,trenbolone uk,outbound,High
+/shop?q=testosterone,/category/injectable,test 250,outbound,Medium
+/product/needles-syringes,/,buy steroids uk,inbound,Medium
+/product/needles-syringes,/category/accessories,needles for testosterone,outbound,Medium
+/product/needles-syringes,/shop?q=testosterone,needles for testosterone,outbound,Medium
+/category/sarms,/shop?q=mk677,mk677 buy,outbound,Medium
+/category/accessories,/product/needles-syringes,buy syringes,outbound,Medium
+/product/rad-140-testolone-liquid-25mg-30ml-syncom-labs,/,buy steroids uk,inbound,High
+/product/rad-140-testolone-liquid-25mg-30ml-syncom-labs,/category/sarms,rad 140 uk,outbound,High
+/shop?q=hcg,/category/pct,purchase hcg,outbound,Medium
+/shop?q=hcg,/product/hcg-pharmaqolabs,hcg buy,outbound,Medium
+/blog,/shop?q=anavar,anavar before after,outbound,Low
+/category/pct,/faq,clomid uk boots,outbound,Low
+/product/hcg-pharmaqolabs,/shop?q=hcg,order hcg,outbound,Medium
+/shop?q=liv+52,/category/pct,liv 52 tablets,outbound,Medium
+/category/pct,/shop?q=clomid,purchase clomid online,outbound,Medium
+/product/igf1-lr3-pharmaqo,/category/peptides,igf lr3,outbound,Medium
+/blog,/shop?q=anavar,anavar vs dianabol,outbound,Medium
+/blog,/shop?q=dianabol,anavar vs dianabol,outbound,Medium
+/category/pct,/product/clomid-proper-labs,clomid tablet price,outbound,Medium
+/product/caber-cabergoline-pharmaqo-labs-10tab-1mg,/category/pct,buy cabergoline,outbound,Medium
+/product/tri-test-400-spharmaqo-labs,/cycle-builder,test 400 cycle,outbound,Medium
+/product/tri-test-400-spharmaqo-labs,/blog,test 400 cycle,outbound,Medium
+/category/accessories,/product/hgh-syringe,needles for peptides,outbound,Medium
+/category/pct,/,buy clomid online uk,outbound,Medium
+/blog,/shop?q=deca,test and deca cycle,outbound,Medium
+/blog,/shop?q=testosterone,test and deca cycle,outbound,Medium
+/,/category/sarms,uk sarms,related,High
+/,/product/bpc-157-pharmaqo-labs-5mg,bpc 157 uk,related,High
+/,/category/pct,buy clomid uk,related,High
+/,/category/hgh,hgh uk,related,High
+/,/shop?q=anavar,buy anavar uk,related,High
+/category/sarms,/product/mk677-ibutamoren-liquid-25mg-30ml-syncom-labs,mk677 uk,outbound,High
+/category/sarms,/product/rad-140-testolone-liquid-25mg-30ml-syncom-labs,rad 140 uk,outbound,High
+/category/peptides,/,uk steroid shop,inbound,High
+/category/peptides,/product/bpc-157-pharmaqo-labs-5mg,bpc 157 uk,outbound,High
+/category/peptides,/product/igf1-lr3-pharmaqo,igf 1 lr3,outbound,High
+/category/pct,/product/hcg-pharmaqolabs,buy hcg,outbound,High
+/category/hgh,/,steroid shop uk,inbound,High
+/category/hgh,/category/hgh,buy hgh uk,outbound,Medium
+/category/fat-loss,/category/fat-loss,buy clenbuterol,outbound,High
+/product/clomid-pharmaqo-labs,/category/pct,buy clomid uk,outbound,High
+/product/needles-syringes,/category/accessories,peptide needles,outbound,High
+/faq,/about-us,uk steroids shop review,outbound,Medium

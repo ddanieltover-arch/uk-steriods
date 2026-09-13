@@ -5,7 +5,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     "id": "cat-injectable",
     "name": "Injectable",
     "slug": "injectable",
-    "description": "Injectable",
+    "description": "Lab-tested injectable compounds — buy testosterone, testosterone cypionate, trenbolone, deca steroid and stacks with GBP pricing and UK tracked dispatch.",
     "imageUrl": "/media/products/testosterone-cypionate-proper-labs.webp",
     "productCount": 109,
     "featured": true
@@ -14,7 +14,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     "id": "cat-oral",
     "name": "Oral",
     "slug": "oral",
-    "description": "Oral",
+    "description": "Buy Anavar UK and oral steroids — Anavar for sale UK, Dianabol for sale UK, Winstrol and more with lab-tested batches and discreet UK shipping.",
     "imageUrl": "/media/products/anavar10-proper-labs.webp",
     "productCount": 51,
     "featured": true
@@ -23,7 +23,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     "id": "cat-sarms",
     "name": "SARMs",
     "slug": "sarms",
-    "description": "SARMs",
+    "description": "UK SARMs and SARMs UK — MK677 UK, RAD 140 UK, LGD-4033 and Ostarine with batch verification and GBP pricing.",
     "imageUrl": "/media/products/pharmaqolabs-lgd4033.webp",
     "productCount": 42,
     "featured": true
@@ -32,7 +32,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     "id": "cat-pct",
     "name": "PCT",
     "slug": "pct",
-    "description": "PCT",
+    "description": "PCT UK — buy Clomid UK, HCG peptide listings and recovery-focused catalogue items. Educational only, not medical advice.",
     "imageUrl": "/media/products/clomid-pharmaqo-labs.webp",
     "productCount": 37,
     "featured": true
@@ -41,7 +41,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     "id": "cat-peptides",
     "name": "Peptides",
     "slug": "peptides",
-    "description": "Peptides",
+    "description": "Research peptides — BPC 157 UK, IGF 1 LR3, MT 2 and related vials with lab-tested framing, GBP prices and tracked UK delivery.",
     "imageUrl": "/media/products/bpc-157-pharmaqo-labs-5mg.webp",
     "productCount": 22,
     "featured": true
@@ -50,7 +50,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     "id": "cat-hgh",
     "name": "HGH",
     "slug": "hgh",
-    "description": "HGH",
+    "description": "HGH UK and HGH injections — buy HGH UK listings with brand, IU/mg details, GBP pricing and UK warehouse dispatch.",
     "imageUrl": "/media/products/qomatropin-12mg-36iu-cartridge-pharmaqo-labs.webp",
     "productCount": 7,
     "featured": true
@@ -59,7 +59,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     "id": "cat-ed-meds",
     "name": "ED Meds",
     "slug": "ed-meds",
-    "description": "ED Meds",
+    "description": "ED support medications — tadalafil and related options with clear dosing labels and UK tracked delivery.",
     "imageUrl": "/media/products/tadalafil-pharmaqo-labs-50tab-20mg.webp",
     "productCount": 12,
     "featured": true
@@ -68,7 +68,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     "id": "cat-viagra",
     "name": "Viagra",
     "slug": "viagra",
-    "description": "Viagra",
+    "description": "Sildenafil (Viagra) catalogue options with strength, brand and GBP pricing from a UK warehouse.",
     "imageUrl": "/media/products/viagra-sildenafil-citrate-100mg-20caps-syncom-labs.webp",
     "productCount": 1,
     "featured": true
@@ -77,7 +77,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     "id": "cat-kamagra",
     "name": "Kamagra",
     "slug": "kamagra",
-    "description": "Kamagra",
+    "description": "Kamagra UK — Kamagra jelly, Kamagra 100mg oral jelly and tablet options with GBP prices and discreet dispatch.",
     "imageUrl": "/media/products/shopkamagra-jelly.webp",
     "productCount": 7,
     "featured": true
@@ -86,7 +86,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     "id": "cat-fat-loss",
     "name": "Fat Loss",
     "slug": "fat-loss",
-    "description": "Fat Loss",
+    "description": "Buy Clenbuterol / Clenbuterol for sale — Clenbuterol tablet, clen pills and related fat-loss support with lab-tested framing and UK shipping.",
     "imageUrl": "/media/products/clenbuterol-pharmaqo-labs.webp",
     "productCount": 16,
     "featured": true
@@ -95,7 +95,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     "id": "cat-accessories",
     "name": "Accessories",
     "slug": "accessories",
-    "description": "Accessories",
+    "description": "Peptide needles, buy syringes and needles for testosterone — injection accessories shipped from the UK.",
     "imageUrl": "/media/products/needle-21gx1-0-8x25mm-pack-of-10.webp",
     "productCount": 13,
     "featured": true
@@ -107,7 +107,7 @@ export const INITIAL_BRANDS: Brand[] = [
     "id": "brand-pharmaqo-labs",
     "name": "Pharmaqo Labs",
     "slug": "pharmaqo-labs",
-    "description": "Pharmaqo Labs lab-tested anabolic products",
+    "description": "Pharmaqo Labs (Pharmaqo) — lab-tested anabolic and HGH catalogue lines including Test 400, testosterone esters and SARMs support items with GBP pricing and UK dispatch.",
     "logoUrl": "/media/brands/pharmaqo-labs.webp",
     "productCount": 95,
     "isFeatured": true
@@ -258,8 +258,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     "isBestseller": true,
     "ratingAvg": 4.8,
     "reviewCount": 15,
-    "shortDescription": "Buy Testosterone Cypionate 200 in the UK: injectable testosterone base for bulking, cutting and steady recovery.",
-    "description": "Buy Testosterone Cypionate 200 in the UK: injectable testosterone base for bulking, cutting and steady recovery.",
+    "shortDescription": "Buy testosterone cypionate in the UK — lab-tested Proper Labs injectable with GBP pricing and tracked delivery.",
+    "description": "Testosterone cypionate is a long-acting injectable ester in our UK steroid shop. Proper Labs 200mg listing with batch context, GBP price and stock. Educational catalogue use only — not medical advice.",
+    "seoTitle": "Testosterone Cypionate 200 – Buy in the UK | Steroids UK",
+    "seoDescription": "Buy testosterone cypionate in the UK from Steroids UK. Lab-tested Proper Labs injectable with GBP pricing and tracked UK dispatch.",
     "images": [
       "/media/products/testosterone-cypionate-proper-labs.webp"
     ],
@@ -318,8 +320,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     "isBestseller": false,
     "ratingAvg": 4.8,
     "reviewCount": 17,
-    "shortDescription": "ProAnavar 10 Oxandrolone - Proper Labs. Next Day Delivery anabolic steroids shop online UK. Laboratory tested with check-codes. Pay by card and paypal",
-    "description": "ProAnavar 10 Oxandrolone - Proper Labs. Next Day Delivery anabolic steroids shop online UK. Laboratory tested with check-codes. Pay by card and paypal",
+    "shortDescription": "Anavar UK oral oxandrolone 10mg — Anavar for sale from Proper Labs with GBP pricing and tracked delivery.",
+    "description": "Purchase Anavar or place an Anavar order from this oral listing. Browse Anavar UK tablets in the oral category. Educational only.",
+    "seoTitle": "Anavar 10mg – Anavar UK | Steroids UK",
+    "seoDescription": "Anavar UK — Anavar 10mg Proper Labs tablets. Anavar for sale with lab-tested batches and discreet UK shipping.",
     "images": [
       "/media/products/anavar10-proper-labs.webp"
     ],
@@ -348,8 +352,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     "isBestseller": false,
     "ratingAvg": 4.8,
     "reviewCount": 18,
-    "shortDescription": "Proper Bold 300 - Proper Labs. Next Day Delivery anabolic steroids shop UK. Laboratory tested with check-codes. Boldenone Undecylenate",
-    "description": "Proper Bold 300 - Proper Labs. Next Day Delivery anabolic steroids shop UK. Laboratory tested with check-codes. Boldenone Undecylenate",
+    "shortDescription": "Boldenone undecylenate lab-tested injectable listed in the Steroids UK catalogue.",
+    "description": "Boldenone undecylenate (EQ-class) injectable for catalogue browsing. Educational only.",
+    "seoTitle": "Boldenone Undecylenate 300 | Steroids UK",
+    "seoDescription": "Boldenone undecylenate Proper Labs — Equipoise-class injectable with GBP pricing and UK tracked shipping.",
     "images": [
       "/media/products/boldenone-proper-labs.webp"
     ],
@@ -438,8 +444,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     "isBestseller": false,
     "ratingAvg": 4.8,
     "reviewCount": 21,
-    "shortDescription": "Buy Clenbuterol 40mcg (100 tabs) by Proper Labs in the UK: bestselling weight loss tablet for fat burning and cutting. Genuine, lab-tested, UK warehouse.",
-    "description": "Buy Clenbuterol 40mcg (100 tabs) by Proper Labs in the UK: bestselling weight loss tablet for fat burning and cutting. Genuine, lab-tested, UK warehouse.",
+    "shortDescription": "Clenbuterol tablet (clen pills / clen tablets) — Proper Labs fat-loss catalogue listing with UK tracked dispatch.",
+    "description": "Clenbuterol tablet listings support clen pills and clen tablets searches. Browse the fat-loss category. Educational only.",
+    "seoTitle": "Clenbuterol Tablet – Clen Pills UK | Steroids UK",
+    "seoDescription": "Clenbuterol tablet and clen pills from Proper Labs. Fat-loss catalogue item with GBP pricing and UK shipping.",
     "images": [
       "/media/products/clenbuterol-proper-labs.webp"
     ],
@@ -708,8 +716,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     "isBestseller": true,
     "ratingAvg": 4.8,
     "reviewCount": 30,
-    "shortDescription": "Buy Tri Test 400 by Pharmaqo Labs (Testosterone Mix 400mg) in United Kingdom for NEXT DAY DELIVERY. Laboratory-tested with check-codes",
-    "description": "Buy Tri Test 400 by Pharmaqo Labs (Testosterone Mix 400mg) in United Kingdom for NEXT DAY DELIVERY. Laboratory-tested with check-codes",
+    "shortDescription": "Test 400 Tri-Ester by Pharmaqo Labs — testosterone mix for UK catalogue buyers seeking Test 400.",
+    "description": "Test 400 from Pharmaqo Labs blends testosterone esters. Explore Pharmaqo Labs or buy testosterone in injectables. Educational only.",
+    "seoTitle": "Test 400 Tri-Ester – Pharmaqo Labs | Steroids UK",
+    "seoDescription": "Test 400 (Tri-Ester Testosterone Mix) by Pharmaqo Labs. Lab-tested injectable with GBP pricing and UK dispatch.",
     "images": [
       "/media/products/tri-test-400-spharmaqo-labs.webp"
     ],
@@ -1248,8 +1258,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     "isBestseller": false,
     "ratingAvg": 4.8,
     "reviewCount": 18,
-    "shortDescription": "Buy Clenbuterol – Pharmaqo Labs in the UK. Lab-tested product with tracked delivery.",
-    "description": "Clenbuterol – Pharmaqo Labs. Lab-tested product.",
+    "shortDescription": "Clen pills / Clenbuterol tablet from Pharmaqo Labs with lab-tested batch notes and UK delivery.",
+    "description": "Clen pills listing under fat-loss. Compare Clenbuterol tablet options in the category. Educational only.",
+    "seoTitle": "Clen Pills – Pharmaqo Clenbuterol | Steroids UK",
+    "seoDescription": "Clen pills from Pharmaqo Labs at Steroids UK. Clenbuterol tablet catalogue option with GBP pricing.",
     "images": [
       "/media/products/clenbuterol-pharmaqo-labs.webp"
     ],
@@ -1278,8 +1290,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     "isBestseller": false,
     "ratingAvg": 4.8,
     "reviewCount": 19,
-    "shortDescription": "Buy Trenbolone Acetate – Proper Labs in the UK. Lab-tested product with tracked delivery.",
-    "description": "Trenbolone Acetate – Proper Labs. Lab-tested product.",
+    "shortDescription": "Trenbolone acetate price 10ml listing — lab-tested Proper Labs injectable for UK catalogue buyers.",
+    "description": "Trenbolone acetate price 10ml maps to this Proper Labs injectable. Browse trenbolone or injectables. Educational only.",
+    "seoTitle": "Trenbolone Acetate Price 10ml | Steroids UK",
+    "seoDescription": "Trenbolone acetate price 10ml — Proper Labs injectable at Steroids UK with GBP pricing and UK dispatch.",
     "images": [
       "/media/products/trenbolone-acetate-proper-labs.webp"
     ],
@@ -1518,8 +1532,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     "isBestseller": false,
     "ratingAvg": 4.8,
     "reviewCount": 27,
-    "shortDescription": "Buy Anavar 10 – Pharmaqo Labs in the UK. Lab-tested product with tracked delivery.",
-    "description": "Anavar 10 – Pharmaqo Labs. Lab-tested product.",
+    "shortDescription": "Purchase Anavar 10mg Pharmaqo — Anavar buy option with batch verification and GBP pricing.",
+    "description": "Anavar buy listing from Pharmaqo Labs. Compare Anavar order options across the oral category. Educational only.",
+    "seoTitle": "Purchase Anavar 10 – Pharmaqo | Steroids UK",
+    "seoDescription": "Purchase Anavar 10mg from Pharmaqo Labs at Steroids UK. Anavar buy listing with lab-tested framing and UK dispatch.",
     "images": [
       "/media/products/anavar-10-pharmaqo-labs.webp"
     ],
@@ -2688,8 +2704,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     "isBestseller": false,
     "ratingAvg": 4.8,
     "reviewCount": 36,
-    "shortDescription": "Buy Testosterone Propionate – Proper Labs in the UK. Lab-tested product with tracked delivery.",
-    "description": "Testosterone Propionate – Proper Labs. Lab-tested product.",
+    "shortDescription": "Testosterone propionate — short-ester injectable for testosterone UK buy searches with lab-tested batch notes.",
+    "description": "Testosterone propionate short-ester injectable. Compare with testosterone cypionate or browse buy testosterone listings. Educational only.",
+    "seoTitle": "Testosterone Propionate – UK Catalogue | Steroids UK",
+    "seoDescription": "Testosterone propionate from Proper Labs at Steroids UK. Short-ester injectable with GBP pricing and UK tracked shipping.",
     "images": [
       "/media/products/testosterone-propionate-proper-labs.webp"
     ],
@@ -4248,8 +4266,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     "isBestseller": false,
     "ratingAvg": 4.8,
     "reviewCount": 28,
-    "shortDescription": "Buy Qomatropin 12MG 36IU Cartridge – Pharmaqo Labs in the UK. Lab-tested product with tracked delivery.",
-    "description": "Qomatropin 12MG 36IU Cartridge – Pharmaqo Labs. Lab-tested product.",
+    "shortDescription": "HGH injections catalogue listing — Qomatropin 12mg/36IU Pharmaqo with tracked UK delivery.",
+    "description": "HGH injections listing under the HGH category from Pharmaqo Labs. Educational only.",
+    "seoTitle": "HGH Injections – Qomatropin | Steroids UK",
+    "seoDescription": "HGH injections — Qomatropin cartridge by Pharmaqo Labs at Steroids UK with GBP pricing and UK dispatch.",
     "images": [
       "/media/products/qomatropin-12mg-36iu-cartridge-pharmaqo-labs.webp"
     ],
@@ -4458,8 +4478,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     "isBestseller": true,
     "ratingAvg": 4.8,
     "reviewCount": 35,
-    "shortDescription": "Nandrolone Decanoate, a long-acting 19-nor for steady mass and joint comfort.",
-    "description": "Nandrolone Decanoate, a long-acting 19-nor for steady mass and joint comfort.",
+    "shortDescription": "Deca steroid — nandrolone decanoate 300 for UK catalogue buyers seeking Deca Durabolin-class listings.",
+    "description": "Deca steroid listing for nandrolone decanoate. Compare injectables or boldenone undecylenate. Educational only.",
+    "seoTitle": "Deca Steroid 300 – Nandrolone | Steroids UK",
+    "seoDescription": "Deca steroid (nandrolone decanoate) Syncom Labs at Steroids UK. Lab-tested injectable with GBP pricing.",
     "images": [
       "/media/products/deca-300-nandrolone-decanoate-syncom-labs.webp"
     ],
@@ -6528,8 +6550,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     "isBestseller": false,
     "ratingAvg": 4.8,
     "reviewCount": 44,
-    "shortDescription": "Sildenafil, a fast-acting PDE5 inhibitor in oral jelly form for erectile support.",
-    "description": "Sildenafil, a fast-acting PDE5 inhibitor in oral jelly form for erectile support.",
+    "shortDescription": "Kamagra jelly 100mg (Kamagra oral jelly UK) — adult catalogue listing with GBP pricing.",
+    "description": "Kamagra oral jelly where to buy: Kamagra 100mg jelly in our Kamagra UK category. Adults only — not medical advice.",
+    "seoTitle": "Kamagra Jelly 100mg UK | Steroids UK",
+    "seoDescription": "Kamagra oral jelly 100mg UK — Kamagra jelly where to buy at Steroids UK with discreet tracked dispatch.",
     "images": [
       "/media/products/shopkamagra-jelly.webp"
     ],
@@ -8028,8 +8052,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     "isBestseller": false,
     "ratingAvg": 4.8,
     "reviewCount": 34,
-    "shortDescription": "MK-677 (Ibutamoren), an oral growth hormone secretagogue for appetite and recovery.",
-    "description": "MK-677 (Ibutamoren), an oral growth hormone secretagogue for appetite and recovery.",
+    "shortDescription": "MK 677 UK Ibutamoren liquid — research SARM listing with batch context and tracked UK shipping.",
+    "description": "MK 677 UK sits in our SARMs category for buy SARMs UK searches. Educational only.",
+    "seoTitle": "MK 677 UK – Ibutamoren Liquid | Steroids UK",
+    "seoDescription": "MK 677 UK (Ibutamoren) liquid from Syncom Labs. SARMs catalogue with GBP pricing and UK dispatch.",
     "images": [
       "/media/products/mk677-ibutamoren-liquid-25mg-30ml-syncom-labs.webp"
     ],

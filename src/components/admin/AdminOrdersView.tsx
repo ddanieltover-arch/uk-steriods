@@ -8,6 +8,8 @@ import {
   Pencil,
   Trash2,
 } from 'lucide-react';
+import { CryptoPaymentDetails } from '../commerce/CryptoPaymentDetails';
+import { hasCryptoWallets } from '../../lib/commerce/crypto-wallets';
 
 interface AdminOrdersViewProps {
   onNavigate: (route: string) => void;
@@ -688,6 +690,32 @@ export const AdminOrdersView: React.FC<AdminOrdersViewProps> = ({ onNavigate, se
                 {billingAddr.city}, {billingAddr.postcode}
               </p>
               <p className="text-slate-500 font-bold uppercase">{billingAddr.country}</p>
+            </div>
+
+            <div className="border-t border-slate-100 pt-3">
+              <h4 className="font-black text-xs uppercase text-slate-900 tracking-wider mb-2">Payment</h4>
+              <p className="font-bold text-slate-800">{selectedOrder.paymentMethod || '—'}</p>
+              <p className="text-slate-500 font-mono text-[10px] uppercase tracking-wider mt-0.5">
+                {selectedOrder.paymentStatus}
+              </p>
+              {selectedOrder.paymentStatus === 'AWAITING_TRANSFER' &&
+                hasCryptoWallets(selectedOrder.payments?.[0]?.instructions) && (
+                  <div className="mt-3">
+                    <CryptoPaymentDetails
+                      tone="light"
+                      wallets={selectedOrder.payments[0].instructions}
+                      referenceCode={
+                        selectedOrder.payments[0].instructions.referenceCode ||
+                        selectedOrder.orderNumber
+                      }
+                      formattedTotal={
+                        selectedOrder.payments[0].instructions.formattedTotal ||
+                        `£${((selectedOrder.totalPence || 0) / 100).toFixed(2)}`
+                      }
+                      note={selectedOrder.payments[0].instructions.note}
+                    />
+                  </div>
+                )}
             </div>
 
             {selectedOrder.shipments?.[0] && (

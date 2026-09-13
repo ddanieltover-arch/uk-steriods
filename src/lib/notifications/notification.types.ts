@@ -69,6 +69,9 @@ export interface PaymentInstructionsPayload {
   bankName?: string;
   formattedTotal?: string;
   note?: string;
+  btcAddress?: string;
+  ethAddress?: string;
+  bchAddress?: string;
 }
 
 export interface OrderNotificationContext {

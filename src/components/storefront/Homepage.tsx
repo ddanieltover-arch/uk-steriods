@@ -14,6 +14,7 @@ import {
   CUSTOMER_GALLERY,
   GOAL_SLUGS,
   GUIDE_CARDS,
+  RELATED_SEARCHES,
 } from '../../data/homepage';
 import { sortManufacturers } from '../../data/manufacturers';
 import { StockStatus } from '@prisma/client';
@@ -367,6 +368,24 @@ export const Homepage: React.FC<HomepageProps> = ({
       </Section>
 
       <Section padding="sm" background="subtle">
+        <Container>
+          <SectionHeading kicker="Related searches" title="Popular UK catalogue searches" />
+          <div className="flex flex-wrap gap-2">
+            {RELATED_SEARCHES.map((link) => (
+              <button
+                key={link.label}
+                type="button"
+                onClick={() => go(link.href)}
+                className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-bold text-slate-800 hover:border-[#157a62] cursor-pointer"
+              >
+                {link.label}
+              </button>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      <Section padding="sm">
         <Container>
           <SectionHeading kicker="From the desk" title="Guides" />
           <div className="grid sm:grid-cols-3 gap-4">

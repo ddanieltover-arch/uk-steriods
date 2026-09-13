@@ -4,15 +4,20 @@ import { BrandMark } from '../brand/BrandMark';
 import { SITE_NAME } from '../../lib/seo/site';
 
 const shopLinks = [
-  { href: '/shop', label: 'All products' },
+  { href: '/', label: 'Buy steroids UK' },
+  { href: '/shop', label: 'Steroids UK buy — catalogue' },
   { href: '/manufacturers', label: 'Manufacturers' },
-  { href: '/shop', label: 'New products' },
+  { href: '/brand/pharmaqo-labs', label: 'Pharmaqo Labs' },
 ];
 
 const helpLinks = [
   { href: '/track-order', label: 'Track order' },
   { href: '/about-us', label: 'About Us' },
   { href: '/faq', label: 'FAQ' },
+  { href: '/glossary', label: 'Glossary' },
+  { href: '/oral-vs-injectable', label: 'Oral vs Injectable' },
+  { href: '/sarms-vs-steroids', label: 'SARMs vs Steroids' },
+  { href: '/what-is-pct', label: 'What is PCT?' },
   { href: '/cycle-builder', label: 'Cycle Builder' },
   { href: '/blog', label: 'Blog' },
   { href: '/delivery-and-returns', label: 'Delivery & Returns' },
@@ -21,26 +26,30 @@ const helpLinks = [
 ];
 
 const categoryLinks = [
-  { href: '/category/injectable', label: 'Injectable' },
-  { href: '/category/oral', label: 'Oral' },
-  { href: '/category/sarms', label: 'SARMs' },
-  { href: '/category/pct', label: 'PCT' },
-  { href: '/category/peptides', label: 'Peptides' },
-  { href: '/category/hgh', label: 'HGH' },
+  { href: '/category/injectable', label: 'Injectable steroids UK' },
+  { href: '/category/oral', label: 'Oral / Buy Anavar UK' },
+  { href: '/category/sarms', label: 'UK SARMs / MK677 UK' },
+  { href: '/category/pct', label: 'PCT / Buy Clomid UK' },
+  { href: '/category/peptides', label: 'Peptides / BPC 157 UK' },
+  { href: '/category/hgh', label: 'HGH UK / injections' },
   { href: '/category/ed-meds', label: 'ED Meds' },
   { href: '/category/viagra', label: 'Viagra' },
-  { href: '/category/kamagra', label: 'Kamagra' },
-  { href: '/category/fat-loss', label: 'Fat Loss' },
-  { href: '/category/accessories', label: 'Accessories' },
+  { href: '/category/kamagra', label: 'Kamagra UK' },
+  { href: '/category/fat-loss', label: 'Buy Clenbuterol' },
+  { href: '/category/accessories', label: 'Peptide needles' },
 ];
 
 const compoundLinks = [
-  { href: '/shop?q=testosterone', label: 'Testosterone' },
-  { href: '/shop?q=dianabol', label: 'Dianabol' },
-  { href: '/shop?q=anavar', label: 'Anavar' },
-  { href: '/shop?q=trenbolone', label: 'Trenbolone' },
-  { href: '/shop?q=winstrol', label: 'Winstrol' },
-  { href: '/category/pct', label: 'Nolvadex / Clomid' },
+  { href: '/shop?q=testosterone', label: 'Buy testosterone' },
+  { href: '/product/testosterone-cypionate-proper-labs', label: 'Testosterone cypionate' },
+  { href: '/shop?q=anavar', label: 'Buy Anavar UK' },
+  { href: '/category/sarms', label: 'UK SARMs / MK677 UK' },
+  { href: '/product/bpc-157-pharmaqo-labs-5mg', label: 'BPC 157 UK' },
+  { href: '/category/fat-loss', label: 'Buy Clenbuterol' },
+  { href: '/category/pct', label: 'Buy Clomid UK' },
+  { href: '/category/hgh', label: 'HGH UK' },
+  { href: '/shop?q=trenbolone', label: 'Trenbolone UK' },
+  { href: '/category/accessories', label: 'Peptide needles' },
 ];
 
 export const Footer: React.FC = () => {

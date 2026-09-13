@@ -1,45 +1,86 @@
 {
-  "generated_at": "2026-09-02T14:30:00Z",
-  "target_url": "https://uk-steroids.co.uk",
+  "generated_at": "2026-09-09T18:00:00Z",
+  "target_url": "https://www.uk-steroids.co.uk",
   "final_url_observed": "https://www.uk-steroids.co.uk/",
-  "evidence_type": "repository-verified + live-crawl",
+  "evidence_type": "repository-verified",
+  "prior_audit": "2026-09-02",
+  "classification": {
+    "type": "b2c_ecommerce_content",
+    "geography": "UK_primary",
+    "language": "en-GB",
+    "stack": "React19_Vite6_Express_Prisma_Vercel"
+  },
   "crawl_summary": {
-    "pages_crawled": 1,
-    "pre_fix_findings": {
-      "H1_COUNT": "h1_count=0 on homepage HTML shell",
-      "THIN_TEXT": "body_word_count=4",
-      "POSSIBLE_ORPHAN": "no internal links in static shell",
-      "CANONICAL_HOST": "301 redirect non-www to www; verify SITE_URL alignment"
-    }
+    "note": "Live re-crawl not run in this session; prior 2026-09-02 crawl plus code verification",
+    "pre_fix_findings_resolved": [
+      "CSR shell thin body — fixed via buildCrawlableHtml",
+      "Vercel static index SEO gap — fixed via API rewrite + spa-shell",
+      "robots/sitemap/llms on Vercel — fixed via rewrites"
+    ]
   },
   "verified_strengths": [
     "Dynamic sitemap.xml from database",
-    "robots.txt with private route disallows",
-    "JSON-LD on products, blog, breadcrumbs",
-    "Server-side meta injection (injectPublicSeo)",
-    "Resource pages in sitemap",
-    "Search pages noindex"
+    "robots.txt with private route disallows + AI bot Allows",
+    "JSON-LD: Organization, WebSite, Product, BreadcrumbList, BlogPosting, FAQPage, CollectionPage, DefinedTermSet",
+    "Server-side meta + crawlable body injection",
+    "llms.txt",
+    "Answer capsules on primary resources",
+    "FAQ hub + glossary GEO pages",
+    "Facet/pagination shop noindex",
+    "HTTP 301 for /brands and /category/pct-health",
+    "Canonical www normalization",
+    "SEO unit tests passing"
   ],
-  "fixes_applied_this_run": [
-    "SSR crawlable body injection for all indexable routes",
-    "Vercel HTML routing through API for per-route SEO",
-    "robots.txt/sitemap.xml/llms.txt Vercel rewrites",
-    "llms.txt for AI crawlers",
-    "AI bot Allow rules in robots.txt",
-    "Answer Capsule on homepage + SSR fallback",
-    "Organization contactPoint schema",
-    "GA4 component + CSP (awaiting measurement ID)"
+  "fixes_applied_2026_09_09": [
+    "normalizeSiteOrigin apex→www",
+    "301 /brands→/manufacturers (Express + vercel.json)",
+    "301 /category/pct-health→/category/pct",
+    "shopQueryShouldNoIndex client+SSR+X-Robots-Tag",
+    "robots Disallow for filtered /shop?* patterns",
+    "Glossary page + DefinedTermSet + sitemap via RESOURCE_PAGE_SEO",
+    "Category SEO copy enrichment for thin descriptions",
+    "SUPPORT_EMAIL aligned to sales@uk-steroids.co.uk",
+    "Fixed homepage/cycle-builder PCT slug links"
   ],
-  "remaining_p1": [
-    "Align canonical host (www vs non-www)",
-    "Connect GSC + GA4 connectors",
-    "Set VITE_GA4_MEASUREMENT_ID in production",
-    "Submit sitemap to GSC",
-    "FAQ hub + glossary content pages"
+  "ops_confirmed_2026_09_13": [
+    "Vercel SITE_URL set",
+    "Domain uk-steroids.co.uk attached",
+    "GSC sitemap Success — 460 pages discovered (www sitemap)",
+    "Bing sitemap Success — 459 URLs discovered",
+    "VITE_GA4_MEASUREMENT_ID set in Vercel"
+  ],
+  "remaining_p0_p1": [
+    "Confirm production deploy after GA4 env set (Realtime hit test)",
+    "Link GA4 property to GSC if not already",
+    "Optional SGE connector sync for keyword volumes",
+    "Persist enriched category descriptions in DB via admin",
+    "Monitor GSC Pages coverage (indexed vs discovered) over next 2–4 weeks"
+  ],
+  "remaining_p2": [
+    "Self-host fonts / remove render-blocking Google Fonts @import",
+    "Lighthouse CI in GitHub Actions",
+    "Comparison + PCT pillar content per geo_content_briefs.md",
+    "Author bios / dateModified freshness on blog"
   ],
   "evidence_gaps": [
-    "gsc",
-    "ga4",
-    "serpapi"
+    "gsc_indexing_coverage",
+    "ga4_organic_sessions",
+    "serpapi_keyword_volumes",
+    "live_cwv_scores",
+    "backlink_profile"
+  ],
+  "activated_modules": [
+    "TECHNICAL_SEO",
+    "ON_PAGE_SEO",
+    "CONTENT_SEO",
+    "SEMANTIC_SEO",
+    "ENTITY_SEO",
+    "ECOMMERCE_SEO",
+    "INTERNAL_LINKING",
+    "GEO",
+    "AIO",
+    "ANALYTICS",
+    "PERFORMANCE",
+    "IMAGE_SEO"
   ]
 }

@@ -2,6 +2,7 @@ import { apiFetch } from '../../lib/api/client';
 import React, { useState, useEffect } from 'react';
 import { User } from '../../types';
 import { Package, Clock, CheckCircle2, AlertCircle, RefreshCw, XCircle, ChevronLeft, MapPin, CreditCard, Truck, ExternalLink } from 'lucide-react';
+import { CryptoPaymentDetails } from '../commerce/CryptoPaymentDetails';
 
 interface OrderDetailPageProps {
   orderNumber: string;
@@ -367,16 +368,36 @@ export const OrderDetailPage: React.FC<OrderDetailPageProps> = ({
                 {order.paymentStatus === 'AWAITING_TRANSFER' && order.payments?.[0]?.instructions && (
                   <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 space-y-2 text-[11px] text-amber-900">
                     <p className="font-bold uppercase tracking-wider text-[10px] text-amber-800">
-                      Bank Transfer Instructions
+                      {String(order.paymentMethod) === 'CRYPTO'
+                        ? 'Crypto Payment Instructions'
+                        : 'Bank Transfer Instructions'}
                     </p>
-                    <div className="font-mono space-y-0.5 bg-white p-2 rounded border border-amber-200">
-                      <p>Sort Code: 20-00-00</p>
-                      <p>Account #: 87654321</p>
-                      <p className="font-bold text-amber-900">Reference Code: {order.orderNumber}</p>
-                    </div>
-                    <p className="text-[10px] text-amber-700">
-                      Please quote reference <strong>{order.orderNumber}</strong> in your bank transfer.
-                    </p>
+                    {String(order.paymentMethod) === 'CRYPTO' ? (
+                      <CryptoPaymentDetails
+                        tone="amber"
+                        wallets={order.payments[0].instructions}
+                        referenceCode={
+                          order.payments[0].instructions.referenceCode || order.orderNumber
+                        }
+                        formattedTotal={
+                          order.payments[0].instructions.formattedTotal ||
+                          `£${((order.totalPence || 0) / 100).toFixed(2)}`
+                        }
+                        note={order.payments[0].instructions.note}
+                      />
+                    ) : (
+                      <>
+                        <div className="font-mono space-y-0.5 bg-white p-2 rounded border border-amber-200">
+                          <p className="font-bold text-amber-900">Reference Code: {order.orderNumber}</p>
+                          <p className="text-[10px] text-amber-700 normal-case font-sans">
+                            Contact admin for bank transfer details quoting this reference.
+                          </p>
+                        </div>
+                        <p className="text-[10px] text-amber-700">
+                          Please quote reference <strong>{order.orderNumber}</strong> when requesting payment details.
+                        </p>
+                      </>
+                    )}
                   </div>
                 )}
               </div>

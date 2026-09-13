@@ -79,7 +79,7 @@ function recommendation(a: Answers): { title: string; body: string; hrefs: { lab
       body: 'Female recommendations stay on mild orals at conservative doses. Speak to a clinician, get bloodwork, and keep the duration short.',
       hrefs: [
         { label: 'Shop Anavar', href: '/shop?q=anavar' },
-        { label: 'PCT support', href: '/category/pct-health' },
+        { label: 'PCT support', href: '/category/pct' },
       ],
     };
   }
@@ -90,7 +90,7 @@ function recommendation(a: Answers): { title: string; body: string; hrefs: { lab
       hrefs: [
         { label: 'Beginner stacks', href: '/category/stacks-bundles' },
         { label: 'Testosterone', href: '/shop?q=testosterone' },
-        { label: 'PCT', href: '/category/pct-health' },
+        { label: 'PCT', href: '/category/pct' },
       ],
     };
   }
@@ -101,7 +101,7 @@ function recommendation(a: Answers): { title: string; body: string; hrefs: { lab
       hrefs: [
         { label: 'Fat burners', href: '/category/fat-loss' },
         { label: 'Winstrol / Anavar', href: '/shop?q=winstrol' },
-        { label: 'PCT', href: '/category/pct-health' },
+        { label: 'PCT', href: '/category/pct' },
       ],
     };
   }
@@ -112,7 +112,7 @@ function recommendation(a: Answers): { title: string; body: string; hrefs: { lab
       hrefs: [
         { label: 'Bulking stacks', href: '/category/stacks-bundles' },
         { label: 'Injectables', href: '/category/injectable-steroids' },
-        { label: 'PCT', href: '/category/pct-health' },
+        { label: 'PCT', href: '/category/pct' },
       ],
     };
   }
@@ -122,7 +122,7 @@ function recommendation(a: Answers): { title: string; body: string; hrefs: { lab
     hrefs: [
       { label: 'Injectable steroids', href: '/category/injectable-steroids' },
       { label: 'Oral steroids', href: '/category/oral-steroids' },
-      { label: 'PCT', href: '/category/pct-health' },
+      { label: 'PCT', href: '/category/pct' },
     ],
   };
 }

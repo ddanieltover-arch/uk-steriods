@@ -153,6 +153,38 @@ export function emailTotalsTable(ctx: OrderNotificationContext): string {
     </table>`;
 }
 
+function emailCryptoWalletRows(p: NonNullable<OrderNotificationContext['paymentInstructions']>): string {
+  const rows: Array<{ label: string; network: string; address: string }> = [];
+  if (p.btcAddress) {
+    rows.push({ label: 'Bitcoin (BTC)', network: 'Bitcoin network', address: p.btcAddress });
+  }
+  if (p.ethAddress) {
+    rows.push({ label: 'Ethereum (ETH)', network: 'ERC-20 / Ethereum mainnet', address: p.ethAddress });
+  }
+  if (p.bchAddress) {
+    rows.push({ label: 'Bitcoin Cash (BCH)', network: 'Bitcoin Cash (CashAddr)', address: p.bchAddress });
+  }
+
+  return rows
+    .map(
+      (row) => `
+        <tr>
+          <td style="padding:10px 0;border-top:1px solid ${EMAIL.colors.tealBorder};">
+            <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:${EMAIL.colors.navy};">
+              ${escapeHtml(row.label)}
+            </div>
+            <div style="font-size:11px;color:${EMAIL.colors.tealDark};margin:2px 0 6px;">
+              ${escapeHtml(row.network)}
+            </div>
+            <div style="font-family:${EMAIL.fonts.mono};font-size:12px;line-height:1.5;color:${EMAIL.colors.navy};word-break:break-all;">
+              ${escapeHtml(row.address)}
+            </div>
+          </td>
+        </tr>`
+    )
+    .join('');
+}
+
 export function emailPaymentInstructions(ctx: OrderNotificationContext): string {
   const p = ctx.paymentInstructions;
   const support = ctx.supportEmail || process.env.EMAIL_REPLY_TO || process.env.ADMIN_EMAIL || 'sales@uk-steroids.co.uk';
@@ -160,14 +192,25 @@ export function emailPaymentInstructions(ctx: OrderNotificationContext): string 
   const title = 'Payment instructions';
   const amount = p?.formattedTotal || formatPence(ctx.totalPence);
   const ref = p?.referenceCode || ctx.orderNumber;
+  const hasWallets = Boolean(isCrypto && (p?.btcAddress || p?.ethAddress || p?.bchAddress));
 
-  return `
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:24px 0;border-collapse:separate;border-radius:${EMAIL.radius.md};background:${EMAIL.colors.tealLight};border:1px solid ${EMAIL.colors.tealBorder};">
-      <tr>
-        <td style="padding:18px 20px;">
-          <div style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:${EMAIL.colors.tealDark};margin-bottom:12px;">
-            ${escapeHtml(title)}
-          </div>
+  const body = hasWallets
+    ? `
+          <p style="margin:0 0 10px;font-size:13px;line-height:1.55;color:${EMAIL.colors.navy};">
+            ${escapeHtml(p?.note || `Send crypto covering ${amount} to one of the wallet addresses below.`)}
+          </p>
+          <p style="margin:0 0 12px;font-size:12px;line-height:1.55;color:${EMAIL.colors.tealDark};">
+            Order <strong style="font-family:${EMAIL.fonts.mono};">${escapeHtml(ref)}</strong>
+            · amount due <strong>${escapeHtml(amount)}</strong>
+          </p>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+            ${emailCryptoWalletRows(p!)}
+          </table>
+          <p style="margin:12px 0 0;font-size:12px;line-height:1.55;color:${EMAIL.colors.tealDark};">
+            After sending, email the transaction hash to
+            <a href="mailto:${escapeHtml(support)}" style="color:${EMAIL.colors.teal};font-weight:700;text-decoration:none;">${escapeHtml(support)}</a>.
+          </p>`
+    : `
           <p style="margin:0 0 10px;font-size:13px;line-height:1.55;color:${EMAIL.colors.navy};">
             Please contact our admin team after your order to receive ${isCrypto ? 'crypto ' : ''}payment instructions and payment details.
             Do not send funds until you have those details from us.
@@ -179,7 +222,16 @@ export function emailPaymentInstructions(ctx: OrderNotificationContext): string 
           <p style="margin:0;font-size:12px;line-height:1.55;color:${EMAIL.colors.tealDark};">
             Email:
             <a href="mailto:${escapeHtml(support)}" style="color:${EMAIL.colors.teal};font-weight:700;text-decoration:none;">${escapeHtml(support)}</a>
-          </p>
+          </p>`;
+
+  return `
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:24px 0;border-collapse:separate;border-radius:${EMAIL.radius.md};background:${EMAIL.colors.tealLight};border:1px solid ${EMAIL.colors.tealBorder};">
+      <tr>
+        <td style="padding:18px 20px;">
+          <div style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:${EMAIL.colors.tealDark};margin-bottom:12px;">
+            ${escapeHtml(title)}
+          </div>
+          ${body}
         </td>
       </tr>
     </table>`;

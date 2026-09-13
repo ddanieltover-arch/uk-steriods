@@ -108,7 +108,7 @@ export function renderOrderCreated(ctx: OrderNotificationContext): RenderedEmail
 
   const bodyHtml = `
     ${emailStatusBanner('success', 'Thank you for your order', `We received order ${ctx.orderNumber} and it is awaiting payment.`)}
-    ${emailHeading(`Hi ${name},`, 'Your order has been placed successfully. Contact our admin team for payment instructions and payment details to start processing.')}
+    ${emailHeading(`Hi ${name},`, 'Your order has been placed successfully. Payment details are below so you can complete checkout.')}
     ${orderMetaGrid(ctx)}
     ${emailOrderItemsTable(ctx)}
     ${emailTotalsTable(ctx)}
@@ -125,6 +125,28 @@ export function renderOrderCreated(ctx: OrderNotificationContext): RenderedEmail
     bodyHtml,
   });
 
+  const paymentLines = (() => {
+    const p = ctx.paymentInstructions;
+    const isCrypto = String(ctx.paymentMethod).toUpperCase() === 'CRYPTO';
+    const hasWallets = Boolean(isCrypto && (p?.btcAddress || p?.ethAddress || p?.bchAddress));
+    if (!hasWallets) {
+      return [
+        `Payment method: ${ctx.paymentMethod}`,
+        `Contact ${supportEmail(ctx)} for payment instructions and payment details. Quote order ${ctx.orderNumber}.`,
+      ];
+    }
+    return [
+      `Payment method: ${ctx.paymentMethod}`,
+      p?.note || `Send crypto covering ${formatPence(ctx.totalPence)} to one of the addresses below.`,
+      `Order reference: ${p?.referenceCode || ctx.orderNumber}`,
+      `Amount due: ${p?.formattedTotal || formatPence(ctx.totalPence)}`,
+      p?.btcAddress ? `Bitcoin (BTC): ${p.btcAddress}` : '',
+      p?.ethAddress ? `Ethereum (ETH): ${p.ethAddress}` : '',
+      p?.bchAddress ? `Bitcoin Cash (BCH): ${p.bchAddress}` : '',
+      `After paying, email the transaction hash to ${supportEmail(ctx)}.`,
+    ].filter(Boolean);
+  })();
+
   const text = [
     `Thank you for your order`,
     `Order: ${ctx.orderNumber}`,
@@ -138,8 +160,7 @@ export function renderOrderCreated(ctx: OrderNotificationContext): RenderedEmail
     ctx.taxPence > 0 ? `Tax: ${formatPence(ctx.taxPence)}` : '',
     `Total: ${formatPence(ctx.totalPence)}`,
     '',
-    `Payment method: ${ctx.paymentMethod}`,
-    `Contact ${supportEmail(ctx)} for payment instructions and payment details. Quote order ${ctx.orderNumber}.`,
+    ...paymentLines,
     `Deliver to: ${addressText(ctx)}`,
     `Track: ${link}`,
     `Questions? Contact ${supportEmail(ctx)}`,

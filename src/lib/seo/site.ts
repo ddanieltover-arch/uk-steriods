@@ -1,13 +1,31 @@
 export const SITE_NAME = 'Steroids UK';
-export const SITE_TAGLINE = 'UK catalogue · lab-tested batches · next-day tracked delivery';
+export const SITE_TAGLINE = 'Buy steroids UK · lab-tested UK steroid shop';
 export const SITE_LOGO_PATH = '/logo.png';
 export const SITE_FAVICON_PATH = '/favicon.png';
 export const SITE_OG_IMAGE_PATH = '/og-image.png';
 export const DEFAULT_DESCRIPTION =
-  'Steroids UK: lab-tested catalogue with UK dispatch, next-day tracked delivery in plain packaging, and a reship if tracked delivery fails. Prices in GBP.';
+  'Buy steroids UK from Steroids UK — a trusted UK steroid shop with lab-tested batches, GBP pricing, tracked UK dispatch in plain packaging, and a reship if tracked delivery fails.';
+
+/** Live host prefers www; apex 301s to www — keep sitemap/canonicals aligned. */
+export const CANONICAL_SITE_ORIGIN = 'https://www.uk-steroids.co.uk';
 
 function withHttps(hostOrUrl: string): string {
   return hostOrUrl.startsWith('http') ? hostOrUrl : `https://${hostOrUrl}`;
+}
+
+/** Prefer www over apex so GSC and JSON-LD do not split equity. */
+export function normalizeSiteOrigin(origin: string): string {
+  const trimmed = origin.replace(/\/$/, '');
+  try {
+    const url = new URL(trimmed.startsWith('http') ? trimmed : `https://${trimmed}`);
+    if (url.hostname === 'uk-steroids.co.uk') {
+      url.hostname = 'www.uk-steroids.co.uk';
+      return url.origin;
+    }
+  } catch {
+    /* keep original */
+  }
+  return trimmed;
 }
 
 /**
@@ -20,10 +38,14 @@ export function getSiteOrigin(): string {
     process.env.SITE_URL ||
     process.env.PUBLIC_SITE_URL ||
     process.env.NEXT_PUBLIC_SITE_URL;
-  if (explicit) return explicit.replace(/\/$/, '');
+  if (explicit) return normalizeSiteOrigin(explicit);
 
   const productionHost = process.env.VERCEL_PROJECT_PRODUCTION_URL;
-  if (productionHost) return withHttps(productionHost).replace(/\/$/, '');
+  if (productionHost) {
+    const host = withHttps(productionHost).replace(/\/$/, '');
+    if (host.includes('uk-steroids.co.uk')) return normalizeSiteOrigin(host);
+    return host;
+  }
 
   // Last resort (local / preview without custom domain).
   if (process.env.VERCEL_URL) return withHttps(process.env.VERCEL_URL).replace(/\/$/, '');
@@ -97,4 +119,68 @@ export function canonicalPathFor(pathname: string, search: string): string {
     return pathname.split('?')[0];
   }
   return pathname.split('?')[0];
+}
+
+/**
+ * Faceted / paginated / sorted /shop URLs should not be indexed.
+ * Canonical still points at /shop (or /shop?q=); robots is noindex,follow.
+ */
+export function shopQueryShouldNoIndex(input: {
+  search?: string | null;
+  page?: number | null;
+  sort?: string | null;
+  minPrice?: number | null;
+  maxPrice?: number | null;
+  availability?: string | null;
+  brandIds?: string[] | null;
+  tags?: string[] | null;
+  category?: string | null;
+  brand?: string | null;
+}): boolean {
+  if (input.search && String(input.search).trim()) return true;
+  if (input.page != null && Number(input.page) > 1) return true;
+  if (input.sort && input.sort !== 'featured') return true;
+  if (input.minPrice != null && Number(input.minPrice) > 0) return true;
+  if (input.maxPrice != null && Number(input.maxPrice) < 1000) return true;
+  if (input.availability && input.availability !== 'all') return true;
+  if (input.brandIds && input.brandIds.length > 0) return true;
+  if (input.tags && input.tags.length > 0) return true;
+  // Category/brand belong on /category|/brand — residual /shop?category= is a duplicate.
+  if (input.category && String(input.category).trim()) return true;
+  if (input.brand && String(input.brand).trim()) return true;
+  return false;
+}
+
+/** Express/Vercel query bag → facet noindex decision for /shop. */
+export function shopRequestQueryShouldNoIndex(query: Record<string, unknown>): boolean {
+  const asString = (v: unknown) => (typeof v === 'string' ? v : Array.isArray(v) ? String(v[0] ?? '') : '');
+  const asNumber = (v: unknown) => {
+    const n = Number(asString(v) || v);
+    return Number.isFinite(n) ? n : undefined;
+  };
+  const brandIdsRaw = query.brandIds ?? query['brandIds[]'];
+  const brandIds = Array.isArray(brandIdsRaw)
+    ? brandIdsRaw.map(String)
+    : asString(brandIdsRaw)
+      ? asString(brandIdsRaw).split(',').filter(Boolean)
+      : [];
+  const tagsRaw = query.tags ?? query['tags[]'];
+  const tags = Array.isArray(tagsRaw)
+    ? tagsRaw.map(String)
+    : asString(tagsRaw)
+      ? asString(tagsRaw).split(',').filter(Boolean)
+      : [];
+
+  return shopQueryShouldNoIndex({
+    search: asString(query.q) || asString(query.search),
+    page: asNumber(query.page),
+    sort: asString(query.sort) || undefined,
+    minPrice: asNumber(query.minPrice),
+    maxPrice: asNumber(query.maxPrice),
+    availability: asString(query.availability) || undefined,
+    brandIds,
+    tags,
+    category: asString(query.category) || undefined,
+    brand: asString(query.brand) || undefined,
+  });
 }
