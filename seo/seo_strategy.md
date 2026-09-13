@@ -78,13 +78,15 @@
 
 When new Semrush/Ahrefs position CSVs arrive:
 
-1. Save under `seo/competitor_*.csv` (batches stored: `competitor_positions_mobile_uk_20260912.csv`, `competitor_positions_uk_20260912.csv`).
+1. Save under `seo/competitor_*.csv` or `seo/gap_keywords_*.csv` (batches stored: `competitor_positions_mobile_uk_20260912.csv`, `competitor_positions_uk_20260912.csv`, `gap_keywords_20260913.csv`).
 2. Deduplicate keywords → append rows to `keyword_map.csv` with `SourceBatch`, `Cluster`, `PrimaryURL`, `Status`.
 3. Skip competitor brand / typo navigational queries (`steroids-uk.com`, `uksteroids`, `upsteroids`, etc.) — keep our brand entity.
 4. Add `internal_linking_plan.csv` edges (homepage-heavy inbound; keyword anchors; few homepage related-search outbounds).
 5. Patch only owning pages + link edges (titles, capsules, category/PDP copy, crawlable HTML) — no full-site rewrite.
 
-**Batches merged:** mobile-uk-20260912 · desktop-uk-20260912
+**Batches merged:** mobile-uk-20260912 · desktop-uk-20260912 · gap-uk-20260913
+
+Gap CSV: `seo/gap_keywords_20260913.csv` (competitor ranks where we are unranked).
 
 **Linking rules:** Homepage gets the most inbound keyword links; homepage outbound is a short related-searches set. Blogs/FAQ/glossary outbound heavily to money pages. PDPs link parent category + 1–2 related compounds + home/shop.
 

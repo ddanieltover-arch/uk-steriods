@@ -128,7 +128,19 @@ function runSeoTests() {
   assert(RELATED_SEARCHES.length <= 6, 'homepage related searches stay few');
   assert(RELATED_SEARCHES.some((l) => /testosterone/i.test(l.label)), 'related searches include testosterone');
   assert(RELATED_SEARCHES.some((l) => /sarms/i.test(l.label)), 'related searches include UK SARMs');
-  assert(RELATED_SEARCHES.some((l) => /bpc/i.test(l.label)), 'related searches include BPC 157');
+  assert(RELATED_SEARCHES.some((l) => /dianabol/i.test(l.label)), 'related searches include Dianabol gap term');
+  assert(
+    (productSeoFor('dianabol25-proper-labs')?.seoTitle || '').toLowerCase().includes('dianabol for sale'),
+    'Dianabol PDP targets dianabol for sale gap'
+  );
+  assert(
+    (productSeoFor('primobolan-proper-labs')?.relatedLinks.length || 0) >= 2,
+    'Primobolan PDP exposes related keyword links'
+  );
+  assert(
+    enrichCategoryDescription('injectable', 'Injectable', 'Injectable').toLowerCase().includes('sustanon'),
+    'injectable category copy includes Sustanon gap term'
+  );
   assert(/buy steroids uk/i.test(DEFAULT_DESCRIPTION), 'default meta targets buy steroids uk');
   assert(/uk steroid shop/i.test(SITE_TAGLINE), 'site tagline includes uk steroid shop');
   assert(

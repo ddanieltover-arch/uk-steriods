@@ -200,17 +200,17 @@ export const CUSTOMER_GALLERY: GalleryItem[] = [
 
 export const COMPOUND_LINKS: { label: string; hint: string; href: string }[] = [
   { label: 'Buy testosterone', hint: 'Cypionate, Enanthate, Propionate', href: '/shop?q=testosterone' },
-  { label: 'Dianabol for sale UK', hint: 'Oral tablets', href: '/shop?q=dianabol' },
+  { label: 'Dianabol for sale', hint: 'Buy Dbol / oral', href: '/shop?q=dianabol' },
   { label: 'Buy Anavar UK', hint: 'Oxandrolone for sale', href: '/shop?q=anavar' },
   { label: 'Trenbolone UK', hint: 'Ace & Enanthate', href: '/shop?q=trenbolone' },
-  { label: 'Winstrol', hint: 'Stanozolol', href: '/shop?q=winstrol' },
-  { label: 'BPC 157 UK', hint: 'Research peptide', href: '/product/bpc-157-pharmaqo-labs-5mg' },
-  { label: 'Deca steroid', hint: 'Nandrolone Decanoate', href: '/shop?q=deca' },
+  { label: 'Primobolan for sale', hint: 'Methenolone', href: '/shop?q=primobolan' },
+  { label: 'Buy Sustanon online', hint: 'Sustanon 250', href: '/shop?q=sustanon' },
+  { label: 'Deca Durabolin for sale', hint: 'Nandrolone', href: '/shop?q=deca' },
+  { label: 'Equipoise for sale', hint: 'Boldenone', href: '/shop?q=boldenone' },
   { label: 'UK SARMs', hint: 'MK677 UK · RAD 140 UK', href: '/category/sarms' },
-  { label: 'MK677 UK', hint: 'Ibutamoren', href: '/product/mk677-ibutamoren-liquid-25mg-30ml-syncom-labs' },
-  { label: 'Buy Clomid UK', hint: 'PCT support', href: '/category/pct' },
+  { label: 'BPC 157 UK', hint: 'Research peptide', href: '/product/bpc-157-pharmaqo-labs-5mg' },
+  { label: 'Buy Clomid UK', hint: 'PCT / Nolvadex', href: '/category/pct' },
   { label: 'Buy Clenbuterol', hint: 'Clen pills & tablets', href: '/category/fat-loss' },
-  { label: 'HGH UK', hint: 'HGH injections', href: '/category/hgh' },
 ];
 
 /** Homepage related-searches outbounds — keep short (≤6 primary). */
@@ -219,8 +219,8 @@ export const RELATED_SEARCHES: { label: string; href: string }[] = [
   { label: 'UK SARMs', href: '/category/sarms' },
   { label: 'BPC 157 UK', href: '/product/bpc-157-pharmaqo-labs-5mg' },
   { label: 'Buy Anavar UK', href: '/shop?q=anavar' },
+  { label: 'Dianabol for sale', href: '/shop?q=dianabol' },
   { label: 'Buy Clomid UK', href: '/category/pct' },
-  { label: 'HGH UK', href: '/category/hgh' },
 ];
 
 export const GUIDE_CARDS: { title: string; excerpt: string; href: string }[] = [

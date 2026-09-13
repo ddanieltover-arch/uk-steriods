@@ -91,7 +91,7 @@ export const FAQ_HUB_SECTIONS: { heading: string; items: FaqItem[] }[] = [
       {
         question: 'What is PCT and do you stock it?',
         answer:
-          'PCT means post-cycle therapy support products discussed in educational catalogue context. Browse the PCT category for listed compounds. PCT pages are not medical protocols — speak to a qualified professional for personal health decisions.',
+          'PCT means post-cycle therapy support products discussed in educational catalogue context — including searches like best PCT cycle to keep gains and Nolvadex bodybuilding. Browse the PCT category for listed compounds (Clomid tablets, HCG, and related). PCT pages are not medical protocols — speak to a qualified professional for personal health decisions.',
       },
       {
         question: 'What is the difference between SARMs and anabolic steroids?',

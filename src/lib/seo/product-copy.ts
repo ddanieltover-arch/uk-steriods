@@ -144,30 +144,30 @@ export const PRODUCT_SEO_COPY: Record<string, ProductSeoCopy> = {
     ],
   },
   'deca-300-nandrolone-decanoate-syncom-labs': {
-    seoTitle: 'Deca Steroid 300 – Nandrolone | Steroids UK',
+    seoTitle: 'Deca Durabolin for Sale – Deca Steroid Price | Steroids UK',
     seoDescription:
-      'Deca steroid (nandrolone decanoate) Syncom Labs at Steroids UK. Lab-tested injectable with GBP pricing.',
+      'Deca Durabolin for sale / Deca steroid price at Steroids UK. Nandrolone decanoate Syncom with GBP pricing and UK dispatch.',
     shortDescription:
-      'Deca steroid — nandrolone decanoate 300 for UK catalogue buyers seeking Deca Durabolin-class listings.',
+      'Deca Durabolin for sale — nandrolone decanoate 300 with Deca steroid price listed in GBP.',
     description:
-      'Deca steroid listing for nandrolone decanoate. Compare injectables or browse boldenone undecylenate as a related compound. Educational catalogue only.',
+      'Deca Durabolin for sale and Deca steroid price searches map to this nandrolone listing. Compare NPP cycle options or Equipoise for sale. Educational only.',
     relatedLinks: [
-      { href: '/shop?q=deca', label: 'Deca steroid' },
-      { href: '/product/boldenone-proper-labs', label: 'Boldenone undecylenate' },
+      { href: '/shop?q=deca', label: 'Deca Durabolin for sale' },
+      { href: '/product/npp-100-nandrolone-phenylpropionate-syncom-labs', label: 'NPP cycle' },
       { href: '/category/injectable', label: 'Injectables' },
     ],
   },
   'boldenone-proper-labs': {
-    seoTitle: 'Boldenone Undecylenate 300 | Steroids UK',
+    seoTitle: 'Equipoise for Sale – Boldenone Undecylenate | Steroids UK',
     seoDescription:
-      'Boldenone undecylenate Proper Labs — Equipoise-class injectable with GBP pricing and UK tracked shipping.',
+      'Equipoise for sale / buy boldenone online at Steroids UK. Boldenone undecylenate Proper Labs with GBP pricing.',
     shortDescription:
-      'Boldenone undecylenate lab-tested injectable listed in the Steroids UK catalogue.',
+      'Equipoise for sale — boldenone undecylenate / buy boldenone online catalogue listing.',
     description:
-      'Boldenone undecylenate (EQ-class) injectable for catalogue browsing. Pair research with deca steroid or testosterone bases as needed. Educational only.',
+      'Equipoise online and boldenone for sale searches map here. Compare Deca Durabolin for sale. Educational only.',
     relatedLinks: [
-      { href: '/shop?q=boldenone', label: 'Boldenone undecylenate' },
-      { href: '/shop?q=deca', label: 'Deca steroid' },
+      { href: '/shop?q=boldenone', label: 'Equipoise for sale' },
+      { href: '/shop?q=deca', label: 'Deca Durabolin for sale' },
       { href: '/', label: 'Buy steroids UK' },
     ],
   },
@@ -270,16 +270,143 @@ export const PRODUCT_SEO_COPY: Record<string, ProductSeoCopy> = {
     ],
   },
   'dianabol25-proper-labs': {
-    seoTitle: 'Dianabol for Sale UK – Proper Labs | Steroids UK',
+    seoTitle: 'Dianabol for Sale – Buy Dbol UK | Steroids UK',
     seoDescription:
-      'Dianabol for sale UK — Proper Labs oral tablets with lab-tested batches and discreet UK shipping.',
+      'Dianabol for sale / buy Dbol / buy Dianabol online at Steroids UK. Proper Labs oral tablets with lab-tested batches and discreet UK shipping.',
     shortDescription:
-      'Dianabol for sale UK — Proper Labs oral methandienone listing with GBP pricing.',
+      'Dianabol for sale UK — buy Dbol / Dianabol purchase listing from Proper Labs with GBP pricing.',
     description:
-      'Dianabol for sale UK oral listing. Compare Anavar UK options or browse the oral category. Educational catalogue only.',
+      'Buy Dianabol online from this Dianabol for sale listing. Compare Anavar where to buy options or browse orals. Educational catalogue only — not before-and-after medical claims.',
     relatedLinks: [
-      { href: '/shop?q=dianabol', label: 'Dianabol for sale UK' },
-      { href: '/category/oral', label: 'Buy Anavar UK / orals' },
+      { href: '/shop?q=dianabol', label: 'Buy Dianabol' },
+      { href: '/shop?q=anavar', label: 'Anavar where to buy' },
+      { href: '/category/oral', label: 'Oral steroids UK' },
+      { href: '/', label: 'Buy steroids UK' },
+    ],
+  },
+  'primobolan-proper-labs': {
+    seoTitle: 'Primobolan for Sale – Buy Primobolan | Steroids UK',
+    seoDescription:
+      'Primobolan for sale / buy Primobolan at Steroids UK. Lab-tested methenolone listing with GBP pricing and UK dispatch.',
+    shortDescription:
+      'Primobolan for sale — buy Primobolan Proper Labs catalogue listing with tracked UK delivery.',
+    description:
+      'Buy Primobolan from this Primobolan for sale listing. Browse injectables or return to buy steroids UK. Educational only.',
+    relatedLinks: [
+      { href: '/shop?q=primobolan', label: 'Buy Primobolan' },
+      { href: '/category/injectable', label: 'Injectable steroids UK' },
+      { href: '/', label: 'UK steroid shop' },
+    ],
+  },
+  'sustanon-250-proper-labs': {
+    seoTitle: 'Buy Sustanon Online – Sustanon 250 | Steroids UK',
+    seoDescription:
+      'Buy Sustanon online — Sustanon 250 Proper Labs at Steroids UK with GBP pricing and UK tracked shipping.',
+    shortDescription:
+      'Buy Sustanon online — Sustanon 250 Proper Labs injectable with lab-tested batch notes.',
+    description:
+      'Buy Sustanon online from this Sustanon 250 listing. Compare testosterone esters or Tri Test options. Educational only.',
+    relatedLinks: [
+      { href: '/shop?q=sustanon', label: 'Buy Sustanon online' },
+      { href: '/shop?q=testosterone', label: 'Buy testosterone' },
+      { href: '/', label: 'Buy steroids UK' },
+    ],
+  },
+  'anavar50-proper-labs': {
+    seoTitle: 'Buy Anavar 50 – Anavar Where to Buy | Steroids UK',
+    seoDescription:
+      'Buy Anavar 50 / Anavar where to buy at Steroids UK. Proper Labs oxandrolone with GBP pricing and discreet UK shipping.',
+    shortDescription:
+      'Buy Anavar 50 — Anavar steroid for sale / order Anavar listing with lab-tested framing.',
+    description:
+      'Buy Anavar 50 and Anavar to buy searches map here. Compare buy Anavar 10 or oxandrolone online options. Educational only.',
+    relatedLinks: [
+      { href: '/shop?q=anavar', label: 'Anavar where to buy' },
+      { href: '/product/anavar10-proper-labs', label: 'Buy Anavar 10' },
+      { href: '/', label: 'Buy steroids UK' },
+    ],
+  },
+  'anadrol50-proper-labs': {
+    seoTitle: 'Buy Anadrol 50 – Proper Labs | Steroids UK',
+    seoDescription:
+      'Buy Anadrol at Steroids UK — Proper Labs oxymetholone oral with GBP pricing and UK dispatch.',
+    shortDescription:
+      'Buy Anadrol 50 Proper Labs — oral oxymetholone catalogue listing with tracked UK delivery.',
+    description:
+      'Buy Anadrol listing for Anadrol vs Anavar comparison research. Browse orals or cycle builder. Educational only — not medical advice.',
+    relatedLinks: [
+      { href: '/shop?q=anadrol', label: 'Buy Anadrol' },
+      { href: '/shop?q=anavar', label: 'Anavar for sale' },
+      { href: '/category/oral', label: 'Oral category' },
+    ],
+  },
+  'turinabol-proper-labs': {
+    seoTitle: 'Turinabol for Sale – Proper Labs | Steroids UK',
+    seoDescription:
+      'Turinabol for sale at Steroids UK. Proper Labs oral Tbol with lab-tested batches and UK shipping.',
+    shortDescription:
+      'Turinabol for sale — Proper Labs oral catalogue listing with GBP pricing.',
+    description:
+      'Turinabol for sale oral listing. Compare Dianabol for sale or Anavar where to buy. Educational only.',
+    relatedLinks: [
+      { href: '/shop?q=turinabol', label: 'Turinabol for sale' },
+      { href: '/shop?q=dianabol', label: 'Dianabol for sale' },
+      { href: '/', label: 'Buy steroids UK' },
+    ],
+  },
+  'masteron-propionate-proper-labs': {
+    seoTitle: 'Masteron Propionate – Mastereon | Steroids UK',
+    seoDescription:
+      'Masteron (Mastereon) propionate Proper Labs injectable at Steroids UK with GBP pricing and UK dispatch.',
+    shortDescription:
+      'Masteron propionate (Mastereon searches) — Proper Labs injectable with lab-tested batch notes.',
+    description:
+      'Mastereon / Masteron propionate listing. Browse injectables or Primobolan for sale. Educational only.',
+    relatedLinks: [
+      { href: '/shop?q=masteron', label: 'Masteron' },
+      { href: '/shop?q=primobolan', label: 'Primobolan for sale' },
+      { href: '/', label: 'UK steroid shop' },
+    ],
+  },
+  'npp-100-nandrolone-phenylpropionate-syncom-labs': {
+    seoTitle: 'NPP Cycle – Nandrolone Phenylpropionate | Steroids UK',
+    seoDescription:
+      'NPP for NPP cycle / NPP test cycle research browsing at Steroids UK. Syncom Labs injectable with GBP pricing.',
+    shortDescription:
+      'NPP 100 — nandrolone phenylpropionate for NPP cycle catalogue browsing with UK dispatch.',
+    description:
+      'NPP cycle and test NPP cycle searches map to this listing. Use cycle builder for catalogue ideas — educational only, not a protocol.',
+    relatedLinks: [
+      { href: '/cycle-builder', label: 'NPP cycle planner' },
+      { href: '/shop?q=testosterone', label: 'Buy testosterone' },
+      { href: '/shop?q=deca', label: 'Deca Durabolin for sale' },
+    ],
+  },
+  'dhb-100-dihydroboldenone-syncom-labs': {
+    seoTitle: 'Dihydroboldenone Cypionate / DHB | Steroids UK',
+    seoDescription:
+      'Dihydroboldenone (DHB) Syncom Labs at Steroids UK — catalogue injectable with GBP pricing and UK dispatch.',
+    shortDescription:
+      'Dihydroboldenone cypionate / DHB research injectable listing with lab-tested framing.',
+    description:
+      'Dihydroboldenone cypionate searches map to DHB catalogue items. Compare boldenone / Equipoise for sale. Educational only.',
+    relatedLinks: [
+      { href: '/shop?q=dhb', label: 'DHB' },
+      { href: '/shop?q=boldenone', label: 'Equipoise for sale' },
+      { href: '/', label: 'Buy steroids UK' },
+    ],
+  },
+  'clenbuterol-spiropent-40mcg-100tabs-syncom-labs': {
+    seoTitle: 'Clenbuterol 40 mcg 100 Tablets Price | Steroids UK',
+    seoDescription:
+      'Clenbuterol 40 mcg 100 tablets price — Syncom Spiropent-style listing. Buy Clenbuterol online with UK dispatch.',
+    shortDescription:
+      'Clenbuterol 40 mcg 100 tablets — buy Clenbuterol online / Clenbuterol buy catalogue listing.',
+    description:
+      'Clenbuterol 40 mcg 100 tablets price searches map here. Browse fat-loss for more Clenbuterol for sale options. Educational only.',
+    relatedLinks: [
+      { href: '/category/fat-loss', label: 'Buy Clenbuterol' },
+      { href: '/product/clenbuterol-proper-labs', label: 'Clenbuterol tablet' },
       { href: '/', label: 'Buy steroids UK' },
     ],
   },

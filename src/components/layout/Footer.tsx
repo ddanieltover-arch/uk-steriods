@@ -41,14 +41,16 @@ const categoryLinks = [
 
 const compoundLinks = [
   { href: '/shop?q=testosterone', label: 'Buy testosterone' },
-  { href: '/product/testosterone-cypionate-proper-labs', label: 'Testosterone cypionate' },
-  { href: '/shop?q=anavar', label: 'Buy Anavar UK' },
+  { href: '/shop?q=dianabol', label: 'Dianabol for sale' },
+  { href: '/shop?q=anavar', label: 'Anavar where to buy' },
+  { href: '/shop?q=primobolan', label: 'Primobolan for sale' },
+  { href: '/shop?q=sustanon', label: 'Buy Sustanon online' },
+  { href: '/shop?q=deca', label: 'Deca Durabolin for sale' },
+  { href: '/shop?q=boldenone', label: 'Equipoise for sale' },
   { href: '/category/sarms', label: 'UK SARMs / MK677 UK' },
   { href: '/product/bpc-157-pharmaqo-labs-5mg', label: 'BPC 157 UK' },
-  { href: '/category/fat-loss', label: 'Buy Clenbuterol' },
   { href: '/category/pct', label: 'Buy Clomid UK' },
-  { href: '/category/hgh', label: 'HGH UK' },
-  { href: '/shop?q=trenbolone', label: 'Trenbolone UK' },
+  { href: '/category/fat-loss', label: 'Buy Clenbuterol' },
   { href: '/category/accessories', label: 'Peptide needles' },
 ];
 

@@ -9,15 +9,15 @@ export const CATEGORY_SEO_COPY: Record<
 > = {
   injectable: {
     description:
-      'Injectable steroids UK at Steroids UK — buy testosterone, testosterone cypionate, trenbolone, deca steroid and boldenone undecylenate with GBP pricing and UK tracked dispatch.',
+      'Injectable steroids UK at Steroids UK — buy testosterone, buy Sustanon online, Deca Durabolin for sale, Equipoise for sale, Primobolan for sale and trenbolone with GBP pricing and UK tracked dispatch.',
     answerCapsule:
-      'Injectable compounds at this UK steroid shop include testosterone esters, nandrolone, trenbolone and stacks. Listings show GBP price, stock and batch details with UK tracked delivery.',
+      'Injectable compounds include testosterone esters, Sustanon, Deca Durabolin, Equipoise (boldenone), Primobolan and stacks. Listings show GBP price, stock and batch details with UK tracked delivery.',
   },
   oral: {
     description:
-      'Buy Anavar UK and oral steroids UK at Steroids UK — Anavar for sale UK, Dianabol for sale UK, Winstrol and more with lab-tested batches and discreet UK shipping.',
+      'Buy Anavar UK, Dianabol for sale, Primobolan orals and Turinabol for sale at Steroids UK — Anavar where to buy, buy Dbol and oxandrolone with lab-tested batches and discreet UK shipping.',
     answerCapsule:
-      'Oral catalogue items cover buy Anavar UK tablets, Dianabol for sale UK and Winstrol. Strength, brand, GBP price and stock are listed before checkout.',
+      'Oral catalogue covers Anavar where to buy, Dianabol for sale / buy Dbol, Anadrol and Turinabol listings with strength, brand, GBP price and stock before checkout.',
   },
   sarms: {
     description:

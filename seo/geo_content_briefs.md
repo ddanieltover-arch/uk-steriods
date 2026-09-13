@@ -111,3 +111,16 @@ Source: `seo/competitor_positions_uk_20260912.csv` (355 unique â†’ 71 new mapped
 - **URL:** `/what-is-pct` section + `/category/pct`
 - **Compliance:** No Boots impersonation; educational SERM framing only
 - **Status:** Briefed
+
+---
+
+## Brief 12 — Keyword gap batch (2026-09-13)
+
+Source: `seo/gap_keywords_20260913.csv` (267 rows; competitor ranks, we unranked).
+
+**Mapped (42 new):** Dianabol for sale / buy Dbol, Primobolan for sale, buy Sustanon online, Equipoise for sale, Deca Durabolin for sale, Anavar where to buy / buy Anavar 10/50, buy Anadrol, Turinabol for sale, NPP cycle, DHB, Clen 40mcg price, best PCT cycle to keep gains, Anadrol vs Anavar (brief).
+
+**Author next:**
+1. `/blog/anadrol-vs-anavar` comparison (vol 1000)
+2. `/what-is-pct` section: best PCT cycle to keep gains (educational, no dosing protocol)
+3. Optional NPP + test cycle educational post linking cycle-builder
