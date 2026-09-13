@@ -1,6 +1,7 @@
 import React from 'react';
 import { Home, Menu, Search, Headphones, ShoppingCart } from 'lucide-react';
 import { cn } from '../../lib/utils';
+import { AppLink } from '../navigation/AppLink';
 
 interface MobileBottomNavProps {
   currentPath: string;
@@ -30,14 +31,14 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
       aria-label="Mobile"
     >
       <div className="grid grid-cols-5 items-end px-2 pt-2 pb-2">
-        <button
-          type="button"
-          onClick={onGoHome}
+        <AppLink
+          href="/"
+          navigate={() => onGoHome()}
           className={cn(itemClass, 'cursor-pointer', isHome ? 'text-[#003d30]' : 'text-slate-500')}
         >
           <Home className="h-5 w-5" strokeWidth={1.75} />
           <span>Home</span>
-        </button>
+        </AppLink>
 
         <button
           type="button"

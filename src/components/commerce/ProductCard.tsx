@@ -10,6 +10,8 @@ import { CryptoPriceBadge } from './CryptoPriceBadge';
 import { StockStatus } from '../../types';
 import { cn } from '../../lib/utils';
 import { getDisplayRating } from '../../lib/commerce/display-rating';
+import { AppLink } from '../navigation/AppLink';
+import { spaNavigate } from '../../lib/spa-navigate';
 
 export interface ProductCardData {
   id: string;
@@ -52,15 +54,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   viewMode = 'grid',
   className,
 }) => {
-  const handleProductNavigate = () => {
-    if (onProductClick) {
-      onProductClick(product);
-    } else {
-      const targetSlug = product.slug || product.id;
-      window.history.pushState({}, '', `/product/${targetSlug}`);
-      window.dispatchEvent(new Event('popstate'));
-    }
+  const productHref = `/product/${product.slug || product.id}`;
+  const navigateToProduct = () => {
+    if (onProductClick) onProductClick(product);
+    else spaNavigate(productHref);
   };
+
   const isOutOfStock =
     product.stockStatus === StockStatus.OUT_OF_STOCK ||
     (product.availableQuantity !== undefined && product.availableQuantity <= 0);
@@ -126,10 +125,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           className
         )}
       >
-        {/* Thumbnail Image */}
-        <div
-          onClick={handleProductNavigate}
-          className="relative w-full sm:w-48 shrink-0 overflow-hidden rounded-xl cursor-pointer"
+        <AppLink
+          href={productHref}
+          navigate={navigateToProduct}
+          className="relative w-full sm:w-48 shrink-0 overflow-hidden rounded-xl cursor-pointer block"
         >
           <ProductImage
             src={product.imageUrl}
@@ -137,17 +136,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             aspectRatio="square"
           />
 
-          {/* Badges */}
           <div className="absolute top-2 left-2 flex flex-col gap-1 z-10">
             {isOnSale && <ProductBadge variant="sale" />}
             {product.isBestseller && <ProductBadge variant="bestseller" />}
           </div>
 
-          {/* Wishlist Button */}
           {onToggleWishlist && (
             <div
               className="absolute top-2 right-2 z-10"
-              onClick={(e) => e.stopPropagation()}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
             >
               <WishlistButton
                 isWishlisted={isWishlisted}
@@ -156,9 +156,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               />
             </div>
           )}
-        </div>
+        </AppLink>
 
-        {/* Content */}
         <div className="flex-1 flex flex-col justify-between w-full space-y-3">
           <div className="space-y-1.5">
             {product.brandName && (
@@ -167,14 +166,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               </span>
             )}
 
-            <h3
-              onClick={handleProductNavigate}
-              className="font-extrabold text-base text-slate-900 group-hover:text-teal-600 transition-colors line-clamp-1 cursor-pointer"
-            >
-              {product.name}
+            <h3 className="font-extrabold text-base text-slate-900 group-hover:text-teal-600 transition-colors line-clamp-1">
+              <AppLink href={productHref} navigate={navigateToProduct} className="cursor-pointer">
+                {product.name}
+              </AppLink>
             </h3>
 
-            {/* Rating Stars */}
             <div className="flex items-center gap-1.5 text-xs text-slate-500">{ratingRow}</div>
           </div>
 
@@ -197,6 +194,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             <div className="flex items-center gap-2">
               {onQuickView && (
                 <button
+                  type="button"
                   onClick={() => onQuickView(product)}
                   className="p-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
                   title="Quick View"
@@ -214,7 +212,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     );
   }
 
-  // Grid Card View (Default)
   return (
     <div
       className={cn(
@@ -223,31 +220,28 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       )}
     >
       <div>
-        {/* Image Container with Badges & Wishlist */}
-        <div
-          onClick={handleProductNavigate}
-          className="relative mb-3 overflow-hidden rounded-xl bg-slate-100 cursor-pointer"
-        >
-          <ProductImage
-            src={product.imageUrl}
-            alt={product.name}
-            aspectRatio="square"
-            className="group-hover:scale-105 transition-transform duration-300"
-          />
+        <div className="relative mb-3 overflow-hidden rounded-xl bg-slate-100">
+          <AppLink
+            href={productHref}
+            navigate={navigateToProduct}
+            className="block cursor-pointer"
+          >
+            <ProductImage
+              src={product.imageUrl}
+              alt={product.name}
+              aspectRatio="square"
+              className="group-hover:scale-105 transition-transform duration-300"
+            />
+          </AppLink>
 
-          {/* Badges */}
-          <div className="absolute top-2 left-2 flex flex-col gap-1 z-10">
+          <div className="absolute top-2 left-2 flex flex-col gap-1 z-10 pointer-events-none">
             {isOnSale && <ProductBadge variant="sale" />}
             {product.isBestseller && <ProductBadge variant="bestseller" />}
             {product.isNew && <ProductBadge variant="new" />}
           </div>
 
-          {/* Wishlist Button */}
           {onToggleWishlist && (
-            <div
-              className="absolute top-2 right-2 z-10"
-              onClick={(e) => e.stopPropagation()}
-            >
+            <div className="absolute top-2 right-2 z-10">
               <WishlistButton
                 isWishlisted={isWishlisted}
                 onToggle={() => onToggleWishlist(product.id)}
@@ -256,14 +250,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             </div>
           )}
 
-          {/* Desktop Hover Quick View Overlay */}
           {onQuickView && (
             <div className="absolute inset-x-0 bottom-2 px-3 z-10 opacity-0 group-hover:opacity-100 transition-opacity hidden md:block">
               <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onQuickView(product);
-                }}
+                type="button"
+                onClick={() => onQuickView(product)}
                 className="w-full bg-slate-900/90 hover:bg-slate-900 text-white text-[11px] font-bold py-1.5 px-3 rounded-lg backdrop-blur-xs flex items-center justify-center gap-1.5 transition-all shadow-md cursor-pointer"
               >
                 <Eye className="w-3.5 h-3.5" />
@@ -273,7 +264,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           )}
         </div>
 
-        {/* Product Details */}
         <div className="space-y-1.5 px-1">
           {product.brandName && (
             <span className="text-[10px] font-extrabold uppercase tracking-wider text-teal-600 block">
@@ -281,14 +271,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             </span>
           )}
 
-          <h3
-            onClick={handleProductNavigate}
-            className="font-extrabold text-xs md:text-sm text-slate-900 group-hover:text-teal-600 transition-colors line-clamp-2 h-9 leading-snug cursor-pointer"
-          >
-            {product.name}
+          <h3 className="font-extrabold text-xs md:text-sm text-slate-900 group-hover:text-teal-600 transition-colors line-clamp-2 h-9 leading-snug">
+            <AppLink href={productHref} navigate={navigateToProduct} className="cursor-pointer">
+              {product.name}
+            </AppLink>
           </h3>
 
-          {/* Rating */}
           <div className="flex items-center justify-between text-xs py-0.5">
             {ratingRow}
 
@@ -301,7 +289,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         </div>
       </div>
 
-      {/* Footer / Price & Add to Cart */}
       <div className="pt-3 mt-2 border-t border-slate-100 space-y-2 px-1">
         <PriceDisplay
           pricePence={product.pricePence}

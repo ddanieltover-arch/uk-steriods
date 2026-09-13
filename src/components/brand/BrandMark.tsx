@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { SITE_NAME } from '../../lib/seo/site';
 import { cn } from '../../lib/utils';
+import { AppLink } from '../navigation/AppLink';
 
 interface BrandMarkProps {
   size?: 'sm' | 'md';
+  href?: string;
+  navigate?: (path: string) => void;
   onClick?: () => void;
   inverted?: boolean;
   className?: string;
@@ -12,6 +15,8 @@ interface BrandMarkProps {
 
 export const BrandMark: React.FC<BrandMarkProps> = ({
   size = 'md',
+  href = '/',
+  navigate,
   onClick,
   className,
   plate = 'gradient',
@@ -20,9 +25,10 @@ export const BrandMark: React.FC<BrandMarkProps> = ({
   const height = size === 'sm' ? 'h-5' : 'h-6';
 
   return (
-    <button
-      type="button"
-      onClick={onClick}
+    <AppLink
+      href={href}
+      navigate={navigate}
+      onClick={() => onClick?.()}
       className={cn(
         'flex items-center justify-center cursor-pointer shrink-0 rounded-2xl px-2.5 py-1',
         plate === 'black' ? 'bg-black' : 'brand-logo-bg',
@@ -42,6 +48,6 @@ export const BrandMark: React.FC<BrandMarkProps> = ({
           Steroids UK
         </span>
       )}
-    </button>
+    </AppLink>
   );
 };

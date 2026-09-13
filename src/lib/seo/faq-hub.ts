@@ -2,10 +2,10 @@
 
 export const FAQ_HUB_PATH = '/faq';
 
-export const FAQ_HUB_TITLE = 'FAQ: Buy Steroids UK — Catalogue Answers';
+export const FAQ_HUB_TITLE = 'FAQ: Is It Legal to Buy Steroids UK?';
 
 export const FAQ_HUB_DESCRIPTION =
-  'Answers on buying steroids online in the UK, lab testing, delivery, payment, Anavar UK, testosterone and PCT. Educational only — not medical advice.';
+  'Is it legal to buy steroids UK? Also legal to buy HCG online, lab testing, delivery, payment, Anavar UK and testosterone. Educational only — not medical advice.';
 
 export type FaqItem = { question: string; answer: string };
 

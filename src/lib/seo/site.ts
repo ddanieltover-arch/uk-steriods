@@ -4,7 +4,7 @@ export const SITE_LOGO_PATH = '/logo.png';
 export const SITE_FAVICON_PATH = '/favicon.png';
 export const SITE_OG_IMAGE_PATH = '/og-image.png';
 export const DEFAULT_DESCRIPTION =
-  'Buy steroids UK from Steroids UK — a trusted UK steroid shop with lab-tested batches, GBP pricing, tracked UK dispatch in plain packaging, and a reship if tracked delivery fails.';
+  'Buy steroids UK / steroid UK from Steroids UK — a trusted UK steroid shop for buying steroids online with lab-tested batches, GBP pricing, tracked UK dispatch in plain packaging, and a reship if tracked delivery fails.';
 
 /** Live host prefers www; apex 301s to www — keep sitemap/canonicals aligned. */
 export const CANONICAL_SITE_ORIGIN = 'https://www.uk-steroids.co.uk';

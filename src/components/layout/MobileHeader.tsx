@@ -41,7 +41,8 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
         <div className="relative flex items-center justify-between gap-3">
           <BrandMark
             size="sm"
-            onClick={() => (onGoHome ? onGoHome() : onSelectCategory(''))}
+            href="/"
+            navigate={() => (onGoHome ? onGoHome() : onSelectCategory(''))}
           />
 
           <div className="flex items-center gap-2">

@@ -14,7 +14,8 @@ import { StockStatus } from '../../types';
 import { SeoHead } from '../seo/SeoHead';
 import { SITE_NAME, sanitizeMetaText, shopQueryShouldNoIndex } from '../../lib/seo/site';
 import { breadcrumbJsonLd } from '../../lib/seo/structured-data';
-import { enrichCategoryDescription } from '../../lib/seo/category-copy';
+import { enrichCategoryDescription, categoryRelatedLinks } from '../../lib/seo/category-copy';
+import { shopQuerySurface, shopQueryFallback } from '../../lib/seo/shop-query-copy';
 import {
   Search,
   LayoutGrid,
@@ -259,17 +260,36 @@ export const ShopPage: React.FC<ShopPageProps> = ({
     : catalogueResult.brand
     ? `${catalogueResult.brand.name} | ${SITE_NAME}`
     : query.search
-    ? `Search: ${query.search} | ${SITE_NAME}`
+    ? `${shopQuerySurface(query.search)?.title || `Search: ${query.search}`} | ${SITE_NAME}`
     : `Shop lab-tested catalogue | ${SITE_NAME}`;
+  const categoryBody = catalogueResult.category
+    ? enrichCategoryDescription(
+        catalogueResult.category.slug,
+        catalogueResult.category.name,
+        catalogueResult.category.description
+      )
+    : '';
+  const brandBody =
+    catalogueResult.brand?.slug === 'pharmaqo-labs'
+      ? 'Pharmaqo Labs (Pharmaqo) — lab-tested anabolic and HGH catalogue including Test 400, Tri Test and Pharmaqo Labs review browsing with GBP pricing and UK dispatch.'
+      : catalogueResult.brand?.description || '';
+  const searchSurface = query.search
+    ? shopQuerySurface(query.search) || shopQueryFallback(query.search)
+    : null;
+  const pageIntro = categoryBody || brandBody || searchSurface?.description || '';
+  const pageRelated = catalogueResult.category
+    ? categoryRelatedLinks(catalogueResult.category.slug)
+    : catalogueResult.brand?.slug === 'pharmaqo-labs'
+      ? [
+          { href: '/', label: 'Buy steroids UK' },
+          { href: '/product/tri-test-400-spharmaqo-labs', label: 'Test 400 / Tri Test' },
+          { href: '/about-us', label: 'Pharmaqo Labs review context' },
+          { href: '/shop', label: 'UK steroids shop' },
+        ]
+      : searchSurface?.relatedLinks || [];
   const seoDescription = sanitizeMetaText(
-    catalogueResult.category
-      ? enrichCategoryDescription(
-          catalogueResult.category.slug,
-          catalogueResult.category.name,
-          catalogueResult.category.description
-        )
-      : catalogueResult.brand?.description ||
-          'Browse the lab-tested Steroids UK catalogue. UK dispatch, tracked delivery, prices in GBP.',
+    pageIntro ||
+      'Browse the lab-tested Steroids UK catalogue. UK dispatch, tracked delivery, prices in GBP.',
     160
   );
   const seoCanonical = catalogueResult.category
@@ -447,10 +467,30 @@ export const ShopPage: React.FC<ShopPageProps> = ({
                   ? catalogueResult.category.name
                   : catalogueResult.brand
                   ? catalogueResult.brand.name
-                  : query.search
-                  ? `Search: "${query.search}"`
+                  : searchSurface
+                  ? searchSurface.title
                   : 'All Products'}
               </h1>
+              {pageIntro ? (
+                <p className="mt-3 text-sm text-slate-600 leading-relaxed">{pageIntro}</p>
+              ) : null}
+              {pageRelated.length > 0 ? (
+                <nav aria-label="Related searches" className="mt-4 flex flex-wrap gap-2">
+                  {pageRelated.map((link) => (
+                    <button
+                      key={`${link.href}-${link.label}`}
+                      type="button"
+                      onClick={() => {
+                        if (onNavigate) onNavigate(link.href);
+                        else window.location.assign(link.href);
+                      }}
+                      className="rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1 text-[11px] font-bold text-slate-700 hover:border-teal-600 cursor-pointer"
+                    >
+                      {link.label}
+                    </button>
+                  ))}
+                </nav>
+              ) : null}
             </div>
 
             {/* Quick Search Input */}

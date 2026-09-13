@@ -43,7 +43,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
     term: 'Testosterone base',
     slug: 'testosterone-base',
     definition:
-      'Testosterone without a long ester chain — often discussed versus suspensions and esterified forms such as testosterone cypionate or propionate. Catalogue buyers compare ester choice for release timing in research literature only.',
+      'Testosterone without a long ester chain — often discussed as testosterone base vs test suspension and versus esterified forms such as testosterone cypionate or propionate. Catalogue buyers compare ester choice for release timing in research literature only.',
     relatedHref: '/shop?q=testosterone',
     relatedLabel: 'Buy testosterone',
   },

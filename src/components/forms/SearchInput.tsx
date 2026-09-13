@@ -2,6 +2,8 @@ import React, { useEffect, useId, useRef, useState } from 'react';
 import { Search, X, Clock } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { useDebouncedValue } from '../../hooks/useDebouncedValue';
+import { AppLink } from '../navigation/AppLink';
+import { spaNavigate } from '../../lib/spa-navigate';
 
 interface SuggestionProduct {
   id: string;
@@ -128,8 +130,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
 
   const activate = (item: (typeof flatItems)[number]) => {
     if (item.href) {
-      window.history.pushState({}, '', item.href);
-      window.dispatchEvent(new Event('popstate'));
+      spaNavigate(item.href);
       setIsOpen(false);
       return;
     }
@@ -260,23 +261,44 @@ export const SearchInput: React.FC<SearchInputProps> = ({
           ) : flatItems.length === 0 ? (
             <p className="px-2.5 py-2 text-xs text-slate-500">No matching products, brands, or categories.</p>
           ) : (
-            flatItems.map((item, index) => (
-              <button
-                id={`${listId}-opt-${index}`}
-                key={`${item.type}-${item.label}-${index}`}
-                type="button"
-                role="option"
-                aria-selected={activeIndex === index}
-                onClick={() => activate(item)}
-                className={cn(
-                  'w-full flex items-center justify-between rounded-xl px-2.5 py-2 text-xs font-bold text-left cursor-pointer',
-                  activeIndex === index ? 'bg-emerald-50 text-emerald-800' : 'text-slate-700 hover:bg-slate-50'
-                )}
-              >
-                <span>{item.label}</span>
-                <span className="text-[10px] uppercase tracking-wider text-slate-400">{item.type}</span>
-              </button>
-            ))
+            flatItems.map((item, index) =>
+              item.href ? (
+                <AppLink
+                  id={`${listId}-opt-${index}`}
+                  key={`${item.type}-${item.label}-${index}`}
+                  href={item.href}
+                  role="option"
+                  aria-selected={activeIndex === index}
+                  navigate={() => {
+                    spaNavigate(item.href!);
+                    setIsOpen(false);
+                  }}
+                  className={cn(
+                    'w-full flex items-center justify-between rounded-xl px-2.5 py-2 text-xs font-bold text-left cursor-pointer',
+                    activeIndex === index ? 'bg-emerald-50 text-emerald-800' : 'text-slate-700 hover:bg-slate-50'
+                  )}
+                >
+                  <span>{item.label}</span>
+                  <span className="text-[10px] uppercase tracking-wider text-slate-400">{item.type}</span>
+                </AppLink>
+              ) : (
+                <button
+                  id={`${listId}-opt-${index}`}
+                  key={`${item.type}-${item.label}-${index}`}
+                  type="button"
+                  role="option"
+                  aria-selected={activeIndex === index}
+                  onClick={() => activate(item)}
+                  className={cn(
+                    'w-full flex items-center justify-between rounded-xl px-2.5 py-2 text-xs font-bold text-left cursor-pointer',
+                    activeIndex === index ? 'bg-emerald-50 text-emerald-800' : 'text-slate-700 hover:bg-slate-50'
+                  )}
+                >
+                  <span>{item.label}</span>
+                  <span className="text-[10px] uppercase tracking-wider text-slate-400">{item.type}</span>
+                </button>
+              )
+            )
           )}
         </div>
       )}

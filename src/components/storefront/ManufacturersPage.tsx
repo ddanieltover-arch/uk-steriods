@@ -6,6 +6,7 @@ import { SeoHead } from '../seo/SeoHead';
 import { SITE_NAME, sanitizeMetaText } from '../../lib/seo/site';
 import { sortManufacturers } from '../../data/manufacturers';
 import { ChevronRight } from 'lucide-react';
+import { AppLink } from '../navigation/AppLink';
 
 interface ManufacturersPageProps {
   brands: Brand[];
@@ -36,9 +37,9 @@ export const ManufacturersPage: React.FC<ManufacturersPageProps> = ({
       <Section padding="md">
         <Container>
           <nav className="flex items-center gap-1.5 text-[11px] font-bold text-slate-500 mb-6" aria-label="Breadcrumb">
-            <button type="button" onClick={() => onNavigate('/shop')} className="hover:text-teal-700 cursor-pointer">
+            <AppLink href="/shop" navigate={onNavigate} className="hover:text-teal-700 cursor-pointer">
               Shop
-            </button>
+            </AppLink>
             <ChevronRight className="w-3.5 h-3.5 text-slate-300" />
             <span className="text-slate-800">Manufacturers</span>
           </nav>
@@ -59,10 +60,10 @@ export const ManufacturersPage: React.FC<ManufacturersPageProps> = ({
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
               {manufacturers.map((brand) => (
-                <button
+                <AppLink
                   key={brand.id}
-                  type="button"
-                  onClick={() => onSelectBrand(brand.slug)}
+                  href={`/brand/${brand.slug}`}
+                  navigate={() => onSelectBrand(brand.slug)}
                   className="group bg-white rounded-lg border border-slate-200 p-4 hover:shadow-md hover:border-teal-600 transition-all cursor-pointer flex flex-col items-center justify-center min-h-[100px] text-center"
                 >
                   {brand.logoUrl ? (
@@ -85,7 +86,7 @@ export const ManufacturersPage: React.FC<ManufacturersPageProps> = ({
                   >
                     {brand.name}
                   </span>
-                </button>
+                </AppLink>
               ))}
             </div>
           )}

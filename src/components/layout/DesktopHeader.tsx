@@ -47,7 +47,10 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
     <div className="hidden lg:block">
       <div className="brand-header-bg">
         <div className="max-w-7xl mx-auto px-6 py-1.5 flex items-center gap-4">
-          <BrandMark onClick={() => (onGoHome ? onGoHome() : onSelectCategory(''))} />
+          <BrandMark
+            href="/"
+            navigate={() => (onGoHome ? onGoHome() : onSelectCategory(''))}
+          />
 
           <div className="flex-1 min-w-0 max-w-2xl">
             <SearchInput

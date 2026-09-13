@@ -46,16 +46,17 @@ export const PRODUCT_SEO_COPY: Record<string, ProductSeoCopy> = {
     ],
   },
   'tri-test-400-spharmaqo-labs': {
-    seoTitle: 'Test 400 Tri-Ester – Pharmaqo Labs | Steroids UK',
+    seoTitle: 'Test 400 / Tri Test – Pharmaqo Labs | Steroids UK',
     seoDescription:
-      'Test 400 (Tri-Ester Testosterone Mix) by Pharmaqo Labs. Lab-tested injectable with GBP pricing and UK dispatch.',
+      'Test 400, Tri Test, Testabol 400 and testosterone 400 by Pharmaqo Labs. Lab-tested injectable with GBP pricing and UK dispatch.',
     shortDescription:
-      'Test 400 Tri-Ester by Pharmaqo Labs — testosterone mix listed for UK catalogue buyers seeking Test 400.',
+      'Test 400 Tri-Ester / Tri Test by Pharmaqo Labs — testosterone mix for Testabol 400 and testosterone 400 searches.',
     description:
-      'Test 400 from Pharmaqo Labs blends testosterone esters in one vial for catalogue browsing. Explore more Pharmaqo Labs products or buy testosterone across the injectable category. Educational catalogue context only.',
+      'Test 400 / Tri Test from Pharmaqo Labs blends testosterone esters. Also matches Testabol 400, testosterone 400 and Test 400 cycle catalogue browsing. Explore Pharmaqo Labs review context on the brand page. Educational only.',
     relatedLinks: [
-      { href: '/brand/pharmaqo-labs', label: 'Pharmaqo Labs' },
-      { href: '/shop?q=testosterone', label: 'Testosterone for sale' },
+      { href: '/brand/pharmaqo-labs', label: 'Pharmaqo Labs review' },
+      { href: '/shop?q=testosterone', label: 'Buy testosterone' },
+      { href: '/cycle-builder', label: 'Test 400 cycle guide' },
       { href: '/', label: 'Buy steroids UK' },
     ],
   },
@@ -172,17 +173,17 @@ export const PRODUCT_SEO_COPY: Record<string, ProductSeoCopy> = {
     ],
   },
   'mk677-ibutamoren-liquid-25mg-30ml-syncom-labs': {
-    seoTitle: 'MK677 UK – Ibutamoren Liquid | Steroids UK',
+    seoTitle: 'MK677 UK – Buy MK677 / MK667 | Steroids UK',
     seoDescription:
-      'MK677 UK / MK 677 UK (Ibutamoren) liquid from Syncom Labs. Buy MK677 in the UK SARMs catalogue with GBP pricing.',
+      'MK677 UK / MK 677 UK / MK667 / MK677 buy (Ibutamoren) liquid from Syncom Labs. Buy MK677 in the UK SARMs catalogue with GBP pricing.',
     shortDescription:
-      'MK677 UK Ibutamoren liquid — research SARM listing with batch context and tracked UK shipping.',
+      'MK677 UK / MK667 Ibutamoren liquid — MK677 for sale and MK677 buy listing with tracked UK shipping.',
     description:
-      'MK677 UK / MK677 for sale sits in our UK SARMs category. Browse RAD 140 UK or the homepage UK steroid shop. Educational only.',
+      'MK677 UK, MK677 for sale, MK677 buy and MK667 typo searches sit in our UK SARMs category. Browse RAD 140 UK or the homepage UK steroids shop. Educational only.',
     relatedLinks: [
       { href: '/category/sarms', label: 'UK SARMs / MK677 UK' },
       { href: '/product/rad-140-testolone-liquid-25mg-30ml-syncom-labs', label: 'RAD 140 UK' },
-      { href: '/', label: 'Buy steroids UK' },
+      { href: '/', label: 'UK steroids shop' },
     ],
   },
   'qomatropin-12mg-36iu-cartridge-pharmaqo-labs': {
@@ -256,16 +257,17 @@ export const PRODUCT_SEO_COPY: Record<string, ProductSeoCopy> = {
     ],
   },
   'hcg-pharmaqolabs': {
-    seoTitle: 'Buy HCG UK – Pharmaqo | Steroids UK',
+    seoTitle: 'Buy HCG UK – HCG 5000iu | Steroids UK',
     seoDescription:
-      'Buy HCG UK / HCG peptide from Pharmaqo Labs at Steroids UK with GBP pricing and tracked dispatch.',
+      'Buy HCG UK / HCG 5000iu / purchase HCG from Pharmaqo Labs at Steroids UK with GBP pricing and tracked dispatch.',
     shortDescription:
-      'Buy HCG UK — HCG peptide Pharmaqo listing for PCT-related catalogue browsing.',
+      'Buy HCG UK — HCG 5000iu / HCG peptide Pharmaqo listing for PCT-related catalogue browsing.',
     description:
-      'HCG peptide listing for buy HCG / order HCG searches. Pair with Clomid tablets in the PCT category. Educational only.',
+      'HCG peptide listing for buy HCG, HCG buy, purchase HCG, order HCG and HCG 5000iu searches. Pair with Clomid tablets in the PCT category. See FAQ for legal to buy HCG online context. Educational only.',
     relatedLinks: [
       { href: '/category/pct', label: 'PCT / Buy HCG' },
       { href: '/product/clomid-pharmaqo-labs', label: 'Clomid tablets' },
+      { href: '/faq', label: 'Legal to buy HCG online' },
       { href: '/', label: 'Steroid shop UK' },
     ],
   },
@@ -504,19 +506,14 @@ export function enrichProductShortDescription(
   slug: string,
   existing: string | null | undefined
 ): string {
-  const trimmed = (existing || '').trim();
   const enriched = productSeoFor(slug);
-  if (!enriched) return trimmed;
-  if (!trimmed || trimmed.length < 60) return enriched.shortDescription;
-  return trimmed;
+  // Always surface curated competitor-keyword copy when we own the slug.
+  if (enriched?.shortDescription) return enriched.shortDescription;
+  return (existing || '').trim();
 }
 
 export function enrichProductDescription(slug: string, existing: string | null | undefined): string {
-  const trimmed = (existing || '').trim();
   const enriched = productSeoFor(slug);
-  if (!enriched) return trimmed;
-  if (!trimmed || trimmed.length < 80 || trimmed === enrichProductShortDescription(slug, trimmed)) {
-    return enriched.description;
-  }
-  return trimmed;
+  if (enriched?.description) return enriched.description;
+  return (existing || '').trim();
 }

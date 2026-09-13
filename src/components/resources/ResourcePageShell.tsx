@@ -2,6 +2,7 @@ import React from 'react';
 import { Container } from '../layout/Container';
 import { RESOURCE_LINKS } from '../../data/resources';
 import { cn } from '../../lib/utils';
+import { AppLink } from '../navigation/AppLink';
 
 interface ResourcePageShellProps {
   kicker: string;
@@ -32,19 +33,19 @@ export const ResourcePageShell: React.FC<ResourcePageShellProps> = ({
               {RESOURCE_LINKS.map((link) => {
                 const active = currentPath === link.href;
                 return (
-                  <button
+                  <AppLink
                     key={link.href}
-                    type="button"
-                    onClick={() => onNavigate(link.href)}
+                    href={link.href}
+                    navigate={onNavigate}
                     className={cn(
-                      'w-full text-left rounded-xl px-4 py-2.5 text-[13px] font-bold cursor-pointer transition-colors border-l-[3px]',
+                      'w-full text-left rounded-xl px-4 py-2.5 text-[13px] font-bold cursor-pointer transition-colors border-l-[3px] block',
                       active
                         ? 'bg-[#e8f6ef] text-[#0f5c48] border-l-[#157a62]'
                         : 'text-slate-800 border-l-transparent hover:bg-[#e8f6ef] hover:text-[#0f5c48] hover:border-l-[#157a62]'
                     )}
                   >
                     {link.label}
-                  </button>
+                  </AppLink>
                 );
               })}
             </nav>

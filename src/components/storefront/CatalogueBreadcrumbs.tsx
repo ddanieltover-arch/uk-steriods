@@ -1,5 +1,6 @@
 import React from 'react';
 import { ChevronRight, Home } from 'lucide-react';
+import { AppLink } from '../navigation/AppLink';
 
 export interface BreadcrumbItem {
   label: string;
@@ -17,14 +18,15 @@ export const CatalogueBreadcrumbs: React.FC<CatalogueBreadcrumbsProps> = ({ item
     <nav aria-label="Breadcrumb" className="py-3">
       <ol className="flex items-center flex-wrap gap-1.5 text-xs font-medium text-slate-500">
         <li>
-          <button
-            onClick={() => onNavigate ? onNavigate('/') : window.location.assign('/')}
+          <AppLink
+            href="/"
+            navigate={onNavigate}
             className="flex items-center gap-1 hover:text-teal-600 transition-colors cursor-pointer"
             aria-label="Home"
           >
             <Home className="w-3.5 h-3.5 text-slate-400" />
             <span className="sr-only">Home</span>
-          </button>
+          </AppLink>
         </li>
 
         {items.map((item, idx) => (
@@ -35,12 +37,13 @@ export const CatalogueBreadcrumbs: React.FC<CatalogueBreadcrumbsProps> = ({ item
                 {item.label}
               </span>
             ) : (
-              <button
-                onClick={() => onNavigate && item.href ? onNavigate(item.href) : undefined}
+              <AppLink
+                href={item.href}
+                navigate={onNavigate}
                 className="hover:text-teal-600 transition-colors cursor-pointer truncate max-w-[180px]"
               >
                 {item.label}
-              </button>
+              </AppLink>
             )}
           </li>
         ))}

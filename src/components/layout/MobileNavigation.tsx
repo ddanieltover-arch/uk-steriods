@@ -6,6 +6,7 @@ import { User, Package, ShieldCheck, Truck, ChevronRight } from 'lucide-react';
 import { SITE_NAME } from '../../lib/seo/site';
 import { RESOURCE_LINKS } from '../../data/resources';
 import { sortManufacturers } from '../../data/manufacturers';
+import { AppLink } from '../navigation/AppLink';
 
 interface MobileNavigationProps {
   isOpen: boolean;
@@ -42,6 +43,15 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
   currentUser,
   autoFocusSearch = false,
 }) => {
+  const go = (path: string) => {
+    if (onNavigate) onNavigate(path);
+    else {
+      window.history.pushState({}, '', path);
+      window.dispatchEvent(new Event('popstate'));
+    }
+    onClose();
+  };
+
   return (
     <Sheet
       isOpen={isOpen}
@@ -92,8 +102,9 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
           <h4 className="text-[10px] font-black uppercase tracking-wider text-slate-400 px-1">
             Product Categories
           </h4>
-          <button
-            onClick={() => {
+          <AppLink
+            href="/shop"
+            navigate={() => {
               onSelectCategory('');
               onClose();
             }}
@@ -105,43 +116,37 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
           >
             <span>All Catalog Items</span>
             <ChevronRight className="w-4 h-4 text-slate-400" />
-          </button>
+          </AppLink>
 
-          <button
-            onClick={() => {
-              window.history.pushState({}, '', '/blog');
-              window.dispatchEvent(new Event('popstate'));
-              onClose();
-            }}
+          <AppLink
+            href="/blog"
+            navigate={go}
             className="w-full text-left rounded-xl px-3.5 py-2.5 text-xs font-extrabold transition-colors flex items-center justify-between text-slate-700 hover:bg-slate-50"
           >
             <span>Knowledge Hub / Blog</span>
             <ChevronRight className="w-4 h-4 text-slate-400" />
-          </button>
+          </AppLink>
 
           <h4 className="text-[10px] font-black uppercase tracking-wider text-slate-400 px-1 pt-3">
             Resources
           </h4>
           {RESOURCE_LINKS.map((link) => (
-            <button
+            <AppLink
               key={link.href}
-              type="button"
-              onClick={() => {
-                window.history.pushState({}, '', link.href);
-                window.dispatchEvent(new Event('popstate'));
-                onClose();
-              }}
+              href={link.href}
+              navigate={go}
               className="w-full text-left rounded-xl px-3.5 py-2.5 text-xs font-bold transition-colors flex items-center justify-between text-slate-700 hover:bg-slate-50"
             >
               <span>{link.label}</span>
               <ChevronRight className="w-4 h-4 text-slate-400" />
-            </button>
+            </AppLink>
           ))}
 
           {categories.map((cat) => (
-            <button
+            <AppLink
               key={cat.id}
-              onClick={() => {
+              href={`/category/${cat.slug}`}
+              navigate={() => {
                 onSelectCategory(cat.slug);
                 onClose();
               }}
@@ -153,7 +158,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
             >
               <span>{cat.name}</span>
               <ChevronRight className="w-4 h-4 text-slate-400" />
-            </button>
+            </AppLink>
           ))}
         </div>
 
@@ -163,31 +168,28 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
             <h4 className="text-[10px] font-black uppercase tracking-wider text-slate-400">
               Manufacturers
             </h4>
-            <button
-              type="button"
-              onClick={() => {
-                onNavigate?.('/manufacturers');
-                onClose();
-              }}
+            <AppLink
+              href="/manufacturers"
+              navigate={go}
               className="text-[10px] font-black uppercase tracking-wider text-teal-700 cursor-pointer"
             >
               View all
-            </button>
+            </AppLink>
           </div>
           <div className="grid grid-cols-2 gap-2">
             {sortManufacturers(brands).slice(0, 8).map((brand) => (
-              <button
+              <AppLink
                 key={brand.id}
-                type="button"
-                onClick={() => {
+                href={`/brand/${brand.slug}`}
+                navigate={() => {
                   if (onSelectBrand) onSelectBrand(brand.slug);
-                  else onNavigate?.(`/brand/${brand.slug}`);
+                  else go(`/brand/${brand.slug}`);
                   onClose();
                 }}
                 className="rounded-xl border border-slate-200 bg-slate-50 p-2.5 text-left text-xs font-bold text-slate-800 hover:border-teal-400 transition-colors cursor-pointer"
               >
                 {brand.name}
-              </button>
+              </AppLink>
             ))}
           </div>
         </div>
@@ -195,6 +197,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
         {/* Support & Tracking Links */}
         <div className="space-y-2 pt-2 border-t border-slate-100">
           <button
+            type="button"
             onClick={() => {
               onOpenOrderTracking();
               onClose();

@@ -7,7 +7,7 @@ import { RESOURCE_PAGE_SEO } from './resources';
 import { FAQ_HUB_PATH, flatFaqHubItems } from './faq-hub';
 import { GLOSSARY_PATH, GLOSSARY_TERMS } from './glossary';
 import { getGeoGuide } from './geo-guides';
-import { enrichCategoryDescription, categoryAnswerCapsule } from './category-copy';
+import { enrichCategoryDescription, categoryAnswerCapsule, categoryRelatedLinks } from './category-copy';
 import { DEFAULT_DESCRIPTION, SITE_NAME, sanitizeMetaText } from './site';
 import { RELATED_SEARCHES } from '../../data/homepage';
 import {
@@ -144,6 +144,7 @@ ${navLinks([
   { href: '/', label: 'Buy steroids UK' },
   { href: '/shop', label: 'Steroids UK buy' },
   { href: '/glossary', label: 'Glossary' },
+  ...categoryRelatedLinks(category.slug),
 ])}
 </main>`;
   }

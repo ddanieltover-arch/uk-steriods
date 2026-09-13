@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container } from './Container';
 import { BrandMark } from '../brand/BrandMark';
+import { AppLink } from '../navigation/AppLink';
 import { SITE_NAME } from '../../lib/seo/site';
 
 const shopLinks = [
@@ -70,13 +71,7 @@ export const Footer: React.FC = () => {
       <Container className="py-12">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-10 text-xs">
           <div className="col-span-2 md:col-span-1 space-y-4">
-            <BrandMark
-              size="sm"
-              onClick={() => {
-                window.history.pushState({}, '', '/');
-                window.dispatchEvent(new Event('popstate'));
-              }}
-            />
+            <BrandMark size="sm" href="/" />
             <p className="text-slate-500 text-[11px] leading-relaxed">
               UK dispatch, tracked delivery. UK from £10, Europe £25, rest of world £35.
             </p>
@@ -93,12 +88,12 @@ export const Footer: React.FC = () => {
         <Container className="flex flex-col md:flex-row justify-between items-center gap-4">
           <p>© {new Date().getFullYear()} {SITE_NAME}. All rights reserved.</p>
           <div className="flex flex-wrap items-center gap-4 font-bold text-[10px]">
-            <a href="/privacy-policy" className="hover:text-[#157a62] transition-colors">
+            <AppLink href="/privacy-policy" className="hover:text-[#157a62] transition-colors">
               Privacy
-            </a>
-            <a href="/terms" className="hover:text-[#157a62] transition-colors">
+            </AppLink>
+            <AppLink href="/terms" className="hover:text-[#157a62] transition-colors">
               Terms
-            </a>
+            </AppLink>
             {['Bank transfer', 'Crypto'].map((m) => (
               <span key={m} className="bg-white border border-slate-200 px-2.5 py-1 rounded-md text-slate-800">
                 {m}
@@ -118,9 +113,9 @@ function FooterCol({ title, links }: { title: string; links: { href: string; lab
       <ul className="space-y-2.5 text-[11px] font-semibold text-slate-600">
         {links.map((l) => (
           <li key={l.label}>
-            <a href={l.href} className="hover:text-[#157a62] transition-colors">
+            <AppLink href={l.href} className="hover:text-[#157a62] transition-colors">
               {l.label}
-            </a>
+            </AppLink>
           </li>
         ))}
       </ul>

@@ -4,16 +4,16 @@ export const RESOURCE_PAGE_SEO: Record<
   { title: string; description: string; changefreq: 'monthly' | 'weekly'; priority: string }
 > = {
   '/about-us': {
-    title: 'About Us',
+    title: 'About Us — UK Steroids Shop Reviews',
     description:
-      'Real people, real bodybuilding, shipped from a UK warehouse. Lab-tested catalogue run by lifters who answer your messages.',
+      'UK steroids shop review context: real people, real bodybuilding, lab tested steroids UK catalogue from a UK warehouse. Steroids UK reviews start with honest stock and responsive support.',
     changefreq: 'monthly',
     priority: '0.6',
   },
   '/faq': {
-    title: 'FAQ: Buying Steroids in the UK',
+    title: 'FAQ: Is It Legal to Buy Steroids UK?',
     description:
-      'Answers on UK catalogue buying, legality context, lab testing, delivery, payment, and PCT. Educational only — not medical advice.',
+      'Is it legal to buy steroids UK? Also: legal to buy HCG online, lab testing, delivery, payment and PCT. Educational only — not medical or legal advice.',
     changefreq: 'weekly',
     priority: '0.8',
   },
@@ -32,42 +32,44 @@ export const RESOURCE_PAGE_SEO: Record<
     priority: '0.8',
   },
   '/sarms-vs-steroids': {
-    title: 'SARMs vs Anabolic Steroids',
+    title: 'What Are SARMs vs Anabolic Steroids',
     description:
-      'SARMs and anabolic steroids as separate Steroids UK catalogue categories. Research literacy only — not medicines.',
+      'What are SARMs compared with anabolic steroids in the Steroids UK catalogue. Research literacy only — not medicines.',
     changefreq: 'monthly',
     priority: '0.8',
   },
   '/what-is-pct': {
-    title: 'What Is PCT? Post-Cycle Therapy',
+    title: 'Best PCT Cycle to Keep Gains — What Is PCT?',
     description:
-      'What PCT means for catalogue buyers, SERMs in the PCT category, and how to browse support products. Educational only.',
+      'Best PCT cycle to keep gains in educational catalogue context — SERMs, Clomid tablets and how to browse PCT. Not a dosing protocol.',
     changefreq: 'monthly',
     priority: '0.8',
   },
   '/cycle-builder': {
-    title: 'Cycle Builder',
+    title: 'Steroids UK Cycle Guide — Cycle Builder',
     description:
-      'Build a catalogue recommendation in 5 questions — compounds, support and PCT. Educational only.',
+      'Steroids UK cycle guide: build a catalogue recommendation in 5 questions — compounds, support and PCT including NPP test cycle ideas. Educational only.',
     changefreq: 'monthly',
     priority: '0.7',
   },
   '/delivery-and-returns': {
-    title: 'Delivery & Returns',
+    title: 'Steroids UK Next Day Delivery & Returns',
     description:
-      'UK, Europe and worldwide tracked delivery from our UK warehouse, discreet packaging, and returns policy.',
+      'Anabolic steroids UK delivery and steroids UK next day delivery options — UK, Europe and worldwide tracked shipping, discreet packaging, returns policy.',
     changefreq: 'monthly',
     priority: '0.6',
   },
   '/payment-methods': {
-    title: 'Payment Methods',
-    description: 'Pay with UK bank transfer or cryptocurrency. Encrypted and discreet.',
+    title: 'Steroids UK Cryptocurrency Payment',
+    description:
+      'Steroids UK cryptocurrency payment and UK bank transfer. Encrypted and discreet checkout.',
     changefreq: 'monthly',
     priority: '0.6',
   },
   '/crypto-payment-guides': {
-    title: 'Crypto Payment Guides',
-    description: 'Step-by-step guides for UK bank transfer and crypto checkout.',
+    title: 'How to Pay Crypto Steroids UK',
+    description:
+      'How to pay crypto steroids UK — step-by-step guides for crypto checkout and bank transfer.',
     changefreq: 'monthly',
     priority: '0.5',
   },

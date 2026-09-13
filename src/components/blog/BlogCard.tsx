@@ -1,4 +1,5 @@
 import React from 'react';
+import { AppLink } from '../navigation/AppLink';
 
 export interface BlogPostCard {
   id: string;
@@ -36,14 +37,14 @@ export const BlogCard: React.FC<{
     ? new Date(post.publishedAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
     : '';
 
-  const open = () => onNavigate(`/blog/${post.slug}`);
+  const href = `/blog/${post.slug}`;
 
   if (featured) {
     return (
       <article className="rounded-2xl border border-emerald-100 bg-white overflow-hidden shadow-sm">
-        <button type="button" onClick={open} className="block w-full cursor-pointer">
+        <AppLink href={href} navigate={onNavigate} className="block w-full cursor-pointer">
           <Cover src={post.coverImageUrl} alt="" className="w-full h-56 md:h-72 object-cover" />
-        </button>
+        </AppLink>
         <div className="p-6 md:p-8">
           <div className="flex flex-wrap gap-2 mb-3">
             {post.categories.map((c) => (
@@ -53,12 +54,12 @@ export const BlogCard: React.FC<{
             ))}
           </div>
           <h2 className="text-2xl font-black text-slate-900 leading-tight">
-            <button type="button" className="text-left hover:text-[#157a62] cursor-pointer" onClick={open}>
+            <AppLink href={href} navigate={onNavigate} className="hover:text-[#157a62] cursor-pointer">
               {post.title}
-            </button>
+            </AppLink>
           </h2>
           <p className="text-sm text-slate-600 mt-2 leading-relaxed">{post.excerpt}</p>
-          <Meta post={post} date={date} onOpen={open} />
+          <Meta post={post} date={date} href={href} onNavigate={onNavigate} />
         </div>
       </article>
     );
@@ -67,9 +68,9 @@ export const BlogCard: React.FC<{
   return (
     <article className="rounded-2xl border border-slate-200 bg-white overflow-hidden">
       <div className="flex flex-col sm:flex-row">
-        <button type="button" onClick={open} className="sm:w-52 shrink-0 cursor-pointer">
+        <AppLink href={href} navigate={onNavigate} className="sm:w-52 shrink-0 cursor-pointer block">
           <Cover src={post.coverImageUrl} alt="" className="w-full h-40 sm:h-full object-cover min-h-[8rem]" />
-        </button>
+        </AppLink>
         <div className="p-5 min-w-0">
           <div className="flex flex-wrap gap-2 mb-3">
             {post.categories.map((c) => (
@@ -79,12 +80,12 @@ export const BlogCard: React.FC<{
             ))}
           </div>
           <h2 className="text-lg font-black text-slate-900">
-            <button type="button" className="text-left hover:text-[#157a62] cursor-pointer" onClick={open}>
+            <AppLink href={href} navigate={onNavigate} className="hover:text-[#157a62] cursor-pointer">
               {post.title}
-            </button>
+            </AppLink>
           </h2>
           <p className="text-sm text-slate-600 mt-2 leading-relaxed line-clamp-3">{post.excerpt}</p>
-          <Meta post={post} date={date} onOpen={open} />
+          <Meta post={post} date={date} href={href} onNavigate={onNavigate} />
         </div>
       </div>
     </article>
@@ -94,20 +95,22 @@ export const BlogCard: React.FC<{
 function Meta({
   post,
   date,
-  onOpen,
+  href,
+  onNavigate,
 }: {
   post: BlogPostCard;
   date: string;
-  onOpen: () => void;
+  href: string;
+  onNavigate: (path: string) => void;
 }) {
   return (
     <div className="mt-4 flex flex-wrap items-center gap-3 text-[11px] font-bold text-slate-500">
       <span>{post.authorName}</span>
       <span>{date}</span>
       <span>{post.readingMinutes} min read</span>
-      <button type="button" onClick={onOpen} className="text-[#157a62] uppercase tracking-wider cursor-pointer">
+      <AppLink href={href} navigate={onNavigate} className="text-[#157a62] uppercase tracking-wider cursor-pointer">
         Read article
-      </button>
+      </AppLink>
     </div>
   );
 }

@@ -15,6 +15,7 @@ import {
   Users,
 } from 'lucide-react';
 import { HERO_CARDS, HERO_SLIDE_PAIRS, type HeroCampaignCard, type HeroFeatureIcon } from '../../../data/homepage';
+import { AppLink } from '../../navigation/AppLink';
 
 interface HeroSliderProps {
   onNavigate: (href: string) => void;
@@ -139,14 +140,14 @@ const HeroCard: React.FC<{
 
   if (card.fullBleed) {
     return (
-      <button
-        type="button"
-        onClick={() => onNavigate(card.href)}
+      <AppLink
+        href={card.href}
+        navigate={onNavigate}
         className="relative block aspect-[960/513] w-full cursor-pointer overflow-hidden rounded-2xl"
         aria-label={card.cta}
       >
         <img src={card.fullBleed} alt="" className="absolute inset-0 h-full w-full object-cover object-center" />
-      </button>
+      </AppLink>
     );
   }
 
@@ -223,9 +224,9 @@ const HeroCard: React.FC<{
           </ul>
         ) : null}
 
-        <button
-          type="button"
-          onClick={() => onNavigate(card.href)}
+        <AppLink
+          href={card.href}
+          navigate={onNavigate}
           className={`mt-5 inline-flex w-fit cursor-pointer items-center gap-2 rounded-lg px-4 py-2.5 text-xs font-black uppercase tracking-wider ${
             card.ctaStyle === 'white'
               ? 'bg-white text-[#157a62]'
@@ -235,7 +236,7 @@ const HeroCard: React.FC<{
           {card.ctaIcon === 'cart' ? <ShoppingCart className="h-3.5 w-3.5" /> : null}
           {card.ctaIcon === 'file' ? <FileText className="h-3.5 w-3.5" /> : null}
           {card.cta}
-        </button>
+        </AppLink>
       </div>
     </article>
   );

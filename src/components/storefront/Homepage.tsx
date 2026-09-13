@@ -27,6 +27,7 @@ import {
   Star,
   ChevronRight,
 } from 'lucide-react';
+import { AppLink } from '../navigation/AppLink';
 
 interface HomepageProps {
   categories: Category[];
@@ -170,7 +171,7 @@ export const Homepage: React.FC<HomepageProps> = ({
 
       <Section padding="sm" id="top-sellers">
         <Container>
-          <SectionHeading kicker="Most loved" title="Top Sellers" actionLabel="View all" onAction={() => go('/shop')} />
+          <SectionHeading kicker="Most loved" title="Top Sellers" actionLabel="View all" actionHref="/shop" onNavigate={go} />
           {renderProductRow(topSellers)}
         </Container>
       </Section>
@@ -205,18 +206,18 @@ export const Homepage: React.FC<HomepageProps> = ({
 
       <Section padding="sm">
         <Container>
-          <SectionHeading kicker="Categories" title="Browse by goal" actionLabel="All categories" onAction={() => go('/shop')} />
+          <SectionHeading kicker="Categories" title="Browse by goal" actionLabel="All categories" actionHref="/shop" onNavigate={go} />
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
             {shopCategories.map((category) => (
-              <button
+              <AppLink
                 key={category.id}
-                type="button"
-                onClick={() => onSelectCategory(category.slug)}
-                className="rounded-2xl border border-slate-200 bg-slate-50 hover:border-[#157a62] hover:bg-emerald-50 p-4 text-left cursor-pointer transition-colors"
+                href={`/category/${category.slug}`}
+                navigate={() => onSelectCategory(category.slug)}
+                className="rounded-2xl border border-slate-200 bg-slate-50 hover:border-[#157a62] hover:bg-emerald-50 p-4 text-left cursor-pointer transition-colors block"
               >
                 <p className="text-sm font-black text-slate-900">{category.name}</p>
                 <p className="text-[10px] text-slate-500 mt-1">{category.productCount} products</p>
-              </button>
+              </AppLink>
             ))}
           </div>
         </Container>
@@ -224,7 +225,7 @@ export const Homepage: React.FC<HomepageProps> = ({
 
       <Section padding="sm" background="subtle" id="new-products">
         <Container>
-          <SectionHeading kicker="Just dropped" title="New products" actionLabel="See all" onAction={() => go('/shop')} />
+          <SectionHeading kicker="Just dropped" title="New products" actionLabel="See all" actionHref="/shop" onNavigate={go} />
           {renderProductRow(newProducts)}
         </Container>
       </Section>
@@ -236,11 +237,11 @@ export const Homepage: React.FC<HomepageProps> = ({
             {shopCategories.map((category) => {
               const imageUrl = categoryImageFor(category);
               return (
-              <button
+              <AppLink
                 key={`large-${category.id}`}
-                type="button"
-                onClick={() => onSelectCategory(category.slug)}
-                className="group relative h-40 rounded-2xl overflow-hidden border border-slate-200 cursor-pointer text-left"
+                href={`/category/${category.slug}`}
+                navigate={() => onSelectCategory(category.slug)}
+                className="group relative h-40 rounded-2xl overflow-hidden border border-slate-200 cursor-pointer text-left block"
               >
                 {imageUrl ? (
                   <img
@@ -256,7 +257,7 @@ export const Homepage: React.FC<HomepageProps> = ({
                   <span className="font-black text-lg">{category.name}</span>
                   <ChevronRight className="w-5 h-5" />
                 </div>
-              </button>
+              </AppLink>
               );
             })}
           </div>
@@ -266,13 +267,13 @@ export const Homepage: React.FC<HomepageProps> = ({
       {brands.length > 0 && (
         <Section padding="sm" background="subtle">
           <Container>
-            <SectionHeading kicker="Trusted suppliers" title="Our manufacturers" actionLabel="See all" onAction={() => go('/manufacturers')} />
+            <SectionHeading kicker="Trusted suppliers" title="Our manufacturers" actionLabel="See all" actionHref="/manufacturers" onNavigate={go} />
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-4">
               {sortManufacturers(brands).slice(0, 11).map((brand) => (
-                <button
+                <AppLink
                   key={brand.id}
-                  type="button"
-                  onClick={() => onSelectBrand(brand.slug)}
+                  href={`/brand/${brand.slug}`}
+                  navigate={() => onSelectBrand(brand.slug)}
                   className="bg-white rounded-lg border border-slate-200 p-4 hover:shadow-md hover:border-[#157a62] cursor-pointer flex flex-col items-center justify-center min-h-[100px]"
                 >
                   {brand.logoUrl ? (
@@ -290,7 +291,7 @@ export const Homepage: React.FC<HomepageProps> = ({
                   <span className={`text-xs font-semibold text-slate-600 text-center ${brand.logoUrl ? 'hidden' : ''}`}>
                     {brand.name}
                   </span>
-                </button>
+                </AppLink>
               ))}
             </div>
           </Container>
@@ -353,15 +354,15 @@ export const Homepage: React.FC<HomepageProps> = ({
           <SectionHeading kicker="Jump in" title="Shop by compound" />
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
             {COMPOUND_LINKS.map((link) => (
-              <button
+              <AppLink
                 key={link.label}
-                type="button"
-                onClick={() => go(link.href)}
-                className="rounded-xl border border-slate-200 bg-white p-4 text-left hover:border-[#157a62] cursor-pointer"
+                href={link.href}
+                navigate={go}
+                className="rounded-xl border border-slate-200 bg-white p-4 text-left hover:border-[#157a62] cursor-pointer block"
               >
                 <p className="font-black text-sm text-slate-900">{link.label}</p>
                 <p className="text-[11px] text-slate-500 mt-0.5">{link.hint}</p>
-              </button>
+              </AppLink>
             ))}
           </div>
         </Container>
@@ -372,14 +373,14 @@ export const Homepage: React.FC<HomepageProps> = ({
           <SectionHeading kicker="Related searches" title="Popular UK catalogue searches" />
           <div className="flex flex-wrap gap-2">
             {RELATED_SEARCHES.map((link) => (
-              <button
+              <AppLink
                 key={link.label}
-                type="button"
-                onClick={() => go(link.href)}
+                href={link.href}
+                navigate={go}
                 className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-bold text-slate-800 hover:border-[#157a62] cursor-pointer"
               >
                 {link.label}
-              </button>
+              </AppLink>
             ))}
           </div>
         </Container>
@@ -390,18 +391,18 @@ export const Homepage: React.FC<HomepageProps> = ({
           <SectionHeading kicker="From the desk" title="Guides" />
           <div className="grid sm:grid-cols-3 gap-4">
             {GUIDE_CARDS.map((card) => (
-              <button
+              <AppLink
                 key={card.title}
-                type="button"
-                onClick={() => go(card.href)}
-                className="bg-white rounded-2xl border border-slate-200 p-5 text-left hover:border-[#157a62] cursor-pointer"
+                href={card.href}
+                navigate={go}
+                className="bg-white rounded-2xl border border-slate-200 p-5 text-left hover:border-[#157a62] cursor-pointer block"
               >
                 <h3 className="font-black text-slate-900">{card.title}</h3>
                 <p className="text-xs text-slate-600 mt-2 leading-relaxed">{card.excerpt}</p>
                 <span className="inline-flex items-center gap-1 text-xs font-extrabold text-[#157a62] mt-4">
                   Read <ArrowRight className="w-3.5 h-3.5" />
                 </span>
-              </button>
+              </AppLink>
             ))}
           </div>
         </Container>
@@ -414,12 +415,14 @@ function SectionHeading({
   kicker,
   title,
   actionLabel,
-  onAction,
+  actionHref,
+  onNavigate,
 }: {
   kicker: string;
   title: string;
   actionLabel?: string;
-  onAction?: () => void;
+  actionHref?: string;
+  onNavigate?: (path: string) => void;
 }) {
   return (
     <div className="flex items-end justify-between gap-4 mb-6">
@@ -427,10 +430,14 @@ function SectionHeading({
         <p className="text-[11px] font-extrabold uppercase tracking-widest text-[#157a62]">{kicker}</p>
         <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">{title}</h2>
       </div>
-      {actionLabel && onAction && (
-        <button type="button" onClick={onAction} className="text-xs font-extrabold text-slate-600 hover:text-[#157a62] cursor-pointer">
+      {actionLabel && actionHref && (
+        <AppLink
+          href={actionHref}
+          navigate={onNavigate}
+          className="text-xs font-extrabold text-slate-600 hover:text-[#157a62] cursor-pointer"
+        >
           {actionLabel}
-        </button>
+        </AppLink>
       )}
     </div>
   );

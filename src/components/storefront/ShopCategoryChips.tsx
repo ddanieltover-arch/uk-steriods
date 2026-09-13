@@ -1,6 +1,7 @@
 import React from 'react';
 import { Category } from '../../types';
 import { cn } from '../../lib/utils';
+import { AppLink } from '../navigation/AppLink';
 
 /** Reference shop chip order from steroids-uk.com/shop */
 export const SHOP_CATEGORY_CHIP_ORDER = [
@@ -36,7 +37,6 @@ export const ShopCategoryChips: React.FC<ShopCategoryChipsProps> = ({
   const ordered = SHOP_CATEGORY_CHIP_ORDER.map((slug) => bySlug.get(slug)).filter(
     (c): c is Category => Boolean(c)
   );
-  // Include any extra categories not in the reference order
   const extras = categories.filter((c) => !SHOP_CATEGORY_CHIP_ORDER.includes(c.slug as any));
   const chips = [...ordered, ...extras];
 
@@ -49,10 +49,10 @@ export const ShopCategoryChips: React.FC<ShopCategoryChipsProps> = ({
       role="list"
       aria-label="Shop categories"
     >
-      <button
-        type="button"
+      <AppLink
+        href="/shop"
         role="listitem"
-        onClick={() => onSelect('')}
+        navigate={() => onSelect('')}
         className={cn(
           'inline-flex items-center gap-1.5 rounded-full border bg-white px-3.5 py-1.5 text-sm transition-colors cursor-pointer',
           !activeSlug
@@ -64,16 +64,17 @@ export const ShopCategoryChips: React.FC<ShopCategoryChipsProps> = ({
         <span className={cn('text-xs', !activeSlug ? 'text-teal-600/80' : 'text-slate-400')}>
           {totalCount}
         </span>
-      </button>
+      </AppLink>
 
       {chips.map((cat) => {
         const active = activeSlug === cat.slug;
+        const href = active ? '/shop' : `/category/${cat.slug}`;
         return (
-          <button
+          <AppLink
             key={cat.id || cat.slug}
-            type="button"
+            href={href}
             role="listitem"
-            onClick={() => onSelect(active ? '' : cat.slug)}
+            navigate={() => onSelect(active ? '' : cat.slug)}
             className={cn(
               'inline-flex items-center gap-1.5 rounded-full border bg-white px-3.5 py-1.5 text-sm transition-colors cursor-pointer',
               active
@@ -85,7 +86,7 @@ export const ShopCategoryChips: React.FC<ShopCategoryChipsProps> = ({
             <span className={cn('text-xs', active ? 'text-teal-600/80' : 'text-slate-400')}>
               {cat.productCount ?? 0}
             </span>
-          </button>
+          </AppLink>
         );
       })}
     </div>

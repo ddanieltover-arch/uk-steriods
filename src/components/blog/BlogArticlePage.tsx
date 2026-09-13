@@ -5,6 +5,7 @@ import { SeoHead } from '../seo/SeoHead';
 import { SITE_NAME } from '../../lib/seo/site';
 import { BlogRelatedProducts } from './BlogRelatedProducts';
 import { BlogCard, BlogPostCard } from './BlogCard';
+import { AppLink } from '../navigation/AppLink';
 
 interface BlogArticlePageProps {
   slug: string;
@@ -38,9 +39,9 @@ export const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug, onNaviga
     return (
       <Container className="py-16">
         <p className="text-sm text-slate-600">{error}</p>
-        <button type="button" className="mt-4 text-xs font-bold text-[#157a62]" onClick={() => onNavigate('/blog')}>
+        <AppLink href="/blog" navigate={onNavigate} className="mt-4 text-xs font-bold text-[#157a62] cursor-pointer">
           Back to blog
-        </button>
+        </AppLink>
       </Container>
     );
   }
@@ -67,9 +68,9 @@ export const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug, onNaviga
         ogImage={post.coverImageUrl || undefined}
       />
       <Container className="py-10 max-w-4xl">
-        <button type="button" onClick={() => onNavigate('/blog')} className="text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-6 cursor-pointer">
+        <AppLink href="/blog" navigate={onNavigate} className="text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-6 cursor-pointer inline-block">
           Home / Blog
-        </button>
+        </AppLink>
         <div className="flex flex-wrap gap-2 mb-3">
           {(post.categories || []).map((c: { slug: string; name: string }) => (
             <span key={c.slug} className="text-[10px] font-black uppercase tracking-wider text-[#157a62] bg-emerald-50 px-2 py-0.5 rounded">
@@ -130,16 +131,16 @@ export const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug, onNaviga
 
         <div className="mt-10 flex justify-between text-xs font-bold">
           {post.newer ? (
-            <button type="button" className="text-[#157a62] cursor-pointer" onClick={() => onNavigate(`/blog/${post.newer.slug}`)}>
+            <AppLink href={`/blog/${post.newer.slug}`} navigate={onNavigate} className="text-[#157a62] cursor-pointer">
               Newer: {post.newer.title}
-            </button>
+            </AppLink>
           ) : (
             <span />
           )}
           {post.older && (
-            <button type="button" className="text-[#157a62] cursor-pointer" onClick={() => onNavigate(`/blog/${post.older.slug}`)}>
+            <AppLink href={`/blog/${post.older.slug}`} navigate={onNavigate} className="text-[#157a62] cursor-pointer">
               Older: {post.older.title}
-            </button>
+            </AppLink>
           )}
         </div>
       </Container>

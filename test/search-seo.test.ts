@@ -18,8 +18,10 @@ import { ANSWER_CAPSULES } from '../src/lib/seo/answer-capsules';
 import { enrichCategoryDescription } from '../src/lib/seo/category-copy';
 import {
   enrichProductSeoTitle,
+  enrichProductShortDescription,
   productSeoFor,
 } from '../src/lib/seo/product-copy';
+import { shopQuerySurface } from '../src/lib/seo/shop-query-copy';
 import { DEFAULT_DESCRIPTION, SITE_TAGLINE } from '../src/lib/seo/site';
 import { RELATED_SEARCHES } from '../src/data/homepage';
 import { GLOSSARY_TERMS } from '../src/lib/seo/glossary';
@@ -112,9 +114,18 @@ function runSeoTests() {
     'thin category descriptions are enriched'
   );
   assert(
-    enrichCategoryDescription('fat-loss', 'Fat Loss', 'Fat Loss').toLowerCase().includes('clenbuterol'),
-    'fat-loss category copy includes clenbuterol keyword'
+    enrichProductShortDescription('testosterone-cypionate-proper-labs', 'A'.repeat(200))
+      .toLowerCase()
+      .includes('testosterone cypionate'),
+    'PDP keyword copy wins over long DB descriptions'
   );
+  assert(
+    enrichCategoryDescription('pct', 'PCT', 'A long custom DB description that would previously hide keywords').includes(
+      'Clomid'
+    ),
+    'category keyword copy is always visible when curated'
+  );
+  assert(!!shopQuerySurface('anavar')?.description.toLowerCase().includes('anavar for sale'), 'shop query anavar surface exists');
   assert(
     enrichProductSeoTitle('testosterone-cypionate-proper-labs', 'Test Cyp', null)
       .toLowerCase()

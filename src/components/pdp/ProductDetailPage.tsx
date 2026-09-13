@@ -54,6 +54,7 @@ import {
   productSeoFor,
 } from '../../lib/seo/product-copy';
 import { useToast } from '../feedback/ToastProvider';
+import { AppLink } from '../navigation/AppLink';
 
 interface ProductDetailPageProps {
   slug: string;
@@ -186,13 +187,14 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             </form>
 
             <div className="pt-4 flex items-center justify-center gap-4">
-              <button
-                onClick={() => onNavigate('/shop')}
+              <AppLink
+                href="/shop"
+                navigate={onNavigate}
                 className="bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs px-6 py-3 rounded-xl flex items-center gap-2 transition-all cursor-pointer"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span>Return to Catalogue</span>
-              </button>
+              </AppLink>
             </div>
           </div>
         </Container>
@@ -323,16 +325,17 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
       />
       <Container>
         <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-xs font-bold text-slate-500 overflow-x-auto pb-1">
-          <button onClick={() => onNavigate('/shop')} className="hover:text-teal-600 shrink-0 cursor-pointer">
+          <AppLink href="/shop" navigate={onNavigate} className="hover:text-teal-600 shrink-0 cursor-pointer">
             Shop
-          </button>
+          </AppLink>
           <ChevronRight className="w-3.5 h-3.5 text-slate-300 shrink-0" />
-          <button
-            onClick={() => onNavigate(brandPath)}
+          <AppLink
+            href={brandPath}
+            navigate={onNavigate}
             className="hover:text-teal-600 shrink-0 cursor-pointer"
           >
             {product.brandName}
-          </button>
+          </AppLink>
           <ChevronRight className="w-3.5 h-3.5 text-slate-300 shrink-0" />
           <span className="text-slate-900 truncate max-w-[200px] sm:max-w-xs">{title}</span>
         </nav>
@@ -349,12 +352,13 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
           </div>
 
           <div className="lg:col-span-6 space-y-5">
-            <button
-              onClick={() => onNavigate(brandPath)}
+            <AppLink
+              href={brandPath}
+              navigate={onNavigate}
               className="text-xs font-black uppercase tracking-widest text-teal-600 hover:underline cursor-pointer"
             >
               {product.brandName}
-            </button>
+            </AppLink>
 
             <div className="space-y-2">
               <h1 className="text-2xl sm:text-3xl font-black text-slate-900 leading-tight">{title}</h1>
@@ -369,14 +373,14 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
               {keywordLinks.length > 0 && (
                 <nav aria-label="Related searches" className="flex flex-wrap gap-2 pt-1">
                   {keywordLinks.map((link) => (
-                    <button
+                    <AppLink
                       key={`${link.href}-${link.label}`}
-                      type="button"
-                      onClick={() => onNavigate(link.href)}
+                      href={link.href}
+                      navigate={onNavigate}
                       className="rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-[11px] font-bold text-slate-700 hover:border-teal-600 cursor-pointer"
                     >
                       {link.label}
-                    </button>
+                    </AppLink>
                   ))}
                 </nav>
               )}
@@ -558,12 +562,13 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                   <h2 className="text-xl font-black text-slate-900">More from this lab</h2>
                   <p className="text-xs text-slate-500 mt-0.5">Curated picks from {product.brandName}.</p>
                 </div>
-                <button
-                  onClick={() => onNavigate(brandPath)}
+                <AppLink
+                  href={brandPath}
+                  navigate={onNavigate}
                   className="text-xs font-bold text-teal-600 hover:underline cursor-pointer"
                 >
                   See all
-                </button>
+                </AppLink>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {moreFromLab.slice(0, 4).map((p) => (
