@@ -471,6 +471,7 @@ export class CheckoutService {
 
     // 5. Enqueue transactional notification OUTSIDE the DB transaction.
     // Provider delivery is handled asynchronously by the notification worker.
+    const checkoutPhone = input.phone || shippingAddr.phone || billingAddr.phone;
     await OrderNotificationService.notifyOrderCreated({
       orderId: transactionResult.order.id,
       orderNumber: transactionResult.order.orderNumber,
@@ -478,6 +479,7 @@ export class CheckoutService {
       guestEmail: input.email,
       userId: input.userId || null,
       customerName: input.shippingAddress?.recipient || input.email,
+      customerPhone: checkoutPhone,
       totalPence: transactionResult.order.totalPence,
       subtotalPence: transactionResult.order.subtotalPence,
       shippingPence: transactionResult.order.shippingPence,
@@ -496,6 +498,7 @@ export class CheckoutService {
         subtotalPence: i.subtotalPence,
       })),
       shippingAddress: {
+        recipient: shippingAddr.recipient,
         firstName: shippingAddr.recipient?.split(' ')[0],
         lastName: shippingAddr.recipient?.split(' ').slice(1).join(' ') || undefined,
         addressLine1: shippingAddr.line1,
@@ -503,7 +506,22 @@ export class CheckoutService {
         city: shippingAddr.city,
         county: shippingAddr.county,
         postcode: shippingAddr.postcode,
-        country: shippingAddr.country,
+        country: shippingAddr.country || 'GB',
+        phone: shippingAddr.phone || checkoutPhone,
+        email: shippingAddr.email || input.email,
+      },
+      billingAddress: {
+        recipient: billingAddr.recipient,
+        firstName: billingAddr.recipient?.split(' ')[0],
+        lastName: billingAddr.recipient?.split(' ').slice(1).join(' ') || undefined,
+        addressLine1: billingAddr.line1,
+        addressLine2: billingAddr.line2,
+        city: billingAddr.city,
+        county: billingAddr.county,
+        postcode: billingAddr.postcode,
+        country: billingAddr.country || 'GB',
+        phone: billingAddr.phone || checkoutPhone,
+        email: billingAddr.email || input.email,
       },
       trackingToken: transactionResult.trackingToken,
       shippingMethodName: input.shippingMethodId,

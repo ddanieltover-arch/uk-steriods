@@ -9,6 +9,7 @@ export interface OrderNotificationPayload {
   guestEmail: string;
   userId?: string | null;
   customerName?: string;
+  customerPhone?: string;
   totalPence: number;
   subtotalPence?: number;
   shippingPence?: number;
@@ -21,6 +22,7 @@ export interface OrderNotificationPayload {
   items?: OrderNotificationContext['items'];
   shippingMethodName?: string;
   shippingAddress?: OrderNotificationContext['shippingAddress'];
+  billingAddress?: OrderNotificationContext['billingAddress'];
   trackingToken?: string;
   trackingNumber?: string | null;
   shipmentProvider?: string | null;
@@ -29,6 +31,11 @@ export interface OrderNotificationPayload {
 }
 
 function toContext(payload: OrderNotificationPayload): OrderNotificationContext {
+  const customerPhone =
+    payload.customerPhone ||
+    payload.shippingAddress?.phone ||
+    payload.billingAddress?.phone;
+
   return {
     orderId: payload.orderId,
     orderNumber: payload.orderNumber,
@@ -37,6 +44,7 @@ function toContext(payload: OrderNotificationPayload): OrderNotificationContext 
       : new Date().toISOString(),
     recipientEmail: payload.guestEmail,
     customerName: payload.customerName,
+    customerPhone,
     userId: payload.userId,
     items: payload.items || [],
     subtotalPence: payload.subtotalPence ?? payload.totalPence,
@@ -48,6 +56,7 @@ function toContext(payload: OrderNotificationPayload): OrderNotificationContext 
     paymentStatus: payload.paymentStatus,
     shippingMethodName: payload.shippingMethodName,
     shippingAddress: payload.shippingAddress,
+    billingAddress: payload.billingAddress,
     paymentInstructions: payload.paymentInstructions || null,
     trackingToken: payload.trackingToken,
     trackingNumber: payload.trackingNumber,

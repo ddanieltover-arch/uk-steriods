@@ -3,6 +3,7 @@ import {
   escapeHtml,
   formatPence,
   OrderNotificationContext,
+  AddressSnapshot,
 } from '../notification.types';
 import { EMAIL, EmailStatusTone, STATUS_STYLES } from './design-tokens';
 
@@ -189,7 +190,7 @@ export function emailPaymentInstructions(ctx: OrderNotificationContext): string 
   const p = ctx.paymentInstructions;
   const support = ctx.supportEmail || process.env.EMAIL_REPLY_TO || process.env.ADMIN_EMAIL || 'sales@uk-steroids.co.uk';
   const isCrypto = String(ctx.paymentMethod).toUpperCase() === 'CRYPTO';
-  const title = 'Payment instructions';
+  const title = isCrypto ? 'Payment instructions (Crypto)' : 'Bank transfer instructions';
   const amount = p?.formattedTotal || formatPence(ctx.totalPence);
   const ref = p?.referenceCode || ctx.orderNumber;
   const hasWallets = Boolean(isCrypto && (p?.btcAddress || p?.ethAddress || p?.bchAddress));
@@ -200,7 +201,7 @@ export function emailPaymentInstructions(ctx: OrderNotificationContext): string 
             ${escapeHtml(p?.note || `Send crypto covering ${amount} to one of the wallet addresses below.`)}
           </p>
           <p style="margin:0 0 12px;font-size:12px;line-height:1.55;color:${EMAIL.colors.tealDark};">
-            Order <strong style="font-family:${EMAIL.fonts.mono};">${escapeHtml(ref)}</strong>
+            Order reference: <strong style="font-family:${EMAIL.fonts.mono};">${escapeHtml(ref)}</strong>
             · amount due <strong>${escapeHtml(amount)}</strong>
           </p>
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
@@ -212,11 +213,11 @@ export function emailPaymentInstructions(ctx: OrderNotificationContext): string 
           </p>`
     : `
           <p style="margin:0 0 10px;font-size:13px;line-height:1.55;color:${EMAIL.colors.navy};">
-            Please contact our admin team after your order to receive ${isCrypto ? 'crypto ' : ''}payment instructions and payment details.
+            Please contact our admin team after your order to receive ${isCrypto ? 'crypto ' : 'bank transfer '}payment instructions and payment details.
             Do not send funds until you have those details from us.
           </p>
           <p style="margin:0 0 10px;font-size:12px;line-height:1.55;color:${EMAIL.colors.tealDark};">
-            Quote order <strong style="font-family:${EMAIL.fonts.mono};">${escapeHtml(ref)}</strong>
+            Quote payment reference <strong style="font-family:${EMAIL.fonts.mono};">${escapeHtml(ref)}</strong>
             (amount due <strong>${escapeHtml(amount)}</strong>) when you get in touch.
           </p>
           <p style="margin:0;font-size:12px;line-height:1.55;color:${EMAIL.colors.tealDark};">
@@ -237,28 +238,51 @@ export function emailPaymentInstructions(ctx: OrderNotificationContext): string 
     </table>`;
 }
 
-export function emailAddressBlock(ctx: OrderNotificationContext): string {
-  const a = ctx.shippingAddress || {};
-  const lines = [
-    [a.firstName, a.lastName].filter(Boolean).join(' '),
-    a.addressLine1,
-    a.addressLine2,
-    [a.city, a.county].filter(Boolean).join(', '),
-    a.postcode,
-    a.country || 'GB',
-  ]
-    .filter(Boolean)
-    .map((line) => escapeHtml(String(line)))
-    .join('<br />');
+function renderSingleAddressTable(title: string, a?: AddressSnapshot): string {
+  if (!a) return '';
+  const name = a.recipient || [a.firstName, a.lastName].filter(Boolean).join(' ');
+  const lines: string[] = [];
+  if (name) lines.push(`<strong style="color:${EMAIL.colors.navy};font-size:13px;">${escapeHtml(name)}</strong>`);
+  if (a.addressLine1) lines.push(escapeHtml(a.addressLine1));
+  if (a.addressLine2) lines.push(escapeHtml(a.addressLine2));
+  const cityCounty = [a.city, a.county].filter(Boolean).join(', ');
+  if (cityCounty) lines.push(escapeHtml(cityCounty));
+  if (a.postcode) lines.push(`<span style="font-family:${EMAIL.fonts.mono};font-weight:700;color:${EMAIL.colors.navy};">${escapeHtml(a.postcode)}</span>`);
+  if (a.country) lines.push(escapeHtml(a.country || 'GB'));
+  if (a.phone) lines.push(`<span style="color:${EMAIL.colors.tealDark};font-weight:600;">Tel:</span> <span style="font-family:${EMAIL.fonts.mono};">${escapeHtml(a.phone)}</span>`);
+  if (a.email) lines.push(`<span style="color:${EMAIL.colors.tealDark};font-weight:600;">Email:</span> <span style="font-family:${EMAIL.fonts.mono};">${escapeHtml(a.email)}</span>`);
 
   return `
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 20px;border-collapse:separate;border-radius:${EMAIL.radius.md};background:${EMAIL.colors.bg};border:1px solid ${EMAIL.colors.border};">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:separate;border-radius:${EMAIL.radius.md};background:${EMAIL.colors.bg};border:1px solid ${EMAIL.colors.border};">
       <tr>
-        <td style="padding:16px 18px;">
+        <td style="padding:16px 18px;vertical-align:top;">
           <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:${EMAIL.colors.slateLight};margin-bottom:8px;">
-            Delivery address
+            ${escapeHtml(title)}
           </div>
-          <div style="font-size:13px;line-height:1.6;color:${EMAIL.colors.navy};">${lines}</div>
+          <div style="font-size:13px;line-height:1.6;color:${EMAIL.colors.slate};">
+            ${lines.join('<br />')}
+          </div>
+        </td>
+      </tr>
+    </table>`;
+}
+
+export function emailAddressBlock(ctx: OrderNotificationContext): string {
+  const deliveryHtml = renderSingleAddressTable('Delivery address', ctx.shippingAddress);
+  const billingHtml = ctx.billingAddress ? renderSingleAddressTable('Billing address', ctx.billingAddress) : '';
+
+  if (!billingHtml) {
+    return `<div style="margin:0 0 20px;">${deliveryHtml}</div>`;
+  }
+
+  return `
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 20px;">
+      <tr>
+        <td width="48%" style="vertical-align:top;padding-right:8px;">
+          ${deliveryHtml}
+        </td>
+        <td width="48%" style="vertical-align:top;padding-left:8px;">
+          ${billingHtml}
         </td>
       </tr>
     </table>`;

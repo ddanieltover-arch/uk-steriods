@@ -57,7 +57,7 @@ export class AdminOrderService {
         where,
         include: {
           user: {
-            select: { id: true, email: true, firstName: true, lastName: true },
+            select: { id: true, email: true, firstName: true, lastName: true, phone: true },
           },
           items: true,
           payments: true,
@@ -160,7 +160,7 @@ export class AdminOrderService {
           items: true,
           payments: true,
           shipments: true,
-          user: { select: { email: true, firstName: true, lastName: true } },
+          user: { select: { email: true, firstName: true, lastName: true, phone: true } },
         },
       });
     });
@@ -212,7 +212,7 @@ export class AdminOrderService {
           items: true,
           payments: true,
           shipments: true,
-          user: { select: { email: true, firstName: true, lastName: true } },
+          user: { select: { email: true, firstName: true, lastName: true, phone: true } },
         },
       });
 
@@ -308,7 +308,7 @@ export class AdminOrderService {
           items: true,
           payments: true,
           shipments: true,
-          user: { select: { email: true, firstName: true, lastName: true } },
+          user: { select: { email: true, firstName: true, lastName: true, phone: true } },
         },
       });
       if (full) {

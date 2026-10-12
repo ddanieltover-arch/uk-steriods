@@ -91,12 +91,17 @@ export function loadEnv(env: NodeJS.ProcessEnv = process.env): AppEnv {
   }
 
   const emailApiKey = data.EMAIL_API_KEY || data.RESEND_API_KEY;
+  const explicitEmailProvider = (env.EMAIL_PROVIDER || '').trim().toLowerCase();
 
-  if (isProduction && data.EMAIL_PROVIDER === 'resend' && !emailApiKey) {
+  if (isProduction && explicitEmailProvider === 'resend' && !emailApiKey) {
     throw new Error('EMAIL_API_KEY or RESEND_API_KEY is required when EMAIL_PROVIDER=resend in production.');
   }
 
-  if (isProduction && data.EMAIL_PROVIDER === 'dev') {
+  if (isProduction && !emailApiKey) {
+    console.warn(
+      '[env] WARNING: no EMAIL_API_KEY or RESEND_API_KEY in production — order emails will stay queued and will not be delivered.'
+    );
+  } else if (isProduction && explicitEmailProvider === 'dev') {
     console.warn(
       '[env] WARNING: EMAIL_PROVIDER=dev in production — emails will not be delivered externally.'
     );

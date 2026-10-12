@@ -5,7 +5,7 @@ import {
   escapeHtml,
   isValidEmail,
 } from '../src/lib/notifications/notification.types';
-import { DevLoggingEmailProvider } from '../src/lib/notifications/email.provider';
+import { DevLoggingEmailProvider, resolveEmailTransport } from '../src/lib/notifications/email.provider';
 import { NotificationService } from '../src/lib/notifications/notification.service';
 import {
   getDemoOrderContext,
@@ -50,7 +50,7 @@ async function run() {
   assert(!rendered.html.includes('<img src=x'), 'order email HTML escapes customer name');
   assert(rendered.html.includes('&lt;img'), 'escaped customer name present');
   assert(rendered.text.includes('ORD-DEMO-0001'), 'plain-text body includes order number');
-  assert(rendered.html.includes('Bank transfer instructions') || rendered.text.includes('Payment reference'), 'order-created includes payment instructions');
+  assert(rendered.html.includes('Payment instructions') || rendered.html.includes('Bank transfer instructions') || rendered.text.includes('Order reference') || rendered.text.includes('Payment reference'), 'order-created includes payment instructions');
 
   // Event templates exist
   for (const event of [
@@ -86,6 +86,24 @@ async function run() {
     );
     assert(Boolean(mail.subject && mail.html && mail.text), `${event} renders html+text`);
   }
+
+  assert(resolveEmailTransport({}) === 'dev', 'missing email config stays on the dev logger');
+  assert(
+    resolveEmailTransport({ RESEND_API_KEY: 're_test' }) === 'resend',
+    'RESEND_API_KEY alone selects Resend'
+  );
+  assert(
+    resolveEmailTransport({ EMAIL_API_KEY: 're_test' }) === 'resend',
+    'EMAIL_API_KEY alone selects Resend'
+  );
+  assert(
+    resolveEmailTransport({ EMAIL_PROVIDER: 'dev', EMAIL_API_KEY: 're_test' }) === 'dev',
+    'explicit dev provider is not overridden by an API key'
+  );
+  assert(
+    resolveEmailTransport({ EMAIL_PROVIDER: '"resend"', EMAIL_API_KEY: '"re_test"' }) === 'resend',
+    'quoted env values still select Resend'
+  );
 
   // Provider abstraction — dev provider never leaks secrets, validates recipient
   const provider = new DevLoggingEmailProvider();
@@ -176,8 +194,21 @@ async function run() {
     dbAvailable = true;
 
     const ctx = getDemoOrderContext();
-    ctx.orderId = `test-order-${Date.now()}`;
-    ctx.orderNumber = `ORD-TEST-${Date.now()}`;
+    const orderId = `test-order-${Date.now()}`;
+    const orderNumber = `ORD-TEST-${Date.now()}`;
+    await db.order.create({
+      data: {
+        id: orderId,
+        orderNumber,
+        trackingToken: `tok-${Date.now()}`,
+        totalPence: 3394,
+        subtotalPence: 2999,
+        shippingAddressSnapshot: {},
+        billingAddressSnapshot: {},
+      },
+    });
+    ctx.orderId = orderId;
+    ctx.orderNumber = orderNumber;
     ctx.recipientEmail = 'demo@example.test';
 
     const first = await NotificationService.enqueueOrderEvent(NotificationEventType.ORDER_CREATED, ctx, {
@@ -223,7 +254,19 @@ async function run() {
       },
     };
     NotificationService.setProvider(failProvider as any);
-    const failCtx = { ...ctx, orderId: `${ctx.orderId}-fail`, recipientEmail: 'ok@example.test' };
+    const failOrderId = `${ctx.orderId}-fail`;
+    await db.order.create({
+      data: {
+        id: failOrderId,
+        orderNumber: `${ctx.orderNumber}-F`,
+        trackingToken: `tok-fail-${Date.now()}`,
+        totalPence: 3394,
+        subtotalPence: 2999,
+        shippingAddressSnapshot: {},
+        billingAddressSnapshot: {},
+      },
+    });
+    const failCtx = { ...ctx, orderId: failOrderId, recipientEmail: 'ok@example.test' };
     const failRow = await NotificationService.enqueueOrderEvent(
       NotificationEventType.PAYMENT_CONFIRMED,
       failCtx,
@@ -251,7 +294,19 @@ async function run() {
         return { success: true, provider: 'flaky', messageId: 'ok' };
       },
     } as any);
-    const retryCtx = { ...ctx, orderId: `${ctx.orderId}-retry` };
+    const retryOrderId = `${ctx.orderId}-retry`;
+    await db.order.create({
+      data: {
+        id: retryOrderId,
+        orderNumber: `${ctx.orderNumber}-R`,
+        trackingToken: `tok-retry-${Date.now()}`,
+        totalPence: 3394,
+        subtotalPence: 2999,
+        shippingAddressSnapshot: {},
+        billingAddressSnapshot: {},
+      },
+    });
+    const retryCtx = { ...ctx, orderId: retryOrderId };
     const retryRow = await NotificationService.enqueueOrderEvent(
       NotificationEventType.ORDER_PROCESSING,
       retryCtx,
@@ -272,6 +327,9 @@ async function run() {
     // Cleanup test rows
     await db.notification.deleteMany({
       where: { orderId: { startsWith: 'test-order-' } },
+    });
+    await db.order.deleteMany({
+      where: { id: { startsWith: 'test-order-' } },
     });
     // also delete by idempotency prefix for rows without orderId linkage issues
     await db.notification.deleteMany({

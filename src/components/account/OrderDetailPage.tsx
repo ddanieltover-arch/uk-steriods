@@ -1,7 +1,7 @@
 import { apiFetch } from '../../lib/api/client';
 import React, { useState, useEffect } from 'react';
 import { User } from '../../types';
-import { Package, Clock, CheckCircle2, AlertCircle, RefreshCw, XCircle, ChevronLeft, MapPin, CreditCard, Truck, ExternalLink } from 'lucide-react';
+import { Package, Clock, CheckCircle2, AlertCircle, RefreshCw, XCircle, ChevronLeft, MapPin, CreditCard, Truck, ExternalLink, Phone } from 'lucide-react';
 import { CryptoPaymentDetails } from '../commerce/CryptoPaymentDetails';
 
 interface OrderDetailPageProps {
@@ -316,9 +316,37 @@ export const OrderDetailPage: React.FC<OrderDetailPageProps> = ({
                   <p className="font-bold text-slate-900">{order.shippingAddress?.recipient}</p>
                   <p>{order.shippingAddress?.line1}</p>
                   {order.shippingAddress?.line2 && <p>{order.shippingAddress.line2}</p>}
-                  <p>{order.shippingAddress?.city}, {order.shippingAddress?.postcode}</p>
-                  <p className="text-slate-400">{order.shippingAddress?.country || 'UK'}</p>
+                  <p>{[order.shippingAddress?.city, order.shippingAddress?.county].filter(Boolean).join(', ')}{order.shippingAddress?.city || order.shippingAddress?.county ? ', ' : ''}{order.shippingAddress?.postcode}</p>
+                  <p className="text-slate-400 font-bold uppercase text-[10px]">{order.shippingAddress?.country || 'UK'}</p>
+                  {order.shippingAddress?.phone && (
+                    <p className="text-slate-800 font-mono text-[11px] pt-1.5 border-t border-slate-100 flex items-center gap-1.5">
+                      <Phone className="w-3.5 h-3.5 text-teal-600 shrink-0" />
+                      <span className="font-semibold">{order.shippingAddress.phone}</span>
+                    </p>
+                  )}
+                  {order.shippingAddress?.email && (
+                    <p className="text-slate-500 font-mono text-[11px]">{order.shippingAddress.email}</p>
+                  )}
                 </div>
+
+                {order.billingAddress &&
+                  (order.billingAddress.line1 || order.billingAddress.postcode) &&
+                  JSON.stringify(order.billingAddress) !== JSON.stringify(order.shippingAddress) && (
+                    <div className="pt-2 border-t border-slate-100 space-y-1 text-slate-600">
+                      <p className="font-bold text-[10px] uppercase tracking-wider text-slate-400">Billing Address</p>
+                      <p className="font-bold text-slate-900">{order.billingAddress.recipient}</p>
+                      <p>{order.billingAddress.line1}</p>
+                      {order.billingAddress.line2 && <p>{order.billingAddress.line2}</p>}
+                      <p>{[order.billingAddress.city, order.billingAddress.county].filter(Boolean).join(', ')}{order.billingAddress.city || order.billingAddress.county ? ', ' : ''}{order.billingAddress.postcode}</p>
+                      <p className="text-slate-400 font-bold uppercase text-[10px]">{order.billingAddress.country || 'UK'}</p>
+                      {order.billingAddress.phone && (
+                        <p className="text-slate-800 font-mono text-[11px] flex items-center gap-1.5">
+                          <Phone className="w-3.5 h-3.5 text-teal-600 shrink-0" />
+                          <span className="font-semibold">{order.billingAddress.phone}</span>
+                        </p>
+                      )}
+                    </div>
+                  )}
 
                 {order.shipments && order.shipments.length > 0 && (
                   <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1.5 pt-2">

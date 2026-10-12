@@ -5,6 +5,7 @@ import {
   formatPence,
   OrderNotificationContext,
   RenderedEmail,
+  AddressSnapshot,
 } from '../notification.types';
 import {
   emailAddressBlock,
@@ -21,18 +22,25 @@ import {
 } from './components';
 import { renderEmailLayout } from './layout';
 
-function addressText(ctx: OrderNotificationContext): string {
-  const a = ctx.shippingAddress || {};
+function formatSingleAddressText(a?: AddressSnapshot): string {
+  if (!a) return '';
+  const name = a.recipient || [a.firstName, a.lastName].filter(Boolean).join(' ');
   return [
-    [a.firstName, a.lastName].filter(Boolean).join(' '),
+    name,
     a.addressLine1,
     a.addressLine2,
     [a.city, a.county].filter(Boolean).join(', '),
     a.postcode,
     a.country || 'GB',
+    a.phone ? `Tel: ${a.phone}` : '',
+    a.email ? `Email: ${a.email}` : '',
   ]
     .filter(Boolean)
     .join(', ');
+}
+
+function addressText(ctx: OrderNotificationContext): string {
+  return formatSingleAddressText(ctx.shippingAddress);
 }
 
 function itemsText(ctx: OrderNotificationContext): string {
@@ -60,24 +68,60 @@ function supportEmail(ctx: OrderNotificationContext): string {
 }
 
 function orderMetaGrid(ctx: OrderNotificationContext): string {
-  return emailKeyValueGrid([
+  const customerEmail = ctx.customerEmail || ctx.recipientEmail;
+  const customerPhone =
+    ctx.customerPhone ||
+    ctx.shippingAddress?.phone ||
+    ctx.billingAddress?.phone;
+
+  const rows: Array<{ label: string; value: string; highlight?: boolean }> = [
     { label: 'Order number', value: ctx.orderNumber, highlight: true },
-    { label: 'Order date', value: new Date(ctx.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) },
+    {
+      label: 'Order date',
+      value: new Date(ctx.createdAt).toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      }),
+    },
+  ];
+
+  if (ctx.isAdminCopy) {
+    rows.push({ label: 'Customer email', value: customerEmail });
+    if (customerPhone) {
+      rows.push({ label: 'Customer phone', value: customerPhone, highlight: true });
+    }
+  }
+
+  rows.push(
     { label: 'Payment method', value: ctx.paymentMethod.replace(/_/g, ' ') },
-    { label: 'Delivery method', value: ctx.shippingMethodName || 'Standard UK delivery' },
-  ]);
+    { label: 'Delivery method', value: ctx.shippingMethodName || 'Standard UK delivery' }
+  );
+
+  return emailKeyValueGrid(rows);
 }
 
 export function renderOrderCreated(ctx: OrderNotificationContext): RenderedEmail {
   const link = trackingLink(ctx);
   const name = ctx.customerName || 'there';
+  const customerEmail = ctx.customerEmail || ctx.recipientEmail;
+  const customerPhone =
+    ctx.customerPhone ||
+    ctx.shippingAddress?.phone ||
+    ctx.billingAddress?.phone ||
+    'Not provided';
 
   if (ctx.isAdminCopy) {
     const subject = `New order ${ctx.orderNumber} — ${formatPence(ctx.totalPence)} | ${SITE_NAME}`;
-    const customerEmail = ctx.customerEmail || ctx.recipientEmail;
+    const customerSummary = [
+      `Customer: ${name}`,
+      `Email: ${customerEmail}`,
+      customerPhone !== 'Not provided' ? `Tel: ${customerPhone}` : 'Tel: Not provided',
+    ].join(' · ');
+
     const bodyHtml = `
       ${emailStatusBanner('success', 'New order received', `Order ${ctx.orderNumber} was just placed and is awaiting payment.`)}
-      ${emailHeading('Ops alert', `Customer: ${escapeHtml(name)} (${escapeHtml(customerEmail)})`)}
+      ${emailHeading('Ops alert', customerSummary)}
       ${orderMetaGrid(ctx)}
       ${emailOrderItemsTable(ctx)}
       ${emailTotalsTable(ctx)}
@@ -88,19 +132,23 @@ export function renderOrderCreated(ctx: OrderNotificationContext): RenderedEmail
     `;
     const { html } = renderEmailLayout({
       title: subject,
-      preheader: `New order ${ctx.orderNumber} from ${customerEmail}`,
+      preheader: `New order ${ctx.orderNumber} from ${customerEmail} (Tel: ${customerPhone})`,
       bodyHtml,
     });
     const text = [
       `New order ${ctx.orderNumber}`,
       `Customer: ${name} <${customerEmail}>`,
+      `Phone: ${customerPhone}`,
       `Total: ${formatPence(ctx.totalPence)}`,
       `Payment: ${ctx.paymentMethod}`,
-      `Deliver to: ${addressText(ctx)}`,
+      `Deliver to: ${formatSingleAddressText(ctx.shippingAddress)}`,
+      ctx.billingAddress ? `Billing address: ${formatSingleAddressText(ctx.billingAddress)}` : '',
       `Track: ${link}`,
       '',
       itemsText(ctx),
-    ].join('\n');
+    ]
+      .filter(Boolean)
+      .join('\n');
     return { subject, html, text };
   }
 
@@ -150,6 +198,8 @@ export function renderOrderCreated(ctx: OrderNotificationContext): RenderedEmail
   const text = [
     `Thank you for your order`,
     `Order: ${ctx.orderNumber}`,
+    `Customer: ${name}`,
+    customerPhone !== 'Not provided' ? `Phone: ${customerPhone}` : '',
     `Date: ${new Date(ctx.createdAt).toUTCString()}`,
     '',
     itemsText(ctx),
@@ -161,7 +211,8 @@ export function renderOrderCreated(ctx: OrderNotificationContext): RenderedEmail
     `Total: ${formatPence(ctx.totalPence)}`,
     '',
     ...paymentLines,
-    `Deliver to: ${addressText(ctx)}`,
+    `Deliver to: ${formatSingleAddressText(ctx.shippingAddress)}`,
+    ctx.billingAddress ? `Billing address: ${formatSingleAddressText(ctx.billingAddress)}` : '',
     `Track: ${link}`,
     `Questions? Contact ${supportEmail(ctx)}`,
   ]
@@ -172,8 +223,38 @@ export function renderOrderCreated(ctx: OrderNotificationContext): RenderedEmail
 }
 
 export function renderPaymentConfirmed(ctx: OrderNotificationContext): RenderedEmail {
-  const subject = `Payment received — ${ctx.orderNumber} | ${SITE_NAME}`;
   const link = trackingLink(ctx);
+  const customerEmail = ctx.customerEmail || ctx.recipientEmail;
+  const customerPhone =
+    ctx.customerPhone ||
+    ctx.shippingAddress?.phone ||
+    ctx.billingAddress?.phone;
+
+  if (ctx.isAdminCopy) {
+    const subject = `Payment received — ${ctx.orderNumber} (${formatPence(ctx.totalPence)}) | ${SITE_NAME}`;
+    const bodyHtml = `
+      ${emailStatusBanner('success', 'Payment confirmed', `${formatPence(ctx.totalPence)} received for order ${ctx.orderNumber}.`)}
+      ${emailHeading('Ops alert', `Customer: ${escapeHtml(ctx.customerName || 'Customer')} · ${escapeHtml(customerEmail)}${customerPhone ? ` · Tel: ${escapeHtml(customerPhone)}` : ''}`)}
+      ${orderMetaGrid(ctx)}
+      ${emailOrderItemsTable(ctx)}
+      ${emailTotalsTable(ctx)}
+      ${emailAddressBlock(ctx)}
+      ${emailButton(link, 'View order details')}
+      ${emailSupportLine(supportEmail(ctx))}
+    `;
+    const { html } = renderEmailLayout({
+      title: subject,
+      preheader: `Payment received for order ${ctx.orderNumber} from ${customerEmail}`,
+      bodyHtml,
+    });
+    return {
+      subject,
+      html,
+      text: `Payment confirmed for ${ctx.orderNumber}. Customer: ${ctx.customerName || 'Customer'} <${customerEmail}>${customerPhone ? ` (${customerPhone})` : ''}. Amount: ${formatPence(ctx.totalPence)}. View: ${link}`,
+    };
+  }
+
+  const subject = `Payment received — ${ctx.orderNumber} | ${SITE_NAME}`;
 
   const bodyHtml = `
     ${emailStatusBanner('success', 'Payment confirmed', `${formatPence(ctx.totalPence)} received for order ${ctx.orderNumber}.`)}
@@ -202,8 +283,33 @@ export function renderPaymentConfirmed(ctx: OrderNotificationContext): RenderedE
 }
 
 export function renderOrderProcessing(ctx: OrderNotificationContext): RenderedEmail {
-  const subject = `Order being prepared — ${ctx.orderNumber} | ${SITE_NAME}`;
   const link = trackingLink(ctx);
+  const customerEmail = ctx.customerEmail || ctx.recipientEmail;
+  const customerPhone =
+    ctx.customerPhone ||
+    ctx.shippingAddress?.phone ||
+    ctx.billingAddress?.phone;
+
+  if (ctx.isAdminCopy) {
+    const subject = `Order processing — ${ctx.orderNumber} | ${SITE_NAME}`;
+    const bodyHtml = `
+      ${emailStatusBanner('info', 'Order in preparation', `Order ${ctx.orderNumber} is being prepared for fulfillment.`)}
+      ${emailHeading('Ops status', `Customer: ${escapeHtml(ctx.customerName || 'Customer')} · ${escapeHtml(customerEmail)}${customerPhone ? ` · Tel: ${escapeHtml(customerPhone)}` : ''}`)}
+      ${orderMetaGrid(ctx)}
+      ${emailOrderItemsTable(ctx)}
+      ${emailAddressBlock(ctx)}
+      ${emailButton(link, 'Track order in admin')}
+      ${emailSupportLine(supportEmail(ctx))}
+    `;
+    const { html } = renderEmailLayout({
+      title: subject,
+      preheader: `Order ${ctx.orderNumber} is processing`,
+      bodyHtml,
+    });
+    return { subject, html, text: `Order ${ctx.orderNumber} is processing for ${customerEmail}. Track: ${link}` };
+  }
+
+  const subject = `Order being prepared — ${ctx.orderNumber} | ${SITE_NAME}`;
 
   const bodyHtml = `
     ${emailStatusBanner('info', 'Your order is being prepared', `Order ${ctx.orderNumber} is now in our fulfilment queue.`)}
@@ -224,12 +330,22 @@ export function renderOrderProcessing(ctx: OrderNotificationContext): RenderedEm
 }
 
 export function renderOrderShipped(ctx: OrderNotificationContext): RenderedEmail {
-  const subject = `Order shipped — ${ctx.orderNumber} | ${SITE_NAME}`;
   const link = trackingLink(ctx);
+  const customerEmail = ctx.customerEmail || ctx.recipientEmail;
+  const customerPhone =
+    ctx.customerPhone ||
+    ctx.shippingAddress?.phone ||
+    ctx.billingAddress?.phone;
 
   const shipmentRows: Array<{ label: string; value: string; highlight?: boolean }> = [
     { label: 'Order number', value: ctx.orderNumber, highlight: true },
   ];
+  if (ctx.isAdminCopy) {
+    shipmentRows.push({ label: 'Customer email', value: customerEmail });
+    if (customerPhone) {
+      shipmentRows.push({ label: 'Customer phone', value: customerPhone, highlight: true });
+    }
+  }
   if (ctx.shipmentProvider) shipmentRows.push({ label: 'Carrier', value: ctx.shipmentProvider });
   if (ctx.shipmentMethod) shipmentRows.push({ label: 'Service', value: ctx.shipmentMethod });
   if (ctx.trackingNumber) shipmentRows.push({ label: 'Tracking number', value: ctx.trackingNumber, highlight: true });
@@ -240,10 +356,15 @@ export function renderOrderShipped(ctx: OrderNotificationContext): RenderedEmail
     });
   }
 
+  const subject = ctx.isAdminCopy
+    ? `Order dispatched — ${ctx.orderNumber} | ${SITE_NAME}`
+    : `Order shipped — ${ctx.orderNumber} | ${SITE_NAME}`;
+
   const bodyHtml = `
-    ${emailStatusBanner('info', 'Your order is on its way', `Order ${ctx.orderNumber} has been dispatched.`)}
-    ${emailHeading('Shipment dispatched', 'Your order is on its way in discreet, unbranded packaging.')}
+    ${emailStatusBanner('info', ctx.isAdminCopy ? 'Order dispatched' : 'Your order is on its way', `Order ${ctx.orderNumber} has been dispatched.`)}
+    ${emailHeading(ctx.isAdminCopy ? 'Shipment dispatched' : 'Shipment dispatched', ctx.isAdminCopy ? `Dispatched to: ${escapeHtml(ctx.customerName || 'Customer')} (${escapeHtml(customerEmail)})${customerPhone ? ` · Tel: ${escapeHtml(customerPhone)}` : ''}` : 'Your order is on its way in discreet, unbranded packaging.')}
     ${emailKeyValueGrid(shipmentRows)}
+    ${emailAddressBlock(ctx)}
     ${emailParagraph('If a carrier tracking link is available, use your tracking number on the carrier website for live updates.')}
     ${emailButton(link, 'View order details')}
     ${emailSupportLine(supportEmail(ctx))}
@@ -258,9 +379,12 @@ export function renderOrderShipped(ctx: OrderNotificationContext): RenderedEmail
 
   const text = [
     `Order ${ctx.orderNumber} has shipped.`,
+    ctx.isAdminCopy ? `Customer: ${ctx.customerName || 'Customer'} <${customerEmail}>${customerPhone ? ` (Tel: ${customerPhone})` : ''}` : '',
     ctx.shipmentProvider ? `Carrier: ${ctx.shipmentProvider}` : '',
     ctx.shipmentMethod ? `Method: ${ctx.shipmentMethod}` : '',
     ctx.trackingNumber ? `Tracking: ${ctx.trackingNumber}` : '',
+    `Deliver to: ${formatSingleAddressText(ctx.shippingAddress)}`,
+    ctx.billingAddress ? `Billing address: ${formatSingleAddressText(ctx.billingAddress)}` : '',
     `View: ${link}`,
   ]
     .filter(Boolean)
@@ -270,8 +394,32 @@ export function renderOrderShipped(ctx: OrderNotificationContext): RenderedEmail
 }
 
 export function renderOrderDelivered(ctx: OrderNotificationContext): RenderedEmail {
-  const subject = `Order delivered — ${ctx.orderNumber} | ${SITE_NAME}`;
   const link = trackingLink(ctx);
+  const customerEmail = ctx.customerEmail || ctx.recipientEmail;
+  const customerPhone =
+    ctx.customerPhone ||
+    ctx.shippingAddress?.phone ||
+    ctx.billingAddress?.phone;
+
+  if (ctx.isAdminCopy) {
+    const subject = `Order delivered — ${ctx.orderNumber} | ${SITE_NAME}`;
+    const bodyHtml = `
+      ${emailStatusBanner('success', 'Order delivered', `Order ${ctx.orderNumber} has been delivered.`)}
+      ${emailHeading('Delivery notification (Ops)', `Customer: ${escapeHtml(ctx.customerName || 'Customer')} (${escapeHtml(customerEmail)})${customerPhone ? ` · Tel: ${escapeHtml(customerPhone)}` : ''}`)}
+      ${orderMetaGrid(ctx)}
+      ${emailAddressBlock(ctx)}
+      ${emailButton(link, 'View order')}
+      ${emailSupportLine(supportEmail(ctx))}
+    `;
+    const { html } = renderEmailLayout({
+      title: subject,
+      preheader: `Order ${ctx.orderNumber} delivered to ${customerEmail}`,
+      bodyHtml,
+    });
+    return { subject, html, text: `Order ${ctx.orderNumber} delivered to ${customerEmail}. View: ${link}` };
+  }
+
+  const subject = `Order delivered — ${ctx.orderNumber} | ${SITE_NAME}`;
 
   const bodyHtml = `
     ${emailStatusBanner('success', 'Delivered', `Order ${ctx.orderNumber} has been marked as delivered.`)}
@@ -292,12 +440,38 @@ export function renderOrderDelivered(ctx: OrderNotificationContext): RenderedEma
 }
 
 export function renderOrderCancelled(ctx: OrderNotificationContext): RenderedEmail {
-  const subject = `Order cancelled — ${ctx.orderNumber} | ${SITE_NAME}`;
   const link = trackingLink(ctx);
+  const customerEmail = ctx.customerEmail || ctx.recipientEmail;
+  const customerPhone =
+    ctx.customerPhone ||
+    ctx.shippingAddress?.phone ||
+    ctx.billingAddress?.phone;
+
   const refundNote =
     ctx.paymentStatus === 'REFUNDED'
       ? 'Payment status shows this order as refunded.'
       : 'If you paid by bank transfer, any refund will follow only after payment status is updated by our team.';
+
+  if (ctx.isAdminCopy) {
+    const subject = `Order cancelled — ${ctx.orderNumber} | ${SITE_NAME}`;
+    const bodyHtml = `
+      ${emailStatusBanner('danger', 'Order cancelled', `Order ${ctx.orderNumber} has been cancelled.`)}
+      ${emailHeading('Cancellation notice (Ops)', `Customer: ${escapeHtml(ctx.customerName || 'Customer')} (${escapeHtml(customerEmail)})${customerPhone ? ` · Tel: ${escapeHtml(customerPhone)}` : ''}`)}
+      ${orderMetaGrid(ctx)}
+      ${emailParagraph(refundNote)}
+      ${emailAddressBlock(ctx)}
+      ${emailButton(link, 'View order details')}
+      ${emailSupportLine(supportEmail(ctx))}
+    `;
+    const { html } = renderEmailLayout({
+      title: subject,
+      preheader: `Order ${ctx.orderNumber} cancelled for ${customerEmail}`,
+      bodyHtml,
+    });
+    return { subject, html, text: `Order ${ctx.orderNumber} cancelled for ${customerEmail}. ${refundNote} View: ${link}` };
+  }
+
+  const subject = `Order cancelled — ${ctx.orderNumber} | ${SITE_NAME}`;
 
   const bodyHtml = `
     ${emailStatusBanner('danger', 'Order cancelled', `Order ${ctx.orderNumber} has been cancelled.`)}

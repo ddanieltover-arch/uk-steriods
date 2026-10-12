@@ -7,6 +7,7 @@ import {
   X,
   Pencil,
   Trash2,
+  Phone,
 } from 'lucide-react';
 import { CryptoPaymentDetails } from '../commerce/CryptoPaymentDetails';
 import { hasCryptoWallets } from '../../lib/commerce/crypto-wallets';
@@ -652,15 +653,40 @@ export const AdminOrdersView: React.FC<AdminOrdersViewProps> = ({ onNavigate, se
           <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-4 text-xs">
             <div className="flex items-start justify-between gap-2">
               <div>
-                <h4 className="font-black text-xs uppercase text-slate-900 tracking-wider mb-2">Customer Info</h4>
+                <div className="flex items-center gap-1.5 mb-2">
+                  <h4 className="font-black text-xs uppercase text-slate-900 tracking-wider">Customer Info</h4>
+                  {selectedOrder.user ? (
+                    <span className="px-1.5 py-0.5 rounded text-[9px] font-black uppercase bg-teal-100 text-teal-800">
+                      User
+                    </span>
+                  ) : (
+                    <span className="px-1.5 py-0.5 rounded text-[9px] font-black uppercase bg-slate-100 text-slate-600">
+                      Guest
+                    </span>
+                  )}
+                </div>
                 <p className="font-bold text-slate-900">
                   {selectedOrder.user
                     ? `${selectedOrder.user.firstName} ${selectedOrder.user.lastName}`
-                    : 'Guest User'}
+                    : (shippingAddr.recipient || billingAddr.recipient || 'Guest User')}
                 </p>
                 <p className="text-slate-500 font-mono">
-                  {selectedOrder.guestEmail || selectedOrder.user?.email}
+                  {selectedOrder.guestEmail || selectedOrder.user?.email || shippingAddr.email || billingAddr.email || '—'}
                 </p>
+                {(() => {
+                  const customerPhone = selectedOrder.user?.phone || shippingAddr.phone || billingAddr.phone;
+                  return customerPhone ? (
+                    <p className="text-slate-900 font-mono font-semibold flex items-center gap-1.5 mt-1.5">
+                      <Phone className="w-3.5 h-3.5 text-teal-600 shrink-0" />
+                      <span>{customerPhone}</span>
+                    </p>
+                  ) : (
+                    <p className="text-slate-400 font-mono text-[11px] mt-1 italic flex items-center gap-1.5">
+                      <Phone className="w-3.5 h-3.5 text-slate-300 shrink-0" />
+                      <span>No phone provided</span>
+                    </p>
+                  );
+                })()}
               </div>
               <button
                 onClick={openEditModal}
@@ -672,24 +698,48 @@ export const AdminOrdersView: React.FC<AdminOrdersViewProps> = ({ onNavigate, se
 
             <div className="border-t border-slate-100 pt-3">
               <h4 className="font-black text-xs uppercase text-slate-900 tracking-wider mb-2">Shipping Address</h4>
-              <p className="font-bold text-slate-800">{shippingAddr.recipient}</p>
+              <p className="font-bold text-slate-800">{shippingAddr.recipient || '—'}</p>
               <p className="text-slate-600">{shippingAddr.line1}</p>
               {shippingAddr.line2 && <p className="text-slate-600">{shippingAddr.line2}</p>}
               <p className="text-slate-600">
-                {shippingAddr.city}, {shippingAddr.postcode}
+                {[shippingAddr.city, shippingAddr.county].filter(Boolean).join(', ')}{shippingAddr.city || shippingAddr.county ? ', ' : ''}{shippingAddr.postcode}
               </p>
-              <p className="text-slate-500 font-bold uppercase">{shippingAddr.country}</p>
+              <p className="text-slate-500 font-bold uppercase">{shippingAddr.country || 'GB'}</p>
+              {shippingAddr.phone && (
+                <p className="text-slate-700 font-mono text-[11px] mt-1.5 flex items-center gap-1">
+                  <span className="text-slate-400 font-bold uppercase text-[9px]">Tel:</span>
+                  <span className="font-semibold text-slate-900">{shippingAddr.phone}</span>
+                </p>
+              )}
+              {shippingAddr.email && shippingAddr.email !== (selectedOrder.guestEmail || selectedOrder.user?.email) && (
+                <p className="text-slate-600 font-mono text-[11px] mt-0.5 flex items-center gap-1">
+                  <span className="text-slate-400 font-bold uppercase text-[9px]">Email:</span>
+                  <span>{shippingAddr.email}</span>
+                </p>
+              )}
             </div>
 
             <div className="border-t border-slate-100 pt-3">
               <h4 className="font-black text-xs uppercase text-slate-900 tracking-wider mb-2">Billing Address</h4>
-              <p className="font-bold text-slate-800">{billingAddr.recipient}</p>
+              <p className="font-bold text-slate-800">{billingAddr.recipient || '—'}</p>
               <p className="text-slate-600">{billingAddr.line1}</p>
               {billingAddr.line2 && <p className="text-slate-600">{billingAddr.line2}</p>}
               <p className="text-slate-600">
-                {billingAddr.city}, {billingAddr.postcode}
+                {[billingAddr.city, billingAddr.county].filter(Boolean).join(', ')}{billingAddr.city || billingAddr.county ? ', ' : ''}{billingAddr.postcode}
               </p>
-              <p className="text-slate-500 font-bold uppercase">{billingAddr.country}</p>
+              <p className="text-slate-500 font-bold uppercase">{billingAddr.country || 'GB'}</p>
+              {billingAddr.phone && (
+                <p className="text-slate-700 font-mono text-[11px] mt-1.5 flex items-center gap-1">
+                  <span className="text-slate-400 font-bold uppercase text-[9px]">Tel:</span>
+                  <span className="font-semibold text-slate-900">{billingAddr.phone}</span>
+                </p>
+              )}
+              {billingAddr.email && billingAddr.email !== (selectedOrder.guestEmail || selectedOrder.user?.email) && (
+                <p className="text-slate-600 font-mono text-[11px] mt-0.5 flex items-center gap-1">
+                  <span className="text-slate-400 font-bold uppercase text-[9px]">Email:</span>
+                  <span>{billingAddr.email}</span>
+                </p>
+              )}
             </div>
 
             <div className="border-t border-slate-100 pt-3">
@@ -825,9 +875,16 @@ export const AdminOrdersView: React.FC<AdminOrdersViewProps> = ({ onNavigate, se
                     </td>
                     <td className="p-3">
                       <p className="font-bold text-slate-900">
-                        {o.user ? `${o.user.firstName} ${o.user.lastName}` : 'Guest Customer'}
+                        {o.user
+                          ? `${o.user.firstName} ${o.user.lastName}`
+                          : (o.shippingAddressSnapshot?.recipient || 'Guest Customer')}
                       </p>
                       <p className="text-[10px] text-slate-400 font-mono">{o.guestEmail || o.user?.email}</p>
+                      {(o.user?.phone || o.shippingAddressSnapshot?.phone) && (
+                        <p className="text-[10px] text-slate-600 font-mono font-semibold">
+                          Tel: {o.user?.phone || o.shippingAddressSnapshot?.phone}
+                        </p>
+                      )}
                     </td>
                     <td className="p-3 font-black text-slate-900">£{(o.totalPence / 100).toFixed(2)}</td>
                     <td className="p-3">

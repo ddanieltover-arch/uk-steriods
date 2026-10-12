@@ -17,6 +17,8 @@ import {
   getEmailFromConfig,
   getEmailReplyTo,
   describeEmailProvider,
+  emailApiKeyFrom,
+  resolveEmailTransport,
   EmailProvider,
 } from './email.provider';
 import { renderNotificationEmail } from './email.registry';
@@ -35,18 +37,22 @@ export interface EnqueueNotificationInput {
 
 export class NotificationService {
   private static provider: EmailProvider | null = null;
+  /** When true, tests pinned a provider and env changes must not replace it. */
+  private static providerOverride = false;
 
   static getProvider(): EmailProvider {
-    const configured = (process.env.EMAIL_PROVIDER || 'dev').toLowerCase().trim();
-    const apiKey = (process.env.EMAIL_API_KEY || process.env.RESEND_API_KEY || '').trim();
-    const shouldUseResend = configured === 'resend' && Boolean(apiKey);
+    if (this.providerOverride && this.provider) return this.provider;
+
+    const transport = resolveEmailTransport(process.env);
+    const hasKey = Boolean(emailApiKeyFrom(process.env));
+    const wantResend = transport === 'resend' && hasKey;
 
     if (!this.provider) {
       this.provider = createEmailProvider();
-    } else if (shouldUseResend && this.provider.name !== 'resend') {
+    } else if (wantResend && this.provider.name !== 'resend') {
       console.warn('[email] Recreating provider — previous was', this.provider.name);
       this.provider = createEmailProvider();
-    } else if (!shouldUseResend && this.provider.name === 'resend' && configured !== 'resend') {
+    } else if (!wantResend && this.provider.name === 'resend') {
       this.provider = createEmailProvider();
     }
 
@@ -56,6 +62,7 @@ export class NotificationService {
   /** Test hook — allows injecting a mock/dev provider */
   static setProvider(provider: EmailProvider | null) {
     this.provider = provider;
+    this.providerOverride = provider !== null;
   }
 
   static getEmailHealth() {
@@ -201,6 +208,16 @@ export class NotificationService {
   }
 
   static async processPending(limit = 10): Promise<{ processed: number; sent: number; failed: number }> {
+    const provider = this.getProvider();
+    const isProduction = (process.env.NODE_ENV || '').toLowerCase() === 'production';
+    if (isProduction && provider.name !== 'resend') {
+      console.error(
+        '[notification] Refusing to mark mail as sent. Resend is not active in production. ' +
+          'Set EMAIL_API_KEY or RESEND_API_KEY (and EMAIL_FROM_ADDRESS) on the host, then redeploy.'
+      );
+      return { processed: 0, sent: 0, failed: 0 };
+    }
+
     const now = new Date();
     await this.reclaimStaleProcessing().catch(() => 0);
 

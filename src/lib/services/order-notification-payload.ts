@@ -6,7 +6,7 @@ type OrderLike = {
   createdAt?: Date | string;
   guestEmail?: string | null;
   userId?: string | null;
-  user?: { email?: string | null; firstName?: string | null; lastName?: string | null } | null;
+  user?: { email?: string | null; firstName?: string | null; lastName?: string | null; phone?: string | null } | null;
   totalPence: number;
   subtotalPence?: number;
   shippingPence?: number;
@@ -16,6 +16,7 @@ type OrderLike = {
   paymentStatus?: string;
   trackingToken?: string | null;
   shippingAddressSnapshot?: any;
+  billingAddressSnapshot?: any;
   items?: Array<{
     productName: string;
     productSku: string;
@@ -38,17 +39,44 @@ export function buildOrderNotificationPayload(
   extras: Partial<OrderNotificationPayload> = {}
 ): OrderNotificationPayload {
   const shipping = (order.shippingAddressSnapshot || {}) as Record<string, any>;
+  const billing = (order.billingAddressSnapshot || {}) as Record<string, any>;
   const shipment = order.shipments?.[0];
 
   const recipient =
-    extras.guestEmail || order.guestEmail || order.user?.email || '';
+    extras.guestEmail || order.guestEmail || order.user?.email || shipping.email || '';
 
   const customerName =
     extras.customerName ||
     [order.user?.firstName, order.user?.lastName].filter(Boolean).join(' ') ||
     shipping.recipient ||
     [shipping.firstName, shipping.lastName].filter(Boolean).join(' ') ||
+    billing.recipient ||
     undefined;
+
+  const customerPhone =
+    extras.customerPhone ||
+    order.user?.phone ||
+    shipping.phone ||
+    billing.phone ||
+    undefined;
+
+  const shippingRecipient =
+    shipping.recipient ||
+    [shipping.firstName, shipping.lastName].filter(Boolean).join(' ') ||
+    customerName;
+
+  const billingRecipient =
+    billing.recipient ||
+    [billing.firstName, billing.lastName].filter(Boolean).join(' ') ||
+    customerName;
+
+  const hasBillingAddress = Boolean(
+    billing.line1 ||
+    billing.addressLine1 ||
+    billing.postcode ||
+    billing.city ||
+    (billing.recipient && billing.recipient !== shippingRecipient)
+  );
 
   const base: OrderNotificationPayload = {
     orderId: order.id,
@@ -57,6 +85,7 @@ export function buildOrderNotificationPayload(
     guestEmail: recipient,
     userId: order.userId,
     customerName,
+    customerPhone,
     totalPence: order.totalPence,
     subtotalPence: order.subtotalPence,
     shippingPence: order.shippingPence,
@@ -77,17 +106,37 @@ export function buildOrderNotificationPayload(
       subtotalPence: i.subtotalPence,
     })),
     shippingAddress: {
-      firstName: shipping.firstName || (shipping.recipient ? String(shipping.recipient).split(' ')[0] : undefined),
+      recipient: shippingRecipient,
+      firstName: shipping.firstName || (shippingRecipient ? String(shippingRecipient).split(' ')[0] : undefined),
       lastName:
         shipping.lastName ||
-        (shipping.recipient ? String(shipping.recipient).split(' ').slice(1).join(' ') : undefined),
+        (shippingRecipient ? String(shippingRecipient).split(' ').slice(1).join(' ') : undefined),
       addressLine1: shipping.addressLine1 || shipping.line1,
       addressLine2: shipping.addressLine2 || shipping.line2,
       city: shipping.city,
       county: shipping.county,
       postcode: shipping.postcode,
-      country: shipping.country,
+      country: shipping.country || 'GB',
+      phone: shipping.phone || customerPhone,
+      email: shipping.email || recipient,
     },
+    billingAddress: hasBillingAddress
+      ? {
+          recipient: billingRecipient,
+          firstName: billing.firstName || (billingRecipient ? String(billingRecipient).split(' ')[0] : undefined),
+          lastName:
+            billing.lastName ||
+            (billingRecipient ? String(billingRecipient).split(' ').slice(1).join(' ') : undefined),
+          addressLine1: billing.addressLine1 || billing.line1,
+          addressLine2: billing.addressLine2 || billing.line2,
+          city: billing.city,
+          county: billing.county,
+          postcode: billing.postcode,
+          country: billing.country || 'GB',
+          phone: billing.phone || customerPhone,
+          email: billing.email || recipient,
+        }
+      : undefined,
     trackingToken: order.trackingToken || undefined,
     trackingNumber: shipment?.trackingNumber || null,
     shipmentProvider: shipment?.provider || null,

@@ -2,6 +2,7 @@ import { apiFetch } from '../../lib/api/client';
 import React, { useState, useEffect } from 'react';
 import { User } from '../../types';
 import { CountrySelectOptions } from '../forms/CountrySelectOptions';
+import { Plus, MapPin, CheckCircle2, Edit, Trash2, X, AlertCircle } from 'lucide-react';
 
 interface SavedAddressesPageProps {
   currentUser: User | null;

@@ -9,6 +9,42 @@ function maskEmail(email: string): string {
   return `${visible}***@${domain}`;
 }
 
+/** Strip wrapping quotes Vercel sometimes stores from pasted .env lines. */
+export function readEmailEnv(value: string | undefined): string {
+  let v = (value || '').trim();
+  if (
+    (v.startsWith('"') && v.endsWith('"') && v.length >= 2) ||
+    (v.startsWith("'") && v.endsWith("'") && v.length >= 2)
+  ) {
+    v = v.slice(1, -1).trim();
+  }
+  return v;
+}
+
+export function emailApiKeyFrom(env: {
+  EMAIL_API_KEY?: string;
+  RESEND_API_KEY?: string;
+}): string {
+  return readEmailEnv(env.EMAIL_API_KEY) || readEmailEnv(env.RESEND_API_KEY);
+}
+
+/**
+ * Resend is used when explicitly selected, or whenever an API key is present
+ * and the provider was not forced to `dev`. An unset EMAIL_PROVIDER used to
+ * fall through to the logger and mark mail as sent without delivery.
+ */
+export function resolveEmailTransport(env: {
+  EMAIL_PROVIDER?: string;
+  EMAIL_API_KEY?: string;
+  RESEND_API_KEY?: string;
+}): 'resend' | 'dev' {
+  const explicit = readEmailEnv(env.EMAIL_PROVIDER).toLowerCase();
+  if (explicit === 'dev') return 'dev';
+  if (explicit === 'resend') return 'resend';
+  if (emailApiKeyFrom(env)) return 'resend';
+  return 'dev';
+}
+
 /**
  * Development-safe provider. Never sends real email.
  * Logs sanitized metadata only (no HTML body, no tokens, no secrets).
@@ -79,12 +115,18 @@ export class ResendEmailProvider implements EmailProvider {
     }
 
     try {
+      const headers: Record<string, string> = {
+        Authorization: `Bearer ${this.apiKey}`,
+        'Content-Type': 'application/json',
+      };
+      // Resend dedupes on this HTTP header. It is not an email header.
+      if (message.idempotencyKey) {
+        headers['Idempotency-Key'] = message.idempotencyKey;
+      }
+
       const res = await fetch('https://api.resend.com/emails', {
         method: 'POST',
-        headers: {
-          Authorization: `Bearer ${this.apiKey}`,
-          'Content-Type': 'application/json',
-        },
+        headers,
         body: JSON.stringify({
           from: message.from.name
             ? `${message.from.name} <${message.from.email}>`
@@ -94,9 +136,6 @@ export class ResendEmailProvider implements EmailProvider {
           subject: message.subject,
           html: message.html,
           text: message.text,
-          headers: message.idempotencyKey
-            ? { 'Idempotency-Key': message.idempotencyKey }
-            : undefined,
         }),
       });
 
@@ -110,15 +149,20 @@ export class ResendEmailProvider implements EmailProvider {
         };
       }
 
-      const body = (await res.json().catch(() => ({}))) as { id?: string; message?: string };
+      const body = (await res.json().catch(() => ({}))) as {
+        id?: string;
+        message?: string;
+        name?: string;
+      };
 
       if (!res.ok) {
         const permanent = res.status >= 400 && res.status < 500 && res.status !== 429;
+        const detail = [body.name, body.message].filter(Boolean).join(': ');
         return {
           success: false,
           provider: this.name,
           errorCode: `HTTP_${res.status}`,
-          errorMessage: body.message || 'Provider rejected the message.',
+          errorMessage: detail || 'Provider rejected the message.',
           failureClass: permanent ? 'PERMANENT' : 'TRANSIENT',
         };
       }
@@ -141,14 +185,14 @@ export class ResendEmailProvider implements EmailProvider {
 }
 
 export function createEmailProvider(): EmailProvider {
-  const providerName = (process.env.EMAIL_PROVIDER || 'dev').toLowerCase().trim();
-  const apiKey = (process.env.EMAIL_API_KEY || process.env.RESEND_API_KEY || '').trim();
+  const transport = resolveEmailTransport(process.env);
+  const apiKey = emailApiKeyFrom(process.env);
   const isProduction = (process.env.NODE_ENV || '').toLowerCase() === 'production';
 
-  if (providerName === 'resend') {
+  if (transport === 'resend') {
     if (!apiKey) {
       const msg =
-        '[email] EMAIL_PROVIDER=resend but EMAIL_API_KEY / RESEND_API_KEY is missing — cannot send mail';
+        '[email] Resend selected but EMAIL_API_KEY / RESEND_API_KEY is missing — cannot send mail';
       console.error(msg);
       if (isProduction) {
         throw new Error(msg);
@@ -158,15 +202,15 @@ export function createEmailProvider(): EmailProvider {
     }
 
     console.info('[email] Active provider: resend', {
-      from: process.env.EMAIL_FROM_ADDRESS || 'sales@uk-steroids.co.uk',
+      from: readEmailEnv(process.env.EMAIL_FROM_ADDRESS) || 'sales@uk-steroids.co.uk',
       keyPrefix: `${apiKey.slice(0, 3)}…`,
     });
     return new ResendEmailProvider(apiKey);
   }
 
   console.warn(
-    `[email] Active provider: dev-logging (EMAIL_PROVIDER=${providerName || 'dev'}). ` +
-      'Set EMAIL_PROVIDER=resend and EMAIL_API_KEY on the server to deliver real email.'
+    `[email] Active provider: dev-logging (EMAIL_PROVIDER=${readEmailEnv(process.env.EMAIL_PROVIDER) || 'unset'}). ` +
+      'Set EMAIL_API_KEY or RESEND_API_KEY on the server to deliver real email.'
   );
   return new DevLoggingEmailProvider();
 }
@@ -179,26 +223,28 @@ export function describeEmailProvider(): {
   replyTo: string | null;
   adminEmail: string | null;
 } {
-  const configured = (process.env.EMAIL_PROVIDER || 'dev').toLowerCase().trim();
-  const apiKey = (process.env.EMAIL_API_KEY || process.env.RESEND_API_KEY || '').trim();
+  const configured = readEmailEnv(process.env.EMAIL_PROVIDER).toLowerCase() || 'unset';
+  const apiKey = emailApiKeyFrom(process.env);
+  const transport = resolveEmailTransport(process.env);
   return {
     configured,
-    active: configured === 'resend' && apiKey ? 'resend' : 'dev-logging',
+    active: transport === 'resend' && apiKey ? 'resend' : 'dev-logging',
     hasApiKey: Boolean(apiKey),
-    from: process.env.EMAIL_FROM_ADDRESS || 'sales@uk-steroids.co.uk',
-    replyTo: process.env.EMAIL_REPLY_TO || null,
-    adminEmail: process.env.ADMIN_EMAIL || process.env.EMAIL_REPLY_TO || null,
+    from: readEmailEnv(process.env.EMAIL_FROM_ADDRESS) || 'sales@uk-steroids.co.uk',
+    replyTo: readEmailEnv(process.env.EMAIL_REPLY_TO) || null,
+    adminEmail:
+      readEmailEnv(process.env.ADMIN_EMAIL) || readEmailEnv(process.env.EMAIL_REPLY_TO) || null,
   };
 }
 
 export function getEmailFromConfig() {
   return {
-    email: process.env.EMAIL_FROM_ADDRESS || 'sales@uk-steroids.co.uk',
-    name: process.env.EMAIL_FROM_NAME || 'Steroids UK',
+    email: readEmailEnv(process.env.EMAIL_FROM_ADDRESS) || 'sales@uk-steroids.co.uk',
+    name: readEmailEnv(process.env.EMAIL_FROM_NAME) || 'Steroids UK',
   };
 }
 
 export function getEmailReplyTo() {
-  const reply = process.env.EMAIL_REPLY_TO;
+  const reply = readEmailEnv(process.env.EMAIL_REPLY_TO);
   return reply ? { email: reply } : undefined;
 }

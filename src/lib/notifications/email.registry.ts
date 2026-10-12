@@ -71,6 +71,7 @@ export function getDemoOrderContext(): OrderNotificationContext {
     createdAt: new Date().toISOString(),
     recipientEmail: 'demo@example.test',
     customerName: 'Demo Customer',
+    customerPhone: '+44 7700 900077',
     userId: null,
     items: [
       {
@@ -91,12 +92,26 @@ export function getDemoOrderContext(): OrderNotificationContext {
     paymentStatus: 'AWAITING_TRANSFER',
     shippingMethodName: 'Royal Mail Tracked 48',
     shippingAddress: {
+      recipient: 'Demo Customer',
       firstName: 'Demo',
       lastName: 'Customer',
       addressLine1: '1 Example Street',
       city: 'London',
       postcode: 'E1 1AA',
       country: 'GB',
+      phone: '+44 7700 900077',
+      email: 'demo@example.test',
+    },
+    billingAddress: {
+      recipient: 'Demo Customer',
+      firstName: 'Demo',
+      lastName: 'Customer',
+      addressLine1: '1 Example Street',
+      city: 'London',
+      postcode: 'E1 1AA',
+      country: 'GB',
+      phone: '+44 7700 900077',
+      email: 'demo@example.test',
     },
     paymentInstructions: {
       method: 'CRYPTO',

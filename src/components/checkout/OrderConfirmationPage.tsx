@@ -8,6 +8,7 @@ import {
   ShoppingBag,
   Info,
   ShieldCheck,
+  Phone,
 } from 'lucide-react';
 import { trackPurchase, penceToGbp } from '../../lib/analytics/gtag';
 import { CryptoPaymentDetails } from '../commerce/CryptoPaymentDetails';
@@ -214,7 +215,43 @@ export const OrderConfirmationPage: React.FC<OrderConfirmationPageProps> = ({
                 <p>{shippingAddr.city}{shippingAddr.county ? `, ${shippingAddr.county}` : ''}</p>
                 <p className="font-mono font-bold uppercase">{shippingAddr.postcode}</p>
                 <p className="text-slate-500 font-bold">{shippingAddr.country || 'UK'}</p>
+                {shippingAddr.phone && (
+                  <p className="text-slate-800 font-mono text-[11px] pt-1.5 border-t border-slate-100 flex items-center gap-1.5">
+                    <Phone className="w-3.5 h-3.5 text-teal-600 shrink-0" />
+                    <span className="font-semibold">{shippingAddr.phone}</span>
+                  </p>
+                )}
+                {(shippingAddr.email || order.guestEmail) && (
+                  <p className="text-slate-500 font-mono text-[11px] flex items-center gap-1.5">
+                    <Mail className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                    <span>{shippingAddr.email || order.guestEmail}</span>
+                  </p>
+                )}
               </div>
+
+              {order.billingAddressSnapshot &&
+                (order.billingAddressSnapshot.line1 || order.billingAddressSnapshot.postcode) &&
+                JSON.stringify(order.billingAddressSnapshot) !== JSON.stringify(shippingAddr) && (
+                  <div className="pt-3 border-t border-slate-100 space-y-1 text-xs text-slate-700">
+                    <p className="font-bold text-[11px] uppercase tracking-wider text-slate-400">Billing Address</p>
+                    <p className="font-bold text-slate-900">{order.billingAddressSnapshot.recipient || 'Customer'}</p>
+                    <p>{order.billingAddressSnapshot.line1}</p>
+                    {order.billingAddressSnapshot.line2 && <p>{order.billingAddressSnapshot.line2}</p>}
+                    <p>
+                      {[order.billingAddressSnapshot.city, order.billingAddressSnapshot.county]
+                        .filter(Boolean)
+                        .join(', ')}
+                    </p>
+                    <p className="font-mono font-bold uppercase">{order.billingAddressSnapshot.postcode}</p>
+                    <p className="text-slate-500 font-bold">{order.billingAddressSnapshot.country || 'UK'}</p>
+                    {order.billingAddressSnapshot.phone && (
+                      <p className="text-slate-800 font-mono text-[11px] flex items-center gap-1.5">
+                        <Phone className="w-3.5 h-3.5 text-teal-600 shrink-0" />
+                        <span className="font-semibold">{order.billingAddressSnapshot.phone}</span>
+                      </p>
+                    )}
+                  </div>
+                )}
             </div>
 
             <div className="bg-white rounded-3xl border border-slate-200 p-6 space-y-3">

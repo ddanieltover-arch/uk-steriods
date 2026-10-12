@@ -50,6 +50,7 @@ export interface OrderItemSnapshot {
 }
 
 export interface AddressSnapshot {
+  recipient?: string;
   firstName?: string;
   lastName?: string;
   addressLine1?: string;
@@ -58,6 +59,8 @@ export interface AddressSnapshot {
   county?: string;
   postcode?: string;
   country?: string;
+  phone?: string;
+  email?: string;
 }
 
 export interface PaymentInstructionsPayload {
@@ -80,6 +83,7 @@ export interface OrderNotificationContext {
   createdAt: string;
   recipientEmail: string;
   customerName?: string;
+  customerPhone?: string;
   userId?: string | null;
   items: OrderItemSnapshot[];
   subtotalPence: number;
@@ -91,6 +95,7 @@ export interface OrderNotificationContext {
   paymentStatus?: string;
   shippingMethodName?: string;
   shippingAddress?: AddressSnapshot;
+  billingAddress?: AddressSnapshot;
   paymentInstructions?: PaymentInstructionsPayload | null;
   trackingToken?: string;
   trackingNumber?: string | null;
